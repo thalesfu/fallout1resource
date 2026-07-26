@@ -8,7 +8,7 @@ from typing import BinaryIO
 
 
 COMPRESSION_NAMES = {
-    0x10: "store-unknown",
+    0x10: "lzss-single-legacy",
     0x20: "none",
     0x40: "lzss",
 }
@@ -72,13 +72,25 @@ def inspect_internal_path(directory: str, name: str) -> tuple[str, tuple[str, ..
         issues.append("absolute path")
     if ":" in raw:
         issues.append("drive or URI separator")
+    if "/" in normalized_name:
+        issues.append("separator in file name")
     parts = PurePosixPath(raw).parts
     if any(part == ".." for part in parts):
         issues.append("parent traversal")
     if not raw or any(part in ("", ".") for part in raw.split("/")):
         issues.append("empty or current-directory segment")
+    reserved_names = {"CON", "PRN", "AUX", "NUL"}
+    reserved_names.update(f"COM{index}" for index in range(1, 10))
+    reserved_names.update(f"LPT{index}" for index in range(1, 10))
+    for part in parts:
+        if any(ord(character) < 32 for character in part):
+            issues.append("control character")
+        if part.rstrip(" .") != part:
+            issues.append("trailing dot or space")
+        if part.split(".", 1)[0].upper() in reserved_names:
+            issues.append("reserved Windows name")
     normalized = "/".join(part for part in parts if part not in ("/", "", "."))
-    return normalized, tuple(issues)
+    return normalized, tuple(dict.fromkeys(issues))
 
 
 def parse_dat1(path: Path | str) -> Dat1Archive:

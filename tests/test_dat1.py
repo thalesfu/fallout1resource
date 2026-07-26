@@ -18,14 +18,14 @@ def build_dat1(path: Path, directory: str = "text\\english\\dialog") -> None:
     header_size = 16 + len(_lp(directory)) + 16
     entries_size = sum(len(_lp(name)) + 16 for name in names)
     first_offset = header_size + entries_size
-    payloads = [b"hello", b"xyz"]
+    payloads = [b"hello", b"\x00\x04\x07xyz"]
     metadata = [struct.pack(">4I", 1, 1, 0, 0), _lp(directory), struct.pack(">4I", 2, 2, 16, 0)]
     metadata.extend(
         [
             _lp(names[0]),
             struct.pack(">4I", 0x20, first_offset, len(payloads[0]), 0),
             _lp(names[1]),
-            struct.pack(">4I", 0x40, first_offset + len(payloads[0]), 9, len(payloads[1])),
+            struct.pack(">4I", 0x40, first_offset + len(payloads[0]), 3, len(payloads[1])),
         ]
     )
     path.write_bytes(b"".join(metadata + payloads))
@@ -43,7 +43,7 @@ class Dat1Tests(unittest.TestCase):
         self.assertEqual(archive.entries[0].internal_path, "text/english/dialog/HAROLD.MSG")
         self.assertEqual(archive.entries[0].stored_size, 5)
         self.assertEqual(archive.entries[1].compression_mode, 0x40)
-        self.assertEqual(archive.entries[1].stored_size, 3)
+        self.assertEqual(archive.entries[1].stored_size, 6)
 
     def test_rejects_truncated_header(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -68,6 +68,10 @@ class Dat1Tests(unittest.TestCase):
         normalized, issues = inspect_internal_path(".", "COLOR.PAL")
         self.assertEqual(normalized, "COLOR.PAL")
         self.assertEqual(issues, ())
+
+    def test_marks_windows_reserved_name_unsafe(self) -> None:
+        _, issues = inspect_internal_path("art", "NUL.frm")
+        self.assertIn("reserved Windows name", issues)
 
 
 if __name__ == "__main__":
