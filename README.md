@@ -1,6 +1,6 @@
 # Fallout 1 Resource
 
-《辐射 1》资源研究工具。当前里程碑只读取 Fallout 1 DAT1 档案目录和 `DATA/` 松散文件，生成可追溯的 JSON/CSV 清单；不会解包、修改或写回游戏安装目录。
+《辐射 1》资源研究工具。当前可盘点 Fallout 1 DAT1 档案与 `DATA/` 松散文件、安全提取选定资源，并将 `.MSG` 转换为可追溯的 UTF-8 JSON/CSV；不会修改或写回游戏安装目录。
 
 ## 安全边界
 
@@ -34,6 +34,20 @@ python -m fallout1resource extract `
 ```
 
 检查计划后加入 `--execute` 才会提取。输出按来源隔离在 `workspace/raw/master/` 或 `workspace/raw/critter/`。已有文件默认导致整个批次在写入前停止；只有明确加入 `--overwrite` 才会原子替换。当前支持 DAT1 `0x20` 未压缩条目和 `0x40` 分块 LZSS 条目，其他模式直接报错。
+
+## MSG 转换
+
+`convert-msg` 先严格解析整个源文件，默认只显示预览；加入 `--execute` 后才在 `workspace/` 内写入 UTF-8 JSON、带 BOM 的 UTF-8 CSV 和 JSON 校验文件：
+
+```powershell
+python -m fallout1resource convert-msg `
+  --input "$PWD\workspace\raw\master\TEXT\ENGLISH\DIALOG\HAROLD.MSG" `
+  --workspace "$PWD\workspace" `
+  --output "output/text/master/TEXT/ENGLISH/DIALOG/HAROLD.json" `
+  --execute
+```
+
+解析器支持 ASCII、UTF BOM、严格 UTF-8，并对 GBK、Big5、GB18030 候选做可审计检测；不确定时可用 `--encoding gbk` 明确指定。重复消息编号不会丢弃：全部出现项都写入导出文件，并以 `effective` 标记游戏实际采用的最后一项。已有输出默认拒绝覆盖，显式 `--overwrite` 才会原子替换。
 
 ## 测试
 

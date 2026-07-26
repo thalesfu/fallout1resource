@@ -16,3 +16,4 @@ workspace/
 
 Do not point any command at the Fallout installation directory as an output destination.
 
+Converted MSG files use `output/text/<source>/...`; keep archive and loose-file sources in separate subdirectories so overrides remain auditable.

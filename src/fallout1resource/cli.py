@@ -11,12 +11,13 @@ from . import __version__
 from .dat1 import Dat1FormatError
 from .extract import ExtractionError, build_extraction_plan, execute_extraction, write_extraction_manifest
 from .inventory import build_inventory, write_inventory
+from .msg import MsgFormatError, load_msg, msg_output_paths, msg_summary, write_msg_export
 
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="fallout1resource",
-        description="Read-only Fallout 1 resource inventory tools.",
+        description="Read-only Fallout 1 resource extraction and conversion tools.",
     )
     parser.add_argument("--version", action="version", version=__version__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -37,6 +38,14 @@ def _parser() -> argparse.ArgumentParser:
     extract.add_argument("--archive", action="append", default=[], help="MASTER.DAT or CRITTER.DAT; repeatable")
     extract.add_argument("--execute", action="store_true", help="perform writes; omission is a dry-run")
     extract.add_argument("--overwrite", action="store_true", help="atomically replace existing workspace files")
+
+    convert_msg = subparsers.add_parser("convert-msg", help="decode and parse a Fallout MSG file")
+    convert_msg.add_argument("--input", type=Path, required=True, help="read-only source MSG file")
+    convert_msg.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    convert_msg.add_argument("--output", type=Path, help="JSON path below workspace")
+    convert_msg.add_argument("--encoding", help="explicit source encoding, such as gbk or utf-8")
+    convert_msg.add_argument("--execute", action="store_true", help="write UTF-8 JSON, CSV, and checksum")
+    convert_msg.add_argument("--overwrite", action="store_true", help="atomically replace existing outputs")
     return parser
 
 
@@ -112,7 +121,31 @@ def main(argv: list[str] | None = None) -> int:
                 )
             )
             return 0
-    except (Dat1FormatError, ExtractionError, FileNotFoundError, OSError, ValueError) as exc:
+        if args.command == "convert-msg":
+            if args.overwrite and not args.execute:
+                raise MsgFormatError("--overwrite requires --execute")
+            document = load_msg(args.input, encoding=args.encoding)
+            output = args.output or Path("output/text") / f"{args.input.stem}.json"
+            json_path, csv_path, hash_path = msg_output_paths(args.workspace, output)
+            summary = msg_summary(document)
+            result = {
+                "mode": "convert-msg" if args.execute else "dry-run",
+                "source": str(document.source_path),
+                "entries": summary["entries"],
+                "unique_numbers": summary["unique_numbers"],
+                "duplicate_number_count": len(summary["duplicate_numbers"]),
+                "encoding": summary["encoding"],
+                "encoding_confidence": summary["encoding_confidence"],
+                "newline_style": summary["newline_style"],
+                "json": str(json_path),
+                "csv": str(csv_path),
+                "sha256": str(hash_path),
+            }
+            if args.execute:
+                write_msg_export(document, args.workspace, output, overwrite=args.overwrite)
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
+    except (Dat1FormatError, ExtractionError, MsgFormatError, FileNotFoundError, OSError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
     return 1

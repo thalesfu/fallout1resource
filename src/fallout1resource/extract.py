@@ -4,8 +4,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
-import tempfile
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -14,6 +12,7 @@ from typing import Iterable
 from .dat1 import Dat1Entry, parse_dat1
 from .inventory import ensure_within_workspace, resource_type
 from .lzss import LzssError, decompress_dat1_payload
+from .safe_io import write_file_atomic
 
 
 MAX_ENTRY_SIZE = 512 * 1024 * 1024
@@ -160,35 +159,6 @@ def _read_entry(item: ExtractionPlanItem) -> bytes:
     return data
 
 
-def _write_file_atomic(target: Path, data: bytes, *, overwrite: bool) -> None:
-    target.parent.mkdir(parents=True, exist_ok=True)
-    if overwrite:
-        temporary_name: str | None = None
-        try:
-            with tempfile.NamedTemporaryFile(dir=target.parent, prefix=f".{target.name}.", delete=False) as stream:
-                temporary_name = stream.name
-                stream.write(data)
-                stream.flush()
-                os.fsync(stream.fileno())
-            os.replace(temporary_name, target)
-        finally:
-            if temporary_name is not None:
-                Path(temporary_name).unlink(missing_ok=True)
-        return
-
-    created = False
-    try:
-        with target.open("xb") as stream:
-            created = True
-            stream.write(data)
-            stream.flush()
-            os.fsync(stream.fileno())
-    except Exception:
-        if created:
-            target.unlink(missing_ok=True)
-        raise
-
-
 def execute_extraction(
     plan: Iterable[ExtractionPlanItem],
     workspace: Path | str,
@@ -212,7 +182,7 @@ def execute_extraction(
     for item in items:
         data = _read_entry(item)
         ensure_within_workspace(workspace_path, item.target_path)
-        _write_file_atomic(item.target_path, data, overwrite=overwrite)
+        write_file_atomic(item.target_path, data, overwrite=overwrite)
         results.append(
             ExtractionResult(
                 archive_name=item.archive_name,
@@ -256,5 +226,5 @@ def write_extraction_manifest(results: Iterable[ExtractionResult], workspace: Pa
         ],
     }
     encoded = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-    _write_file_atomic(target, encoded, overwrite=False)
+    write_file_atomic(target, encoded, overwrite=False)
     return target
