@@ -23,3 +23,5 @@ INT analysis uses `output/scripts/<source>/...` for JSON, disassembly text, and 
 FRM/PAL conversion uses `output/images/<name>/` for metadata, a palette preview, and PNG files grouped by unique direction sequence. Shared direction pixels are not duplicated; all six logical mappings remain in metadata.
 
 MAP/PRO/LST analysis uses `output/maps/<name>/` for complete JSON, a flattened object CSV, and checksums. Prototype and script lists remain ordered, and nested inventory paths are preserved in both outputs.
+
+ACM conversion uses `output/audio/<name>/` for 16-bit PCM WAV, source/stream metadata, and checksums. Any silence added solely to complete a final multichannel WAV frame is recorded in JSON.

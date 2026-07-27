@@ -1,6 +1,6 @@
 # Fallout 1 Resource
 
-《辐射 1》资源研究工具。当前可盘点 Fallout 1 DAT1 档案与 `DATA/` 松散文件、安全提取选定资源，转换 `.MSG`、反汇编 `.INT`，并使用 `.PAL` 将 `.FRM` 导出为可追溯的 PNG；不会修改或写回游戏安装目录。
+《辐射 1》资源研究工具。当前可盘点 Fallout 1 DAT1 档案与 `DATA/` 松散文件、安全提取选定资源，转换 `.MSG`、反汇编 `.INT`、使用 `.PAL` 将 `.FRM` 导出为 PNG，并把 Interplay `.ACM` 解码为 PCM WAV；不会修改或写回游戏安装目录。
 
 ## 安全边界
 
@@ -92,6 +92,19 @@ python -m fallout1resource convert-map `
 ```
 
 默认只显示摘要。执行后生成完整 JSON、扁平对象 CSV 和 JSON 校验文件。JSON 保留 LST 的物理顺序与原始行、全部地砖值、脚本索引、对象及背包层级，并包含本地图实际引用的 PRO 全字段。物品和场景对象的可变附加数据长度必须与其 PRO 子类型吻合，否则转换停止。
+
+## ACM 音频转换
+
+`convert-acm` 以只读方式校验并解码 Interplay ACM，输出标准 16 位小端 PCM WAV：
+
+```powershell
+python -m fallout1resource convert-acm `
+  --input "$PWD\workspace\raw\master\SOUND\SPEECH\HARLD\HROLD1.ACM" `
+  --workspace "$PWD\workspace" `
+  --execute
+```
+
+省略 `--execute` 时只显示计划。默认输出到 `workspace/output/audio/<名称>/`，包括 WAV、记录源文件 SHA-256、采样率、声道、样本数和时长的 JSON，以及 JSON 校验文件。少数双声道 ACM 以不完整声道帧结束；解码样本全部保留，WAV 只补足所需的末尾静音样本，并在元数据中记录数量。
 
 ## 测试
 

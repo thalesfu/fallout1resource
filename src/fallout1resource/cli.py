@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 from . import __version__
+from .acm import AcmFormatError, acm_output_paths, acm_summary, load_acm, write_acm_export
 from .dat1 import Dat1FormatError
 from .extract import ExtractionError, build_extraction_plan, execute_extraction, write_extraction_manifest
 from .frm import (
@@ -89,6 +90,13 @@ def _parser() -> argparse.ArgumentParser:
     convert_map.add_argument("--output", type=Path, help="metadata JSON path below workspace")
     convert_map.add_argument("--execute", action="store_true", help="write JSON, object CSV, and checksum")
     convert_map.add_argument("--overwrite", action="store_true", help="atomically replace existing outputs")
+
+    convert_acm = subparsers.add_parser("convert-acm", help="decode an Interplay ACM file to PCM WAV")
+    convert_acm.add_argument("--input", type=Path, required=True, help="read-only source ACM file")
+    convert_acm.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    convert_acm.add_argument("--output", type=Path, help="metadata JSON path below workspace")
+    convert_acm.add_argument("--execute", action="store_true", help="write WAV, metadata JSON, and checksum")
+    convert_acm.add_argument("--overwrite", action="store_true", help="atomically replace existing outputs")
     return parser
 
 
@@ -261,7 +269,26 @@ def main(argv: list[str] | None = None) -> int:
                 write_map_export(document, args.workspace, output, overwrite=args.overwrite)
             print(json.dumps(result, ensure_ascii=False))
             return 0
+        if args.command == "convert-acm":
+            if args.overwrite and not args.execute:
+                raise AcmFormatError("--overwrite requires --execute")
+            audio = load_acm(args.input)
+            output = args.output or Path("output/audio") / args.input.stem / f"{args.input.stem}.json"
+            json_path, wav_path, hash_path = acm_output_paths(args.workspace, output)
+            result = {
+                "mode": "convert-acm" if args.execute else "dry-run",
+                "source": str(audio.source_path),
+                **acm_summary(audio),
+                "metadata": str(json_path),
+                "wav": str(wav_path),
+                "sha256": str(hash_path),
+            }
+            if args.execute:
+                write_acm_export(audio, args.workspace, output, overwrite=args.overwrite)
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
     except (
+        AcmFormatError,
         Dat1FormatError,
         ExtractionError,
         FrmFormatError,
