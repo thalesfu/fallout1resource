@@ -4,16 +4,15 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections.abc import Iterable
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Iterable
 
 from .dat1 import Dat1Entry, parse_dat1
 from .inventory import ensure_within_workspace, resource_type
 from .lzss import LzssError, decompress_dat1_payload
 from .safe_io import write_file_atomic
-
 
 MAX_ENTRY_SIZE = 512 * 1024 * 1024
 
@@ -46,7 +45,11 @@ class ExtractionResult:
 
 
 def _find_archive(game_dir: Path, name: str) -> Path:
-    matches = [item for item in game_dir.iterdir() if item.is_file() and item.name.casefold() == name.casefold()]
+    matches = [
+        item
+        for item in game_dir.iterdir()
+        if item.is_file() and item.name.casefold() == name.casefold()
+    ]
     if len(matches) != 1:
         raise ExtractionError(f"expected exactly one {name} in {game_dir}, found {len(matches)}")
     return matches[0]
@@ -72,8 +75,7 @@ def build_extraction_plan(
 
     path_filters = {_normalize_filter(value) for value in paths}
     extension_filters = {
-        (value if value.startswith(".") else f".{value}").casefold()
-        for value in extensions
+        (value if value.startswith(".") else f".{value}").casefold() for value in extensions
     }
     type_filters = {value.casefold() for value in resource_types}
     if not path_filters and not extension_filters and not type_filters:
@@ -133,7 +135,9 @@ def build_extraction_plan(
 
     if not plan:
         raise ExtractionError("selectors matched no DAT1 entries")
-    return sorted(plan, key=lambda item: (item.archive_name.casefold(), item.entry.internal_path.casefold()))
+    return sorted(
+        plan, key=lambda item: (item.archive_name.casefold(), item.entry.internal_path.casefold())
+    )
 
 
 def _read_entry(item: ExtractionPlanItem) -> bytes:
@@ -176,7 +180,9 @@ def execute_extraction(
         ):
             raise ExtractionError(f"source archive changed after planning: {item.archive_path}")
         if item.target_path.exists() and not overwrite:
-            raise ExtractionError(f"output already exists; refusing to overwrite: {item.target_path}")
+            raise ExtractionError(
+                f"output already exists; refusing to overwrite: {item.target_path}"
+            )
 
     results: list[ExtractionResult] = []
     for item in items:
@@ -201,14 +207,14 @@ def execute_extraction(
 
 def write_extraction_manifest(results: Iterable[ExtractionResult], workspace: Path | str) -> Path:
     workspace_path = Path(workspace).resolve()
-    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S%fZ")
     target = ensure_within_workspace(
         workspace_path,
         workspace_path / "manifests" / f"extraction-{timestamp}.json",
     )
     payload = {
         "schema_version": 1,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "generated_at_utc": datetime.now(UTC).isoformat(),
         "mode": "extract",
         "results": [
             {

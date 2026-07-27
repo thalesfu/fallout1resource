@@ -7,14 +7,13 @@ import json
 import struct
 import zlib
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 from . import __version__
 from .inventory import ensure_within_workspace
 from .safe_io import write_file_atomic
-
 
 FRM_VERSION = 4
 FRM_HEADER_SIZE = 62
@@ -177,7 +176,9 @@ def _parse_frame(data: bytes, cursor: int, limit: int, index: int) -> tuple[FrmF
 def parse_frm(data: bytes, source_path: Path | str = Path("<memory>.FRM")) -> FrmDocument:
     """Parse one Fallout 1 FRM without decoding or executing any game data."""
     if len(data) < FRM_HEADER_SIZE:
-        raise FrmFormatError(f"FRM header is truncated: expected {FRM_HEADER_SIZE} bytes, found {len(data)}")
+        raise FrmFormatError(
+            f"FRM header is truncated: expected {FRM_HEADER_SIZE} bytes, found {len(data)}"
+        )
 
     version, fps, action_frame, frame_count = struct.unpack_from(">ihhh", data, 0)
     x_offsets = struct.unpack_from(">6h", data, 10)
@@ -202,7 +203,9 @@ def parse_frm(data: bytes, source_path: Path | str = Path("<memory>.FRM")) -> Fr
     if any(offset < 0 or offset >= data_size for offset in data_offsets):
         raise FrmFormatError(f"FRM direction data offset outside data area: {data_offsets}")
     if data_offsets[0] != 0:
-        raise FrmFormatError(f"first FRM direction must begin at data offset 0, found {data_offsets[0]}")
+        raise FrmFormatError(
+            f"first FRM direction must begin at data offset 0, found {data_offsets[0]}"
+        )
 
     unique_offsets: list[int] = []
     seen_offsets: set[int] = set()
@@ -218,7 +221,11 @@ def parse_frm(data: bytes, source_path: Path | str = Path("<memory>.FRM")) -> Fr
     sequences: list[FrmSequence] = []
     offset_to_sequence: dict[int, int] = {}
     for sequence_index, relative_offset in enumerate(unique_offsets):
-        next_offset = unique_offsets[sequence_index + 1] if sequence_index + 1 < len(unique_offsets) else data_size
+        next_offset = (
+            unique_offsets[sequence_index + 1]
+            if sequence_index + 1 < len(unique_offsets)
+            else data_size
+        )
         cursor = FRM_HEADER_SIZE + relative_offset
         limit = FRM_HEADER_SIZE + next_offset
         frames: list[FrmFrame] = []
@@ -229,7 +236,9 @@ def parse_frm(data: bytes, source_path: Path | str = Path("<memory>.FRM")) -> Fr
             raise FrmFormatError(
                 f"direction sequence {sequence_index} has {limit - cursor} unclaimed byte(s)"
             )
-        directions = tuple(index for index, offset in enumerate(data_offsets) if offset == relative_offset)
+        directions = tuple(
+            index for index, offset in enumerate(data_offsets) if offset == relative_offset
+        )
         sequences.append(
             FrmSequence(
                 index=sequence_index,
@@ -300,9 +309,7 @@ def encode_indexed_png(
     if width <= 0 or height <= 0 or len(pixels) != width * height:
         raise ValueError("PNG dimensions do not match indexed pixel data")
     palette_bytes = bytes(
-        channel
-        for color in palette.colors
-        for channel in (color.red, color.green, color.blue)
+        channel for color in palette.colors for channel in (color.red, color.green, color.blue)
     )
     rows = b"".join(b"\x00" + pixels[row * width : (row + 1) * width] for row in range(height))
     chunks = [
@@ -414,7 +421,7 @@ def write_frm_export(
     ]
     payload = {
         "schema_version": 1,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Fallout FRM with PAL",
         "generator": {"name": "fallout1resource", "version": __version__},
         "source": {
@@ -473,7 +480,9 @@ def write_frm_export(
         },
     }
     json_bytes = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-    hash_bytes = f"{hashlib.sha256(json_bytes).hexdigest().upper()}  {json_path.name}\n".encode("ascii")
+    hash_bytes = f"{hashlib.sha256(json_bytes).hexdigest().upper()}  {json_path.name}\n".encode(
+        "ascii"
+    )
 
     write_file_atomic(palette_path, palette_png, overwrite=overwrite)
     for path, png, _, _ in frame_exports:

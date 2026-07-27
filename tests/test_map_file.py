@@ -16,7 +16,7 @@ from fallout1resource.map_file import (
     parse_map,
     write_map_export,
 )
-from fallout1resource.proto import PrototypeCatalog, parse_lst
+from fallout1resource.proto import parse_lst
 from tests.test_proto import build_catalog
 
 
@@ -76,13 +76,20 @@ def _objects() -> bytes:
     critter += struct.pack(">14i", 1, 1, 0, 0, *([0] * 7), 20, 0, 0)
     item = _base_object(object_id=101, tile=-1, fid=1, pid=0x00000001, script_id=-1)
     item += struct.pack(">5i", 0, 0, 0, 0, 9)
-    return struct.pack(">2i", 1, 1) + critter + struct.pack(">i", 2) + item + struct.pack(">2i", 0, 0)
+    return (
+        struct.pack(">2i", 1, 1) + critter + struct.pack(">i", 2) + item + struct.pack(">2i", 0, 0)
+    )
 
 
 def build_map() -> bytes:
     name = b"HUBOLDTN.MAP".ljust(16, b"\x00")
     header_values = (201, 0, 2, 1, 0, 0x0C, 0, 1, 5, 6)
-    header = struct.pack(">i", 19) + name + struct.pack(">10i", *header_values) + struct.pack(">44i", *([0] * 44))
+    header = (
+        struct.pack(">i", 19)
+        + name
+        + struct.pack(">10i", *header_values)
+        + struct.pack(">44i", *([0] * 44))
+    )
     variables = struct.pack(">2i", 11, 22)
     tiles = struct.pack(">10000i", *([0x00010002] * 10000))
     return header + variables + tiles + _scripts() + _objects()
@@ -120,7 +127,11 @@ class MapParsingTests(unittest.TestCase):
         with self.assertRaisesRegex(MapFormatError, "unsupported MAP version"):
             parse_map(bytes(data), self.catalog)
         with self.assertRaisesRegex(MapFormatError, "truncated"):
-            parse_map(build_map()[:-1], build_catalog(self.root / "PROTO2"), scripts_list=self.scripts_list)
+            parse_map(
+                build_map()[:-1],
+                build_catalog(self.root / "PROTO2"),
+                scripts_list=self.scripts_list,
+            )
 
     def test_rejects_active_script_in_wrong_type_list(self) -> None:
         data = bytearray(build_map())
@@ -164,7 +175,9 @@ class MapExportTests(unittest.TestCase):
         self.assertEqual(2, payload["summary"]["referenced_prototypes"])
         self.assertEqual(142, payload["objects"]["entries"][0]["tile_x"])
         self.assertEqual(114, payload["objects"]["entries"][0]["tile_y"])
-        self.assertEqual("00000001.pro", payload["prototype_lists"][1]["ordered_entries"][0]["filename"])
+        self.assertEqual(
+            "00000001.pro", payload["prototype_lists"][1]["ordered_entries"][0]["filename"]
+        )
         self.assertIn("HAROLD.INT", csv_path.read_text(encoding="utf-8-sig"))
         expected = hashlib.sha256(json_path.read_bytes()).hexdigest().upper()
         self.assertEqual(expected, hash_path.read_text(encoding="ascii").split()[0])

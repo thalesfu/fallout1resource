@@ -74,7 +74,10 @@ class PrototypeTests(unittest.TestCase):
     def test_parses_all_six_pid_types(self) -> None:
         prototypes = [parse_pro(build_pro(pid_type)) for pid_type in range(6)]
 
-        self.assertEqual(["item", "critter", "scenery", "wall", "tile", "misc"], [p.type_name for p in prototypes])
+        self.assertEqual(
+            ["item", "critter", "scenery", "wall", "tile", "misc"],
+            [p.type_name for p in prototypes],
+        )
         self.assertEqual("misc", prototypes[0].subtype_name)
         self.assertEqual(10, prototypes[0].fields["data"]["charges"])
         self.assertEqual(35, len(prototypes[1].fields["base_stats"]))

@@ -13,7 +13,7 @@ class LzssTests(unittest.TestCase):
         self.assertEqual(decompress_dat1_payload(b"\x00\x04\x07xyz", expected_size=3), b"xyz")
 
     def test_copies_dat1_negative_uncompressed_block(self) -> None:
-        self.assertEqual(decompress_dat1_payload(b"\xFF\xFDxyz", expected_size=3), b"xyz")
+        self.assertEqual(decompress_dat1_payload(b"\xff\xfdxyz", expected_size=3), b"xyz")
 
     def test_rejects_output_larger_than_declared(self) -> None:
         with self.assertRaises(LzssError):

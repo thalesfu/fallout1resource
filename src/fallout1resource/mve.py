@@ -12,7 +12,7 @@ import tempfile
 import wave
 from collections import Counter
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from fractions import Fraction
 from pathlib import Path
 from typing import Any, TypeVar
@@ -21,8 +21,7 @@ from . import __version__
 from .inventory import ensure_within_workspace
 from .safe_io import write_file_atomic
 
-
-MVE_SIGNATURE = b"Interplay MVE File\x1A\x00"
+MVE_SIGNATURE = b"Interplay MVE File\x1a\x00"
 MVE_HEADER_SIZE = 26
 MVE_HEADER_CONSTANTS = (26, 256, 0x1133)
 MAX_CHUNK_SIZE = 0xFFFF
@@ -340,7 +339,9 @@ def mve_summary(document: MveDocument) -> dict[str, Any]:
         "frame_duration_microseconds": document.timing.frame_duration_microseconds,
         "frames_per_second": float(fps),
         "frames_per_second_fraction": f"{fps.numerator}/{fps.denominator}",
-        "duration_seconds": document.frame_count * document.timing.frame_duration_microseconds / 1_000_000,
+        "duration_seconds": document.frame_count
+        * document.timing.frame_duration_microseconds
+        / 1_000_000,
         "has_audio": audio is not None,
         "audio_codec": audio.codec if audio else None,
         "audio_channels": audio.channels if audio else None,
@@ -362,7 +363,11 @@ def mve_output_paths(
         raise ValueError("MVE output must use a .json filename")
     csv_path = ensure_within_workspace(workspace, json_path.with_suffix(".segments.csv"))
     poster_path = ensure_within_workspace(workspace, json_path.with_suffix(".poster.png"))
-    audio_path = ensure_within_workspace(workspace, json_path.with_suffix(".audio.wav")) if document.audio else None
+    audio_path = (
+        ensure_within_workspace(workspace, json_path.with_suffix(".audio.wav"))
+        if document.audio
+        else None
+    )
     preview_path = ensure_within_workspace(workspace, json_path.with_suffix(".preview.mp4"))
     hash_path = ensure_within_workspace(workspace, json_path.with_suffix(".json.sha256"))
     return json_path, csv_path, poster_path, audio_path, preview_path, hash_path
@@ -450,7 +455,9 @@ def _probe(tool: ExternalTool, path: Path) -> dict[str, Any]:
 
 
 def _stream(probe: dict[str, Any], stream_type: str) -> dict[str, Any] | None:
-    return next((item for item in probe.get("streams", []) if item.get("codec_type") == stream_type), None)
+    return next(
+        (item for item in probe.get("streams", []) if item.get("codec_type") == stream_type), None
+    )
 
 
 def _validate_source_probe(document: MveDocument, probe: dict[str, Any]) -> None:
@@ -468,15 +475,16 @@ def _validate_source_probe(document: MveDocument, probe: dict[str, Any]) -> None
     if document.audio is None:
         if audio is not None:
             raise MveFormatError("ffprobe found unexpected MVE audio")
-    elif audio is None or (
-        int(audio.get("channels", 0)), int(audio.get("sample_rate", 0))
-    ) != (document.audio.channels, document.audio.sample_rate):
+    elif audio is None or (int(audio.get("channels", 0)), int(audio.get("sample_rate", 0))) != (
+        document.audio.channels,
+        document.audio.sample_rate,
+    ):
         raise MveFormatError("ffprobe audio metadata disagrees with the native MVE parser")
 
 
 def _validate_png(path: Path, document: MveDocument) -> None:
     data = path.read_bytes()
-    if len(data) < 24 or not data.startswith(b"\x89PNG\r\n\x1A\n"):
+    if len(data) < 24 or not data.startswith(b"\x89PNG\r\n\x1a\n"):
         raise MveFormatError("FFmpeg poster output is not a PNG")
     width, height = struct.unpack_from(">II", data, 16)
     if (width, height) != (document.video.width, document.video.height):
@@ -507,7 +515,16 @@ def _segments_csv(document: MveDocument) -> bytes:
     stream = io.StringIO(newline="")
     writer = csv.writer(stream, lineterminator="\n")
     writer.writerow(
-        ("index", "chunk_index", "file_offset", "payload_offset", "payload_size", "opcode", "opcode_name", "version")
+        (
+            "index",
+            "chunk_index",
+            "file_offset",
+            "payload_offset",
+            "payload_size",
+            "opcode",
+            "opcode_name",
+            "version",
+        )
     )
     for segment in document.segments:
         writer.writerow(
@@ -522,7 +539,7 @@ def _segments_csv(document: MveDocument) -> bytes:
                 segment.version,
             )
         )
-    return b"\xEF\xBB\xBF" + stream.getvalue().encode("utf-8")
+    return b"\xef\xbb\xbf" + stream.getvalue().encode("utf-8")
 
 
 def write_mve_export(
@@ -547,15 +564,29 @@ def write_mve_export(
     source_probe = _probe(tool, document.source_path)
     _validate_source_probe(document, source_probe)
     json_path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(dir=json_path.parent, prefix=f".{json_path.stem}.mve.") as temporary:
+    with tempfile.TemporaryDirectory(
+        dir=json_path.parent, prefix=f".{json_path.stem}.mve."
+    ) as temporary:
         temporary_root = Path(temporary)
         poster_temp = temporary_root / "poster.png"
         preview_temp = temporary_root / "preview.mp4"
         audio_temp = temporary_root / "audio.wav"
-        common = [str(tool.ffmpeg_path), "-nostdin", "-hide_banner", "-loglevel", "error", "-y", "-i", str(document.source_path)]
+        common = [
+            str(tool.ffmpeg_path),
+            "-nostdin",
+            "-hide_banner",
+            "-loglevel",
+            "error",
+            "-y",
+            "-i",
+            str(document.source_path),
+        ]
         _run(common + ["-map", "0:v:0", "-frames:v", "1", "-map_metadata", "-1", str(poster_temp)])
         if document.audio is not None:
-            _run(common + ["-map", "0:a:0", "-c:a", "pcm_s16le", "-map_metadata", "-1", str(audio_temp)])
+            _run(
+                common
+                + ["-map", "0:a:0", "-c:a", "pcm_s16le", "-map_metadata", "-1", str(audio_temp)]
+            )
         _run(
             common
             + [
@@ -590,7 +621,9 @@ def write_mve_export(
             int(preview_video.get("height", 0)),
             int(preview_video.get("nb_read_frames", -1)),
         ) != (document.video.width, document.video.height, document.frame_count):
-            raise MveFormatError("preview MP4 does not match the source video geometry or frame count")
+            raise MveFormatError(
+                "preview MP4 does not match the source video geometry or frame count"
+            )
 
         generated: list[tuple[Path, bytes, str]] = [
             (poster_path, poster_temp.read_bytes(), "poster_png"),
@@ -619,7 +652,7 @@ def write_mve_export(
         derived["audio_wav"]["pcm"] = wav_info
     payload = {
         "schema_version": 1,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Interplay MVE",
         "generator": {"name": "fallout1resource", "version": __version__},
         "source": {
@@ -632,7 +665,9 @@ def write_mve_export(
             "signature": MVE_SIGNATURE.decode("ascii", errors="backslashreplace"),
             "constants": list(MVE_HEADER_CONSTANTS),
         },
-        "opcode_counts": {f"0x{opcode:02X}": count for opcode, count in sorted(opcode_counts.items())},
+        "opcode_counts": {
+            f"0x{opcode:02X}": count for opcode, count in sorted(opcode_counts.items())
+        },
         "chunks": [
             {
                 "index": chunk.index,
@@ -659,7 +694,9 @@ def write_mve_export(
         "preview_policy": "MPEG-4 Part 2 video and AAC audio are convenience previews; PNG and PCM WAV are separate decoded inspection artifacts.",
     }
     json_bytes = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-    hash_bytes = f"{hashlib.sha256(json_bytes).hexdigest().upper()}  {json_path.name}\n".encode("ascii")
+    hash_bytes = f"{hashlib.sha256(json_bytes).hexdigest().upper()}  {json_path.name}\n".encode(
+        "ascii"
+    )
     for path, data, _ in generated:
         write_file_atomic(path, data, overwrite=overwrite)
     write_file_atomic(csv_path, csv_bytes, overwrite=overwrite)

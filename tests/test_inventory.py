@@ -4,8 +4,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from fallout1resource.inventory import build_inventory, ensure_within_workspace, write_inventory
 from test_dat1 import build_dat1
+
+from fallout1resource.inventory import build_inventory, ensure_within_workspace, write_inventory
 
 
 class InventoryTests(unittest.TestCase):
@@ -36,7 +37,9 @@ class InventoryTests(unittest.TestCase):
             self.assertFalse(any("SAVEGAME" in path for path in paths))
             self.assertIn("TEXT/ENGLISH/DIALOG/HAROLD.MSG", paths)
 
-            json_path, csv_path, hash_path = write_inventory(manifest, workspace, "manifests/inventory.json")
+            json_path, csv_path, hash_path = write_inventory(
+                manifest, workspace, "manifests/inventory.json"
+            )
             self.assertTrue(json_path.is_file())
             self.assertTrue(csv_path.is_file())
             self.assertTrue(hash_path.is_file())

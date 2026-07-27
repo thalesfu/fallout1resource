@@ -128,11 +128,25 @@ python -m fallout1resource convert-mve `
 
 输出位于 `workspace/output/video/<名称>/`：结构 JSON、全部段 CSV、首帧 PNG、PCM WAV 和 MPEG-4/AAC 预览 MP4。MP4 仅供查看并会重新编码；PNG 和 WAV 是独立的解码抽查产物。JSON 记录 FFmpeg/ffprobe 及同目录运行库的哈希，并保存转换前后的探测结果。当前验证构建见 `config/ffmpeg-mve.json`。
 
+## 统一资源索引
+
+`build-index` 读取 inventory、提取清单和各转换器元数据，为每个来源资源生成稳定且不依赖本机路径的 ID，并按不区分大小写的内部路径报告来源冲突：
+
+```powershell
+python -m fallout1resource build-index `
+  --workspace "$PWD\workspace"
+```
+
+默认只显示资源数、提取/转换状态、冲突数和失败数，不创建文件。确认计划后加入 `--execute`，生成 `workspace/index/resources.jsonl`、`derived.jsonl`、`failures.jsonl`、`collisions.csv`、`summary.json` 和组合校验清单。重复执行默认拒绝覆盖；使用 `--execute --overwrite` 时会先完整暂存新索引，再整体替换受管理的索引目录。批次 ID 由全部输入哈希和索引器版本计算，同一输入可重复得到相同输出。当前不会自动裁定松散 `DATA/` 与 DAT 的覆盖关系，冲突来源均保留为待审核状态。
+
 ## 测试
 
 ```powershell
-$env:PYTHONPATH = "$PWD\src"
-python -m unittest discover -s tests -v
+python -m venv .venv
+.\.venv\Scripts\python -m pip install -e ".[dev]"
+.\scripts\check.ps1
 ```
+
+统一检查会依次验证 Ruff 格式、静态规则和全部 `unittest`。需要自动整理导入和格式时运行 `.\scripts\check.ps1 -Fix`，随后再次运行无参数检查。Ruff 固定为 0.15.22，避免不同机器产生不一致结果。
 
 项目不会附带或分发受版权保护的游戏资源。用户必须自行拥有合法的《辐射 1》副本。

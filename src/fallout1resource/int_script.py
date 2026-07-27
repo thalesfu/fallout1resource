@@ -9,16 +9,16 @@ import io
 import json
 import struct
 from collections import Counter, defaultdict
+from collections.abc import Iterable
 from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 from . import __version__
 from .inventory import ensure_within_workspace
 from .msg import MsgDocument
 from .safe_io import write_file_atomic
-
 
 STARTUP_SIZE = 42
 PROCEDURE_SIZE = 24
@@ -34,22 +34,82 @@ class IntFormatError(ValueError):
 
 
 CORE_OPCODE_NAMES = (
-    "noop", "push", "critical_start", "critical_done", "jump", "call",
-    "call_at", "call_condition", "callstart", "exec", "spawn", "fork",
-    "a_to_d", "d_to_a", "exit", "detach", "exit_program", "stop_program",
-    "fetch_global", "store_global", "fetch_external", "store_external",
-    "export_variable", "export_procedure", "swap", "swapa", "pop", "dup",
-    "pop_return", "pop_exit", "pop_address", "pop_flags",
-    "pop_flags_return", "pop_flags_exit", "pop_flags_return_extern",
-    "pop_flags_exit_extern", "pop_flags_return_val_extern",
-    "pop_flags_return_val_exit", "pop_flags_return_val_exit_extern",
-    "check_procedure_argument_count", "lookup_procedure_by_name", "pop_base",
-    "pop_to_base", "push_base", "set_global", "fetch_procedure_address",
-    "dump", "if", "while", "store", "fetch", "equal", "not_equal",
-    "less_equal", "greater_equal", "less", "greater", "add", "sub", "mul",
-    "div", "mod", "and", "or", "bitwise_and", "bitwise_or", "bitwise_xor",
-    "bitwise_not", "floor", "not", "negate", "wait", "cancel", "cancel_all",
-    "start_critical", "end_critical",
+    "noop",
+    "push",
+    "critical_start",
+    "critical_done",
+    "jump",
+    "call",
+    "call_at",
+    "call_condition",
+    "callstart",
+    "exec",
+    "spawn",
+    "fork",
+    "a_to_d",
+    "d_to_a",
+    "exit",
+    "detach",
+    "exit_program",
+    "stop_program",
+    "fetch_global",
+    "store_global",
+    "fetch_external",
+    "store_external",
+    "export_variable",
+    "export_procedure",
+    "swap",
+    "swapa",
+    "pop",
+    "dup",
+    "pop_return",
+    "pop_exit",
+    "pop_address",
+    "pop_flags",
+    "pop_flags_return",
+    "pop_flags_exit",
+    "pop_flags_return_extern",
+    "pop_flags_exit_extern",
+    "pop_flags_return_val_extern",
+    "pop_flags_return_val_exit",
+    "pop_flags_return_val_exit_extern",
+    "check_procedure_argument_count",
+    "lookup_procedure_by_name",
+    "pop_base",
+    "pop_to_base",
+    "push_base",
+    "set_global",
+    "fetch_procedure_address",
+    "dump",
+    "if",
+    "while",
+    "store",
+    "fetch",
+    "equal",
+    "not_equal",
+    "less_equal",
+    "greater_equal",
+    "less",
+    "greater",
+    "add",
+    "sub",
+    "mul",
+    "div",
+    "mod",
+    "and",
+    "or",
+    "bitwise_and",
+    "bitwise_or",
+    "bitwise_xor",
+    "bitwise_not",
+    "floor",
+    "not",
+    "negate",
+    "wait",
+    "cancel",
+    "cancel_all",
+    "start_critical",
+    "end_critical",
 )
 
 OPCODE_NAMES = {0x8000 + index: name for index, name in enumerate(CORE_OPCODE_NAMES)}
@@ -90,7 +150,10 @@ DIALOGUE_CALLS: dict[int, tuple[str, tuple[str, ...]]] = {
     0x811E: ("reply", ("message_list_id", "message_number")),
     0x811F: ("option", ("message_list_id", "message_number", "target_procedure", "reaction")),
     0x8120: ("message", ("message_list_id", "message_number", "reaction")),
-    0x8121: ("intelligence_option", ("intelligence", "message_list_id", "message_number", "target_procedure", "reaction")),
+    0x8121: (
+        "intelligence_option",
+        ("intelligence", "message_list_id", "message_number", "target_procedure", "reaction"),
+    ),
 }
 
 EXPRESSION_ARITIES = {
@@ -115,8 +178,23 @@ EXPRESSION_ARITIES = {
 }
 
 STARTUP_OPCODES = (
-    0x8002, 0xC001, 0x800D, 0xC001, 0x8004, 0x8010, 0x801A, 0x8020,
-    0x801A, 0x8021, 0x801A, 0x8022, 0x801A, 0x8023, 0x8024, 0x8025, 0x8026,
+    0x8002,
+    0xC001,
+    0x800D,
+    0xC001,
+    0x8004,
+    0x8010,
+    0x801A,
+    0x8020,
+    0x801A,
+    0x8021,
+    0x801A,
+    0x8022,
+    0x801A,
+    0x8023,
+    0x8024,
+    0x8025,
+    0x8026,
 )
 
 
@@ -377,7 +455,10 @@ def parse_int(data: bytes, *, source_path: Path | None = None) -> IntProgram:
             else ()
         )
         for instruction in instructions:
-            if instruction.opcode not in OPCODE_NAMES and instruction.opcode not in CONSTANT_OPCODES:
+            if (
+                instruction.opcode not in OPCODE_NAMES
+                and instruction.opcode not in CONSTANT_OPCODES
+            ):
                 unknown[instruction.opcode] += 1
         procedures.append(
             IntProcedure(
@@ -486,9 +567,7 @@ def link_messages(
                 for name in argument_names
             }
             message_expression = (
-                arguments["message_number"].text
-                if arguments is not None
-                else "<unresolved>"
+                arguments["message_number"].text if arguments is not None else "<unresolved>"
             )
             target_index = values.get("target_procedure")
             raw.append(
@@ -551,9 +630,9 @@ def int_summary(program: IntProgram, references: Iterable[MessageReference] = ()
     return {
         "procedures": len(program.procedures),
         "implemented_procedures": sum(procedure.body_size > 0 for procedure in program.procedures),
-        "instructions": len(program.startup) + len(program.startup_tail) + sum(
-            len(procedure.instructions) for procedure in program.procedures
-        ),
+        "instructions": len(program.startup)
+        + len(program.startup_tail)
+        + sum(len(procedure.instructions) for procedure in program.procedures),
         "identifiers": len(program.identifiers),
         "static_strings": len(program.strings),
         "unknown_opcodes": [f"0x{opcode:04X}" for opcode in program.unknown_opcodes],
@@ -577,7 +656,7 @@ def _json_payload(
 ) -> dict[str, Any]:
     return {
         "schema_version": 1,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Fallout INT",
         "generator": {"name": "fallout1resource", "version": __version__},
         "source": {
@@ -656,12 +735,26 @@ def _disassembly_text(program: IntProgram, references: tuple[MessageReference, .
 
 def _message_csv(references: tuple[MessageReference, ...]) -> bytes:
     stream = io.StringIO(newline="")
-    fieldnames = list(asdict(references[0]).keys()) if references else [
-        "procedure_index", "procedure_name", "instruction_offset", "call",
-        "message_list_id", "message_number", "message_expression", "intelligence",
-        "target_procedure_index", "target_procedure_name", "reaction", "link_status",
-        "msg_text", "msg_audio",
-    ]
+    fieldnames = (
+        list(asdict(references[0]).keys())
+        if references
+        else [
+            "procedure_index",
+            "procedure_name",
+            "instruction_offset",
+            "call",
+            "message_list_id",
+            "message_number",
+            "message_expression",
+            "intelligence",
+            "target_procedure_index",
+            "target_procedure_name",
+            "reaction",
+            "link_status",
+            "msg_text",
+            "msg_audio",
+        ]
+    )
     writer = csv.DictWriter(stream, fieldnames=fieldnames, lineterminator="\r\n")
     writer.writeheader()
     for reference in references:
@@ -702,7 +795,12 @@ def write_int_export(
         if existing:
             raise FileExistsError(f"output already exists; refusing to overwrite: {existing[0]}")
 
-    json_bytes = (json.dumps(_json_payload(program, references, inferred_list, msg), ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    json_bytes = (
+        json.dumps(
+            _json_payload(program, references, inferred_list, msg), ensure_ascii=False, indent=2
+        )
+        + "\n"
+    ).encode("utf-8")
     disassembly = _disassembly_text(program, references)
     messages = _message_csv(references)
     digest = hashlib.sha256(json_bytes).hexdigest().upper()

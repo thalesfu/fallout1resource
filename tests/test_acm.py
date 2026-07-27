@@ -63,9 +63,7 @@ class AcmParsingTests(unittest.TestCase):
         self.assertEqual((3,), audio.band_formats)
 
     def test_decodes_zero_band(self) -> None:
-        audio = parse_acm(
-            _acm_bytes(sample_count=3, rows=3, band_format=0, raw_samples=())
-        )
+        audio = parse_acm(_acm_bytes(sample_count=3, rows=3, band_format=0, raw_samples=()))
         self.assertEqual(bytes(6), audio.pcm_s16le)
 
     def test_decodes_every_direct_quantization_format(self) -> None:
@@ -132,13 +130,17 @@ class AcmExportTests(unittest.TestCase):
         self.temporary.cleanup()
 
     def test_writes_wav_metadata_and_checksum(self) -> None:
-        json_path, wav_path, hash_path = write_acm_export(
-            self.audio, self.workspace, self.output
-        )
+        json_path, wav_path, hash_path = write_acm_export(self.audio, self.workspace, self.output)
         payload = json.loads(json_path.read_text(encoding="utf-8"))
         self.assertEqual("Interplay ACM", payload["format"])
-        self.assertEqual(hashlib.sha256(wav_path.read_bytes()).hexdigest().upper(), payload["derived"]["wav"]["sha256"])
-        self.assertEqual(hashlib.sha256(json_path.read_bytes()).hexdigest().upper(), hash_path.read_text(encoding="ascii").split()[0])
+        self.assertEqual(
+            hashlib.sha256(wav_path.read_bytes()).hexdigest().upper(),
+            payload["derived"]["wav"]["sha256"],
+        )
+        self.assertEqual(
+            hashlib.sha256(json_path.read_bytes()).hexdigest().upper(),
+            hash_path.read_text(encoding="ascii").split()[0],
+        )
 
     def test_refuses_overwrite_before_writing(self) -> None:
         write_acm_export(self.audio, self.workspace, self.output)

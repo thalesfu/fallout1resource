@@ -3,9 +3,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from pathlib import PurePosixPath, Path
+from pathlib import Path, PurePosixPath
 from typing import BinaryIO
-
 
 COMPRESSION_NAMES = {
     0x10: "lzss-single-legacy",
@@ -107,19 +106,25 @@ def parse_dat1(path: Path | str) -> Dat1Archive:
         if root_header[1] != 0:
             raise Dat1FormatError("DAT1 root entry size must be zero")
 
-        directories = [_read_string(stream, f"directory {index}") for index in range(directory_count)]
+        directories = [
+            _read_string(stream, f"directory {index}") for index in range(directory_count)
+        ]
         entries: list[Dat1Entry] = []
 
         for directory_index, directory in enumerate(directories):
             file_count = _read_u32_be(stream, f"file count for directory {directory_index}")
             if file_count > MAX_FILES_PER_DIRECTORY:
-                raise Dat1FormatError(f"unreasonable file count in directory {directory!r}: {file_count}")
+                raise Dat1FormatError(
+                    f"unreasonable file count in directory {directory!r}: {file_count}"
+                )
             directory_header = tuple(
                 _read_u32_be(stream, f"directory header {directory_index}:{field}")
                 for field in range(3)
             )
             if directory_header[0] < file_count:
-                raise Dat1FormatError(f"capacity is smaller than file count in directory {directory!r}")
+                raise Dat1FormatError(
+                    f"capacity is smaller than file count in directory {directory!r}"
+                )
             if directory_header[1] != 16:
                 raise Dat1FormatError(f"unexpected DAT1 file entry size in directory {directory!r}")
 
@@ -127,13 +132,17 @@ def parse_dat1(path: Path | str) -> Dat1Archive:
                 name = _read_string(stream, f"file name {directory_index}:{file_index}")
                 compression_mode = _read_u32_be(stream, "compression mode")
                 if compression_mode not in COMPRESSION_NAMES:
-                    raise Dat1FormatError(f"unknown DAT1 compression mode: 0x{compression_mode:08X}")
+                    raise Dat1FormatError(
+                        f"unknown DAT1 compression mode: 0x{compression_mode:08X}"
+                    )
                 offset = _read_u32_be(stream, "file offset")
                 size = _read_u32_be(stream, "file size")
                 packed_size = _read_u32_be(stream, "packed file size")
                 stored_size = size if compression_mode == 0x20 and packed_size == 0 else packed_size
                 if offset > file_size or stored_size > file_size - offset:
-                    raise Dat1FormatError(f"file data is outside archive bounds: {directory}/{name}")
+                    raise Dat1FormatError(
+                        f"file data is outside archive bounds: {directory}/{name}"
+                    )
                 internal_path, path_issues = inspect_internal_path(directory, name)
                 entries.append(
                     Dat1Entry(

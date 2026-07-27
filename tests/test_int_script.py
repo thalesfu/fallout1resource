@@ -35,12 +35,12 @@ def _pool(values: list[str]) -> tuple[bytes, dict[str, int]]:
         offsets[value] = 4 + len(content) + 2
         content.extend(struct.pack(">H", len(raw)))
         content.extend(raw)
-    return struct.pack(">I", len(content)) + bytes(content) + b"\xFF\xFF\xFF\xFF", offsets
+    return struct.pack(">I", len(content)) + bytes(content) + b"\xff\xff\xff\xff", offsets
 
 
 def build_int(path: Path) -> int:
     namespace, offsets = _pool(["start"])
-    stringspace = b"\xFF\xFF\xFF\xFF"
+    stringspace = b"\xff\xff\xff\xff"
     procedure_count = 1
     namespace_offset = 42 + 4 + procedure_count * 24
     code_start = namespace_offset + len(namespace) + len(stringspace)
@@ -79,7 +79,15 @@ def build_int(path: Path) -> int:
         )
     )
     procedure = struct.pack(">6I", offsets["start"], 0, 0, 0, body_offset, 0)
-    path.write_bytes(startup + struct.pack(">I", procedure_count) + procedure + namespace + stringspace + startup_tail + body)
+    path.write_bytes(
+        startup
+        + struct.pack(">I", procedure_count)
+        + procedure
+        + namespace
+        + stringspace
+        + startup_tail
+        + body
+    )
     return body_offset
 
 
@@ -178,9 +186,7 @@ class IntExportTests(unittest.TestCase):
             )
             paths[0].write_text("user content", encoding="utf-8")
             with self.assertRaises(FileExistsError):
-                write_int_export(
-                    program, references, inferred, msg, workspace, "output/TEST.json"
-                )
+                write_int_export(program, references, inferred, msg, workspace, "output/TEST.json")
             self.assertEqual(paths[0].read_text(encoding="utf-8"), "user content")
 
     def test_explicit_overwrite_replaces_outputs(self) -> None:

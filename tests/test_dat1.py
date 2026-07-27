@@ -13,12 +13,20 @@ def _lp(value: str) -> bytes:
     return bytes([len(encoded)]) + encoded
 
 
-def build_dat1(path: Path, directory: str = "text\\english\\dialog") -> None:
-    names = ["HAROLD.MSG", "README.TXT"]
+def build_dat1(
+    path: Path,
+    directory: str = "text\\english\\dialog",
+    *,
+    names: list[str] | None = None,
+    corrupt_second: bool = False,
+) -> None:
+    names = names or ["HAROLD.MSG", "README.TXT"]
+    if len(names) != 2:
+        raise ValueError("synthetic DAT1 fixture requires exactly two names")
     header_size = 16 + len(_lp(directory)) + 16
     entries_size = sum(len(_lp(name)) + 16 for name in names)
     first_offset = header_size + entries_size
-    payloads = [b"hello", b"\x00\x04\x07xyz"]
+    payloads = [b"hello", b"\x00\x04\x07xyz" if not corrupt_second else b"\x00\x04\x07x"]
     metadata = [struct.pack(">4I", 1, 1, 0, 0), _lp(directory), struct.pack(">4I", 2, 2, 16, 0)]
     metadata.extend(
         [

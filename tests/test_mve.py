@@ -5,8 +5,8 @@ import struct
 import subprocess
 import tempfile
 import unittest
-from unittest.mock import patch
 from pathlib import Path
+from unittest.mock import patch
 
 from fallout1resource.mve import (
     MVE_HEADER_CONSTANTS,
@@ -50,7 +50,7 @@ def _mve_bytes(*, audio: bool = True) -> bytes:
             )
         )
     video_segments = [
-        _segment(0x0F, 0, b"\x0E"),
+        _segment(0x0F, 0, b"\x0e"),
         _segment(0x11, 3, bytes(14)),
     ]
     if audio:
@@ -212,7 +212,9 @@ class MveExportTests(unittest.TestCase):
     def tearDown(self) -> None:
         self.temporary.cleanup()
 
-    def _fake_run(self, command: list[str], *, timeout: int = 600) -> subprocess.CompletedProcess[str]:
+    def _fake_run(
+        self, command: list[str], *, timeout: int = 600
+    ) -> subprocess.CompletedProcess[str]:
         target = Path(command[-1])
         if target.suffix.casefold() in (".png", ".wav", ".mp4"):
             target.write_bytes(f"synthetic {target.suffix}".encode("ascii"))
@@ -221,12 +223,19 @@ class MveExportTests(unittest.TestCase):
     def _write(self, *, overwrite: bool = False) -> tuple[Path, ...]:
         with (
             patch("fallout1resource.mve.inspect_ffmpeg", return_value=self.tool),
-            patch("fallout1resource.mve._probe", side_effect=[self.source_probe, self.preview_probe]),
+            patch(
+                "fallout1resource.mve._probe", side_effect=[self.source_probe, self.preview_probe]
+            ),
             patch("fallout1resource.mve._run", side_effect=self._fake_run),
             patch("fallout1resource.mve._validate_png"),
             patch(
                 "fallout1resource.mve._validate_wav",
-                return_value={"channels": 2, "sample_rate": 22050, "sample_width": 2, "frame_count": 1},
+                return_value={
+                    "channels": 2,
+                    "sample_rate": 22050,
+                    "sample_width": 2,
+                    "frame_count": 1,
+                },
             ),
         ):
             return write_mve_export(
@@ -261,7 +270,9 @@ class MveExportTests(unittest.TestCase):
         source.write_bytes(_mve_bytes())
         document = parse_mve(source.read_bytes(), source)
         with self.assertRaisesRegex(ValueError, "replace a source"):
-            write_mve_export(document, self.workspace, source, self.tool.ffmpeg_path, overwrite=True)
+            write_mve_export(
+                document, self.workspace, source, self.tool.ffmpeg_path, overwrite=True
+            )
 
     def test_rejects_missing_ffmpeg_before_execution(self) -> None:
         with self.assertRaisesRegex(MveFormatError, "not found"):

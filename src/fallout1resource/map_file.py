@@ -9,7 +9,7 @@ import io
 import json
 import struct
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -17,7 +17,6 @@ from . import __version__
 from .inventory import ensure_within_workspace
 from .proto import ListDocument, Prototype, PrototypeCatalog, load_lst
 from .safe_io import write_file_atomic
-
 
 MAP_VERSION = 19
 MAP_HEADER_SIZE = 236
@@ -66,7 +65,7 @@ class MapScript:
 @dataclass(frozen=True, slots=True)
 class InventoryEntry:
     quantity: int
-    item: "MapObject"
+    item: MapObject
 
 
 @dataclass(frozen=True, slots=True)
@@ -129,7 +128,7 @@ class _Reader:
         end = self.offset + size
         if end > len(self.data):
             raise MapFormatError(f"MAP is truncated while reading {field} at byte {self.offset}")
-        chunk = self.data[self.offset:end]
+        chunk = self.data[self.offset : end]
         self.offset = end
         return chunk
 
@@ -199,7 +198,9 @@ def _read_scripts(reader: _Reader, scripts_list: ListDocument | None) -> tuple[M
     for script_type in range(len(SCRIPT_TYPE_NAMES)):
         declared_count = reader.i32(f"scripts.{SCRIPT_TYPE_NAMES[script_type]}.count")
         if declared_count < 0 or declared_count > 1_000_000:
-            raise MapFormatError(f"invalid {SCRIPT_TYPE_NAMES[script_type]} script count: {declared_count}")
+            raise MapFormatError(
+                f"invalid {SCRIPT_TYPE_NAMES[script_type]} script count: {declared_count}"
+            )
         extent_count = (declared_count + 15) // 16
         active_count = 0
         for extent_index in range(extent_count):
@@ -234,7 +235,9 @@ def _read_scripts(reader: _Reader, scripts_list: ListDocument | None) -> tuple[M
     return tuple(scripts)
 
 
-def _read_object_update(reader: _Reader, prototype: Prototype, label: str) -> tuple[int, int, int, dict[str, Any]]:
+def _read_object_update(
+    reader: _Reader, prototype: Prototype, label: str
+) -> tuple[int, int, int, dict[str, Any]]:
     inventory_length = reader.i32(f"{label}.inventory_length")
     inventory_capacity = reader.i32(f"{label}.inventory_capacity")
     inventory_pointer = reader.i32(f"{label}.inventory_pointer")
@@ -283,7 +286,12 @@ def _read_object_update(reader: _Reader, prototype: Prototype, label: str) -> tu
         elif prototype.subtype in (3, 4):
             update["destination_built_tile"] = reader.i32(f"{label}.destination_built_tile")
     elif prototype.pid_type == 5 and 0x05000010 <= (prototype.pid & 0xFFFFFFFF) <= 0x05000017:
-        for name in ("destination_map", "destination_tile", "destination_elevation", "destination_rotation"):
+        for name in (
+            "destination_map",
+            "destination_tile",
+            "destination_elevation",
+            "destination_rotation",
+        ):
             update[name] = reader.i32(f"{label}.{name}")
     return inventory_length, inventory_capacity, inventory_pointer, update
 
@@ -476,7 +484,9 @@ def load_map(
     return parse_map(data, catalog, source_path=source, scripts_list=scripts_list)
 
 
-def _walk_objects(objects: tuple[MapObject, ...], prefix: str = "") -> list[tuple[str, MapObject, int | None]]:
+def _walk_objects(
+    objects: tuple[MapObject, ...], prefix: str = ""
+) -> list[tuple[str, MapObject, int | None]]:
     result: list[tuple[str, MapObject, int | None]] = []
 
     def visit(obj: MapObject, path: str, quantity: int | None) -> None:
@@ -563,7 +573,8 @@ def _object_payload(obj: MapObject) -> dict[str, Any]:
         "inventory_pointer": obj.inventory_pointer,
         "update_data": obj.update_data,
         "inventory": [
-            {"quantity": entry.quantity, "item": _object_payload(entry.item)} for entry in obj.inventory
+            {"quantity": entry.quantity, "item": _object_payload(entry.item)}
+            for entry in obj.inventory
         ],
     }
 
@@ -571,7 +582,7 @@ def _object_payload(obj: MapObject) -> dict[str, Any]:
 def _json_payload(document: MapDocument) -> dict[str, Any]:
     return {
         "schema_version": 1,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Fallout MAP/PRO/LST",
         "generator": {"name": "fallout1resource", "version": __version__},
         "source": {
@@ -668,7 +679,9 @@ def _json_payload(document: MapDocument) -> dict[str, Any]:
                 for entry in document.scripts_list.entries
             ],
         },
-        "referenced_prototypes": [_prototype_payload(proto) for proto in document.referenced_prototypes],
+        "referenced_prototypes": [
+            _prototype_payload(proto) for proto in document.referenced_prototypes
+        ],
     }
 
 
@@ -748,7 +761,9 @@ def write_map_export(
         existing = [path for path in targets if path.exists()]
         if existing:
             raise FileExistsError(f"output already exists; refusing to overwrite: {existing[0]}")
-    json_bytes = (json.dumps(_json_payload(document), ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    json_bytes = (json.dumps(_json_payload(document), ensure_ascii=False, indent=2) + "\n").encode(
+        "utf-8"
+    )
     csv_bytes = _objects_csv(document)
     checksum = hashlib.sha256(json_bytes).hexdigest().upper()
     hash_bytes = f"{checksum}  {json_path.name}\n".encode("ascii")

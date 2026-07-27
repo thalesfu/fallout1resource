@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-
 DICTIONARY_SIZE = 4096
 MIN_MATCH = 3
 MAX_MATCH = 18
@@ -52,6 +51,7 @@ def decompress_lzss_block(data: bytes, *, max_output: int) -> bytes:
                 dictionary_index += 1
 
     return bytes(output)
+
 
 def decompress_dat1_payload(packed: bytes, *, expected_size: int) -> bytes:
     """Decompress a DAT1 0x40 payload made of signed-size LZSS blocks."""

@@ -8,7 +8,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-
 PID_TYPE_NAMES = {
     0: "item",
     1: "critter",
@@ -94,7 +93,7 @@ class _Reader:
             raise ProtoFormatError(
                 f"{self.label} is truncated while reading {field} at byte {self.offset}"
             )
-        chunk = self.data[self.offset:end]
+        chunk = self.data[self.offset : end]
         self.offset = end
         return chunk
 
@@ -306,7 +305,14 @@ def parse_pro(data: bytes, source_path: Path | str = Path("<memory>.PRO")) -> Pr
         fields["field_34"] = reader.u8("field_34")
         fields["data"] = _read_scenery_data(reader, subtype)
     elif pid_type == 3:
-        for name in ("light_distance", "light_intensity", "flags", "extended_flags", "script_id", "material"):
+        for name in (
+            "light_distance",
+            "light_intensity",
+            "flags",
+            "extended_flags",
+            "script_id",
+            "material",
+        ):
             fields[name] = reader.i32(name)
     elif pid_type == 4:
         for name in ("flags", "extended_flags", "script_id", "material"):
@@ -347,7 +353,11 @@ def _find_case_insensitive(directory: Path, filename: str) -> Path:
     direct = directory / filename
     if direct.is_file():
         return direct
-    matches = [path for path in directory.iterdir() if path.is_file() and path.name.casefold() == filename.casefold()]
+    matches = [
+        path
+        for path in directory.iterdir()
+        if path.is_file() and path.name.casefold() == filename.casefold()
+    ]
     if len(matches) != 1:
         raise FileNotFoundError(
             f"expected exactly one case-insensitive match for {filename} in {directory}, found {len(matches)}"

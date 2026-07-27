@@ -27,7 +27,14 @@ def _frm_bytes() -> bytes:
     sequence_0 = _frame(2, 2, bytes((0, 1, 2, 3)), -2, 4) + _frame(1, 2, bytes((4, 5)), 6, -8)
     sequence_1 = _frame(2, 1, bytes((6, 7)), 1, 2) + _frame(1, 1, bytes((8,)), 3, 4)
     data = sequence_0 + sequence_1
-    offsets = (0, len(sequence_0), len(sequence_0), len(sequence_0), len(sequence_0), len(sequence_0))
+    offsets = (
+        0,
+        len(sequence_0),
+        len(sequence_0),
+        len(sequence_0),
+        len(sequence_0),
+        len(sequence_0),
+    )
     return b"".join(
         (
             struct.pack(">ihhh", 4, 12, 1, 2),
@@ -45,7 +52,7 @@ def _palette_bytes() -> bytes:
     for index in range(256):
         value = index % 64
         colors.extend((value, (value + 1) % 64, (value + 2) % 64))
-    colors[0:3] = b"\xFF\xFF\xFF"
+    colors[0:3] = b"\xff\xff\xff"
     return bytes(colors) + b"synthetic lookup table"
 
 
@@ -75,7 +82,9 @@ class PaletteTests(unittest.TestCase):
         self.assertEqual(256, len(palette.colors))
         self.assertEqual(len(b"synthetic lookup table"), palette.trailing_bytes)
         self.assertFalse(palette.colors[0].mapped)
-        self.assertEqual((0, 0, 0), (palette.colors[0].red, palette.colors[0].green, palette.colors[0].blue))
+        self.assertEqual(
+            (0, 0, 0), (palette.colors[0].red, palette.colors[0].green, palette.colors[0].blue)
+        )
         self.assertEqual(4, palette.colors[1].red)
 
     def test_rejects_truncated_palette(self) -> None:
@@ -93,7 +102,10 @@ class FrmParsingTests(unittest.TestCase):
         self.assertEqual((0,), document.sequences[0].directions)
         self.assertEqual((1, 2, 3, 4, 5), document.sequences[1].directions)
         self.assertEqual(1, document.directions[5].sequence_index)
-        self.assertEqual((-2, 4), (document.sequences[0].frames[0].x_offset, document.sequences[0].frames[0].y_offset))
+        self.assertEqual(
+            (-2, 4),
+            (document.sequences[0].frames[0].x_offset, document.sequences[0].frames[0].y_offset),
+        )
 
     def test_rejects_truncated_header(self) -> None:
         with self.assertRaisesRegex(FrmFormatError, "header is truncated"):
@@ -124,7 +136,15 @@ class FrmParsingTests(unittest.TestCase):
     def test_rejects_unordered_direction_offsets(self) -> None:
         data = bytearray(_frm_bytes())
         first_sequence_size = struct.unpack_from(">i", data, 38)[0]
-        data[34:58] = struct.pack(">6i", 0, first_sequence_size, 0, first_sequence_size, first_sequence_size, first_sequence_size)
+        data[34:58] = struct.pack(
+            ">6i",
+            0,
+            first_sequence_size,
+            0,
+            first_sequence_size,
+            first_sequence_size,
+            first_sequence_size,
+        )
         with self.assertRaisesRegex(FrmFormatError, "not ordered"):
             parse_frm(bytes(data))
 
@@ -172,7 +192,9 @@ class FrmExportTests(unittest.TestCase):
         self.assertEqual(4, payload["summary"]["exported_png_frames"])
         self.assertEqual(4, len(payload["derived"]["frames"]))
         for record, path in zip(payload["derived"]["frames"], frame_paths, strict=True):
-            self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest().upper(), record["sha256"])
+            self.assertEqual(
+                hashlib.sha256(path.read_bytes()).hexdigest().upper(), record["sha256"]
+            )
         expected_json_hash = hashlib.sha256(json_path.read_bytes()).hexdigest().upper()
         self.assertEqual(expected_json_hash, hash_path.read_text(encoding="ascii").split()[0])
 
@@ -182,7 +204,9 @@ class FrmExportTests(unittest.TestCase):
             write_frm_export(self.document, self.palette, self.workspace, self.output)
 
     def test_explicit_overwrite_replaces_outputs(self) -> None:
-        json_path, _, _, _ = write_frm_export(self.document, self.palette, self.workspace, self.output)
+        json_path, _, _, _ = write_frm_export(
+            self.document, self.palette, self.workspace, self.output
+        )
         json_path.write_text("broken", encoding="utf-8")
         write_frm_export(self.document, self.palette, self.workspace, self.output, overwrite=True)
         self.assertEqual(1, json.loads(json_path.read_text(encoding="utf-8"))["schema_version"])
@@ -201,7 +225,9 @@ class FrmExportTests(unittest.TestCase):
         source_in_workspace.write_bytes(_frm_bytes())
         document = parse_frm(source_in_workspace.read_bytes(), source_in_workspace)
         with self.assertRaisesRegex(ValueError, "replace a source"):
-            write_frm_export(document, self.palette, self.workspace, source_in_workspace, overwrite=True)
+            write_frm_export(
+                document, self.palette, self.workspace, source_in_workspace, overwrite=True
+            )
 
     def test_rejects_symlink_escape_when_supported(self) -> None:
         outside = self.root / "outside"

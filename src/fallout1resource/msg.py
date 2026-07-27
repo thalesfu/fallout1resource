@@ -9,14 +9,13 @@ import io
 import json
 from collections import Counter
 from dataclasses import asdict, dataclass, replace
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 from . import __version__
 from .inventory import ensure_within_workspace
 from .safe_io import write_file_atomic
-
 
 MAX_FIELD_BYTES = 1023
 
@@ -88,10 +87,7 @@ def _newline_style(text: str) -> str:
 
 
 def _candidate_score(text: str) -> tuple[int, int, int]:
-    cjk = sum(
-        "\u3400" <= char <= "\u4dbf" or "\u4e00" <= char <= "\u9fff"
-        for char in text
-    )
+    cjk = sum("\u3400" <= char <= "\u4dbf" or "\u4e00" <= char <= "\u9fff" for char in text)
     controls = sum(ord(char) < 32 and char not in "\r\n\t" for char in text)
     private_use = sum("\ue000" <= char <= "\uf8ff" for char in text)
     return cjk * 4 - controls * 40 - private_use * 20, cjk, controls
@@ -156,7 +152,9 @@ def decode_msg(data: bytes, *, encoding: str | None = None) -> DecodedMsg:
         candidates.sort(key=lambda item: (item[0].score, item[0].encoding == "gbk"), reverse=True)
         best, text = candidates[0]
         confidence = "medium"
-        if len(candidates) > 1 and best.score - candidates[1][0].score < max(20, best.cjk_characters // 10):
+        if len(candidates) > 1 and best.score - candidates[1][0].score < max(
+            20, best.cjk_characters // 10
+        ):
             confidence = "low"
         return DecodedMsg(
             text,
@@ -170,7 +168,9 @@ def decode_msg(data: bytes, *, encoding: str | None = None) -> DecodedMsg:
     text = data.decode("latin-1")
     score, cjk, controls = _candidate_score(text)
     fallback = EncodingCandidate("latin-1", score, cjk, controls)
-    return DecodedMsg(text, "latin-1", "lossless-fallback", "low", (fallback,), _newline_style(text))
+    return DecodedMsg(
+        text, "latin-1", "lossless-fallback", "low", (fallback,), _newline_style(text)
+    )
 
 
 def _field_byte_length(value: str, encoding: str) -> int:
@@ -218,7 +218,9 @@ def _read_fields(text: str, encoding: str) -> list[_Field]:
         source_value = "".join(source_chars)
         engine_value = "".join(engine_chars)
         if _field_byte_length(engine_value, encoding) > MAX_FIELD_BYTES:
-            raise MsgFormatError(f"field beginning at line {line_start} exceeds {MAX_FIELD_BYTES} bytes")
+            raise MsgFormatError(
+                f"field beginning at line {line_start} exceeds {MAX_FIELD_BYTES} bytes"
+            )
         fields.append(_Field(source_value, engine_value, line_start, line))
         index += 1
     return fields
@@ -311,7 +313,7 @@ def _json_payload(document: MsgDocument) -> dict[str, Any]:
     summary = msg_summary(document)
     return {
         "schema_version": 1,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Fallout MSG",
         "generator": {"name": "fallout1resource", "version": __version__},
         "source": {
@@ -383,7 +385,9 @@ def write_msg_export(
         if existing:
             raise FileExistsError(f"output already exists; refusing to overwrite: {existing[0]}")
 
-    json_bytes = (json.dumps(_json_payload(document), ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    json_bytes = (json.dumps(_json_payload(document), ensure_ascii=False, indent=2) + "\n").encode(
+        "utf-8"
+    )
     csv_bytes = _csv_bytes(document)
     digest = hashlib.sha256(json_bytes).hexdigest().upper()
     hash_bytes = f"{digest}  {json_path.name}\n".encode("ascii")

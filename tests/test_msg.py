@@ -19,10 +19,13 @@ from fallout1resource.msg import (
 class MsgParsingTests(unittest.TestCase):
     def test_parses_records_and_ignores_outside_text(self) -> None:
         entries = parse_msg("comment\n{100}{}{Hello}\nignored\n{101}{VOICE}{World}")
-        self.assertEqual([(entry.number, entry.audio, entry.text) for entry in entries], [
-            (100, "", "Hello"),
-            (101, "VOICE", "World"),
-        ])
+        self.assertEqual(
+            [(entry.number, entry.audio, entry.text) for entry in entries],
+            [
+                (100, "", "Hello"),
+                (101, "VOICE", "World"),
+            ],
+        )
         self.assertEqual(entries[0].source_line_start, 2)
         self.assertEqual(entries[1].source_line_end, 4)
 
@@ -66,7 +69,7 @@ class MsgEncodingTests(unittest.TestCase):
         self.assertEqual(decoded.detection_method, "ascii-only")
 
     def test_detects_utf8(self) -> None:
-        decoded = decode_msg("{1}{}{哈罗德}".encode("utf-8"))
+        decoded = decode_msg("{1}{}{哈罗德}".encode())
         self.assertEqual(decoded.encoding, "utf-8")
         self.assertEqual(decoded.confidence, "high")
 
@@ -119,7 +122,9 @@ class MsgExportTests(unittest.TestCase):
             paths = write_msg_export(document, workspace, "output/HAROLD.json")
             paths[0].write_text("old", encoding="utf-8")
             write_msg_export(document, workspace, "output/HAROLD.json", overwrite=True)
-            self.assertEqual(json.loads(paths[0].read_text(encoding="utf-8"))["entries"][0]["number"], 100)
+            self.assertEqual(
+                json.loads(paths[0].read_text(encoding="utf-8"))["entries"][0]["number"], 100
+            )
 
     def test_rejects_outputs_outside_workspace(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

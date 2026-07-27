@@ -10,14 +10,13 @@ import hashlib
 import json
 import struct
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 from . import __version__
 from .inventory import ensure_within_workspace
 from .safe_io import write_file_atomic
-
 
 ACM_FILE_ID = 0x032897
 ACM_FILE_VERSION = 1
@@ -176,7 +175,9 @@ class _Decoder:
         elif fmt == 19:
             while len(values) < count:
                 code = _PACK3_3[self.bits.take(5)]
-                values.extend((scale[(code & 3) - 1], scale[((code >> 2) & 3) - 1], scale[(code >> 4) - 1]))
+                values.extend(
+                    (scale[(code & 3) - 1], scale[((code >> 2) & 3) - 1], scale[(code >> 4) - 1])
+                )
         elif fmt == 20:
             while len(values) < count:
                 if self.bits.take(1) == 0:
@@ -196,7 +197,9 @@ class _Decoder:
         elif fmt == 22:
             while len(values) < count:
                 code = _PACK5_3[self.bits.take(7)]
-                values.extend((scale[(code & 7) - 2], scale[((code >> 3) & 7) - 2], scale[(code >> 6) - 2]))
+                values.extend(
+                    (scale[(code & 7) - 2], scale[((code >> 3) & 7) - 2], scale[(code >> 6) - 2])
+                )
         elif fmt == 23:
             while len(values) < count:
                 if self.bits.take(1) == 0:
@@ -257,9 +260,7 @@ class _Decoder:
                 self.band_formats.add(band_format)
                 self._read_band(subband, band_format, scale)
             except KeyError as exc:
-                raise AcmFormatError(
-                    f"ACM scale table is too small for subband {subband}"
-                ) from exc
+                raise AcmFormatError(f"ACM scale table is too small for subband {subband}") from exc
 
     def _untransform_subband0(self, base: int, step: int, count: int) -> None:
         for lane in range(step):
@@ -405,7 +406,9 @@ def encode_wav(audio: AcmAudio) -> bytes:
             b"RIFF",
             struct.pack("<I", 36 + data_size),
             b"WAVEfmt ",
-            struct.pack("<IHHIIHH", 16, 1, audio.channels, audio.sample_rate, byte_rate, block_align, 16),
+            struct.pack(
+                "<IHHIIHH", 16, 1, audio.channels, audio.sample_rate, byte_rate, block_align, 16
+            ),
             b"data",
             struct.pack("<I", data_size),
             pcm,
@@ -461,7 +464,7 @@ def write_acm_export(
     workspace_path = Path(workspace).resolve()
     payload = {
         "schema_version": 1,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Interplay ACM",
         "generator": {"name": "fallout1resource", "version": __version__},
         "source": {
@@ -479,7 +482,9 @@ def write_acm_export(
         },
     }
     json_bytes = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-    hash_bytes = f"{hashlib.sha256(json_bytes).hexdigest().upper()}  {json_path.name}\n".encode("ascii")
+    hash_bytes = f"{hashlib.sha256(json_bytes).hexdigest().upper()}  {json_path.name}\n".encode(
+        "ascii"
+    )
     write_file_atomic(wav_path, wav, overwrite=overwrite)
     write_file_atomic(json_path, json_bytes, overwrite=overwrite)
     write_file_atomic(hash_path, hash_bytes, overwrite=overwrite)

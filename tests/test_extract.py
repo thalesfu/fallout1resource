@@ -4,8 +4,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from fallout1resource.extract import ExtractionError, build_extraction_plan, execute_extraction
 from test_dat1 import build_dat1
+
+from fallout1resource.extract import ExtractionError, build_extraction_plan, execute_extraction
 
 
 class ExtractionTests(unittest.TestCase):
@@ -100,6 +101,63 @@ class ExtractionTests(unittest.TestCase):
             with self.assertRaises(ExtractionError):
                 execute_extraction(plan, workspace)
             self.assertFalse(plan[0].target_path.exists())
+
+    def test_rejects_case_colliding_entries_before_writing(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            game_dir = root / "Fallout"
+            game_dir.mkdir()
+            build_dat1(
+                game_dir / "MASTER.DAT",
+                names=["HAROLD.MSG", "harold.msg"],
+            )
+            build_dat1(game_dir / "CRITTER.DAT")
+            workspace = root / "workspace"
+            with self.assertRaises(ExtractionError):
+                build_extraction_plan(
+                    game_dir,
+                    workspace,
+                    extensions=[".msg"],
+                    archives=["MASTER.DAT"],
+                )
+            self.assertFalse(workspace.exists())
+
+    def test_partial_batch_can_be_safely_resumed_with_explicit_overwrite(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            game_dir = root / "Fallout"
+            game_dir.mkdir()
+            master = game_dir / "MASTER.DAT"
+            build_dat1(master, corrupt_second=True)
+            build_dat1(game_dir / "CRITTER.DAT")
+            workspace = root / "workspace"
+            plan = build_extraction_plan(
+                game_dir,
+                workspace,
+                extensions=[".msg", ".txt"],
+                archives=["MASTER.DAT"],
+            )
+            with self.assertRaises(ExtractionError):
+                execute_extraction(plan, workspace)
+            first = workspace / "raw" / "master" / "text" / "english" / "dialog" / "HAROLD.MSG"
+            second = workspace / "raw" / "master" / "text" / "english" / "dialog" / "README.TXT"
+            self.assertEqual(first.read_bytes(), b"hello")
+            self.assertFalse(second.exists())
+
+            build_dat1(master)
+            resumed = build_extraction_plan(
+                game_dir,
+                workspace,
+                extensions=[".msg", ".txt"],
+                archives=["MASTER.DAT"],
+            )
+            with self.assertRaises(ExtractionError):
+                execute_extraction(resumed, workspace)
+            self.assertFalse(second.exists())
+            results = execute_extraction(resumed, workspace, overwrite=True)
+            self.assertEqual(len(results), 2)
+            self.assertEqual(first.read_bytes(), b"hello")
+            self.assertEqual(second.read_bytes(), b"xyz")
 
     def test_rejects_parent_traversal_from_archive(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

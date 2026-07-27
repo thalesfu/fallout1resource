@@ -7,12 +7,12 @@ import hashlib
 import json
 import os
 from collections import defaultdict
-from datetime import datetime, timezone
+from collections.abc import Iterable
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 from .dat1 import COMPRESSION_NAMES, Dat1Archive, parse_dat1
-
 
 RESOURCE_TYPES = {
     ".ACM": "audio",
@@ -55,13 +55,19 @@ def ensure_within_workspace(workspace: Path | str, target: Path | str) -> Path:
 
 
 def _find_case_insensitive(directory: Path, name: str) -> Path:
-    matches = [item for item in directory.iterdir() if item.is_file() and item.name.casefold() == name.casefold()]
+    matches = [
+        item
+        for item in directory.iterdir()
+        if item.is_file() and item.name.casefold() == name.casefold()
+    ]
     if len(matches) != 1:
         raise FileNotFoundError(f"expected exactly one {name} in {directory}, found {len(matches)}")
     return matches[0]
 
 
-def _archive_entries(archive: Dat1Archive, source_hash: str | None) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+def _archive_entries(
+    archive: Dat1Archive, source_hash: str | None
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     source = {
         "kind": "dat1",
         "path": str(archive.path.resolve()),
@@ -92,7 +98,9 @@ def _archive_entries(archive: Dat1Archive, source_hash: str | None) -> tuple[dic
     return source, entries
 
 
-def _scan_loose_data(data_dir: Path, hash_files: bool) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+def _scan_loose_data(
+    data_dir: Path, hash_files: bool
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     entries: list[dict[str, Any]] = []
     for root, directories, files in os.walk(data_dir):
         directories[:] = sorted(name for name in directories if name.casefold() != "savegame")
@@ -134,7 +142,9 @@ def _duplicates(entries: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
     for entry in entries:
         key = entry["internal_path"].casefold()
         names.setdefault(key, entry["internal_path"])
-        groups[key].append({"source_kind": entry["source_kind"], "source_name": entry["source_name"]})
+        groups[key].append(
+            {"source_kind": entry["source_kind"], "source_name": entry["source_name"]}
+        )
     return [
         {"internal_path": names[key], "sources": sources}
         for key, sources in sorted(groups.items())
@@ -180,7 +190,7 @@ def build_inventory(
 
     return {
         "schema_version": 1,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "generated_at_utc": datetime.now(UTC).isoformat(),
         "game_directory": str(game_path),
         "mode": "inventory-only",
         "sources": sources,
@@ -196,7 +206,9 @@ def build_inventory(
     }
 
 
-def write_inventory(manifest: dict[str, Any], workspace: Path | str, output: Path | str) -> tuple[Path, Path, Path]:
+def write_inventory(
+    manifest: dict[str, Any], workspace: Path | str, output: Path | str
+) -> tuple[Path, Path, Path]:
     output_path = ensure_within_workspace(workspace, output)
     csv_path = output_path.with_suffix(".csv")
     hash_path = output_path.with_suffix(output_path.suffix + ".sha256")
@@ -206,7 +218,9 @@ def write_inventory(manifest: dict[str, Any], workspace: Path | str, output: Pat
     manifest["duplicates"] = duplicates
     manifest["summary"]["duplicate_path_count"] = len(duplicates)
 
-    output_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    output_path.write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     fieldnames = [
         "source_kind",
         "source_name",
@@ -232,4 +246,3 @@ def write_inventory(manifest: dict[str, Any], workspace: Path | str, output: Pat
     digest = sha256_file(output_path)
     hash_path.write_text(f"{digest}  {output_path.name}\n", encoding="ascii")
     return output_path, csv_path, hash_path
-
