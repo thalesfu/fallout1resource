@@ -25,3 +25,5 @@ FRM/PAL conversion uses `output/images/<name>/` for metadata, a palette preview,
 MAP/PRO/LST analysis uses `output/maps/<name>/` for complete JSON, a flattened object CSV, and checksums. Prototype and script lists remain ordered, and nested inventory paths are preserved in both outputs.
 
 ACM conversion uses `output/audio/<name>/` for 16-bit PCM WAV, source/stream metadata, and checksums. Any silence added solely to complete a final multichannel WAV frame is recorded in JSON.
+
+MVE conversion uses `output/video/<name>/` for native container metadata, a segment CSV, first-frame PNG, decoded PCM WAV, preview MP4, and checksums. The MP4 is a convenience transcode; source MVE files remain under `raw/`.

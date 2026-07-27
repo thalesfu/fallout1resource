@@ -30,6 +30,7 @@ from .int_script import (
     write_int_export,
 )
 from .msg import MsgFormatError, load_msg, msg_output_paths, msg_summary, write_msg_export
+from .mve import MveFormatError, load_mve, mve_output_paths, mve_summary, write_mve_export
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -97,6 +98,14 @@ def _parser() -> argparse.ArgumentParser:
     convert_acm.add_argument("--output", type=Path, help="metadata JSON path below workspace")
     convert_acm.add_argument("--execute", action="store_true", help="write WAV, metadata JSON, and checksum")
     convert_acm.add_argument("--overwrite", action="store_true", help="atomically replace existing outputs")
+
+    convert_mve = subparsers.add_parser("convert-mve", help="inspect an Interplay MVE and create preview artifacts")
+    convert_mve.add_argument("--input", type=Path, required=True, help="read-only source MVE file")
+    convert_mve.add_argument("--ffmpeg", type=Path, help="audited FFmpeg executable; required with --execute")
+    convert_mve.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    convert_mve.add_argument("--output", type=Path, help="metadata JSON path below workspace")
+    convert_mve.add_argument("--execute", action="store_true", help="write MP4, PNG, WAV, JSON, CSV, and checksum")
+    convert_mve.add_argument("--overwrite", action="store_true", help="atomically replace existing outputs")
     return parser
 
 
@@ -287,6 +296,38 @@ def main(argv: list[str] | None = None) -> int:
                 write_acm_export(audio, args.workspace, output, overwrite=args.overwrite)
             print(json.dumps(result, ensure_ascii=False))
             return 0
+        if args.command == "convert-mve":
+            if args.overwrite and not args.execute:
+                raise MveFormatError("--overwrite requires --execute")
+            if args.execute and args.ffmpeg is None:
+                raise MveFormatError("--ffmpeg is required with --execute")
+            document = load_mve(args.input)
+            output = args.output or Path("output/video") / args.input.stem / f"{args.input.stem}.json"
+            json_path, csv_path, poster_path, audio_path, preview_path, hash_path = mve_output_paths(
+                args.workspace, output, document
+            )
+            result = {
+                "mode": "convert-mve" if args.execute else "dry-run",
+                "source": str(document.source_path),
+                **mve_summary(document),
+                "ffmpeg": str(args.ffmpeg.resolve()) if args.ffmpeg else None,
+                "metadata": str(json_path),
+                "segments_csv": str(csv_path),
+                "poster_png": str(poster_path),
+                "audio_wav": str(audio_path) if audio_path else None,
+                "preview_mp4": str(preview_path),
+                "sha256": str(hash_path),
+            }
+            if args.execute:
+                write_mve_export(
+                    document,
+                    args.workspace,
+                    output,
+                    args.ffmpeg,
+                    overwrite=args.overwrite,
+                )
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
     except (
         AcmFormatError,
         Dat1FormatError,
@@ -295,6 +336,7 @@ def main(argv: list[str] | None = None) -> int:
         IntFormatError,
         MapFormatError,
         MsgFormatError,
+        MveFormatError,
         FileNotFoundError,
         OSError,
         ValueError,

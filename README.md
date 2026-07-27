@@ -1,6 +1,6 @@
 # Fallout 1 Resource
 
-《辐射 1》资源研究工具。当前可盘点 Fallout 1 DAT1 档案与 `DATA/` 松散文件、安全提取选定资源，转换 `.MSG`、反汇编 `.INT`、使用 `.PAL` 将 `.FRM` 导出为 PNG，并把 Interplay `.ACM` 解码为 PCM WAV；不会修改或写回游戏安装目录。
+《辐射 1》资源研究工具。当前可盘点 Fallout 1 DAT1 档案与 `DATA/` 松散文件、安全提取选定资源，转换 `.MSG`、反汇编 `.INT`、使用 `.PAL` 将 `.FRM` 导出为 PNG、把 Interplay `.ACM` 解码为 PCM WAV，并检查 `.MVE` 后生成可预览影片；不会修改或写回游戏安装目录。
 
 ## 安全边界
 
@@ -105,6 +105,28 @@ python -m fallout1resource convert-acm `
 ```
 
 省略 `--execute` 时只显示计划。默认输出到 `workspace/output/audio/<名称>/`，包括 WAV、记录源文件 SHA-256、采样率、声道、样本数和时长的 JSON，以及 JSON 校验文件。少数双声道 ACM 以不完整声道帧结束；解码样本全部保留，WAV 只补足所需的末尾静音样本，并在元数据中记录数量。
+
+## MVE 动画检查与预览
+
+`convert-mve` 先由工程内解析器校验 MVE 头、分块、操作段、计时、视频和音轨参数。dry-run 不需要外部工具：
+
+```powershell
+python -m fallout1resource convert-mve `
+  --input "$PWD\workspace\raw\master\ART\CUTS\BOIL3.MVE" `
+  --workspace "$PWD\workspace"
+```
+
+实际转换需要显式指定审计过的 FFmpeg。工程不搜索 `PATH`，也不经 shell 拼接命令：
+
+```powershell
+python -m fallout1resource convert-mve `
+  --input "$PWD\workspace\raw\master\ART\CUTS\BOIL3.MVE" `
+  --ffmpeg "C:\Tools\ffmpeg\bin\ffmpeg.exe" `
+  --workspace "$PWD\workspace" `
+  --execute
+```
+
+输出位于 `workspace/output/video/<名称>/`：结构 JSON、全部段 CSV、首帧 PNG、PCM WAV 和 MPEG-4/AAC 预览 MP4。MP4 仅供查看并会重新编码；PNG 和 WAV 是独立的解码抽查产物。JSON 记录 FFmpeg/ffprobe 及同目录运行库的哈希，并保存转换前后的探测结果。当前验证构建见 `config/ffmpeg-mve.json`。
 
 ## 测试
 
