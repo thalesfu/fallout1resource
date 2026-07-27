@@ -1,6 +1,6 @@
 # Fallout 1 Resource
 
-《辐射 1》资源研究工具。当前可盘点 Fallout 1 DAT1 档案与 `DATA/` 松散文件、安全提取选定资源，并将 `.MSG` 转换为可追溯的 UTF-8 JSON/CSV；不会修改或写回游戏安装目录。
+《辐射 1》资源研究工具。当前可盘点 Fallout 1 DAT1 档案与 `DATA/` 松散文件、安全提取选定资源，转换 `.MSG`、反汇编 `.INT`，并使用 `.PAL` 将 `.FRM` 导出为可追溯的 PNG；不会修改或写回游戏安装目录。
 
 ## 安全边界
 
@@ -63,6 +63,20 @@ python -m fallout1resource disassemble-int `
 ```
 
 默认仍为 dry-run。执行后生成结构化 JSON、`.disasm.txt`、`.messages.csv` 和 JSON 校验文件。反汇编结果是分析产物，不是可重新编译的 SSL 源码；未知但位于 Fallout 1 操作码范围内的指令会保留数值并报告，不会被猜测成其他指令。
+
+## FRM/PAL 图像转换
+
+`convert-frm` 严格验证 FRM 文件头、6 个逻辑方向、共享数据偏移和每帧像素大小，再用指定 PAL 的前 256 个颜色项生成索引 PNG：
+
+```powershell
+python -m fallout1resource convert-frm `
+  --input "$PWD\workspace\raw\master\ART\HEADS\HARLDNG.FRM" `
+  --palette "$PWD\workspace\raw\master\COLOR.PAL" `
+  --workspace "$PWD\workspace" `
+  --execute
+```
+
+默认只显示计划。执行后生成元数据 JSON、调色板预览、每个唯一方向序列的 PNG 帧和 JSON 校验文件。方向共享同一数据偏移时不会复制画面，但 6 个方向各自的全局偏移和序列映射仍写入 JSON。帧 PNG 将调色板索引 0 标为透明；原始 6 位颜色、无效颜色语义及 PAL 后续查找表长度均保留在元数据中。
 
 ## 测试
 

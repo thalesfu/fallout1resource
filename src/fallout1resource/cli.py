@@ -10,6 +10,14 @@ from pathlib import Path
 from . import __version__
 from .dat1 import Dat1FormatError
 from .extract import ExtractionError, build_extraction_plan, execute_extraction, write_extraction_manifest
+from .frm import (
+    FrmFormatError,
+    frm_output_paths,
+    frm_summary,
+    load_frm,
+    load_palette,
+    write_frm_export,
+)
 from .inventory import build_inventory, write_inventory
 from .int_script import (
     IntFormatError,
@@ -63,6 +71,14 @@ def _parser() -> argparse.ArgumentParser:
     disassemble_int.add_argument("--output", type=Path, help="JSON path below workspace")
     disassemble_int.add_argument("--execute", action="store_true", help="write JSON, disassembly, links CSV, and checksum")
     disassemble_int.add_argument("--overwrite", action="store_true", help="atomically replace existing outputs")
+
+    convert_frm = subparsers.add_parser("convert-frm", help="parse a Fallout FRM and export indexed PNG frames")
+    convert_frm.add_argument("--input", type=Path, required=True, help="read-only source FRM file")
+    convert_frm.add_argument("--palette", type=Path, required=True, help="read-only Fallout PAL color table")
+    convert_frm.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    convert_frm.add_argument("--output", type=Path, help="metadata JSON path below workspace")
+    convert_frm.add_argument("--execute", action="store_true", help="write metadata, palette preview, PNG frames, and checksum")
+    convert_frm.add_argument("--overwrite", action="store_true", help="atomically replace existing outputs")
     return parser
 
 
@@ -192,7 +208,37 @@ def main(argv: list[str] | None = None) -> int:
                 )
             print(json.dumps(result, ensure_ascii=False))
             return 0
-    except (Dat1FormatError, ExtractionError, IntFormatError, MsgFormatError, FileNotFoundError, OSError, ValueError) as exc:
+        if args.command == "convert-frm":
+            if args.overwrite and not args.execute:
+                raise FrmFormatError("--overwrite requires --execute")
+            document = load_frm(args.input)
+            palette = load_palette(args.palette)
+            output = args.output or Path("output/images") / args.input.stem / f"{args.input.stem}.json"
+            json_path, palette_path, frame_paths, hash_path = frm_output_paths(args.workspace, output, document)
+            result = {
+                "mode": "convert-frm" if args.execute else "dry-run",
+                "source": str(document.source_path),
+                "palette_source": str(palette.source_path),
+                **frm_summary(document),
+                "metadata": str(json_path),
+                "palette_preview": str(palette_path),
+                "frame_pngs": len(frame_paths),
+                "sha256": str(hash_path),
+            }
+            if args.execute:
+                write_frm_export(document, palette, args.workspace, output, overwrite=args.overwrite)
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
+    except (
+        Dat1FormatError,
+        ExtractionError,
+        FrmFormatError,
+        IntFormatError,
+        MsgFormatError,
+        FileNotFoundError,
+        OSError,
+        ValueError,
+    ) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
     return 1
