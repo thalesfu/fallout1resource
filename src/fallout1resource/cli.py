@@ -19,6 +19,7 @@ from .frm import (
     write_frm_export,
 )
 from .inventory import build_inventory, write_inventory
+from .map_file import MapFormatError, load_map, map_output_paths, map_summary, write_map_export
 from .int_script import (
     IntFormatError,
     int_output_paths,
@@ -79,6 +80,15 @@ def _parser() -> argparse.ArgumentParser:
     convert_frm.add_argument("--output", type=Path, help="metadata JSON path below workspace")
     convert_frm.add_argument("--execute", action="store_true", help="write metadata, palette preview, PNG frames, and checksum")
     convert_frm.add_argument("--overwrite", action="store_true", help="atomically replace existing outputs")
+
+    convert_map = subparsers.add_parser("convert-map", help="parse MAP objects and link their LST/PRO records")
+    convert_map.add_argument("--input", type=Path, required=True, help="read-only source MAP file")
+    convert_map.add_argument("--prototype-root", type=Path, required=True, help="read-only PROTO directory containing six LST files")
+    convert_map.add_argument("--scripts-lst", type=Path, help="optional SCRIPTS.LST for script filename links")
+    convert_map.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    convert_map.add_argument("--output", type=Path, help="metadata JSON path below workspace")
+    convert_map.add_argument("--execute", action="store_true", help="write JSON, object CSV, and checksum")
+    convert_map.add_argument("--overwrite", action="store_true", help="atomically replace existing outputs")
     return parser
 
 
@@ -229,11 +239,34 @@ def main(argv: list[str] | None = None) -> int:
                 write_frm_export(document, palette, args.workspace, output, overwrite=args.overwrite)
             print(json.dumps(result, ensure_ascii=False))
             return 0
+        if args.command == "convert-map":
+            if args.overwrite and not args.execute:
+                raise MapFormatError("--overwrite requires --execute")
+            document = load_map(
+                args.input,
+                args.prototype_root,
+                scripts_list_path=args.scripts_lst,
+            )
+            output = args.output or Path("output/maps") / args.input.stem / f"{args.input.stem}.json"
+            json_path, csv_path, hash_path = map_output_paths(args.workspace, output)
+            result = {
+                "mode": "convert-map" if args.execute else "dry-run",
+                "source": str(document.source_path),
+                **map_summary(document),
+                "metadata": str(json_path),
+                "objects_csv": str(csv_path),
+                "sha256": str(hash_path),
+            }
+            if args.execute:
+                write_map_export(document, args.workspace, output, overwrite=args.overwrite)
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
     except (
         Dat1FormatError,
         ExtractionError,
         FrmFormatError,
         IntFormatError,
+        MapFormatError,
         MsgFormatError,
         FileNotFoundError,
         OSError,

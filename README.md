@@ -78,6 +78,21 @@ python -m fallout1resource convert-frm `
 
 默认只显示计划。执行后生成元数据 JSON、调色板预览、每个唯一方向序列的 PNG 帧和 JSON 校验文件。方向共享同一数据偏移时不会复制画面，但 6 个方向各自的全局偏移和序列映射仍写入 JSON。帧 PNG 将调色板索引 0 标为透明；原始 6 位颜色、无效颜色语义及 PAL 后续查找表长度均保留在元数据中。
 
+## MAP/PRO/LST 结构化转换
+
+`convert-map` 解析版本 19 MAP 的变量、100×100 地砖层、五类脚本和递归对象树，并通过 PID 的类型字节及低 24 位一基行号连接六类原型 LST 和 PRO：
+
+```powershell
+python -m fallout1resource convert-map `
+  --input "$PWD\workspace\raw\master\MAPS\HUBOLDTN.MAP" `
+  --prototype-root "$PWD\workspace\raw\master\PROTO" `
+  --scripts-lst "$PWD\workspace\raw\master\SCRIPTS\SCRIPTS.LST" `
+  --workspace "$PWD\workspace" `
+  --execute
+```
+
+默认只显示摘要。执行后生成完整 JSON、扁平对象 CSV 和 JSON 校验文件。JSON 保留 LST 的物理顺序与原始行、全部地砖值、脚本索引、对象及背包层级，并包含本地图实际引用的 PRO 全字段。物品和场景对象的可变附加数据长度必须与其 PRO 子类型吻合，否则转换停止。
+
 ## 测试
 
 ```powershell
