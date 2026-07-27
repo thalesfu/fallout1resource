@@ -49,6 +49,21 @@ python -m fallout1resource convert-msg `
 
 解析器支持 ASCII、UTF BOM、严格 UTF-8，并对 GBK、Big5、GB18030 候选做可审计检测；不确定时可用 `--encoding gbk` 明确指定。重复消息编号不会丢弃：全部出现项都写入导出文件，并以 `effective` 标记游戏实际采用的最后一项。已有输出默认拒绝覆盖，显式 `--overwrite` 才会原子替换。
 
+## INT 反汇编与消息关联
+
+`disassemble-int` 只解析字节码，不执行脚本。可同时提供同名 MSG，让工具推断消息列表编号并关联最终生效文本：
+
+```powershell
+python -m fallout1resource disassemble-int `
+  --input "$PWD\workspace\raw\master\SCRIPTS\HAROLD.INT" `
+  --msg "C:\Program Files (x86)\Steam\steamapps\common\Fallout\DATA\TEXT\ENGLISH\DIALOG\HAROLD.MSG" `
+  --workspace "$PWD\workspace" `
+  --output "output/scripts/master/SCRIPTS/HAROLD.json" `
+  --execute
+```
+
+默认仍为 dry-run。执行后生成结构化 JSON、`.disasm.txt`、`.messages.csv` 和 JSON 校验文件。反汇编结果是分析产物，不是可重新编译的 SSL 源码；未知但位于 Fallout 1 操作码范围内的指令会保留数值并报告，不会被猜测成其他指令。
+
 ## 测试
 
 ```powershell

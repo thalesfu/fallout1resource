@@ -17,3 +17,5 @@ workspace/
 Do not point any command at the Fallout installation directory as an output destination.
 
 Converted MSG files use `output/text/<source>/...`; keep archive and loose-file sources in separate subdirectories so overrides remain auditable.
+
+INT analysis uses `output/scripts/<source>/...` for JSON, disassembly text, and MSG-reference CSV files. These are derived research artifacts and remain ignored by Git.

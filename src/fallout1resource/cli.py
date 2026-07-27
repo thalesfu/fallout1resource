@@ -11,6 +11,14 @@ from . import __version__
 from .dat1 import Dat1FormatError
 from .extract import ExtractionError, build_extraction_plan, execute_extraction, write_extraction_manifest
 from .inventory import build_inventory, write_inventory
+from .int_script import (
+    IntFormatError,
+    int_output_paths,
+    int_summary,
+    link_messages,
+    load_int,
+    write_int_export,
+)
 from .msg import MsgFormatError, load_msg, msg_output_paths, msg_summary, write_msg_export
 
 
@@ -46,6 +54,15 @@ def _parser() -> argparse.ArgumentParser:
     convert_msg.add_argument("--encoding", help="explicit source encoding, such as gbk or utf-8")
     convert_msg.add_argument("--execute", action="store_true", help="write UTF-8 JSON, CSV, and checksum")
     convert_msg.add_argument("--overwrite", action="store_true", help="atomically replace existing outputs")
+
+    disassemble_int = subparsers.add_parser("disassemble-int", help="parse and disassemble a Fallout INT file")
+    disassemble_int.add_argument("--input", type=Path, required=True, help="read-only source INT file")
+    disassemble_int.add_argument("--msg", type=Path, help="optional matching MSG source for text links")
+    disassemble_int.add_argument("--msg-encoding", help="explicit encoding for --msg")
+    disassemble_int.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    disassemble_int.add_argument("--output", type=Path, help="JSON path below workspace")
+    disassemble_int.add_argument("--execute", action="store_true", help="write JSON, disassembly, links CSV, and checksum")
+    disassemble_int.add_argument("--overwrite", action="store_true", help="atomically replace existing outputs")
     return parser
 
 
@@ -145,7 +162,37 @@ def main(argv: list[str] | None = None) -> int:
                 write_msg_export(document, args.workspace, output, overwrite=args.overwrite)
             print(json.dumps(result, ensure_ascii=False))
             return 0
-    except (Dat1FormatError, ExtractionError, MsgFormatError, FileNotFoundError, OSError, ValueError) as exc:
+        if args.command == "disassemble-int":
+            if args.overwrite and not args.execute:
+                raise IntFormatError("--overwrite requires --execute")
+            program = load_int(args.input)
+            msg_document = load_msg(args.msg, encoding=args.msg_encoding) if args.msg else None
+            references, inferred_list = link_messages(program, msg_document)
+            output = args.output or Path("output/scripts") / f"{args.input.stem}.json"
+            json_path, disasm_path, messages_path, hash_path = int_output_paths(args.workspace, output)
+            result = {
+                "mode": "disassemble-int" if args.execute else "dry-run",
+                "source": str(program.source_path),
+                **int_summary(program, references),
+                "inferred_message_list_id": inferred_list,
+                "json": str(json_path),
+                "disassembly": str(disasm_path),
+                "message_links": str(messages_path),
+                "sha256": str(hash_path),
+            }
+            if args.execute:
+                write_int_export(
+                    program,
+                    references,
+                    inferred_list,
+                    msg_document,
+                    args.workspace,
+                    output,
+                    overwrite=args.overwrite,
+                )
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
+    except (Dat1FormatError, ExtractionError, IntFormatError, MsgFormatError, FileNotFoundError, OSError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
     return 1
