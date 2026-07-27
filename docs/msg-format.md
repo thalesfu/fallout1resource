@@ -16,4 +16,6 @@ MSG 文件由连续三字段记录组成：`{number}{audio}{text}`。解析器�
 
 `convert-msg` 默认 dry-run。`--execute` 只允许写入指定 `workspace/`，输出 JSON、CSV 和 `json.sha256`；JSON 使用 UTF-8，CSV 使用带 BOM 的 UTF-8 以方便表格软件打开。写入前先解析完整文件并检查全部目标，现有文件默认拒绝覆盖；`--overwrite` 使用原子替换。
 
+JSON 的 `derived.csv` 同时记录 CSV 的工作区相对路径、大小和 SHA-256，因此批处理可以验证三个输出是否仍与来源及当前工具版本一致。`convert-msg-batch` 扫描 `workspace/raw/<来源>/`，保持来源隔离并将逐文件结果写入 `manifests/batch-msg-*.json`；单个文件失败不会中断其余文件。
+
 真实 `HAROLD.MSG` 验证结果：DAT 英文文件为 ASCII，192 条且无重复编号；`DATA/` 中文覆盖文件识别为 GBK，共 377 次出现、194 个唯一编号，最终生效 194 条。中文文件的大量重复编号被完整保留。

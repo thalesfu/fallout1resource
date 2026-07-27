@@ -309,9 +309,14 @@ def msg_summary(document: MsgDocument) -> dict[str, Any]:
     }
 
 
-def _json_payload(document: MsgDocument) -> dict[str, Any]:
+def _json_payload(
+    document: MsgDocument,
+    *,
+    csv_path: str | None = None,
+    csv_bytes: bytes | None = None,
+) -> dict[str, Any]:
     summary = msg_summary(document)
-    return {
+    payload = {
         "schema_version": 1,
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Fallout MSG",
@@ -336,6 +341,15 @@ def _json_payload(document: MsgDocument) -> dict[str, Any]:
         },
         "entries": [asdict(entry) for entry in document.entries],
     }
+    if csv_path is not None and csv_bytes is not None:
+        payload["derived"] = {
+            "csv": {
+                "path": csv_path,
+                "size": len(csv_bytes),
+                "sha256": hashlib.sha256(csv_bytes).hexdigest().upper(),
+            }
+        }
+    return payload
 
 
 def _csv_bytes(document: MsgDocument) -> bytes:
@@ -385,10 +399,16 @@ def write_msg_export(
         if existing:
             raise FileExistsError(f"output already exists; refusing to overwrite: {existing[0]}")
 
-    json_bytes = (json.dumps(_json_payload(document), ensure_ascii=False, indent=2) + "\n").encode(
-        "utf-8"
-    )
     csv_bytes = _csv_bytes(document)
+    csv_relative = csv_path.relative_to(Path(workspace).resolve()).as_posix()
+    json_bytes = (
+        json.dumps(
+            _json_payload(document, csv_path=csv_relative, csv_bytes=csv_bytes),
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n"
+    ).encode("utf-8")
     digest = hashlib.sha256(json_bytes).hexdigest().upper()
     hash_bytes = f"{digest}  {json_path.name}\n".encode("ascii")
     for target, data in zip(targets, (json_bytes, csv_bytes, hash_bytes), strict=True):

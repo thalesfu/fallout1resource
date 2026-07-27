@@ -49,6 +49,17 @@ python -m fallout1resource convert-msg `
 
 解析器支持 ASCII、UTF BOM、严格 UTF-8，并对 GBK、Big5、GB18030 候选做可审计检测；不确定时可用 `--encoding gbk` 明确指定。重复消息编号不会丢弃：全部出现项都写入导出文件，并以 `effective` 标记游戏实际采用的最后一项。已有输出默认拒绝覆盖，显式 `--overwrite` 才会原子替换。
 
+已提取的 MSG 可用可恢复批处理统一转换。省略 `--execute` 时只统计文件；执行后逐文件记录成功、校验后跳过和失败状态，并将批次清单写入 `workspace/manifests/`：
+
+```powershell
+python -m fallout1resource convert-msg-batch `
+  --workspace "$PWD\workspace" `
+  --source master `
+  --execute
+```
+
+再次运行时，只有来源哈希、工具版本、JSON 校验和及 CSV 哈希全部吻合的输出才会跳过。过期或不完整输出需显式加入 `--overwrite` 后恢复。
+
 ## INT 反汇编与消息关联
 
 `disassemble-int` 只解析字节码，不执行脚本。可同时提供同名 MSG，让工具推断消息列表编号并关联最终生效文本：
@@ -150,3 +161,7 @@ python -m venv .venv
 统一检查会依次验证 Ruff 格式、静态规则和全部 `unittest`。需要自动整理导入和格式时运行 `.\scripts\check.ps1 -Fix`，随后再次运行无参数检查。Ruff 固定为 0.15.22，避免不同机器产生不一致结果。
 
 项目不会附带或分发受版权保护的游戏资源。用户必须自行拥有合法的《辐射 1》副本。
+
+## 许可证
+
+工程代码采用 MIT License。第三方算法说明与外部工具许可分别记录在 `docs/third-party-notices.md`；游戏资源不属于本许可证，也不会随仓库分发。

@@ -35,6 +35,12 @@ from .int_script import (
 from .inventory import build_inventory, write_inventory
 from .map_file import MapFormatError, load_map, map_output_paths, map_summary, write_map_export
 from .msg import MsgFormatError, load_msg, msg_output_paths, msg_summary, write_msg_export
+from .msg_batch import (
+    MsgBatchError,
+    build_msg_batch_plan,
+    execute_msg_batch,
+    msg_batch_plan_summary,
+)
 from .mve import MveFormatError, load_mve, mve_output_paths, mve_summary, write_mve_export
 from .resource_index import ResourceIndexError, build_resource_index, write_resource_index
 
@@ -102,6 +108,23 @@ def _parser() -> argparse.ArgumentParser:
     )
     convert_msg.add_argument(
         "--overwrite", action="store_true", help="atomically replace existing outputs"
+    )
+
+    convert_msg_batch = subparsers.add_parser(
+        "convert-msg-batch", help="convert extracted MSG files as a recoverable batch"
+    )
+    convert_msg_batch.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    convert_msg_batch.add_argument(
+        "--source",
+        action="append",
+        default=[],
+        help="raw source directory such as master; repeatable",
+    )
+    convert_msg_batch.add_argument(
+        "--execute", action="store_true", help="convert files and write a batch manifest"
+    )
+    convert_msg_batch.add_argument(
+        "--overwrite", action="store_true", help="replace stale or older MSG outputs"
     )
 
     disassemble_int = subparsers.add_parser(
@@ -319,6 +342,42 @@ def main(argv: list[str] | None = None) -> int:
                 write_msg_export(document, args.workspace, output, overwrite=args.overwrite)
             print(json.dumps(result, ensure_ascii=False))
             return 0
+        if args.command == "convert-msg-batch":
+            if args.overwrite and not args.execute:
+                raise MsgBatchError("--overwrite requires --execute")
+            plan = build_msg_batch_plan(args.workspace, sources=args.source)
+            summary = msg_batch_plan_summary(plan)
+            if not args.execute:
+                print(
+                    json.dumps(
+                        {
+                            "mode": "dry-run",
+                            "selected": summary["selected"],
+                            "source_bytes": summary["source_bytes"],
+                            "source_counts": summary["source_counts"],
+                        },
+                        ensure_ascii=False,
+                    )
+                )
+                return 0
+            result = execute_msg_batch(plan, args.workspace, overwrite=args.overwrite)
+            print(
+                json.dumps(
+                    {
+                        "mode": "convert-msg-batch",
+                        "selected": result.selected,
+                        "converted": result.converted,
+                        "skipped_verified": result.skipped_verified,
+                        "failed": result.failed,
+                        "source_bytes": result.source_bytes,
+                        "output_bytes": result.output_bytes,
+                        "duration_seconds": round(result.duration_seconds, 6),
+                        "manifest": str(result.manifest_path),
+                    },
+                    ensure_ascii=False,
+                )
+            )
+            return 2 if result.failed else 0
         if args.command == "disassemble-int":
             if args.overwrite and not args.execute:
                 raise IntFormatError("--overwrite requires --execute")
@@ -505,6 +564,7 @@ def main(argv: list[str] | None = None) -> int:
         FrmFormatError,
         IntFormatError,
         MapFormatError,
+        MsgBatchError,
         MsgFormatError,
         MveFormatError,
         ResourceIndexError,
