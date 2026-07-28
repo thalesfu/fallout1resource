@@ -20,6 +20,7 @@ from .safe_io import write_file_atomic
 
 ACM_FILE_ID = 0x032897
 ACM_FILE_VERSION = 1
+ACM_CONVERTER_VERSION = 3
 ACM_HEADER_SIZE = 14
 MAX_BLOCK_SAMPLES = 4_194_304
 MAX_FILE_SAMPLES = 100_000_000
@@ -42,6 +43,7 @@ class AcmAudio:
     subbands: int
     samples_per_subband: int
     decoded_blocks: int
+    bitstream_zero_pad_bytes: int
     band_formats: tuple[int, ...]
     pcm_s16le: bytes
 
@@ -52,13 +54,27 @@ class _BitReader:
         self._offset = offset
         self._bits = 0
         self._bit_count = 0
+        self._zero_pad_limit = 0
+        self.zero_pad_bytes = 0
+
+    def allow_bounded_zero_padding(self, byte_limit: int) -> None:
+        """Match adecode's EOF fill, but only within a caller-defined bound."""
+        self._zero_pad_limit = byte_limit
+
+    def disallow_zero_padding(self) -> None:
+        self._zero_pad_limit = self.zero_pad_bytes
 
     def take(self, count: int) -> int:
         while self._bit_count < count:
             if self._offset >= len(self._data):
-                raise AcmFormatError("ACM compressed bitstream is truncated")
-            self._bits |= self._data[self._offset] << self._bit_count
-            self._offset += 1
+                if self.zero_pad_bytes >= self._zero_pad_limit:
+                    raise AcmFormatError("ACM compressed bitstream is truncated")
+                byte = 0
+                self.zero_pad_bytes += 1
+            else:
+                byte = self._data[self._offset]
+                self._offset += 1
+            self._bits |= byte << self._bit_count
             self._bit_count += 8
         value = self._bits & ((1 << count) - 1)
         self._bits >>= count
@@ -351,6 +367,11 @@ class _Decoder:
         output = bytearray()
         remaining = self.file_samples
         while remaining:
+            if remaining <= self.total_samples:
+                # adecode supplies zero bytes after physical EOF. Fallout 1's
+                # shipped ACM corpus needs at most one such byte, so restrict
+                # compatibility to that audited final-block allowance.
+                self.bits.allow_bounded_zero_padding(1)
             self._read_bands()
             self._untransform_all()
             self.decoded_blocks += 1
@@ -358,6 +379,7 @@ class _Decoder:
             for value in self.samples[:take]:
                 output.extend(((value >> self.levels) & 0xFFFF).to_bytes(2, "little"))
             remaining -= take
+        self.bits.disallow_zero_padding()
         return bytes(output)
 
 
@@ -377,6 +399,7 @@ def parse_acm(data: bytes, source_path: Path | str = Path("<memory>.ACM")) -> Ac
         subbands=decoder.subbands,
         samples_per_subband=decoder.samples_per_subband,
         decoded_blocks=decoder.decoded_blocks,
+        bitstream_zero_pad_bytes=decoder.bits.zero_pad_bytes,
         band_formats=tuple(sorted(decoder.band_formats)),
         pcm_s16le=pcm,
     )
@@ -430,6 +453,7 @@ def acm_summary(audio: AcmAudio) -> dict[str, Any]:
         "subbands": audio.subbands,
         "samples_per_subband": audio.samples_per_subband,
         "decoded_blocks": audio.decoded_blocks,
+        "bitstream_zero_pad_bytes": audio.bitstream_zero_pad_bytes,
         "band_formats": list(audio.band_formats),
         "pcm_encoding": "signed 16-bit little-endian",
     }
@@ -466,7 +490,12 @@ def write_acm_export(
         "schema_version": 1,
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Interplay ACM",
-        "generator": {"name": "fallout1resource", "version": __version__},
+        "generator": {
+            "name": "fallout1resource",
+            "version": __version__,
+            "component": "acm",
+            "component_version": ACM_CONVERTER_VERSION,
+        },
         "source": {
             "path": str(audio.source_path),
             "size": audio.source_size,

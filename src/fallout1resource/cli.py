@@ -9,6 +9,12 @@ from pathlib import Path
 
 from . import __version__
 from .acm import AcmFormatError, acm_output_paths, acm_summary, load_acm, write_acm_export
+from .acm_batch import (
+    AcmBatchError,
+    acm_batch_plan_summary,
+    build_acm_batch_plan,
+    execute_acm_batch,
+)
 from .dat1 import Dat1FormatError
 from .extract import (
     ExtractionError,
@@ -287,6 +293,24 @@ def _parser() -> argparse.ArgumentParser:
     )
     convert_acm.add_argument(
         "--overwrite", action="store_true", help="atomically replace existing outputs"
+    )
+
+    convert_acm_batch = subparsers.add_parser(
+        "convert-acm-batch",
+        help="decode extracted or loose ACM files as a recoverable batch",
+    )
+    convert_acm_batch.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    convert_acm_batch.add_argument(
+        "--game-dir", type=Path, help="read-only Fallout directory; exposes loose DATA"
+    )
+    convert_acm_batch.add_argument(
+        "--source", action="append", default=[], help="source such as master or data; repeatable"
+    )
+    convert_acm_batch.add_argument(
+        "--execute", action="store_true", help="decode files and write a batch manifest"
+    )
+    convert_acm_batch.add_argument(
+        "--overwrite", action="store_true", help="replace stale or older ACM outputs"
     )
 
     convert_mve = subparsers.add_parser(
@@ -711,6 +735,43 @@ def main(argv: list[str] | None = None) -> int:
                 write_acm_export(audio, args.workspace, output, overwrite=args.overwrite)
             print(json.dumps(result, ensure_ascii=False))
             return 0
+        if args.command == "convert-acm-batch":
+            if args.overwrite and not args.execute:
+                raise AcmBatchError("--overwrite requires --execute")
+            plan = build_acm_batch_plan(
+                args.workspace,
+                sources=args.source,
+                game_dir=args.game_dir,
+            )
+            summary = acm_batch_plan_summary(plan)
+            if not args.execute:
+                print(json.dumps({"mode": "dry-run", **summary}, ensure_ascii=False))
+                return 0
+            result = execute_acm_batch(
+                plan,
+                args.workspace,
+                overwrite=args.overwrite,
+            )
+            print(
+                json.dumps(
+                    {
+                        "mode": "convert-acm-batch",
+                        "selected": result.selected,
+                        "converted": result.converted,
+                        "skipped_verified": result.skipped_verified,
+                        "failed": result.failed,
+                        "source_bytes": result.source_bytes,
+                        "output_bytes": result.output_bytes,
+                        "samples": result.samples,
+                        "audio_duration_seconds": result.audio_duration_seconds,
+                        "partial_frame_files": result.partial_frame_files,
+                        "duration_seconds": round(result.duration_seconds, 6),
+                        "manifest": str(result.manifest_path),
+                    },
+                    ensure_ascii=False,
+                )
+            )
+            return 2 if result.failed else 0
         if args.command == "convert-mve":
             if args.overwrite and not args.execute:
                 raise MveFormatError("--overwrite requires --execute")
@@ -788,6 +849,7 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(result, ensure_ascii=False))
             return 0
     except (
+        AcmBatchError,
         AcmFormatError,
         Dat1FormatError,
         ExtractionError,

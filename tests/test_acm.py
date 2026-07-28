@@ -93,9 +93,18 @@ class AcmParsingTests(unittest.TestCase):
         with self.assertRaisesRegex(AcmFormatError, "unsupported ACM version"):
             parse_acm(bytes(bad_version))
 
-    def test_rejects_truncated_bitstream(self) -> None:
+    def test_rejects_truncation_before_final_logical_block(self) -> None:
         with self.assertRaisesRegex(AcmFormatError, "bitstream is truncated"):
-            parse_acm(_acm_bytes()[:-1])
+            parse_acm(_acm_bytes(sample_count=12))
+
+    def test_zero_pads_physical_eof_in_final_logical_block(self) -> None:
+        audio = parse_acm(_acm_bytes()[:-1])
+        self.assertEqual(1, audio.bitstream_zero_pad_bytes)
+        self.assertEqual(8, len(audio.pcm_s16le))
+
+    def test_rejects_more_than_one_zero_pad_byte(self) -> None:
+        with self.assertRaisesRegex(AcmFormatError, "bitstream is truncated"):
+            parse_acm(_acm_bytes()[:-2])
 
     def test_rejects_reserved_band_format(self) -> None:
         with self.assertRaisesRegex(AcmFormatError, "unsupported ACM band format 1"):

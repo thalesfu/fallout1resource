@@ -162,6 +162,18 @@ python -m fallout1resource convert-acm `
 
 省略 `--execute` 时只显示计划。默认输出到 `workspace/output/audio/<名称>/`，包括 WAV、记录源文件 SHA-256、采样率、声道、样本数和时长的 JSON，以及 JSON 校验文件。少数双声道 ACM 以不完整声道帧结束；解码样本全部保留，WAV 只补足所需的末尾静音样本，并在元数据中记录数量。
 
+全量音频使用可恢复批处理；DAT 提取物与游戏目录中的松散 `DATA/` 分来源保存：
+
+```powershell
+python -m fallout1resource convert-acm-batch `
+  --workspace "$PWD\workspace" `
+  --game-dir "C:\Program Files (x86)\Steam\steamapps\common\Fallout" `
+  --source master --source data `
+  --execute
+```
+
+复跑会重新解码源文件，并核对转换器版本、元数据、WAV 大小和 SHA-256；只有完全一致的输出才会标记为 `skipped_verified`。过期或被修改的派生物必须显式加入 `--overwrite` 才会替换。
+
 ## MVE 动画检查与预览
 
 `convert-mve` 先由工程内解析器校验 MVE 头、分块、操作段、计时、视频和音轨参数。dry-run 不需要外部工具：
