@@ -45,6 +45,12 @@ from .int_script import (
     write_int_export,
 )
 from .inventory import build_inventory, write_inventory
+from .map_batch import (
+    MapBatchError,
+    build_map_batch_plan,
+    execute_map_batch,
+    map_batch_plan_summary,
+)
 from .map_file import MapFormatError, load_map, map_output_paths, map_summary, write_map_export
 from .msg import MsgFormatError, load_msg, msg_output_paths, msg_summary, write_msg_export
 from .msg_batch import (
@@ -248,6 +254,26 @@ def _parser() -> argparse.ArgumentParser:
     )
     convert_map.add_argument(
         "--overwrite", action="store_true", help="atomically replace existing outputs"
+    )
+
+    convert_map_batch = subparsers.add_parser(
+        "convert-map-batch",
+        help="convert extracted or loose MAP files as a recoverable batch",
+    )
+    convert_map_batch.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    convert_map_batch.add_argument(
+        "--game-dir", type=Path, help="read-only Fallout directory; exposes loose DATA"
+    )
+    convert_map_batch.add_argument("--prototype-root", type=Path)
+    convert_map_batch.add_argument("--scripts-lst", type=Path)
+    convert_map_batch.add_argument(
+        "--source", action="append", default=[], help="source such as master or data; repeatable"
+    )
+    convert_map_batch.add_argument(
+        "--execute", action="store_true", help="convert files and write a batch manifest"
+    )
+    convert_map_batch.add_argument(
+        "--overwrite", action="store_true", help="replace stale or older MAP outputs"
     )
 
     convert_acm = subparsers.add_parser(
@@ -614,6 +640,57 @@ def main(argv: list[str] | None = None) -> int:
                 write_map_export(document, args.workspace, output, overwrite=args.overwrite)
             print(json.dumps(result, ensure_ascii=False))
             return 0
+        if args.command == "convert-map-batch":
+            if args.overwrite and not args.execute:
+                raise MapBatchError("--overwrite requires --execute")
+            plan, prototype_root, scripts_list = build_map_batch_plan(
+                args.workspace,
+                sources=args.source,
+                game_dir=args.game_dir,
+                prototype_root=args.prototype_root,
+                scripts_list=args.scripts_lst,
+            )
+            summary = map_batch_plan_summary(plan)
+            if not args.execute:
+                print(
+                    json.dumps(
+                        {
+                            "mode": "dry-run",
+                            **summary,
+                            "prototype_root": str(prototype_root),
+                            "scripts_list": str(scripts_list),
+                        },
+                        ensure_ascii=False,
+                    )
+                )
+                return 0
+            result = execute_map_batch(
+                plan,
+                prototype_root,
+                scripts_list,
+                args.workspace,
+                overwrite=args.overwrite,
+            )
+            print(
+                json.dumps(
+                    {
+                        "mode": "convert-map-batch",
+                        "selected": result.selected,
+                        "converted": result.converted,
+                        "skipped_verified": result.skipped_verified,
+                        "failed": result.failed,
+                        "source_bytes": result.source_bytes,
+                        "output_bytes": result.output_bytes,
+                        "objects": result.objects,
+                        "scripts": result.scripts,
+                        "prototype_links": result.prototype_links,
+                        "duration_seconds": round(result.duration_seconds, 6),
+                        "manifest": str(result.manifest_path),
+                    },
+                    ensure_ascii=False,
+                )
+            )
+            return 2 if result.failed else 0
         if args.command == "convert-acm":
             if args.overwrite and not args.execute:
                 raise AcmFormatError("--overwrite requires --execute")
@@ -718,6 +795,7 @@ def main(argv: list[str] | None = None) -> int:
         FrmFormatError,
         IntBatchError,
         IntFormatError,
+        MapBatchError,
         MapFormatError,
         MsgBatchError,
         MsgFormatError,

@@ -19,6 +19,7 @@ from .proto import ListDocument, Prototype, PrototypeCatalog, load_lst
 from .safe_io import write_file_atomic
 
 MAP_VERSION = 19
+MAP_CONVERTER_VERSION = 2
 MAP_HEADER_SIZE = 236
 ELEVATION_COUNT = 3
 SQUARE_GRID_SIZE = 100 * 100
@@ -584,7 +585,12 @@ def _json_payload(document: MapDocument) -> dict[str, Any]:
         "schema_version": 1,
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Fallout MAP/PRO/LST",
-        "generator": {"name": "fallout1resource", "version": __version__},
+        "generator": {
+            "name": "fallout1resource",
+            "version": __version__,
+            "component": "map",
+            "component_version": MAP_CONVERTER_VERSION,
+        },
         "source": {
             "path": str(document.source_path),
             "size": document.source_size,
@@ -761,10 +767,17 @@ def write_map_export(
         existing = [path for path in targets if path.exists()]
         if existing:
             raise FileExistsError(f"output already exists; refusing to overwrite: {existing[0]}")
-    json_bytes = (json.dumps(_json_payload(document), ensure_ascii=False, indent=2) + "\n").encode(
-        "utf-8"
-    )
     csv_bytes = _objects_csv(document)
+    workspace_path = Path(workspace).resolve()
+    payload = _json_payload(document)
+    payload["derived"] = {
+        "objects_csv": {
+            "path": csv_path.relative_to(workspace_path).as_posix(),
+            "size": len(csv_bytes),
+            "sha256": hashlib.sha256(csv_bytes).hexdigest().upper(),
+        }
+    }
+    json_bytes = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
     checksum = hashlib.sha256(json_bytes).hexdigest().upper()
     hash_bytes = f"{checksum}  {json_path.name}\n".encode("ascii")
     for path, content in zip(targets, (json_bytes, csv_bytes, hash_bytes), strict=True):

@@ -137,6 +137,18 @@ python -m fallout1resource convert-map `
 
 默认只显示摘要。执行后生成完整 JSON、扁平对象 CSV 和 JSON 校验文件。JSON 保留 LST 的物理顺序与原始行、全部地砖值、脚本索引、对象及背包层级，并包含本地图实际引用的 PRO 全字段。物品和场景对象的可变附加数据长度必须与其 PRO 子类型吻合，否则转换停止。
 
+全量地图使用可恢复批处理；默认依赖 `workspace/raw/master/PROTO` 和 `SCRIPTS/SCRIPTS.LST`：
+
+```powershell
+python -m fallout1resource convert-map-batch `
+  --workspace "$PWD\workspace" `
+  --game-dir "C:\Program Files (x86)\Steam\steamapps\common\Fallout" `
+  --source master `
+  --execute
+```
+
+复跑会重新解析地图和实际引用的 PRO，并核对六类 LST、脚本列表、对象 CSV 与 JSON 哈希；依赖或派生物变化后需显式 `--overwrite` 才会替换。
+
 ## ACM 音频转换
 
 `convert-acm` 以只读方式校验并解码 Interplay ACM，输出标准 16 位小端 PCM WAV：
