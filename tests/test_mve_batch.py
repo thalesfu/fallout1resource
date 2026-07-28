@@ -48,6 +48,7 @@ class MveBatchTests(unittest.TestCase):
                     "width": 16,
                     "height": 8,
                     "nb_read_frames": "1",
+                    "duration": "0.1",
                 }
             ]
         }

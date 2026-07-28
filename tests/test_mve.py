@@ -13,6 +13,7 @@ from fallout1resource.mve import (
     MVE_SIGNATURE,
     ExternalTool,
     MveFormatError,
+    _preview_timing_filter,
     inspect_ffmpeg,
     mve_output_paths,
     mve_summary,
@@ -76,6 +77,7 @@ class MveParsingTests(unittest.TestCase):
         self.assertEqual(10.0, summary["frames_per_second"])
         self.assertEqual(1, document.frame_count)
         self.assertEqual(1, document.display_count)
+        self.assertEqual((0,), document.frame_display_indices)
         self.assertEqual((0x11,), document.video_data_formats)
         self.assertIsNotNone(document.audio)
         self.assertEqual("interplay_dpcm", document.audio.codec)
@@ -92,6 +94,10 @@ class MveParsingTests(unittest.TestCase):
         document = parse_mve(_mve_bytes(display_count=2))
         self.assertEqual(1, document.frame_count)
         self.assertEqual(2, document.display_count)
+        self.assertEqual((0,), document.frame_display_indices)
+        timing_filter, preview_frames = _preview_timing_filter(document)
+        self.assertIn("tpad=stop_mode=clone:stop=1", timing_filter)
+        self.assertEqual(2, preview_frames)
 
     def test_rejects_truncated_and_wrong_header(self) -> None:
         with self.assertRaisesRegex(MveFormatError, "header is truncated"):
@@ -212,6 +218,7 @@ class MveExportTests(unittest.TestCase):
                     "width": 16,
                     "height": 8,
                     "nb_read_frames": "1",
+                    "duration": "0.1",
                 }
             ]
         }

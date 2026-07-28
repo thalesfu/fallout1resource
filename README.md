@@ -194,7 +194,7 @@ python -m fallout1resource convert-mve `
   --execute
 ```
 
-输出位于 `workspace/output/video/<名称>/`：结构 JSON、全部段 CSV、首帧 PNG、PCM WAV 和 MPEG-4/AAC 预览 MP4。MP4 仅供查看并会重新编码；PNG 和 WAV 是独立的解码抽查产物。JSON 记录 FFmpeg/ffprobe 及同目录运行库的哈希，并保存转换前后的探测结果。当前验证构建见 `config/ffmpeg-mve.json`。
+输出位于 `workspace/output/video/<名称>/`：结构 JSON、全部段 CSV、首帧 PNG、PCM WAV 和 MPEG-4/AAC 预览 MP4。MP4 仅供查看并会重新编码；PNG 和 WAV 是独立的解码抽查产物。JSON 记录 FFmpeg/ffprobe 及同目录运行库的哈希，并保存转换前后的探测结果。预览按原生显示事件恢复可变帧时间戳，避免无新视频数据的停帧被压缩掉。当前验证构建见 `config/ffmpeg-mve.json`。
 
 全部影片可用相同的可恢复批处理转换；执行前应先独立核对 `config/ffmpeg-mve.json` 中的工具哈希：
 

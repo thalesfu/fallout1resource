@@ -22,7 +22,7 @@ from .inventory import ensure_within_workspace
 from .safe_io import write_file_atomic
 
 MVE_SIGNATURE = b"Interplay MVE File\x1a\x00"
-MVE_CONVERTER_VERSION = 3
+MVE_CONVERTER_VERSION = 4
 MVE_HEADER_SIZE = 26
 MVE_HEADER_CONSTANTS = (26, 256, 0x1133)
 MAX_CHUNK_SIZE = 0xFFFF
@@ -132,6 +132,7 @@ class MveDocument:
     audio: MveAudio | None
     frame_count: int
     display_count: int
+    frame_display_indices: tuple[int, ...]
     video_data_count: int
     audio_frame_count: int
     silence_frame_count: int
@@ -303,6 +304,21 @@ def parse_mve(data: bytes, source_path: Path | str = Path("<memory>.MVE")) -> Mv
     video_data_count = sum(opcode_counts[opcode] for opcode in video_formats)
     if display_count == 0 or video_data_count == 0:
         raise MveFormatError("MVE contains no displayable video frames")
+    frame_display_indices: list[int] = []
+    pending_video = False
+    display_index = 0
+    for segment in segments:
+        if segment.opcode in (0x06, 0x10, 0x11):
+            if pending_video:
+                raise MveFormatError("multiple MVE video data segments precede one display event")
+            pending_video = True
+        elif segment.opcode == 0x07:
+            if pending_video:
+                frame_display_indices.append(display_index)
+                pending_video = False
+            display_index += 1
+    if pending_video or len(frame_display_indices) != video_data_count:
+        raise MveFormatError("MVE video data cannot be mapped to display events")
     return MveDocument(
         source_path=Path(source_path).resolve(),
         source_size=len(data),
@@ -314,6 +330,7 @@ def parse_mve(data: bytes, source_path: Path | str = Path("<memory>.MVE")) -> Mv
         audio=audio,
         frame_count=video_data_count,
         display_count=display_count,
+        frame_display_indices=tuple(frame_display_indices),
         video_data_count=video_data_count,
         audio_frame_count=opcode_counts[0x08],
         silence_frame_count=opcode_counts[0x09],
@@ -338,6 +355,10 @@ def mve_summary(document: MveDocument) -> dict[str, Any]:
         "bits_per_pixel": document.video.bits_per_pixel,
         "frame_count": document.frame_count,
         "display_count": document.display_count,
+        "repeated_display_count": document.display_count - document.frame_count,
+        "trailing_repeated_display_count": (
+            document.display_count - 1 - document.frame_display_indices[-1]
+        ),
         "video_data_count": document.video_data_count,
         "video_data_formats": [f"0x{value:02X}" for value in document.video_data_formats],
         "frame_duration_microseconds": document.timing.frame_duration_microseconds,
@@ -549,6 +570,28 @@ def _segments_csv(document: MveDocument) -> bytes:
     return b"\xef\xbb\xbf" + stream.getvalue().encode("utf-8")
 
 
+def _preview_timing_filter(document: MveDocument) -> tuple[str, int]:
+    """Map decoded frames back to native display-event timestamps."""
+    targets = list(document.frame_display_indices)
+    trailing = document.display_count - 1 - targets[-1]
+    filters: list[str] = []
+    if trailing:
+        filters.append("tpad=stop_mode=clone:stop=1")
+        targets.append(document.display_count - 1)
+
+    previous_delta = 0
+    terms: list[str] = ["N"]
+    for frame_index, display_index in enumerate(targets):
+        delta = display_index - frame_index
+        increase = delta - previous_delta
+        if increase:
+            terms.append(f"if(gte(N\\,{frame_index})\\,{increase}\\,0)")
+            previous_delta = delta
+    duration = document.timing.frame_duration_microseconds
+    filters.append(f"setpts=({'+'.join(terms)})*{duration}/1000000/TB")
+    return ",".join(filters), len(targets)
+
+
 def write_mve_export(
     document: MveDocument,
     workspace: Path | str,
@@ -598,6 +641,7 @@ def write_mve_export(
                 common
                 + ["-map", "0:a:0", "-c:a", "pcm_s16le", "-map_metadata", "-1", str(audio_temp)]
             )
+        timing_filter, preview_frame_count = _preview_timing_filter(document)
         _run(
             common
             + [
@@ -605,6 +649,8 @@ def write_mve_export(
                 "0:v:0",
                 "-map",
                 "0:a:0?",
+                "-vf",
+                timing_filter,
                 "-c:v",
                 "mpeg4",
                 "-q:v",
@@ -617,6 +663,8 @@ def write_mve_export(
                 "128k",
                 "-movflags",
                 "+faststart",
+                "-fps_mode",
+                "vfr",
                 "-map_metadata",
                 "-1",
                 str(preview_temp),
@@ -631,10 +679,18 @@ def write_mve_export(
             int(preview_video.get("width", 0)),
             int(preview_video.get("height", 0)),
             int(preview_video.get("nb_read_frames", -1)),
-        ) != (document.video.width, document.video.height, document.frame_count):
+        ) != (document.video.width, document.video.height, preview_frame_count):
             raise MveFormatError(
                 "preview MP4 does not match the source video geometry or frame count"
             )
+        preview_duration = float(preview_video.get("duration", 0))
+        expected_duration = (
+            document.display_count * document.timing.frame_duration_microseconds / 1_000_000
+        )
+        if abs(preview_duration - expected_duration) > (
+            2 * document.timing.frame_duration_microseconds / 1_000_000
+        ):
+            raise MveFormatError("preview MP4 duration disagrees with MVE display timing")
 
         generated: list[tuple[Path, bytes, str]] = [
             (poster_path, poster_temp.read_bytes(), "poster_png"),
@@ -677,6 +733,7 @@ def write_mve_export(
             "sha256": document.source_sha256,
         },
         "summary": mve_summary(document),
+        "frame_display_indices": list(document.frame_display_indices),
         "header": {
             "signature": MVE_SIGNATURE.decode("ascii", errors="backslashreplace"),
             "constants": list(MVE_HEADER_CONSTANTS),

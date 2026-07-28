@@ -194,6 +194,7 @@ def _existing_outputs_are_current(
             or generator.get("component_version") != MVE_CONVERTER_VERSION
             or summary.get("frame_count") != document.frame_count
             or summary.get("display_count") != document.display_count
+            or metadata.get("frame_display_indices") != list(document.frame_display_indices)
             or external.get("ffmpeg_sha256") != tool.ffmpeg_sha256
             or external.get("ffprobe_sha256") != tool.ffprobe_sha256
             or external.get("runtime_manifest_sha256") != tool.runtime_manifest_sha256
@@ -267,7 +268,7 @@ def execute_mve_batch(
                 status = "converted"
 
             duration = (
-                document.frame_count * document.timing.frame_duration_microseconds / 1_000_000
+                document.display_count * document.timing.frame_duration_microseconds / 1_000_000
             )
             frames += document.frame_count
             movie_duration += duration
