@@ -66,6 +66,12 @@ from .msg_batch import (
     msg_batch_plan_summary,
 )
 from .mve import MveFormatError, load_mve, mve_output_paths, mve_summary, write_mve_export
+from .mve_batch import (
+    MveBatchError,
+    build_mve_batch_plan,
+    execute_mve_batch,
+    mve_batch_plan_summary,
+)
 from .resource_index import ResourceIndexError, build_resource_index, write_resource_index
 
 
@@ -327,6 +333,27 @@ def _parser() -> argparse.ArgumentParser:
     )
     convert_mve.add_argument(
         "--overwrite", action="store_true", help="atomically replace existing outputs"
+    )
+
+    convert_mve_batch = subparsers.add_parser(
+        "convert-mve-batch",
+        help="convert extracted or loose MVE files as a recoverable batch",
+    )
+    convert_mve_batch.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    convert_mve_batch.add_argument(
+        "--game-dir", type=Path, help="read-only Fallout directory; exposes loose DATA"
+    )
+    convert_mve_batch.add_argument(
+        "--source", action="append", default=[], help="source such as master or data; repeatable"
+    )
+    convert_mve_batch.add_argument(
+        "--ffmpeg", type=Path, help="audited FFmpeg executable; required with --execute"
+    )
+    convert_mve_batch.add_argument(
+        "--execute", action="store_true", help="convert files and write a batch manifest"
+    )
+    convert_mve_batch.add_argument(
+        "--overwrite", action="store_true", help="replace stale or older MVE outputs"
     )
 
     build_index = subparsers.add_parser(
@@ -806,6 +833,46 @@ def main(argv: list[str] | None = None) -> int:
                 )
             print(json.dumps(result, ensure_ascii=False))
             return 0
+        if args.command == "convert-mve-batch":
+            if args.overwrite and not args.execute:
+                raise MveBatchError("--overwrite requires --execute")
+            if args.execute and args.ffmpeg is None:
+                raise MveBatchError("--ffmpeg is required with --execute")
+            plan = build_mve_batch_plan(
+                args.workspace,
+                sources=args.source,
+                game_dir=args.game_dir,
+            )
+            summary = mve_batch_plan_summary(plan)
+            if not args.execute:
+                print(json.dumps({"mode": "dry-run", **summary}, ensure_ascii=False))
+                return 0
+            result = execute_mve_batch(
+                plan,
+                args.workspace,
+                args.ffmpeg,
+                overwrite=args.overwrite,
+            )
+            print(
+                json.dumps(
+                    {
+                        "mode": "convert-mve-batch",
+                        "selected": result.selected,
+                        "converted": result.converted,
+                        "skipped_verified": result.skipped_verified,
+                        "failed": result.failed,
+                        "source_bytes": result.source_bytes,
+                        "output_bytes": result.output_bytes,
+                        "frames": result.frames,
+                        "movie_duration_seconds": result.movie_duration_seconds,
+                        "silent_movies": result.silent_movies,
+                        "duration_seconds": round(result.duration_seconds, 6),
+                        "manifest": str(result.manifest_path),
+                    },
+                    ensure_ascii=False,
+                )
+            )
+            return 2 if result.failed else 0
         if args.command == "build-index":
             if args.overwrite and not args.execute:
                 raise ResourceIndexError("--overwrite requires --execute")
@@ -861,6 +928,7 @@ def main(argv: list[str] | None = None) -> int:
         MapFormatError,
         MsgBatchError,
         MsgFormatError,
+        MveBatchError,
         MveFormatError,
         ResourceIndexError,
         FileNotFoundError,

@@ -30,7 +30,7 @@ def _chunk(chunk_type: int, *segments: bytes) -> bytes:
     return struct.pack("<HH", len(payload), chunk_type) + payload
 
 
-def _mve_bytes(*, audio: bool = True) -> bytes:
+def _mve_bytes(*, audio: bool = True, display_count: int = 1) -> bytes:
     header = MVE_SIGNATURE + struct.pack("<3H", *MVE_HEADER_CONSTANTS)
     init_video = _chunk(
         2,
@@ -55,7 +55,8 @@ def _mve_bytes(*, audio: bool = True) -> bytes:
     ]
     if audio:
         video_segments.append(_segment(0x08, 0, bytes(10)))
-    video_segments.extend((_segment(0x07, 1, bytes(6)), _segment(0x01, 0)))
+    video_segments.extend(_segment(0x07, 1, bytes(6)) for _ in range(display_count))
+    video_segments.append(_segment(0x01, 0))
     chunks.extend(
         (
             _chunk(3, *video_segments),
@@ -74,6 +75,7 @@ class MveParsingTests(unittest.TestCase):
         self.assertEqual((16, 8), (document.video.width, document.video.height))
         self.assertEqual(10.0, summary["frames_per_second"])
         self.assertEqual(1, document.frame_count)
+        self.assertEqual(1, document.display_count)
         self.assertEqual((0x11,), document.video_data_formats)
         self.assertIsNotNone(document.audio)
         self.assertEqual("interplay_dpcm", document.audio.codec)
@@ -85,6 +87,11 @@ class MveParsingTests(unittest.TestCase):
         document = parse_mve(_mve_bytes(audio=False))
         self.assertIsNone(document.audio)
         self.assertFalse(mve_summary(document)["has_audio"])
+
+    def test_distinguishes_decoded_frames_from_display_events(self) -> None:
+        document = parse_mve(_mve_bytes(display_count=2))
+        self.assertEqual(1, document.frame_count)
+        self.assertEqual(2, document.display_count)
 
     def test_rejects_truncated_and_wrong_header(self) -> None:
         with self.assertRaisesRegex(MveFormatError, "header is truncated"):

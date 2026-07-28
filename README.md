@@ -196,6 +196,18 @@ python -m fallout1resource convert-mve `
 
 输出位于 `workspace/output/video/<名称>/`：结构 JSON、全部段 CSV、首帧 PNG、PCM WAV 和 MPEG-4/AAC 预览 MP4。MP4 仅供查看并会重新编码；PNG 和 WAV 是独立的解码抽查产物。JSON 记录 FFmpeg/ffprobe 及同目录运行库的哈希，并保存转换前后的探测结果。当前验证构建见 `config/ffmpeg-mve.json`。
 
+全部影片可用相同的可恢复批处理转换；执行前应先独立核对 `config/ffmpeg-mve.json` 中的工具哈希：
+
+```powershell
+python -m fallout1resource convert-mve-batch `
+  --workspace "$PWD\workspace" `
+  --source master `
+  --ffmpeg "C:\Tools\ffmpeg\bin\ffmpeg.exe" `
+  --execute
+```
+
+复跑会校验源、工具链、JSON、CSV、PNG、WAV 和 MP4；只有当前且完整的输出才标记为 `skipped_verified`。派生物被修改或版本过期时需显式加入 `--overwrite`。
+
 ## 统一资源索引
 
 `build-index` 读取 inventory、提取清单和各转换器元数据，为每个来源资源生成稳定且不依赖本机路径的 ID，并按不区分大小写的内部路径报告来源冲突：

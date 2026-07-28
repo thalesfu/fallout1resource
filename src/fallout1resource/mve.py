@@ -22,6 +22,7 @@ from .inventory import ensure_within_workspace
 from .safe_io import write_file_atomic
 
 MVE_SIGNATURE = b"Interplay MVE File\x1a\x00"
+MVE_CONVERTER_VERSION = 3
 MVE_HEADER_SIZE = 26
 MVE_HEADER_CONSTANTS = (26, 256, 0x1133)
 MAX_CHUNK_SIZE = 0xFFFF
@@ -130,6 +131,7 @@ class MveDocument:
     video: MveVideo
     audio: MveAudio | None
     frame_count: int
+    display_count: int
     video_data_count: int
     audio_frame_count: int
     silence_frame_count: int
@@ -297,9 +299,9 @@ def parse_mve(data: bytes, source_path: Path | str = Path("<memory>.MVE")) -> Mv
 
     opcode_counts = Counter(segment.opcode for segment in segments)
     video_formats = tuple(sorted(opcode for opcode in (0x06, 0x10, 0x11) if opcode_counts[opcode]))
-    frame_count = opcode_counts[0x07]
+    display_count = opcode_counts[0x07]
     video_data_count = sum(opcode_counts[opcode] for opcode in video_formats)
-    if frame_count == 0 or video_data_count == 0:
+    if display_count == 0 or video_data_count == 0:
         raise MveFormatError("MVE contains no displayable video frames")
     return MveDocument(
         source_path=Path(source_path).resolve(),
@@ -310,7 +312,8 @@ def parse_mve(data: bytes, source_path: Path | str = Path("<memory>.MVE")) -> Mv
         timing=timing,
         video=video,
         audio=audio,
-        frame_count=frame_count,
+        frame_count=video_data_count,
+        display_count=display_count,
         video_data_count=video_data_count,
         audio_frame_count=opcode_counts[0x08],
         silence_frame_count=opcode_counts[0x09],
@@ -334,12 +337,16 @@ def mve_summary(document: MveDocument) -> dict[str, Any]:
         "height": document.video.height,
         "bits_per_pixel": document.video.bits_per_pixel,
         "frame_count": document.frame_count,
+        "display_count": document.display_count,
         "video_data_count": document.video_data_count,
         "video_data_formats": [f"0x{value:02X}" for value in document.video_data_formats],
         "frame_duration_microseconds": document.timing.frame_duration_microseconds,
         "frames_per_second": float(fps),
         "frames_per_second_fraction": f"{fps.numerator}/{fps.denominator}",
         "duration_seconds": document.frame_count
+        * document.timing.frame_duration_microseconds
+        / 1_000_000,
+        "display_duration_seconds": document.display_count
         * document.timing.frame_duration_microseconds
         / 1_000_000,
         "has_audio": audio is not None,
@@ -549,6 +556,7 @@ def write_mve_export(
     ffmpeg_path: Path | str,
     *,
     overwrite: bool = False,
+    inspected_tool: ExternalTool | None = None,
 ) -> tuple[Path, Path, Path, Path | None, Path, Path]:
     paths = mve_output_paths(workspace, output, document)
     json_path, csv_path, poster_path, audio_path, preview_path, hash_path = paths
@@ -560,7 +568,10 @@ def write_mve_export(
         if existing:
             raise FileExistsError(f"output already exists; refusing to overwrite: {existing[0]}")
 
-    tool = inspect_ffmpeg(ffmpeg_path)
+    requested_ffmpeg = Path(ffmpeg_path).resolve()
+    tool = inspected_tool or inspect_ffmpeg(requested_ffmpeg)
+    if tool.ffmpeg_path != requested_ffmpeg:
+        raise MveFormatError("inspected FFmpeg does not match the requested executable")
     source_probe = _probe(tool, document.source_path)
     _validate_source_probe(document, source_probe)
     json_path.parent.mkdir(parents=True, exist_ok=True)
@@ -654,7 +665,12 @@ def write_mve_export(
         "schema_version": 1,
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Interplay MVE",
-        "generator": {"name": "fallout1resource", "version": __version__},
+        "generator": {
+            "name": "fallout1resource",
+            "version": __version__,
+            "component": "mve",
+            "component_version": MVE_CONVERTER_VERSION,
+        },
         "source": {
             "path": str(document.source_path),
             "size": document.source_size,
