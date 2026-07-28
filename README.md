@@ -110,6 +110,18 @@ python -m fallout1resource convert-frm `
 
 默认只显示计划。执行后生成元数据 JSON、调色板预览、每个唯一方向序列的 PNG 帧和 JSON 校验文件。方向共享同一数据偏移时不会复制画面，但 6 个方向各自的全局偏移和序列映射仍写入 JSON。帧 PNG 将调色板索引 0 标为透明；原始 6 位颜色、无效颜色语义及 PAL 后续查找表长度均保留在元数据中。
 
+`convert-frm-batch` 可恢复地处理 DAT 提取物和松散 `DATA/`，输出按来源与原扩展名隔离，避免 `.FRM` 与 `.FR0`–`.FR5` 冲突：
+
+```powershell
+python -m fallout1resource convert-frm-batch `
+  --workspace "$PWD\workspace" `
+  --game-dir "C:\Program Files (x86)\Steam\steamapps\common\Fallout" `
+  --source master --source critter --source data `
+  --execute
+```
+
+再次执行会复核源文件、调色板、元数据和所有 PNG 的大小与 SHA-256，仅跳过完整且属于当前转换器版本的产物。旧产物或被改动的文件必须显式加 `--overwrite` 才会替换。
+
 ## MAP/PRO/LST 结构化转换
 
 `convert-map` 解析版本 19 MAP 的变量、100×100 地砖层、五类脚本和递归对象树，并通过 PID 的类型字节及低 24 位一基行号连接六类原型 LST 和 PRO：

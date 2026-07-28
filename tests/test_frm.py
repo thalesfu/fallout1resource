@@ -47,6 +47,22 @@ def _frm_bytes() -> bytes:
     )
 
 
+def _split_frm_bytes(direction: int = 2) -> bytes:
+    data = _frame(2, 2, bytes((0, 1, 2, 3)), -2, 4) + _frame(
+        1, 2, bytes((4, 5)), 6, -8
+    )
+    return b"".join(
+        (
+            struct.pack(">ihhh", 4, 12, 1, 2),
+            struct.pack(">6h", 10, 11, 12, 13, 14, 15),
+            struct.pack(">6h", -10, -11, -12, -13, -14, -15),
+            struct.pack(">6i", 0, 0, 0, 0, 0, 0),
+            struct.pack(">i", len(data) * 6),
+            data,
+        )
+    )
+
+
 def _palette_bytes() -> bytes:
     colors = bytearray()
     for index in range(256):
@@ -111,9 +127,29 @@ class FrmParsingTests(unittest.TestCase):
         with self.assertRaisesRegex(FrmFormatError, "header is truncated"):
             parse_frm(bytes(FRM_HEADER_SIZE - 1))
 
-    def test_rejects_wrong_version(self) -> None:
+    def test_accepts_official_version_three_resource_layout(self) -> None:
         data = bytearray(_frm_bytes())
         data[0:4] = struct.pack(">i", 3)
+        self.assertEqual(3, parse_frm(bytes(data)).version)
+
+    def test_parses_split_direction_family_member(self) -> None:
+        document = parse_frm(_split_frm_bytes(), Path("TEST.FR2"))
+
+        self.assertEqual(2, document.split_direction)
+        self.assertEqual(len(_split_frm_bytes()) - FRM_HEADER_SIZE, document.stored_data_size)
+        self.assertGreater(document.data_size, document.stored_data_size)
+        self.assertEqual((2,), document.sequences[0].directions)
+        self.assertEqual(2, document.directions[0].index)
+
+    def test_rejects_split_direction_with_nonzero_data_offset(self) -> None:
+        data = bytearray(_split_frm_bytes())
+        data[34:38] = struct.pack(">i", 1)
+        with self.assertRaisesRegex(FrmFormatError, "split FRM must store"):
+            parse_frm(bytes(data), Path("TEST.FR2"))
+
+    def test_rejects_wrong_version(self) -> None:
+        data = bytearray(_frm_bytes())
+        data[0:4] = struct.pack(">i", 2)
         with self.assertRaisesRegex(FrmFormatError, "unsupported FRM version"):
             parse_frm(bytes(data))
 

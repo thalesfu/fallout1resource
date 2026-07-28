@@ -16,10 +16,12 @@ from .inventory import ensure_within_workspace
 from .safe_io import write_file_atomic
 
 FRM_VERSION = 4
+FRM_VERSIONS = frozenset({3, FRM_VERSION})
 FRM_HEADER_SIZE = 62
 FRAME_HEADER_SIZE = 12
 PALETTE_COLOR_BYTES = 256 * 3
 ROTATION_COUNT = 6
+FRM_CONVERTER_VERSION = 2
 
 
 class FrmFormatError(ValueError):
@@ -86,6 +88,8 @@ class FrmDocument:
     action_frame: int
     frame_count: int
     data_size: int
+    stored_data_size: int
+    split_direction: int | None
     directions: tuple[FrmDirection, ...]
     sequences: tuple[FrmSequence, ...]
 
@@ -185,9 +189,13 @@ def parse_frm(data: bytes, source_path: Path | str = Path("<memory>.FRM")) -> Fr
     y_offsets = struct.unpack_from(">6h", data, 22)
     data_offsets = struct.unpack_from(">6i", data, 34)
     (data_size,) = struct.unpack_from(">i", data, 58)
+    suffix = Path(source_path).suffix.casefold()
+    split_direction = int(suffix[-1]) if suffix in {f".fr{index}" for index in range(6)} else None
+    stored_data_size = len(data) - FRM_HEADER_SIZE
 
-    if version != FRM_VERSION:
-        raise FrmFormatError(f"unsupported FRM version {version}; expected {FRM_VERSION}")
+    if version not in FRM_VERSIONS:
+        expected = ", ".join(str(item) for item in sorted(FRM_VERSIONS))
+        raise FrmFormatError(f"unsupported FRM version {version}; expected one of {expected}")
     if frame_count <= 0:
         raise FrmFormatError(f"invalid FRM frame count: {frame_count}")
     if action_frame < 0 or action_frame >= frame_count:
@@ -196,15 +204,63 @@ def parse_frm(data: bytes, source_path: Path | str = Path("<memory>.FRM")) -> Fr
         )
     if data_size < 0:
         raise FrmFormatError(f"invalid FRM data size: {data_size}")
-    if FRM_HEADER_SIZE + data_size != len(data):
+    if split_direction is None and FRM_HEADER_SIZE + data_size != len(data):
         raise FrmFormatError(
             f"FRM data size mismatch: header requires {FRM_HEADER_SIZE + data_size} bytes, found {len(data)}"
+        )
+    if split_direction is not None and stored_data_size > data_size:
+        raise FrmFormatError(
+            f"split FRM payload exceeds declared family data size: {stored_data_size} > {data_size}"
+        )
+    if split_direction is not None and any(data_offsets):
+        raise FrmFormatError(
+            f"split FRM must store one direction at data offset 0, found {data_offsets}"
         )
     if any(offset < 0 or offset >= data_size for offset in data_offsets):
         raise FrmFormatError(f"FRM direction data offset outside data area: {data_offsets}")
     if data_offsets[0] != 0:
         raise FrmFormatError(
             f"first FRM direction must begin at data offset 0, found {data_offsets[0]}"
+        )
+
+    if split_direction is not None:
+        cursor = FRM_HEADER_SIZE
+        frames: list[FrmFrame] = []
+        for frame_index in range(frame_count):
+            frame, cursor = _parse_frame(data, cursor, len(data), frame_index)
+            frames.append(frame)
+        if cursor != len(data):
+            raise FrmFormatError(f"split direction has {len(data) - cursor} unclaimed byte(s)")
+        sequences = (
+            FrmSequence(
+                index=0,
+                data_offset=0,
+                directions=(split_direction,),
+                frames=tuple(frames),
+            ),
+        )
+        directions = (
+            FrmDirection(
+                index=split_direction,
+                x_offset=x_offsets[split_direction],
+                y_offset=y_offsets[split_direction],
+                data_offset=0,
+                sequence_index=0,
+            ),
+        )
+        return FrmDocument(
+            source_path=Path(source_path).resolve(),
+            source_size=len(data),
+            source_sha256=hashlib.sha256(data).hexdigest().upper(),
+            version=version,
+            frames_per_second=fps,
+            action_frame=action_frame,
+            frame_count=frame_count,
+            data_size=data_size,
+            stored_data_size=stored_data_size,
+            split_direction=split_direction,
+            directions=directions,
+            sequences=sequences,
         )
 
     unique_offsets: list[int] = []
@@ -268,6 +324,8 @@ def parse_frm(data: bytes, source_path: Path | str = Path("<memory>.FRM")) -> Fr
         action_frame=action_frame,
         frame_count=frame_count,
         data_size=data_size,
+        stored_data_size=stored_data_size,
+        split_direction=None,
         directions=directions,
         sequences=tuple(sequences),
     )
@@ -415,6 +473,7 @@ def write_frm_export(
             "directions": list(sequence.directions),
             "frame_index": frame.index,
             "path": path.relative_to(workspace_path).as_posix(),
+            "size": len(png),
             "sha256": hashlib.sha256(png).hexdigest().upper(),
         }
         for path, png, sequence, frame in frame_exports
@@ -423,7 +482,12 @@ def write_frm_export(
         "schema_version": 1,
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Fallout FRM with PAL",
-        "generator": {"name": "fallout1resource", "version": __version__},
+        "generator": {
+            "name": "fallout1resource",
+            "version": __version__,
+            "component": "frm",
+            "component_version": FRM_CONVERTER_VERSION,
+        },
         "source": {
             "path": str(document.source_path),
             "size": document.source_size,
@@ -437,6 +501,9 @@ def write_frm_export(
             "action_frame": document.action_frame,
             "frame_count": document.frame_count,
             "data_size": document.data_size,
+            "stored_data_size": document.stored_data_size,
+            "storage": "split_direction" if document.split_direction is not None else "combined",
+            "split_direction": document.split_direction,
         },
         "directions": [
             {
@@ -472,6 +539,7 @@ def write_frm_export(
         "derived": {
             "palette_preview": {
                 "path": palette_path.relative_to(workspace_path).as_posix(),
+                "size": len(palette_png),
                 "sha256": hashlib.sha256(palette_png).hexdigest().upper(),
             },
             "frames": derived_frames,
