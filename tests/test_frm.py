@@ -48,9 +48,7 @@ def _frm_bytes() -> bytes:
 
 
 def _split_frm_bytes(direction: int = 2) -> bytes:
-    data = _frame(2, 2, bytes((0, 1, 2, 3)), -2, 4) + _frame(
-        1, 2, bytes((4, 5)), 6, -8
-    )
+    data = _frame(2, 2, bytes((0, 1, 2, 3)), -2, 4) + _frame(1, 2, bytes((4, 5)), 6, -8)
     return b"".join(
         (
             struct.pack(">ihhh", 4, 12, 1, 2),

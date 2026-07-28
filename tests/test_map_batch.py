@@ -31,9 +31,7 @@ class MapBatchTests(unittest.TestCase):
             prototype_root, scripts = self._dependencies(workspace)
             self._map(workspace)
 
-            plan, actual_proto, actual_scripts = build_map_batch_plan(
-                workspace, sources=["master"]
-            )
+            plan, actual_proto, actual_scripts = build_map_batch_plan(workspace, sources=["master"])
 
             self.assertEqual(len(plan), 1)
             self.assertEqual(actual_proto, prototype_root.resolve())
@@ -67,9 +65,7 @@ class MapBatchTests(unittest.TestCase):
             csv_path.write_bytes(b"tampered")
 
             failed = execute_map_batch(plan, prototype_root, scripts, workspace)
-            recovered = execute_map_batch(
-                plan, prototype_root, scripts, workspace, overwrite=True
-            )
+            recovered = execute_map_batch(plan, prototype_root, scripts, workspace, overwrite=True)
 
             self.assertEqual((failed.converted, failed.failed), (0, 1))
             self.assertEqual((recovered.converted, recovered.failed), (1, 0))
@@ -85,9 +81,7 @@ class MapBatchTests(unittest.TestCase):
             source.parent.mkdir(parents=True)
             source.write_bytes(build_map())
 
-            plan, _, _ = build_map_batch_plan(
-                workspace, sources=["data"], game_dir=game_dir
-            )
+            plan, _, _ = build_map_batch_plan(workspace, sources=["data"], game_dir=game_dir)
 
             self.assertEqual(len(plan), 1)
             self.assertEqual(plan[0].source_path, source.resolve())

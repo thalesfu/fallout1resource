@@ -186,8 +186,7 @@ def _metadata_prototype_fingerprint(metadata: dict[str, Any]) -> list[tuple[int,
     if not isinstance(records, list):
         raise TypeError("referenced_prototypes must be a list")
     return sorted(
-        (record["pid"], record["source"]["size"], record["source"]["sha256"])
-        for record in records
+        (record["pid"], record["source"]["size"], record["source"]["sha256"]) for record in records
     )
 
 
@@ -206,7 +205,9 @@ def _existing_outputs_are_current(
         list_records = metadata["prototype_lists"]
         scripts_record = metadata["scripts_list"]
         csv_record = metadata["derived"]["objects_csv"]
-        if not all(isinstance(value, dict) for value in (source, generator, scripts_record, csv_record)):
+        if not all(
+            isinstance(value, dict) for value in (source, generator, scripts_record, csv_record)
+        ):
             return False
         if not isinstance(list_records, list):
             return False
@@ -215,8 +216,7 @@ def _existing_outputs_are_current(
             for pid_type, lst in document.prototype_lists.items()
         }
         recorded_lists = {
-            record["pid_type"]: (record["sha256"], record["entries"])
-            for record in list_records
+            record["pid_type"]: (record["sha256"], record["entries"]) for record in list_records
         }
         if (
             metadata.get("schema_version") != 1
@@ -272,9 +272,7 @@ def execute_map_batch(
                 prototype_root,
                 scripts_list_path=scripts_list,
             )
-            json_path, csv_path, hash_path = map_output_paths(
-                workspace_path, item.output
-            )
+            json_path, csv_path, hash_path = map_output_paths(workspace_path, item.output)
             existing = [path for path in (json_path, csv_path, hash_path) if path.exists()]
             if existing and not overwrite:
                 if _existing_outputs_are_current(item, workspace_path, document):
@@ -289,7 +287,9 @@ def execute_map_batch(
                     item.output,
                     overwrite=overwrite,
                 )
-                output_bytes += sum(path.stat().st_size for path in (json_path, csv_path, hash_path))
+                output_bytes += sum(
+                    path.stat().st_size for path in (json_path, csv_path, hash_path)
+                )
                 converted += 1
                 status = "converted"
 
