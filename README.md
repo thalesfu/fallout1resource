@@ -85,6 +85,17 @@ python -m fallout1resource disassemble-int `
 
 默认仍为 dry-run。执行后生成结构化 JSON、`.disasm.txt`、`.messages.csv` 和 JSON 校验文件。反汇编结果是分析产物，不是可重新编译的 SSL 源码；未知但位于 Fallout 1 操作码范围内的指令会保留数值并报告，不会被猜测成其他指令。
 
+全量脚本使用可恢复批处理。它优先关联同名松散 `DATA` MSG，否则使用 DAT 英文 MSG；消息缺失或损坏只作为警告，INT 仍会独立反汇编：
+
+```powershell
+python -m fallout1resource disassemble-int-batch `
+  --game-dir "C:\Program Files (x86)\Steam\steamapps\common\Fallout" `
+  --workspace "$PWD\workspace" `
+  --source master `
+  --source data `
+  --execute
+```
+
 ## FRM/PAL 图像转换
 
 `convert-frm` 严格验证 FRM 文件头、6 个逻辑方向、共享数据偏移和每帧像素大小，再用指定 PAL 的前 256 个颜色项生成索引 PNG：

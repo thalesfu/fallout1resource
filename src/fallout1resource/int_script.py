@@ -20,6 +20,8 @@ from .inventory import ensure_within_workspace
 from .msg import MsgDocument
 from .safe_io import write_file_atomic
 
+INT_CONVERTER_VERSION = 2
+
 STARTUP_SIZE = 42
 PROCEDURE_SIZE = 24
 MAX_FILE_SIZE = 64 * 1024 * 1024
@@ -653,12 +655,18 @@ def _json_payload(
     references: tuple[MessageReference, ...],
     inferred_list: int | None,
     msg: MsgDocument | None,
+    derived: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "schema_version": 1,
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Fallout INT",
-        "generator": {"name": "fallout1resource", "version": __version__},
+        "generator": {
+            "name": "fallout1resource",
+            "version": __version__,
+            "component": "int",
+            "component_version": INT_CONVERTER_VERSION,
+        },
         "source": {
             "path": str(program.source_path),
             "size": program.source_size,
@@ -690,6 +698,7 @@ def _json_payload(
             "inference_method": "unique highest count of literal message numbers found in supplied MSG",
             "references": [asdict(reference) for reference in references],
         },
+        "derived": derived,
     }
 
 
@@ -795,14 +804,29 @@ def write_int_export(
         if existing:
             raise FileExistsError(f"output already exists; refusing to overwrite: {existing[0]}")
 
+    workspace_path = Path(workspace).resolve()
+    disassembly = _disassembly_text(program, references)
+    messages = _message_csv(references)
+    derived = {
+        "disassembly": {
+            "path": targets[1].relative_to(workspace_path).as_posix(),
+            "size": len(disassembly),
+            "sha256": hashlib.sha256(disassembly).hexdigest().upper(),
+        },
+        "message_links": {
+            "path": targets[2].relative_to(workspace_path).as_posix(),
+            "size": len(messages),
+            "sha256": hashlib.sha256(messages).hexdigest().upper(),
+        },
+    }
     json_bytes = (
         json.dumps(
-            _json_payload(program, references, inferred_list, msg), ensure_ascii=False, indent=2
+            _json_payload(program, references, inferred_list, msg, derived),
+            ensure_ascii=False,
+            indent=2,
         )
         + "\n"
     ).encode("utf-8")
-    disassembly = _disassembly_text(program, references)
-    messages = _message_csv(references)
     digest = hashlib.sha256(json_bytes).hexdigest().upper()
     checksum = f"{digest}  {targets[0].name}\n".encode("ascii")
     for target, content in zip(targets, (json_bytes, disassembly, messages, checksum), strict=True):

@@ -172,6 +172,8 @@ class IntExportTests(unittest.TestCase):
             )
             payload = json.loads(paths[0].read_text(encoding="utf-8"))
             self.assertEqual(payload["message_link"]["inferred_message_list_id"], 45)
+            self.assertEqual(payload["generator"]["component"], "int")
+            self.assertEqual(payload["derived"]["disassembly"]["size"], paths[1].stat().st_size)
             self.assertIn("gsay_reply", paths[1].read_text(encoding="utf-8"))
             self.assertTrue(paths[2].read_bytes().startswith(codecs.BOM_UTF8))
             self.assertIn(paths[0].name, paths[3].read_text(encoding="ascii"))

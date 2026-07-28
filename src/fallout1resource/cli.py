@@ -24,6 +24,12 @@ from .frm import (
     load_palette,
     write_frm_export,
 )
+from .int_batch import (
+    IntBatchError,
+    build_int_batch_plan,
+    execute_int_batch,
+    int_batch_plan_summary,
+)
 from .int_script import (
     IntFormatError,
     int_output_paths,
@@ -149,6 +155,29 @@ def _parser() -> argparse.ArgumentParser:
     )
     disassemble_int.add_argument(
         "--overwrite", action="store_true", help="atomically replace existing outputs"
+    )
+
+    disassemble_int_batch = subparsers.add_parser(
+        "disassemble-int-batch",
+        help="disassemble extracted or loose INT files as a recoverable batch",
+    )
+    disassemble_int_batch.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    disassemble_int_batch.add_argument(
+        "--game-dir",
+        type=Path,
+        help="read-only Fallout directory; exposes loose DATA and effective messages",
+    )
+    disassemble_int_batch.add_argument(
+        "--source",
+        action="append",
+        default=[],
+        help="source such as master or data; repeatable",
+    )
+    disassemble_int_batch.add_argument(
+        "--execute", action="store_true", help="disassemble files and write a batch manifest"
+    )
+    disassemble_int_batch.add_argument(
+        "--overwrite", action="store_true", help="replace stale or older INT outputs"
     )
 
     convert_frm = subparsers.add_parser(
@@ -419,6 +448,45 @@ def main(argv: list[str] | None = None) -> int:
                 )
             print(json.dumps(result, ensure_ascii=False))
             return 0
+        if args.command == "disassemble-int-batch":
+            if args.overwrite and not args.execute:
+                raise IntBatchError("--overwrite requires --execute")
+            plan = build_int_batch_plan(
+                args.workspace,
+                sources=args.source,
+                game_dir=args.game_dir,
+            )
+            summary = int_batch_plan_summary(plan)
+            if not args.execute:
+                print(
+                    json.dumps(
+                        {
+                            "mode": "dry-run",
+                            **summary,
+                        },
+                        ensure_ascii=False,
+                    )
+                )
+                return 0
+            result = execute_int_batch(plan, args.workspace, overwrite=args.overwrite)
+            print(
+                json.dumps(
+                    {
+                        "mode": "disassemble-int-batch",
+                        "selected": result.selected,
+                        "converted": result.converted,
+                        "skipped_verified": result.skipped_verified,
+                        "failed": result.failed,
+                        "warning_files": result.warning_files,
+                        "source_bytes": result.source_bytes,
+                        "output_bytes": result.output_bytes,
+                        "duration_seconds": round(result.duration_seconds, 6),
+                        "manifest": str(result.manifest_path),
+                    },
+                    ensure_ascii=False,
+                )
+            )
+            return 2 if result.failed else 0
         if args.command == "convert-frm":
             if args.overwrite and not args.execute:
                 raise FrmFormatError("--overwrite requires --execute")
@@ -571,6 +639,7 @@ def main(argv: list[str] | None = None) -> int:
         Dat1FormatError,
         ExtractionError,
         FrmFormatError,
+        IntBatchError,
         IntFormatError,
         MapFormatError,
         MsgBatchError,

@@ -11,7 +11,13 @@ from typing import Any
 
 from . import __version__
 from .inventory import ensure_within_workspace, sha256_file
-from .msg import MsgFormatError, load_msg, msg_output_paths, write_msg_export
+from .msg import (
+    MSG_CONVERTER_VERSION,
+    MsgFormatError,
+    load_msg,
+    msg_output_paths,
+    write_msg_export,
+)
 from .safe_io import write_file_atomic
 
 
@@ -134,7 +140,8 @@ def _existing_outputs_are_current(
         or source.get("sha256") != source_sha256
         or source.get("size") != item.size
         or generator.get("name") != "fallout1resource"
-        or generator.get("version") != __version__
+        or generator.get("component") != "msg"
+        or generator.get("component_version") != MSG_CONVERTER_VERSION
     ):
         return False
     if (

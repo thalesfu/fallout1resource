@@ -17,6 +17,8 @@ from . import __version__
 from .inventory import ensure_within_workspace
 from .safe_io import write_file_atomic
 
+MSG_CONVERTER_VERSION = 2
+
 MAX_FIELD_BYTES = 1023
 
 
@@ -320,7 +322,12 @@ def _json_payload(
         "schema_version": 1,
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "format": "Fallout MSG",
-        "generator": {"name": "fallout1resource", "version": __version__},
+        "generator": {
+            "name": "fallout1resource",
+            "version": __version__,
+            "component": "msg",
+            "component_version": MSG_CONVERTER_VERSION,
+        },
         "source": {
             "path": str(document.source_path),
             "size": document.source_size,
