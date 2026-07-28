@@ -60,6 +60,16 @@ python -m fallout1resource convert-msg-batch `
 
 再次运行时，只有来源哈希、工具版本、JSON 校验和及 CSV 哈希全部吻合的输出才会跳过。过期或不完整输出需显式加入 `--overwrite` 后恢复。
 
+松散 `DATA/` 无需复制即可作为只读来源，并自动排除 `SAVEGAME/`：
+
+```powershell
+python -m fallout1resource convert-msg-batch `
+  --game-dir "C:\Program Files (x86)\Steam\steamapps\common\Fallout" `
+  --workspace "$PWD\workspace" `
+  --source data `
+  --execute
+```
+
 ## INT 反汇编与消息关联
 
 `disassemble-int` 只解析字节码，不执行脚本。可同时提供同名 MSG，让工具推断消息列表编号并关联最终生效文本：

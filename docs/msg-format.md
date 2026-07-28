@@ -18,4 +18,8 @@ MSG 文件由连续三字段记录组成：`{number}{audio}{text}`。解析器�
 
 JSON 的 `derived.csv` 同时记录 CSV 的工作区相对路径、大小和 SHA-256，因此批处理可以验证三个输出是否仍与来源及当前工具版本一致。`convert-msg-batch` 扫描 `workspace/raw/<来源>/`，保持来源隔离并将逐文件结果写入 `manifests/batch-msg-*.json`；单个文件失败不会中断其余文件。
 
+提供 `--game-dir` 后，批处理也可将安装目录中的松散 `DATA/` 暴露为 `data` 来源，直接只读转换并排除 `SAVEGAME/`。派生物仍只写入工作区，转换元数据保留源文件绝对路径，供统一索引映射回 loose inventory 记录。
+
+本机官方 `MASTER.DAT` 的 MSG 语言目录为英文、法文和西班牙文，批处理对该来源固定采用可逆的 Latin-1，避免西欧高位字节被通用 CJK 启发式误判。松散 `DATA` 仍使用自动检测，因为本机 `TEXT/ENGLISH/` 实际包含 GBK 汉化覆盖。
+
 真实 `HAROLD.MSG` 验证结果：DAT 英文文件为 ASCII，192 条且无重复编号；`DATA/` 中文覆盖文件识别为 GBK，共 377 次出现、194 个唯一编号，最终生效 194 条。中文文件的大量重复编号被完整保留。

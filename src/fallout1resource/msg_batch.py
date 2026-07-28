@@ -44,33 +44,55 @@ def build_msg_batch_plan(
     workspace: Path | str,
     *,
     sources: list[str] | tuple[str, ...] = (),
+    game_dir: Path | str | None = None,
 ) -> tuple[MsgBatchItem, ...]:
-    """Discover extracted MSG files without reading or writing their contents."""
+    """Discover extracted and loose MSG files without reading or writing contents."""
     workspace_path = Path(workspace).resolve()
     raw_root = ensure_within_workspace(workspace_path, "raw")
-    if not raw_root.is_dir():
-        raise FileNotFoundError(f"raw extraction directory does not exist: {raw_root}")
     requested = {source.casefold() for source in sources}
-    available = {item.name.casefold(): item for item in raw_root.iterdir() if item.is_dir()}
+    available: dict[str, tuple[str, Path]] = {}
+    if raw_root.is_dir():
+        available.update(
+            {
+                item.name.casefold(): (item.name, item)
+                for item in raw_root.iterdir()
+                if item.is_dir()
+            }
+        )
+    if game_dir is not None:
+        game_path = Path(game_dir).resolve()
+        if not game_path.is_dir():
+            raise FileNotFoundError(f"game directory does not exist: {game_path}")
+        data_matches = [
+            item for item in game_path.iterdir() if item.is_dir() and item.name.casefold() == "data"
+        ]
+        if len(data_matches) != 1:
+            raise MsgBatchError(
+                f"expected exactly one DATA directory in {game_path}, found {len(data_matches)}"
+            )
+        if "data" in available:
+            raise MsgBatchError("raw source name 'data' conflicts with the loose DATA source")
+        available["data"] = ("data", data_matches[0])
     unknown = requested.difference(available)
     if unknown:
-        raise MsgBatchError(f"unknown raw source: {', '.join(sorted(unknown))}")
+        raise MsgBatchError(f"unknown MSG source: {', '.join(sorted(unknown))}")
     source_directories = [
-        directory
-        for key, directory in sorted(available.items())
-        if not requested or key in requested
+        value for key, value in sorted(available.items()) if not requested or key in requested
     ]
+    if not source_directories:
+        raise MsgBatchError("no extracted or loose MSG source directories are available")
 
     plan: list[MsgBatchItem] = []
     targets: set[str] = set()
-    for source_directory in source_directories:
+    for source_name, source_directory in source_directories:
         for source_path in sorted(source_directory.rglob("*")):
             if not source_path.is_file() or source_path.suffix.casefold() != ".msg":
                 continue
-            internal = source_path.relative_to(source_directory).as_posix()
-            output = (
-                Path("output/text") / source_directory.name / Path(internal).with_suffix(".json")
-            )
+            relative = source_path.relative_to(source_directory)
+            if relative.parts and relative.parts[0].casefold() == "savegame":
+                continue
+            internal = relative.as_posix()
+            output = Path("output/text") / source_name / Path(internal).with_suffix(".json")
             target = msg_output_paths(workspace_path, output)[0]
             key = str(target).casefold()
             if key in targets:
@@ -78,7 +100,7 @@ def build_msg_batch_plan(
             targets.add(key)
             plan.append(
                 MsgBatchItem(
-                    source_name=source_directory.name,
+                    source_name=source_name,
                     source_path=source_path.resolve(),
                     internal_path=internal,
                     output=output,
@@ -86,7 +108,7 @@ def build_msg_batch_plan(
                 )
             )
     if not plan:
-        raise MsgBatchError("no extracted MSG files matched the selected sources")
+        raise MsgBatchError("no MSG files matched the selected sources")
     return tuple(
         sorted(plan, key=lambda item: (item.source_name.casefold(), item.internal_path.casefold()))
     )
@@ -129,6 +151,12 @@ def _existing_outputs_are_current(
     )
 
 
+def _source_encoding(item: MsgBatchItem) -> str | None:
+    if item.source_name.casefold() == "master":
+        return "latin-1"
+    return None
+
+
 def execute_msg_batch(
     plan: tuple[MsgBatchItem, ...] | list[MsgBatchItem],
     workspace: Path | str,
@@ -146,17 +174,20 @@ def execute_msg_batch(
     output_bytes = 0
 
     for item in items:
-        source_relative = item.source_path.relative_to(workspace_path).as_posix()
+        try:
+            source_manifest_path = item.source_path.relative_to(workspace_path).as_posix()
+        except ValueError:
+            source_manifest_path = str(item.source_path)
         json_path, csv_path, hash_path = msg_output_paths(workspace_path, item.output)
         try:
-            document = load_msg(item.source_path)
+            document = load_msg(item.source_path, encoding=_source_encoding(item))
             existing = [path for path in (json_path, csv_path, hash_path) if path.exists()]
             if existing and not overwrite:
                 if _existing_outputs_are_current(item, workspace_path, document.source_sha256):
                     skipped += 1
                     records.append(
                         {
-                            "source_path": source_relative,
+                            "source_path": source_manifest_path,
                             "source_name": item.source_name,
                             "internal_path": item.internal_path,
                             "source_size": item.size,
@@ -174,7 +205,7 @@ def execute_msg_batch(
             converted += 1
             records.append(
                 {
-                    "source_path": source_relative,
+                    "source_path": source_manifest_path,
                     "source_name": item.source_name,
                     "internal_path": item.internal_path,
                     "source_size": item.size,
@@ -188,7 +219,7 @@ def execute_msg_batch(
         except (FileNotFoundError, MsgBatchError, MsgFormatError, OSError, ValueError) as exc:
             records.append(
                 {
-                    "source_path": source_relative,
+                    "source_path": source_manifest_path,
                     "source_name": item.source_name,
                     "internal_path": item.internal_path,
                     "source_size": item.size,
@@ -208,7 +239,13 @@ def execute_msg_batch(
         "started_at_utc": started_at.isoformat(),
         "finished_at_utc": finished_at.isoformat(),
         "duration_seconds": round(duration, 6),
-        "options": {"overwrite": overwrite},
+        "options": {
+            "overwrite": overwrite,
+            "sources": sorted({item.source_name for item in items}),
+            "encoding_policy": {
+                item.source_name: _source_encoding(item) or "auto" for item in items
+            },
+        },
         "summary": {
             "selected": len(items),
             "converted": converted,

@@ -111,14 +111,19 @@ def _parser() -> argparse.ArgumentParser:
     )
 
     convert_msg_batch = subparsers.add_parser(
-        "convert-msg-batch", help="convert extracted MSG files as a recoverable batch"
+        "convert-msg-batch", help="convert extracted or loose MSG files as a recoverable batch"
     )
     convert_msg_batch.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    convert_msg_batch.add_argument(
+        "--game-dir",
+        type=Path,
+        help="read-only Fallout directory; exposes loose DATA as source data",
+    )
     convert_msg_batch.add_argument(
         "--source",
         action="append",
         default=[],
-        help="raw source directory such as master; repeatable",
+        help="source such as master, critter, or data; repeatable",
     )
     convert_msg_batch.add_argument(
         "--execute", action="store_true", help="convert files and write a batch manifest"
@@ -345,7 +350,11 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "convert-msg-batch":
             if args.overwrite and not args.execute:
                 raise MsgBatchError("--overwrite requires --execute")
-            plan = build_msg_batch_plan(args.workspace, sources=args.source)
+            plan = build_msg_batch_plan(
+                args.workspace,
+                sources=args.source,
+                game_dir=args.game_dir,
+            )
             summary = msg_batch_plan_summary(plan)
             if not args.execute:
                 print(
