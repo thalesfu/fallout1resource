@@ -1,0 +1,578 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\COMMAND.INT
+; sha256: 50E2541BB9E6D1942969EB1BF5819AAA76D48298AC2D4A57AFAC17724FC21C83
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 504
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000001F8  802C  set_global
+000001FA  C001  push_int 0
+00000200  C001  push_int 0
+00000206  C001  push_int 0
+0000020C  C001  push_int 0
+00000212  8003  critical_done
+00000214  C001  push_int 540
+0000021A  8004  jump
+
+.procedure 0 .............. offset=0x0000021C size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x0000021C size=288 args=0 flags=0x00000000
+0000021C  802B  push_base
+0000021E  C001  push_int 612
+00000224  C001  push_int 2
+0000022A  8012  fetch_global
+0000022C  8045  not
+0000022E  802F  if
+00000230  C001  push_int 590
+00000236  C001  push_int 146
+0000023C  80C5  global_var
+0000023E  802F  if
+00000240  C001  push_int 0
+00000246  C001  push_int 1
+0000024C  80C2  set_local_var
+0000024E  C001  push_int 1
+00000254  C001  push_int 2
+0000025A  8013  store_global
+0000025C  C001  push_int 804
+00000262  8004  jump
+00000264  C001  push_int 662
+0000026A  80C7  script_action
+0000026C  C001  push_int 3
+00000272  8033  equal
+00000274  802F  if
+00000276  C001  push_int 652
+0000027C  800D  d_to_a
+0000027E  C001  push_int 0
+00000284  C001  push_int 2
+0000028A  8005  call
+0000028C  801A  pop
+0000028E  C001  push_int 804
+00000294  8004  jump
+00000296  C001  push_int 712
+0000029C  80C7  script_action
+0000029E  C001  push_int 6
+000002A4  8033  equal
+000002A6  802F  if
+000002A8  C001  push_int 702
+000002AE  800D  d_to_a
+000002B0  C001  push_int 0
+000002B6  C001  push_int 3
+000002BC  8005  call
+000002BE  801A  pop
+000002C0  C001  push_int 804
+000002C6  8004  jump
+000002C8  C001  push_int 762
+000002CE  80C7  script_action
+000002D0  C001  push_int 7
+000002D6  8033  equal
+000002D8  802F  if
+000002DA  C001  push_int 752
+000002E0  800D  d_to_a
+000002E2  C001  push_int 0
+000002E8  C001  push_int 4
+000002EE  8005  call
+000002F0  801A  pop
+000002F2  C001  push_int 804
+000002F8  8004  jump
+000002FA  C001  push_int 804
+00000300  80C7  script_action
+00000302  C001  push_int 8
+00000308  8033  equal
+0000030A  802F  if
+0000030C  C001  push_int 802
+00000312  800D  d_to_a
+00000314  C001  push_int 0
+0000031A  C001  push_int 5
+00000320  8005  call
+00000322  801A  pop
+00000324  C001  push_int 0
+0000032A  800D  d_to_a
+0000032C  8019  swapa
+0000032E  802A  pop_to_base
+00000330  8029  pop_base
+00000332  800C  a_to_d
+00000334  801C  pop_return
+00000336  802A  pop_to_base
+00000338  8029  pop_base
+0000033A  801C  pop_return
+
+.procedure 2 description_p_proc offset=0x0000033C size=112 args=0 flags=0x00000000
+0000033C  802B  push_base
+0000033E  80B9  script_overrides
+00000340  C001  push_int 432
+00000346  C001  push_int 100
+0000034C  8105  message_str
+          ; message_lookup: list=432, message=100 | 看起来是力场控制计算机。, status=linked
+0000034E  80B8  display_msg
+00000350  C001  push_int 432
+00000356  C001  push_int 101
+0000035C  8105  message_str
+          ; message_lookup: list=432, message=101 | 看起来是由力场信号传导器、远程指挥接收器和标准无线电数据通信端口组成。, status=linked
+0000035E  80B8  display_msg
+00000360  C001  push_int 916
+00000366  C001  push_int 0
+0000036C  80C1  local_var
+0000036E  C001  push_int 2
+00000374  80C1  local_var
+00000376  8045  not
+00000378  803E  and
+0000037A  802F  if
+0000037C  C001  push_int 914
+00000382  800D  d_to_a
+00000384  C001  push_int 0
+0000038A  C001  push_int 6
+00000390  8005  call
+00000392  801A  pop
+00000394  C001  push_int 0
+0000039A  800D  d_to_a
+0000039C  8019  swapa
+0000039E  802A  pop_to_base
+000003A0  8029  pop_base
+000003A2  800C  a_to_d
+000003A4  801C  pop_return
+000003A6  802A  pop_to_base
+000003A8  8029  pop_base
+000003AA  801C  pop_return
+
+.procedure 3 use_p_proc offset=0x000003AC size=192 args=0 flags=0x00000000
+000003AC  802B  push_base
+000003AE  C001  push_int 0
+000003B4  C001  push_int 1108
+000003BA  C001  push_int 0
+000003C0  80C1  local_var
+000003C2  C001  push_int 1
+000003C8  80C1  local_var
+000003CA  8045  not
+000003CC  803E  and
+000003CE  802F  if
+000003D0  80B9  script_overrides
+000003D2  80BF  dude_obj
+000003D4  C001  push_int 16
+000003DA  C001  push_int 0
+000003E0  80AC  op_80ac
+000003E2  C001  push_int 0
+000003E8  8031  store
+000003EA  C001  push_int 1082
+000003F0  C001  push_int 0
+000003F6  8032  fetch
+000003F8  80AF  op_80af
+000003FA  802F  if
+000003FC  C001  push_int 432
+00000402  C001  push_int 109
+00000408  8105  message_str
+          ; message_lookup: list=432, message=109 | 你好不容易打赢了21点的游戏，并在游戏结束的画面上找到了进入主系统的后门。, status=linked
+0000040A  80B8  display_msg
+0000040C  C001  push_int 1
+00000412  C001  push_int 1
+00000418  80C2  set_local_var
+0000041A  C001  push_int 432
+00000420  C001  push_int 116
+00000426  8105  message_str
+          ; message_lookup: list=432, message=116 | 由于你以非常规的手段破解了程序，你获得了800点经验值。牛！, status=linked
+00000428  80B8  display_msg
+0000042A  C001  push_int 800
+00000430  80A1  op_80a1
+00000432  C001  push_int 1098
+00000438  8004  jump
+0000043A  C001  push_int 432
+00000440  C001  push_int 110
+00000446  8105  message_str
+          ; message_lookup: list=432, message=110 | 你玩了21点的游戏，但成绩不好，不能突破系统防护。, status=linked
+00000448  80B8  display_msg
+0000044A  C001  push_int 1200
+00000450  80F2  op_80f2
+00000452  80FC  op_80fc
+00000454  C001  push_int 0
+0000045A  800D  d_to_a
+0000045C  8019  swapa
+0000045E  802A  pop_to_base
+00000460  8029  pop_base
+00000462  800C  a_to_d
+00000464  801C  pop_return
+00000466  802A  pop_to_base
+00000468  8029  pop_base
+0000046A  801C  pop_return
+
+.procedure 4 use_obj_on_p_proc offset=0x0000046C size=156 args=0 flags=0x00000000
+0000046C  802B  push_base
+0000046E  C001  push_int 1264
+00000474  80C0  op_80c0
+00000476  8100  op_8100
+00000478  C001  push_int 100
+0000047E  8033  equal
+00000480  802F  if
+00000482  C001  push_int 1264
+00000488  C001  push_int 610
+0000048E  80C5  global_var
+00000490  8045  not
+00000492  802F  if
+00000494  80B9  script_overrides
+00000496  C001  push_int 1238
+0000049C  80BF  dude_obj
+0000049E  C001  push_int 13
+000004A4  C001  push_int 0
+000004AA  80AC  op_80ac
+000004AC  80AF  op_80af
+000004AE  802F  if
+000004B0  C001  push_int 432
+000004B6  C001  push_int 117
+000004BC  8105  message_str
+          ; message_lookup: list=432, message=117 | 你将无线电连接到力场控制计算机。, status=linked
+000004BE  80B8  display_msg
+000004C0  C001  push_int 610
+000004C6  C001  push_int 1
+000004CC  80C6  set_global_var
+000004CE  C001  push_int 1254
+000004D4  8004  jump
+000004D6  C001  push_int 432
+000004DC  C001  push_int 118
+000004E2  8105  message_str
+          ; message_lookup: list=432, message=118 | 你想把无线电接到计算机，但失败了。, status=linked
+000004E4  80B8  display_msg
+000004E6  C001  push_int 600
+000004EC  80F2  op_80f2
+000004EE  80FC  op_80fc
+000004F0  C001  push_int 0
+000004F6  800D  d_to_a
+000004F8  8019  swapa
+000004FA  802A  pop_to_base
+000004FC  8029  pop_base
+000004FE  800C  a_to_d
+00000500  801C  pop_return
+00000502  802A  pop_to_base
+00000504  8029  pop_base
+00000506  801C  pop_return
+
+.procedure 5 use_skill_on_p_proc offset=0x00000508 size=614 args=0 flags=0x00000000
+00000508  802B  push_base
+0000050A  C001  push_int 0
+00000510  C001  push_int 1878
+00000516  80FA  op_80fa
+00000518  C001  push_int 12
+0000051E  8033  equal
+00000520  802F  if
+00000522  80B9  script_overrides
+00000524  80BF  dude_obj
+00000526  80FA  op_80fa
+00000528  C001  push_int 0
+0000052E  80AC  op_80ac
+00000530  C001  push_int 0
+00000536  8031  store
+00000538  C001  push_int 1482
+0000053E  C001  push_int 0
+00000544  80C1  local_var
+00000546  8045  not
+00000548  802F  if
+0000054A  C001  push_int 1448
+00000550  C001  push_int 0
+00000556  8032  fetch
+00000558  80AF  op_80af
+0000055A  802F  if
+0000055C  C001  push_int 432
+00000562  C001  push_int 102
+00000568  8105  message_str
+          ; message_lookup: list=432, message=102 | 你打开了力场控制计算机，你听到整个基地里发出一阵低沉的嗡嗡声。, status=linked
+0000056A  80B8  display_msg
+0000056C  9001  push_string "on"
+00000572  9001  push_string "<unresolved-string:0xCC>"
+00000578  8015  store_external
+0000057A  C001  push_int 1424
+00000580  800D  d_to_a
+00000582  C001  push_int 0
+00000588  C001  push_int 7
+0000058E  8005  call
+00000590  801A  pop
+00000592  C001  push_int 0
+00000598  C001  push_int 1
+0000059E  80C2  set_local_var
+000005A0  C001  push_int 1464
+000005A6  8004  jump
+000005A8  C001  push_int 432
+000005AE  C001  push_int 103
+000005B4  8105  message_str
+          ; message_lookup: list=432, message=103 | 你没有正确使用电脑。, status=linked
+000005B6  80B8  display_msg
+000005B8  C001  push_int 300
+000005BE  80F2  op_80f2
+000005C0  80FC  op_80fc
+000005C2  C001  push_int 1878
+000005C8  8004  jump
+000005CA  C001  push_int 1600
+000005D0  C001  push_int 1
+000005D6  80C1  local_var
+000005D8  8045  not
+000005DA  802F  if
+000005DC  C001  push_int 1542
+000005E2  C001  push_int 0
+000005E8  8032  fetch
+000005EA  80AF  op_80af
+000005EC  802F  if
+000005EE  C001  push_int 432
+000005F4  C001  push_int 104
+000005FA  8105  message_str
+          ; message_lookup: list=432, message=104 | 你不能关闭力场控制计算机，所有的控制端都被锁住并加密。, status=linked
+000005FC  80B8  display_msg
+000005FE  C001  push_int 1558
+00000604  8004  jump
+00000606  C001  push_int 432
+0000060C  C001  push_int 105
+00000612  8105  message_str
+          ; message_lookup: list=432, message=105 | 你无法理解这台电脑的操作系统。, status=linked
+00000614  80B8  display_msg
+00000616  C001  push_int 300
+0000061C  80F2  op_80f2
+0000061E  80FC  op_80fc
+00000620  C001  push_int 1590
+00000626  800D  d_to_a
+00000628  C001  push_int 0
+0000062E  C001  push_int 6
+00000634  8005  call
+00000636  801A  pop
+00000638  C001  push_int 1878
+0000063E  8004  jump
+00000640  C001  push_int 1878
+00000646  C001  push_int 2
+0000064C  80C1  local_var
+0000064E  8045  not
+00000650  802F  if
+00000652  C001  push_int 1838
+00000658  C001  push_int 0
+0000065E  8032  fetch
+00000660  80AF  op_80af
+00000662  802F  if
+00000664  C001  push_int 1716
+0000066A  C001  push_int 0
+00000670  8032  fetch
+00000672  80B0  op_80b0
+00000674  802F  if
+00000676  C001  push_int 432
+0000067C  C001  push_int 106
+00000682  8105  message_str
+          ; message_lookup: list=432, message=106 | 力场控制系统在你这样的天才手里不堪一击，这一层所有的力场全部被关闭了。, status=linked
+00000684  80B8  display_msg
+00000686  9001  push_string "off"
+0000068C  9001  push_string "<unresolved-string:0xCC>"
+00000692  8015  store_external
+00000694  C001  push_int 1706
+0000069A  800D  d_to_a
+0000069C  C001  push_int 0
+000006A2  C001  push_int 8
+000006A8  8005  call
+000006AA  801A  pop
+000006AC  C001  push_int 1830
+000006B2  8004  jump
+000006B4  C001  push_int 432
+000006BA  C001  push_int 107
+000006C0  8105  message_str
+          ; message_lookup: list=432, message=107 | 力场系统的防卫很严密，但是你还是解除了一半的力场，这已经是你的极限了。, status=linked
+000006C2  80B8  display_msg
+000006C4  9001  push_string "off"
+000006CA  9001  push_string "<unresolved-string:0xCC>"
+000006D0  8015  store_external
+000006D2  C001  push_int 16
+000006D8  C001  push_int 0
+000006DE  80C4  op_80c4
+000006E0  C001  push_int 17
+000006E6  C001  push_int 0
+000006EC  80C4  op_80c4
+000006EE  C001  push_int 18
+000006F4  C001  push_int 0
+000006FA  80C4  op_80c4
+000006FC  C001  push_int 19
+00000702  C001  push_int 0
+00000708  80C4  op_80c4
+0000070A  C001  push_int 20
+00000710  C001  push_int 0
+00000716  80C4  op_80c4
+00000718  C001  push_int 21
+0000071E  C001  push_int 0
+00000724  80C4  op_80c4
+00000726  C001  push_int 1854
+0000072C  8004  jump
+0000072E  C001  push_int 432
+00000734  C001  push_int 108
+0000073A  8105  message_str
+          ; message_lookup: list=432, message=108 | 力场控制系统能防止电子入侵，你花了些时间破解，但是未能成功。, status=linked
+0000073C  80B8  display_msg
+0000073E  C001  push_int 1800
+00000744  80F2  op_80f2
+00000746  80FC  op_80fc
+00000748  C001  push_int 2
+0000074E  C001  push_int 1
+00000754  80C2  set_local_var
+00000756  C001  push_int 0
+0000075C  800D  d_to_a
+0000075E  8019  swapa
+00000760  802A  pop_to_base
+00000762  8029  pop_base
+00000764  800C  a_to_d
+00000766  801C  pop_return
+00000768  802A  pop_to_base
+0000076A  8029  pop_base
+0000076C  801C  pop_return
+
+.procedure 6 Command01 offset=0x0000076E size=244 args=0 flags=0x00000000
+0000076E  802B  push_base
+00000770  80BF  dude_obj
+00000772  C001  push_int 1
+00000778  C001  push_int 0
+0000077E  80BF  dude_obj
+00000780  C001  push_int 0
+00000786  80F3  has_trait
+00000788  80AE  op_80ae
+0000078A  C001  push_int 1
+00000790  8013  store_global
+00000792  C001  push_int 2106
+00000798  C001  push_int 1
+0000079E  80C1  local_var
+000007A0  8045  not
+000007A2  802F  if
+000007A4  C001  push_int 2040
+000007AA  C001  push_int 1
+000007B0  8012  fetch_global
+000007B2  80AF  op_80af
+000007B4  802F  if
+000007B6  C001  push_int 2016
+000007BC  C001  push_int 1
+000007C2  8012  fetch_global
+000007C4  80B0  op_80b0
+000007C6  802F  if
+000007C8  C001  push_int 432
+000007CE  C001  push_int 111
+000007D4  8105  message_str
+          ; message_lookup: list=432, message=111 | 唯一没有加密的目录是“娱乐游戏”，也许这里有后门程序？, status=linked
+000007D6  80B8  display_msg
+000007D8  C001  push_int 2032
+000007DE  8004  jump
+000007E0  C001  push_int 432
+000007E6  C001  push_int 112
+000007EC  8105  message_str
+          ; message_lookup: list=432, message=112 | 唯一没有加密的目录是“娱乐游戏”。, status=linked
+000007EE  80B8  display_msg
+000007F0  C001  push_int 2098
+000007F6  8004  jump
+000007F8  C001  push_int 2082
+000007FE  C001  push_int 1
+00000804  8012  fetch_global
+00000806  80B0  op_80b0
+00000808  802F  if
+0000080A  C001  push_int 432
+00000810  C001  push_int 113
+00000816  8105  message_str
+          ; message_lookup: list=432, message=113 | 你呆呆地看着电脑。, status=linked
+00000818  80B8  display_msg
+0000081A  C001  push_int 2098
+00000820  8004  jump
+00000822  C001  push_int 432
+00000828  C001  push_int 114
+0000082E  8105  message_str
+          ; message_lookup: list=432, message=114 | 你发现所有的目录都被加密，但似乎你没搜全。, status=linked
+00000830  80B8  display_msg
+00000832  C001  push_int 2122
+00000838  8004  jump
+0000083A  C001  push_int 432
+00000840  C001  push_int 115
+00000846  8105  message_str
+          ; message_lookup: list=432, message=115 | 你进入了主系统，现在可以进行力场控制程序重新编译。, status=linked
+00000848  80B8  display_msg
+0000084A  C001  push_int 0
+00000850  800D  d_to_a
+00000852  8019  swapa
+00000854  802A  pop_to_base
+00000856  8029  pop_base
+00000858  800C  a_to_d
+0000085A  801C  pop_return
+0000085C  802A  pop_to_base
+0000085E  8029  pop_base
+00000860  801C  pop_return
+
+.procedure 7 use_all_fields_on offset=0x00000862 size=138 args=0 flags=0x00000000
+00000862  802B  push_base
+00000864  C001  push_int 16
+0000086A  C001  push_int 1
+00000870  80C4  op_80c4
+00000872  C001  push_int 17
+00000878  C001  push_int 1
+0000087E  80C4  op_80c4
+00000880  C001  push_int 18
+00000886  C001  push_int 1
+0000088C  80C4  op_80c4
+0000088E  C001  push_int 19
+00000894  C001  push_int 1
+0000089A  80C4  op_80c4
+0000089C  C001  push_int 20
+000008A2  C001  push_int 1
+000008A8  80C4  op_80c4
+000008AA  C001  push_int 21
+000008B0  C001  push_int 1
+000008B6  80C4  op_80c4
+000008B8  C001  push_int 22
+000008BE  C001  push_int 1
+000008C4  80C4  op_80c4
+000008C6  C001  push_int 23
+000008CC  C001  push_int 1
+000008D2  80C4  op_80c4
+000008D4  C001  push_int 0
+000008DA  800D  d_to_a
+000008DC  8019  swapa
+000008DE  802A  pop_to_base
+000008E0  8029  pop_base
+000008E2  800C  a_to_d
+000008E4  801C  pop_return
+000008E6  802A  pop_to_base
+000008E8  8029  pop_base
+000008EA  801C  pop_return
+
+.procedure 8 use_all_fields_off offset=0x000008EC size=138 args=0 flags=0x00000000
+000008EC  802B  push_base
+000008EE  C001  push_int 16
+000008F4  C001  push_int 0
+000008FA  80C4  op_80c4
+000008FC  C001  push_int 17
+00000902  C001  push_int 0
+00000908  80C4  op_80c4
+0000090A  C001  push_int 18
+00000910  C001  push_int 0
+00000916  80C4  op_80c4
+00000918  C001  push_int 19
+0000091E  C001  push_int 0
+00000924  80C4  op_80c4
+00000926  C001  push_int 20
+0000092C  C001  push_int 0
+00000932  80C4  op_80c4
+00000934  C001  push_int 21
+0000093A  C001  push_int 0
+00000940  80C4  op_80c4
+00000942  C001  push_int 22
+00000948  C001  push_int 0
+0000094E  80C4  op_80c4
+00000950  C001  push_int 23
+00000956  C001  push_int 0
+0000095C  80C4  op_80c4
+0000095E  C001  push_int 0
+00000964  800D  d_to_a
+00000966  8019  swapa
+00000968  802A  pop_to_base
+0000096A  8029  pop_base
+0000096C  800C  a_to_d
+0000096E  801C  pop_return
+00000970  802A  pop_to_base
+00000972  8029  pop_base
+00000974  801C  pop_return

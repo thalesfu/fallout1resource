@@ -1,0 +1,87 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\SDEBRIS.INT
+; sha256: EC7D2C8F9709F1FECFD7125C7F70D9D454DB1134642716879A1439F27FAAA42B
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 132
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000084  802C  set_global
+00000086  C001  push_int 0
+0000008C  8003  critical_done
+0000008E  C001  push_int 150
+00000094  8004  jump
+
+.procedure 0 .............. offset=0x00000096 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00000096 size=184 args=0 flags=0x00000000
+00000096  802B  push_base
+00000098  C001  push_int 310
+0000009E  80C7  script_action
+000000A0  C001  push_int 2
+000000A6  8033  equal
+000000A8  802F  if
+000000AA  C001  push_int 310
+000000B0  80BD  source_obj
+000000B2  80BF  dude_obj
+000000B4  8033  equal
+000000B6  802F  if
+000000B8  C001  push_int 310
+000000BE  C001  push_int 1
+000000C4  80C3  op_80c3
+000000C6  C001  push_int 0
+000000CC  8033  equal
+000000CE  802F  if
+000000D0  C001  push_int 1
+000000D6  C001  push_int 1
+000000DC  80C4  op_80c4
+000000DE  C001  push_int 4
+000000E4  C001  push_int 4
+000000EA  80C3  op_80c3
+000000EC  C001  push_int 1
+000000F2  8039  add
+000000F4  80C4  op_80c4
+000000F6  C001  push_int 294
+000000FC  C001  push_int 4
+00000102  80C3  op_80c3
+00000104  C001  push_int 3
+0000010A  8038  greater
+0000010C  802F  if
+0000010E  C001  push_int 824
+00000114  C001  push_int 104
+0000011A  8105  message_str
+          ; message_lookup: list=824, message=104, status=no-msg
+0000011C  80B8  display_msg
+0000011E  C001  push_int 310
+00000124  8004  jump
+00000126  C001  push_int 824
+0000012C  C001  push_int 101
+00000132  8105  message_str
+          ; message_lookup: list=824, message=101, status=no-msg
+00000134  80B8  display_msg
+00000136  C001  push_int 0
+0000013C  800D  d_to_a
+0000013E  8019  swapa
+00000140  802A  pop_to_base
+00000142  8029  pop_base
+00000144  800C  a_to_d
+00000146  801C  pop_return
+00000148  802A  pop_to_base
+0000014A  8029  pop_base
+0000014C  801C  pop_return

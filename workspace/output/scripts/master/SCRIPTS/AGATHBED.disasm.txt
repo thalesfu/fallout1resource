@@ -1,0 +1,157 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\AGATHBED.INT
+; sha256: 4CFF19DD3323C8737F278B900AB4E4B8606E46789F8C32B61ADF38E92EC82747
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 294
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000126  802C  set_global
+00000128  C001  push_int 0
+0000012E  8003  critical_done
+00000130  C001  push_int 312
+00000136  8004  jump
+
+.procedure 0 .............. offset=0x00000138 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00000138 size=168 args=0 flags=0x00000000
+00000138  802B  push_base
+0000013A  C001  push_int 364
+00000140  80C7  script_action
+00000142  C001  push_int 6
+00000148  8033  equal
+0000014A  802F  if
+0000014C  C001  push_int 354
+00000152  800D  d_to_a
+00000154  C001  push_int 0
+0000015A  C001  push_int 5
+00000160  8005  call
+00000162  801A  pop
+00000164  C001  push_int 456
+0000016A  8004  jump
+0000016C  C001  push_int 414
+00000172  80C7  script_action
+00000174  C001  push_int 3
+0000017A  8033  equal
+0000017C  802F  if
+0000017E  C001  push_int 404
+00000184  800D  d_to_a
+00000186  C001  push_int 0
+0000018C  C001  push_int 4
+00000192  8005  call
+00000194  801A  pop
+00000196  C001  push_int 456
+0000019C  8004  jump
+0000019E  C001  push_int 456
+000001A4  80C7  script_action
+000001A6  C001  push_int 21
+000001AC  8033  equal
+000001AE  802F  if
+000001B0  C001  push_int 454
+000001B6  800D  d_to_a
+000001B8  C001  push_int 0
+000001BE  C001  push_int 3
+000001C4  8005  call
+000001C6  801A  pop
+000001C8  C001  push_int 0
+000001CE  800D  d_to_a
+000001D0  8019  swapa
+000001D2  802A  pop_to_base
+000001D4  8029  pop_base
+000001D6  800C  a_to_d
+000001D8  801C  pop_return
+000001DA  802A  pop_to_base
+000001DC  8029  pop_base
+000001DE  801C  pop_return
+
+.procedure 2 do_stuff offset=0x000001E0 size=44 args=0 flags=0x00000000
+000001E0  802B  push_base
+000001E2  80B9  script_overrides
+000001E4  C001  push_int 0
+000001EA  C001  push_int 102
+000001F0  8105  message_str
+          ; message_lookup: list=0, message=102 | 阿加莎 would not be happy if you messed up her bed., status=linked
+000001F2  80B8  display_msg
+000001F4  C001  push_int 0
+000001FA  800D  d_to_a
+000001FC  8019  swapa
+000001FE  802A  pop_to_base
+00000200  8029  pop_base
+00000202  800C  a_to_d
+00000204  801C  pop_return
+00000206  802A  pop_to_base
+00000208  8029  pop_base
+0000020A  801C  pop_return
+
+.procedure 3 look_at_p_proc offset=0x0000020C size=44 args=0 flags=0x00000000
+0000020C  802B  push_base
+0000020E  80B9  script_overrides
+00000210  C001  push_int 0
+00000216  C001  push_int 101
+0000021C  8105  message_str
+          ; message_lookup: list=0, message=101 | You see a tattered bed., status=linked
+0000021E  80B8  display_msg
+00000220  C001  push_int 0
+00000226  800D  d_to_a
+00000228  8019  swapa
+0000022A  802A  pop_to_base
+0000022C  8029  pop_base
+0000022E  800C  a_to_d
+00000230  801C  pop_return
+00000232  802A  pop_to_base
+00000234  8029  pop_base
+00000236  801C  pop_return
+
+.procedure 4 description_p_proc offset=0x00000238 size=44 args=0 flags=0x00000000
+00000238  802B  push_base
+0000023A  80B9  script_overrides
+0000023C  C001  push_int 0
+00000242  C001  push_int 100
+00000248  8105  message_str
+          ; message_lookup: list=0, message=100 | The bed looks neatly made despite its tattered nature., status=linked
+0000024A  80B8  display_msg
+0000024C  C001  push_int 0
+00000252  800D  d_to_a
+00000254  8019  swapa
+00000256  802A  pop_to_base
+00000258  8029  pop_base
+0000025A  800C  a_to_d
+0000025C  801C  pop_return
+0000025E  802A  pop_to_base
+00000260  8029  pop_base
+00000262  801C  pop_return
+
+.procedure 5 use_p_proc offset=0x00000264 size=50 args=0 flags=0x00000000
+00000264  802B  push_base
+00000266  C001  push_int 636
+0000026C  800D  d_to_a
+0000026E  C001  push_int 0
+00000274  C001  push_int 2
+0000027A  8005  call
+0000027C  801A  pop
+0000027E  C001  push_int 0
+00000284  800D  d_to_a
+00000286  8019  swapa
+00000288  802A  pop_to_base
+0000028A  8029  pop_base
+0000028C  800C  a_to_d
+0000028E  801C  pop_return
+00000290  802A  pop_to_base
+00000292  8029  pop_base
+00000294  801C  pop_return

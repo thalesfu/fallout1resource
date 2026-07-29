@@ -1,0 +1,1438 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\LORRIAN.INT
+; sha256: AF578A93B84DD848C05D8C4EC223E0A306B34C539AAE6F5D2C93D3CDA9D81AEF
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 1096
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000448  802C  set_global
+0000044A  C001  push_int 0
+00000450  C001  push_int 0
+00000456  8003  critical_done
+00000458  C001  push_int 1120
+0000045E  8004  jump
+
+.procedure 0 .............. offset=0x00000460 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00000460 size=236 args=0 flags=0x00000000
+00000460  802B  push_base
+00000462  C001  push_int 1172
+00000468  80C7  script_action
+0000046A  C001  push_int 11
+00000470  8033  equal
+00000472  802F  if
+00000474  C001  push_int 1162
+0000047A  800D  d_to_a
+0000047C  C001  push_int 0
+00000482  C001  push_int 2
+00000488  8005  call
+0000048A  801A  pop
+0000048C  C001  push_int 1332
+00000492  8004  jump
+00000494  C001  push_int 1268
+0000049A  80C7  script_action
+0000049C  C001  push_int 21
+000004A2  8033  equal
+000004A4  80C7  script_action
+000004A6  C001  push_int 3
+000004AC  8033  equal
+000004AE  803F  or
+000004B0  802F  if
+000004B2  80B9  script_overrides
+000004B4  C001  push_int 1244
+000004BA  C001  push_int 0
+000004C0  8012  fetch_global
+000004C2  802F  if
+000004C4  C001  push_int 174
+000004CA  C001  push_int 100
+000004D0  8105  message_str
+          ; message_lookup: list=174, message=100 | 你看到一名黑发的年轻女子。, status=linked
+000004D2  80B8  display_msg
+000004D4  C001  push_int 1260
+000004DA  8004  jump
+000004DC  C001  push_int 174
+000004E2  C001  push_int 101
+000004E8  8105  message_str
+          ; message_lookup: list=174, message=101 | 你看到洛林，一个来自内城区的拾荒者。, status=linked
+000004EA  80B8  display_msg
+000004EC  C001  push_int 1332
+000004F2  8004  jump
+000004F4  C001  push_int 1332
+000004FA  80C7  script_action
+000004FC  C001  push_int 22
+00000502  8033  equal
+00000504  802F  if
+00000506  80BF  dude_obj
+00000508  C001  push_int 0
+0000050E  C001  push_int 1
+00000514  C001  push_int 0
+0000051A  C001  push_int 0
+00000520  C001  push_int 30000
+00000526  C001  push_int 0
+0000052C  C001  push_int 0
+00000532  80D0  attack
+00000534  C001  push_int 0
+0000053A  800D  d_to_a
+0000053C  8019  swapa
+0000053E  802A  pop_to_base
+00000540  8029  pop_base
+00000542  800C  a_to_d
+00000544  801C  pop_return
+00000546  802A  pop_to_base
+00000548  8029  pop_base
+0000054A  801C  pop_return
+
+.procedure 2 do_dialogue offset=0x0000054C size=136 args=0 flags=0x00000000
+0000054C  802B  push_base
+0000054E  C001  push_int 174
+00000554  80BC  self_obj
+00000556  C001  push_int 4
+0000055C  C001  push_int 1
+00000562  8046  negate
+00000564  C001  push_int 1
+0000056A  8046  negate
+0000056C  80DE  start_gdialog
+0000056E  804E  op_804e
+00000570  C001  push_int 1440
+00000576  C001  push_int 0
+0000057C  8012  fetch_global
+0000057E  802F  if
+00000580  C001  push_int 1430
+00000586  800D  d_to_a
+00000588  C001  push_int 0
+0000058E  C001  push_int 6
+00000594  8005  call
+00000596  801A  pop
+00000598  C001  push_int 1464
+0000059E  8004  jump
+000005A0  C001  push_int 1462
+000005A6  800D  d_to_a
+000005A8  C001  push_int 0
+000005AE  C001  push_int 3
+000005B4  8005  call
+000005B6  801A  pop
+000005B8  804D  op_804d
+000005BA  80DF  end_dialogue
+000005BC  C001  push_int 0
+000005C2  800D  d_to_a
+000005C4  8019  swapa
+000005C6  802A  pop_to_base
+000005C8  8029  pop_base
+000005CA  800C  a_to_d
+000005CC  801C  pop_return
+000005CE  802A  pop_to_base
+000005D0  8029  pop_base
+000005D2  801C  pop_return
+
+.procedure 3 Lorri01 offset=0x000005D4 size=224 args=0 flags=0x00000000
+000005D4  802B  push_base
+000005D6  C001  push_int 0
+000005DC  C001  push_int 174
+000005E2  C001  push_int 102
+000005E8  8105  message_str
+          ; message_lookup: list=174, message=102 | 您好，你是新来的吗？, status=linked
+000005EA  8052  op_8052
+000005EC  C001  push_int 1564
+000005F2  80BF  dude_obj
+000005F4  C001  push_int 4
+000005FA  80CA  get_critter_stat
+000005FC  C001  push_int 4
+00000602  8036  greater_equal
+00000604  802F  if
+00000606  C001  push_int 174
+0000060C  C001  push_int 103
+00000612  8105  message_str
+          ; message_lookup: list=174, message=103 | 是的。能介绍一下这里吗？, status=linked
+00000614  C001  push_int 4
+0000061A  8053  op_8053
+0000061C  C001  push_int 1642
+00000622  80BF  dude_obj
+00000624  C001  push_int 4
+0000062A  80CA  get_critter_stat
+0000062C  C001  push_int 4
+00000632  8036  greater_equal
+00000634  802F  if
+00000636  C001  push_int 174
+0000063C  C001  push_int 104
+00000642  8105  message_str
+          ; message_lookup: list=174, message=104 | 是的。我叫, status=linked
+00000644  80BF  dude_obj
+00000646  8100  op_8100
+00000648  C001  push_int 1
+0000064E  8104  op_8104
+00000650  8039  add
+00000652  C001  push_int 174
+00000658  C001  push_int 105
+0000065E  8105  message_str
+          ; message_lookup: list=174, message=105 | 。, status=linked
+00000660  8039  add
+00000662  C001  push_int 5
+00000668  8053  op_8053
+0000066A  C001  push_int 1692
+00000670  80BF  dude_obj
+00000672  C001  push_int 4
+00000678  80CA  get_critter_stat
+0000067A  C001  push_int 3
+00000680  8046  negate
+00000682  8036  greater_equal
+00000684  802F  if
+00000686  C001  push_int 174
+0000068C  C001  push_int 106
+00000692  8105  message_str
+          ; message_lookup: list=174, message=106 | 喔？, status=linked
+00000694  C001  push_int 17
+0000069A  8053  op_8053
+0000069C  C001  push_int 0
+000006A2  800D  d_to_a
+000006A4  8019  swapa
+000006A6  802A  pop_to_base
+000006A8  8029  pop_base
+000006AA  800C  a_to_d
+000006AC  801C  pop_return
+000006AE  802A  pop_to_base
+000006B0  8029  pop_base
+000006B2  801C  pop_return
+
+.procedure 4 Lorri02 offset=0x000006B4 size=306 args=0 flags=0x00000000
+000006B4  802B  push_base
+000006B6  C001  push_int 0
+000006BC  C001  push_int 174
+000006C2  C001  push_int 107
+000006C8  8105  message_str
+          ; message_lookup: list=174, message=107 | 让我猜猜。你想知道什么？, status=linked
+000006CA  8052  op_8052
+000006CC  C001  push_int 1806
+000006D2  C001  push_int 0
+000006D8  8012  fetch_global
+000006DA  8045  not
+000006DC  802F  if
+000006DE  C001  push_int 1806
+000006E4  80BF  dude_obj
+000006E6  C001  push_int 4
+000006EC  80CA  get_critter_stat
+000006EE  C001  push_int 4
+000006F4  8036  greater_equal
+000006F6  802F  if
+000006F8  C001  push_int 174
+000006FE  C001  push_int 108
+00000704  8105  message_str
+          ; message_lookup: list=174, message=108 | 你是谁？, status=linked
+00000706  C001  push_int 5
+0000070C  8053  op_8053
+0000070E  C001  push_int 1854
+00000714  80BF  dude_obj
+00000716  C001  push_int 4
+0000071C  80CA  get_critter_stat
+0000071E  C001  push_int 4
+00000724  8036  greater_equal
+00000726  802F  if
+00000728  C001  push_int 174
+0000072E  C001  push_int 109
+00000734  8105  message_str
+          ; message_lookup: list=174, message=109 | 你能跟我讲讲有关晒骨场的事情吗？, status=linked
+00000736  C001  push_int 18
+0000073C  8053  op_8053
+0000073E  C001  push_int 1902
+00000744  80BF  dude_obj
+00000746  C001  push_int 4
+0000074C  80CA  get_critter_stat
+0000074E  C001  push_int 4
+00000754  8036  greater_equal
+00000756  802F  if
+00000758  C001  push_int 174
+0000075E  C001  push_int 110
+00000764  8105  message_str
+          ; message_lookup: list=174, message=110 | 告诉我些内城区居民的事好吗？, status=linked
+00000766  C001  push_int 22
+0000076C  8053  op_8053
+0000076E  C001  push_int 1950
+00000774  80BF  dude_obj
+00000776  C001  push_int 4
+0000077C  80CA  get_critter_stat
+0000077E  C001  push_int 4
+00000784  8036  greater_equal
+00000786  802F  if
+00000788  C001  push_int 174
+0000078E  C001  push_int 111
+00000794  8105  message_str
+          ; message_lookup: list=174, message=111 | 你靠什么过活？, status=linked
+00000796  C001  push_int 6
+0000079C  8053  op_8053
+0000079E  C001  push_int 1998
+000007A4  80BF  dude_obj
+000007A6  C001  push_int 4
+000007AC  80CA  get_critter_stat
+000007AE  C001  push_int 4
+000007B4  8036  greater_equal
+000007B6  802F  if
+000007B8  C001  push_int 174
+000007BE  C001  push_int 112
+000007C4  8105  message_str
+          ; message_lookup: list=174, message=112 | 谢谢，别担心。, status=linked
+000007C6  C001  push_int 7
+000007CC  8053  op_8053
+000007CE  C001  push_int 0
+000007D4  800D  d_to_a
+000007D6  8019  swapa
+000007D8  802A  pop_to_base
+000007DA  8029  pop_base
+000007DC  800C  a_to_d
+000007DE  801C  pop_return
+000007E0  802A  pop_to_base
+000007E2  8029  pop_base
+000007E4  801C  pop_return
+
+.procedure 5 Lorri03 offset=0x000007E6 size=158 args=0 flags=0x00000000
+000007E6  802B  push_base
+000007E8  C001  push_int 1
+000007EE  C001  push_int 0
+000007F4  8013  store_global
+000007F6  C001  push_int 0
+000007FC  C001  push_int 174
+00000802  C001  push_int 113
+00000808  8105  message_str
+          ; message_lookup: list=174, message=113 | 我是洛林。, status=linked
+0000080A  8052  op_8052
+0000080C  C001  push_int 2108
+00000812  80BF  dude_obj
+00000814  C001  push_int 4
+0000081A  80CA  get_critter_stat
+0000081C  C001  push_int 4
+00000822  8036  greater_equal
+00000824  802F  if
+00000826  C001  push_int 174
+0000082C  C001  push_int 114
+00000832  8105  message_str
+          ; message_lookup: list=174, message=114 | 我能问你几个问题吗？, status=linked
+00000834  C001  push_int 4
+0000083A  8053  op_8053
+0000083C  C001  push_int 2156
+00000842  80BF  dude_obj
+00000844  C001  push_int 4
+0000084A  80CA  get_critter_stat
+0000084C  C001  push_int 4
+00000852  8036  greater_equal
+00000854  802F  if
+00000856  C001  push_int 174
+0000085C  C001  push_int 115
+00000862  8105  message_str
+          ; message_lookup: list=174, message=115 | 我是一个拾荒者。我和山谬一起在废墟里搜罗材料和资源，用来盖房子和做买卖。, status=linked
+00000864  C001  push_int 7
+0000086A  8053  op_8053
+0000086C  C001  push_int 0
+00000872  800D  d_to_a
+00000874  8019  swapa
+00000876  802A  pop_to_base
+00000878  8029  pop_base
+0000087A  800C  a_to_d
+0000087C  801C  pop_return
+0000087E  802A  pop_to_base
+00000880  8029  pop_base
+00000882  801C  pop_return
+
+.procedure 6 Lorri04 offset=0x00000884 size=192 args=0 flags=0x00000000
+00000884  802B  push_base
+00000886  C001  push_int 0
+0000088C  C001  push_int 174
+00000892  C001  push_int 116
+00000898  8105  message_str
+          ; message_lookup: list=174, message=116 | 为什么这儿的人不都去做呢？, status=linked
+0000089A  8052  op_8052
+0000089C  C001  push_int 2252
+000008A2  80BF  dude_obj
+000008A4  C001  push_int 4
+000008AA  80CA  get_critter_stat
+000008AC  C001  push_int 4
+000008B2  8036  greater_equal
+000008B4  802F  if
+000008B6  C001  push_int 174
+000008BC  C001  push_int 117
+000008C2  8105  message_str
+          ; message_lookup: list=174, message=117 | 你们在这里有多少人手？, status=linked
+000008C4  C001  push_int 8
+000008CA  8053  op_8053
+000008CC  C001  push_int 2300
+000008D2  80BF  dude_obj
+000008D4  C001  push_int 4
+000008DA  80CA  get_critter_stat
+000008DC  C001  push_int 4
+000008E2  8036  greater_equal
+000008E4  802F  if
+000008E6  C001  push_int 174
+000008EC  C001  push_int 118
+000008F2  8105  message_str
+          ; message_lookup: list=174, message=118 | 咱们换个话题好吗？, status=linked
+000008F4  C001  push_int 9
+000008FA  8053  op_8053
+000008FC  C001  push_int 2348
+00000902  80BF  dude_obj
+00000904  C001  push_int 4
+0000090A  80CA  get_critter_stat
+0000090C  C001  push_int 4
+00000912  8036  greater_equal
+00000914  802F  if
+00000916  C001  push_int 174
+0000091C  C001  push_int 119
+00000922  8105  message_str
+          ; message_lookup: list=174, message=119 | 和你聊天很开心。, status=linked
+00000924  C001  push_int 4
+0000092A  8053  op_8053
+0000092C  C001  push_int 0
+00000932  800D  d_to_a
+00000934  8019  swapa
+00000936  802A  pop_to_base
+00000938  8029  pop_base
+0000093A  800C  a_to_d
+0000093C  801C  pop_return
+0000093E  802A  pop_to_base
+00000940  8029  pop_base
+00000942  801C  pop_return
+
+.procedure 7 Lorri05 offset=0x00000944 size=48 args=0 flags=0x00000000
+00000944  802B  push_base
+00000946  C001  push_int 0
+0000094C  C001  push_int 174
+00000952  C001  push_int 120
+00000958  8105  message_str
+          ; message_lookup: list=174, message=120 | 你赶走了本地的死亡爪，另外自称为内城区保护神的管理者们就失分了。我猜那些人没现金付你，而且他们连看一眼死亡爪的胆量都没有。, status=linked
+0000095A  8054  op_8054
+0000095C  C001  push_int 0
+00000962  800D  d_to_a
+00000964  8019  swapa
+00000966  802A  pop_to_base
+00000968  8029  pop_base
+0000096A  800C  a_to_d
+0000096C  801C  pop_return
+0000096E  802A  pop_to_base
+00000970  8029  pop_base
+00000972  801C  pop_return
+
+.procedure 8 Lorri06 offset=0x00000974 size=240 args=0 flags=0x00000000
+00000974  802B  push_base
+00000976  C001  push_int 0
+0000097C  C001  push_int 174
+00000982  C001  push_int 121
+00000988  8105  message_str
+          ; message_lookup: list=174, message=121 | 管理者们负责什么？, status=linked
+0000098A  8052  op_8052
+0000098C  C001  push_int 2492
+00000992  80BF  dude_obj
+00000994  C001  push_int 4
+0000099A  80CA  get_critter_stat
+0000099C  C001  push_int 4
+000009A2  8036  greater_equal
+000009A4  802F  if
+000009A6  C001  push_int 174
+000009AC  C001  push_int 122
+000009B2  8105  message_str
+          ; message_lookup: list=174, message=122 | 你们怎么躲开死亡爪。, status=linked
+000009B4  C001  push_int 10
+000009BA  8053  op_8053
+000009BC  C001  push_int 2540
+000009C2  80BF  dude_obj
+000009C4  C001  push_int 4
+000009CA  80CA  get_critter_stat
+000009CC  C001  push_int 4
+000009D2  8036  greater_equal
+000009D4  802F  if
+000009D6  C001  push_int 174
+000009DC  C001  push_int 123
+000009E2  8105  message_str
+          ; message_lookup: list=174, message=123 | 我能问些其他的问题吗？, status=linked
+000009E4  C001  push_int 12
+000009EA  8053  op_8053
+000009EC  C001  push_int 2588
+000009F2  80BF  dude_obj
+000009F4  C001  push_int 4
+000009FA  80CA  get_critter_stat
+000009FC  C001  push_int 4
+00000A02  8036  greater_equal
+00000A04  802F  if
+00000A06  C001  push_int 174
+00000A0C  C001  push_int 124
+00000A12  8105  message_str
+          ; message_lookup: list=174, message=124 | 谢谢。再见。, status=linked
+00000A14  C001  push_int 4
+00000A1A  8053  op_8053
+00000A1C  C001  push_int 2636
+00000A22  80BF  dude_obj
+00000A24  C001  push_int 4
+00000A2A  80CA  get_critter_stat
+00000A2C  C001  push_int 4
+00000A32  8036  greater_equal
+00000A34  802F  if
+00000A36  C001  push_int 174
+00000A3C  C001  push_int 125
+00000A42  8105  message_str
+          ; message_lookup: list=174, message=125 | 哦，我们在这儿有半打的人。山谬就是一个，也是最好的一个。, status=linked
+00000A44  C001  push_int 7
+00000A4A  8053  op_8053
+00000A4C  C001  push_int 0
+00000A52  800D  d_to_a
+00000A54  8019  swapa
+00000A56  802A  pop_to_base
+00000A58  8029  pop_base
+00000A5A  800C  a_to_d
+00000A5C  801C  pop_return
+00000A5E  802A  pop_to_base
+00000A60  8029  pop_base
+00000A62  801C  pop_return
+
+.procedure 9 Lorri07 offset=0x00000A64 size=144 args=0 flags=0x00000000
+00000A64  802B  push_base
+00000A66  C001  push_int 0
+00000A6C  C001  push_int 174
+00000A72  C001  push_int 126
+00000A78  8105  message_str
+          ; message_lookup: list=174, message=126 | 我能问些其它问题吗？, status=linked
+00000A7A  8052  op_8052
+00000A7C  C001  push_int 2732
+00000A82  80BF  dude_obj
+00000A84  C001  push_int 4
+00000A8A  80CA  get_critter_stat
+00000A8C  C001  push_int 4
+00000A92  8036  greater_equal
+00000A94  802F  if
+00000A96  C001  push_int 174
+00000A9C  C001  push_int 127
+00000AA2  8105  message_str
+          ; message_lookup: list=174, message=127 | 很有意思，谢谢。, status=linked
+00000AA4  C001  push_int 4
+00000AAA  8053  op_8053
+00000AAC  C001  push_int 2780
+00000AB2  80BF  dude_obj
+00000AB4  C001  push_int 4
+00000ABA  80CA  get_critter_stat
+00000ABC  C001  push_int 4
+00000AC2  8036  greater_equal
+00000AC4  802F  if
+00000AC6  C001  push_int 174
+00000ACC  C001  push_int 128
+00000AD2  8105  message_str
+          ; message_lookup: list=174, message=128 | 他们维持本地的秩序，控制着这儿所有的的往来钞票。其他人要为他们卖苦力，而且要求很苛刻。他们中许多人根本不关心附近的情况。, status=linked
+00000AD4  C001  push_int 7
+00000ADA  8053  op_8053
+00000ADC  C001  push_int 0
+00000AE2  800D  d_to_a
+00000AE4  8019  swapa
+00000AE6  802A  pop_to_base
+00000AE8  8029  pop_base
+00000AEA  800C  a_to_d
+00000AEC  801C  pop_return
+00000AEE  802A  pop_to_base
+00000AF0  8029  pop_base
+00000AF2  801C  pop_return
+
+.procedure 10 Lorri08 offset=0x00000AF4 size=214 args=0 flags=0x00000000
+00000AF4  802B  push_base
+00000AF6  C001  push_int 0
+00000AFC  C001  push_int 174
+00000B02  C001  push_int 129
+00000B08  8105  message_str
+          ; message_lookup: list=174, message=129 | 所有的一切都会你怀疑茱莉亚娜在想什么。, status=linked
+00000B0A  8054  op_8054
+00000B0C  C001  push_int 0
+00000B12  C001  push_int 174
+00000B18  C001  push_int 130
+00000B1E  8105  message_str
+          ; message_lookup: list=174, message=130 | 能和我说说茱莉亚娜吗？, status=linked
+00000B20  8052  op_8052
+00000B22  C001  push_int 2898
+00000B28  80BF  dude_obj
+00000B2A  C001  push_int 4
+00000B30  80CA  get_critter_stat
+00000B32  C001  push_int 4
+00000B38  8036  greater_equal
+00000B3A  802F  if
+00000B3C  C001  push_int 174
+00000B42  C001  push_int 131
+00000B48  8105  message_str
+          ; message_lookup: list=174, message=131 | 太恶心了。咱们谈些别的好吗？, status=linked
+00000B4A  C001  push_int 11
+00000B50  8053  op_8053
+00000B52  C001  push_int 2946
+00000B58  80BF  dude_obj
+00000B5A  C001  push_int 4
+00000B60  80CA  get_critter_stat
+00000B62  C001  push_int 4
+00000B68  8036  greater_equal
+00000B6A  802F  if
+00000B6C  C001  push_int 174
+00000B72  C001  push_int 132
+00000B78  8105  message_str
+          ; message_lookup: list=174, message=132 | 多谢提醒。, status=linked
+00000B7A  C001  push_int 4
+00000B80  8053  op_8053
+00000B82  C001  push_int 2994
+00000B88  80BF  dude_obj
+00000B8A  C001  push_int 4
+00000B90  80CA  get_critter_stat
+00000B92  C001  push_int 4
+00000B98  8036  greater_equal
+00000B9A  802F  if
+00000B9C  C001  push_int 174
+00000BA2  C001  push_int 133
+00000BA8  8105  message_str
+          ; message_lookup: list=174, message=133 | 哦，前阵子她被几个利刃帮的混账缠住了。可怜的她再也不能离开这个镇子了，当然，卡勒布会杀光他看到的所有小伙。太惨了。, status=linked
+00000BAA  C001  push_int 7
+00000BB0  8053  op_8053
+00000BB2  C001  push_int 0
+00000BB8  800D  d_to_a
+00000BBA  8019  swapa
+00000BBC  802A  pop_to_base
+00000BBE  8029  pop_base
+00000BC0  800C  a_to_d
+00000BC2  801C  pop_return
+00000BC4  802A  pop_to_base
+00000BC6  8029  pop_base
+00000BC8  801C  pop_return
+
+.procedure 11 Lorri09 offset=0x00000BCA size=192 args=0 flags=0x00000000
+00000BCA  802B  push_base
+00000BCC  C001  push_int 0
+00000BD2  C001  push_int 174
+00000BD8  C001  push_int 134
+00000BDE  8105  message_str
+          ; message_lookup: list=174, message=134 | 哦……既然你这么说。, status=linked
+00000BE0  8052  op_8052
+00000BE2  C001  push_int 3090
+00000BE8  80BF  dude_obj
+00000BEA  C001  push_int 4
+00000BF0  80CA  get_critter_stat
+00000BF2  C001  push_int 4
+00000BF8  8036  greater_equal
+00000BFA  802F  if
+00000BFC  C001  push_int 174
+00000C02  C001  push_int 135
+00000C08  8105  message_str
+          ; message_lookup: list=174, message=135 | 我能问些其它问题吗？, status=linked
+00000C0A  C001  push_int 14
+00000C10  8053  op_8053
+00000C12  C001  push_int 3138
+00000C18  80BF  dude_obj
+00000C1A  C001  push_int 4
+00000C20  80CA  get_critter_stat
+00000C22  C001  push_int 4
+00000C28  8036  greater_equal
+00000C2A  802F  if
+00000C2C  C001  push_int 174
+00000C32  C001  push_int 136
+00000C38  8105  message_str
+          ; message_lookup: list=174, message=136 | 嗯，谢谢你告诉我这么多事情。再见, status=linked
+00000C3A  C001  push_int 4
+00000C40  8053  op_8053
+00000C42  C001  push_int 3186
+00000C48  80BF  dude_obj
+00000C4A  C001  push_int 4
+00000C50  80CA  get_critter_stat
+00000C52  C001  push_int 4
+00000C58  8036  greater_equal
+00000C5A  802F  if
+00000C5C  C001  push_int 174
+00000C62  C001  push_int 137
+00000C68  8105  message_str
+          ; message_lookup: list=174, message=137 | 我们只有天黑后才能干活。我们干这活也很拿手。对于想要加入我们的人，山谬有个小测试来考验这些人。, status=linked
+00000C6A  C001  push_int 7
+00000C70  8053  op_8053
+00000C72  C001  push_int 0
+00000C78  800D  d_to_a
+00000C7A  8019  swapa
+00000C7C  802A  pop_to_base
+00000C7E  8029  pop_base
+00000C80  800C  a_to_d
+00000C82  801C  pop_return
+00000C84  802A  pop_to_base
+00000C86  8029  pop_base
+00000C88  801C  pop_return
+
+.procedure 12 Lorri10 offset=0x00000C8A size=240 args=0 flags=0x00000000
+00000C8A  802B  push_base
+00000C8C  C001  push_int 0
+00000C92  C001  push_int 174
+00000C98  C001  push_int 138
+00000C9E  8105  message_str
+          ; message_lookup: list=174, message=138 | 什么样的测试？, status=linked
+00000CA0  8052  op_8052
+00000CA2  C001  push_int 3282
+00000CA8  80BF  dude_obj
+00000CAA  C001  push_int 4
+00000CB0  80CA  get_critter_stat
+00000CB2  C001  push_int 4
+00000CB8  8036  greater_equal
+00000CBA  802F  if
+00000CBC  C001  push_int 174
+00000CC2  C001  push_int 139
+00000CC8  8105  message_str
+          ; message_lookup: list=174, message=139 | 听起来还是很危险。, status=linked
+00000CCA  C001  push_int 13
+00000CD0  8053  op_8053
+00000CD2  C001  push_int 3330
+00000CD8  80BF  dude_obj
+00000CDA  C001  push_int 4
+00000CE0  80CA  get_critter_stat
+00000CE2  C001  push_int 4
+00000CE8  8036  greater_equal
+00000CEA  802F  if
+00000CEC  C001  push_int 174
+00000CF2  C001  push_int 140
+00000CF8  8105  message_str
+          ; message_lookup: list=174, message=140 | 我明白。我们会注意的。, status=linked
+00000CFA  C001  push_int 8
+00000D00  8053  op_8053
+00000D02  C001  push_int 3378
+00000D08  80BF  dude_obj
+00000D0A  C001  push_int 4
+00000D10  80CA  get_critter_stat
+00000D12  C001  push_int 4
+00000D18  8036  greater_equal
+00000D1A  802F  if
+00000D1C  C001  push_int 174
+00000D22  C001  push_int 141
+00000D28  8105  message_str
+          ; message_lookup: list=174, message=141 | 很有意思。再见。, status=linked
+00000D2A  C001  push_int 4
+00000D30  8053  op_8053
+00000D32  C001  push_int 3426
+00000D38  80BF  dude_obj
+00000D3A  C001  push_int 4
+00000D40  80CA  get_critter_stat
+00000D42  C001  push_int 4
+00000D48  8036  greater_equal
+00000D4A  802F  if
+00000D4C  C001  push_int 174
+00000D52  C001  push_int 142
+00000D58  8105  message_str
+          ; message_lookup: list=174, message=142 | 山谬让那个人白天藏在内城区的什么地方，如果1小时内山缪找不到他，他就能加入拾荒队了。, status=linked
+00000D5A  C001  push_int 7
+00000D60  8053  op_8053
+00000D62  C001  push_int 0
+00000D68  800D  d_to_a
+00000D6A  8019  swapa
+00000D6C  802A  pop_to_base
+00000D6E  8029  pop_base
+00000D70  800C  a_to_d
+00000D72  801C  pop_return
+00000D74  802A  pop_to_base
+00000D76  8029  pop_base
+00000D78  801C  pop_return
+
+.procedure 13 Lorri11 offset=0x00000D7A size=240 args=0 flags=0x00000000
+00000D7A  802B  push_base
+00000D7C  C001  push_int 0
+00000D82  C001  push_int 174
+00000D88  C001  push_int 143
+00000D8E  8105  message_str
+          ; message_lookup: list=174, message=143 | 真是个傻办法！, status=linked
+00000D90  8052  op_8052
+00000D92  C001  push_int 3522
+00000D98  80BF  dude_obj
+00000D9A  C001  push_int 4
+00000DA0  80CA  get_critter_stat
+00000DA2  C001  push_int 4
+00000DA8  8036  greater_equal
+00000DAA  802F  if
+00000DAC  C001  push_int 174
+00000DB2  C001  push_int 144
+00000DB8  8105  message_str
+          ; message_lookup: list=174, message=144 | 别小看这工作。它至少可以让你生存。, status=linked
+00000DBA  C001  push_int 15
+00000DC0  8053  op_8053
+00000DC2  C001  push_int 3570
+00000DC8  80BF  dude_obj
+00000DCA  C001  push_int 4
+00000DD0  80CA  get_critter_stat
+00000DD2  C001  push_int 4
+00000DD8  8036  greater_equal
+00000DDA  802F  if
+00000DDC  C001  push_int 174
+00000DE2  C001  push_int 145
+00000DE8  8105  message_str
+          ; message_lookup: list=174, message=145 | 嗯。我能问你些其他的问题吗？, status=linked
+00000DEA  C001  push_int 16
+00000DF0  8053  op_8053
+00000DF2  C001  push_int 3618
+00000DF8  80BF  dude_obj
+00000DFA  C001  push_int 4
+00000E00  80CA  get_critter_stat
+00000E02  C001  push_int 4
+00000E08  8036  greater_equal
+00000E0A  802F  if
+00000E0C  C001  push_int 174
+00000E12  C001  push_int 146
+00000E18  8105  message_str
+          ; message_lookup: list=174, message=146 | 很有意思。再见。, status=linked
+00000E1A  C001  push_int 4
+00000E20  8053  op_8053
+00000E22  C001  push_int 3666
+00000E28  80BF  dude_obj
+00000E2A  C001  push_int 4
+00000E30  80CA  get_critter_stat
+00000E32  C001  push_int 4
+00000E38  8036  greater_equal
+00000E3A  802F  if
+00000E3C  C001  push_int 174
+00000E42  C001  push_int 147
+00000E48  8105  message_str
+          ; message_lookup: list=174, message=147 | 此刻，你一点罗曼蒂克的感觉都没有？真的吗？这真是太糟了。那是无偿的爱和那所有的一切。你真无可救药了。, status=linked
+00000E4A  C001  push_int 7
+00000E50  8053  op_8053
+00000E52  C001  push_int 0
+00000E58  800D  d_to_a
+00000E5A  8019  swapa
+00000E5C  802A  pop_to_base
+00000E5E  8029  pop_base
+00000E60  800C  a_to_d
+00000E62  801C  pop_return
+00000E64  802A  pop_to_base
+00000E66  8029  pop_base
+00000E68  801C  pop_return
+
+.procedure 14 Lorri12 offset=0x00000E6A size=48 args=0 flags=0x00000000
+00000E6A  802B  push_base
+00000E6C  C001  push_int 0
+00000E72  C001  push_int 174
+00000E78  C001  push_int 148
+00000E7E  8105  message_str
+          ; message_lookup: list=174, message=148 | 嗯。如果你能找到山谬的话，把你所知道的告诉他。, status=linked
+00000E80  8054  op_8054
+00000E82  C001  push_int 0
+00000E88  800D  d_to_a
+00000E8A  8019  swapa
+00000E8C  802A  pop_to_base
+00000E8E  8029  pop_base
+00000E90  800C  a_to_d
+00000E92  801C  pop_return
+00000E94  802A  pop_to_base
+00000E96  8029  pop_base
+00000E98  801C  pop_return
+
+.procedure 15 Lorri13 offset=0x00000E9A size=48 args=0 flags=0x00000000
+00000E9A  802B  push_base
+00000E9C  C001  push_int 0
+00000EA2  C001  push_int 174
+00000EA8  C001  push_int 149
+00000EAE  8105  message_str
+          ; message_lookup: list=174, message=149 | 是的，而且它很凶猛。它非常危险，尤其你被抓住的时候。, status=linked
+00000EB0  8054  op_8054
+00000EB2  C001  push_int 0
+00000EB8  800D  d_to_a
+00000EBA  8019  swapa
+00000EBC  802A  pop_to_base
+00000EBE  8029  pop_base
+00000EC0  800C  a_to_d
+00000EC2  801C  pop_return
+00000EC4  802A  pop_to_base
+00000EC6  8029  pop_base
+00000EC8  801C  pop_return
+
+.procedure 16 Lorri14 offset=0x00000ECA size=144 args=0 flags=0x00000000
+00000ECA  802B  push_base
+00000ECC  C001  push_int 0
+00000ED2  C001  push_int 174
+00000ED8  C001  push_int 150
+00000EDE  8105  message_str
+          ; message_lookup: list=174, message=150 | 毫无疑问。我能问你些其他的问题吗？, status=linked
+00000EE0  8052  op_8052
+00000EE2  C001  push_int 3858
+00000EE8  80BF  dude_obj
+00000EEA  C001  push_int 4
+00000EF0  80CA  get_critter_stat
+00000EF2  C001  push_int 4
+00000EF8  8036  greater_equal
+00000EFA  802F  if
+00000EFC  C001  push_int 174
+00000F02  C001  push_int 151
+00000F08  8105  message_str
+          ; message_lookup: list=174, message=151 | 谢谢你告诉我这些。, status=linked
+00000F0A  C001  push_int 4
+00000F10  8053  op_8053
+00000F12  C001  push_int 3906
+00000F18  80BF  dude_obj
+00000F1A  C001  push_int 4
+00000F20  80CA  get_critter_stat
+00000F22  C001  push_int 4
+00000F28  8036  greater_equal
+00000F2A  802F  if
+00000F2C  C001  push_int 174
+00000F32  C001  push_int 152
+00000F38  8105  message_str
+          ; message_lookup: list=174, message=152 | 噢，很抱歉我帮不了你了。, status=linked
+00000F3A  C001  push_int 7
+00000F40  8053  op_8053
+00000F42  C001  push_int 0
+00000F48  800D  d_to_a
+00000F4A  8019  swapa
+00000F4C  802A  pop_to_base
+00000F4E  8029  pop_base
+00000F50  800C  a_to_d
+00000F52  801C  pop_return
+00000F54  802A  pop_to_base
+00000F56  8029  pop_base
+00000F58  801C  pop_return
+
+.procedure 17 Lorri15 offset=0x00000F5A size=48 args=0 flags=0x00000000
+00000F5A  802B  push_base
+00000F5C  C001  push_int 0
+00000F62  C001  push_int 174
+00000F68  C001  push_int 153
+00000F6E  8105  message_str
+          ; message_lookup: list=174, message=153 | 这里以前是个大城市，叫洛杉矶。但是一颗原子弹毁了一切。现在，这里叫晒骨场。我们内城区的居民都是在劫难中侥幸活下来的。, status=linked
+00000F70  8054  op_8054
+00000F72  C001  push_int 0
+00000F78  800D  d_to_a
+00000F7A  8019  swapa
+00000F7C  802A  pop_to_base
+00000F7E  8029  pop_base
+00000F80  800C  a_to_d
+00000F82  801C  pop_return
+00000F84  802A  pop_to_base
+00000F86  8029  pop_base
+00000F88  801C  pop_return
+
+.procedure 18 Lorri16 offset=0x00000F8A size=144 args=0 flags=0x00000000
+00000F8A  802B  push_base
+00000F8C  C001  push_int 0
+00000F92  C001  push_int 174
+00000F98  C001  push_int 154
+00000F9E  8105  message_str
+          ; message_lookup: list=174, message=154 | 你能多和我聊聊洛杉矶吗？, status=linked
+00000FA0  8052  op_8052
+00000FA2  C001  push_int 4050
+00000FA8  80BF  dude_obj
+00000FAA  C001  push_int 4
+00000FB0  80CA  get_critter_stat
+00000FB2  C001  push_int 4
+00000FB8  8036  greater_equal
+00000FBA  802F  if
+00000FBC  C001  push_int 174
+00000FC2  C001  push_int 155
+00000FC8  8105  message_str
+          ; message_lookup: list=174, message=155 | 我明白。谢谢。, status=linked
+00000FCA  C001  push_int 19
+00000FD0  8053  op_8053
+00000FD2  C001  push_int 4098
+00000FD8  80BF  dude_obj
+00000FDA  C001  push_int 4
+00000FE0  80CA  get_critter_stat
+00000FE2  C001  push_int 4
+00000FE8  8036  greater_equal
+00000FEA  802F  if
+00000FEC  C001  push_int 174
+00000FF2  C001  push_int 156
+00000FF8  8105  message_str
+          ; message_lookup: list=174, message=156 | 当年很多人都住在这。据我所知，这儿的大多数人当年都躲在一个叫避难所的大地方，并在几年后回到地面。其中一些人创立了管理者组织，建立了内城区。同时, status=linked
+00000FFA  C001  push_int 7
+00001000  8053  op_8053
+00001002  C001  push_int 0
+00001008  800D  d_to_a
+0000100A  8019  swapa
+0000100C  802A  pop_to_base
+0000100E  8029  pop_base
+00001010  800C  a_to_d
+00001012  801C  pop_return
+00001014  802A  pop_to_base
+00001016  8029  pop_base
+00001018  801C  pop_return
+
+.procedure 19 Lorri17 offset=0x0000101A size=310 args=0 flags=0x00000000
+0000101A  802B  push_base
+0000101C  C001  push_int 0
+00001022  C001  push_int 174
+00001028  C001  push_int 157
+0000102E  8105  message_str
+          ; message_lookup: list=174, message=157 | 另一些人组成了利刃帮。而军火商则是后来出现的。, status=linked
+00001030  8054  op_8054
+00001032  C001  push_int 0
+00001038  C001  push_int 174
+0000103E  C001  push_int 158
+00001044  8105  message_str
+          ; message_lookup: list=174, message=158 | 避难所在哪？, status=linked
+00001046  8052  op_8052
+00001048  C001  push_int 4216
+0000104E  80BF  dude_obj
+00001050  C001  push_int 4
+00001056  80CA  get_critter_stat
+00001058  C001  push_int 4
+0000105E  8036  greater_equal
+00001060  802F  if
+00001062  C001  push_int 174
+00001068  C001  push_int 159
+0000106E  8105  message_str
+          ; message_lookup: list=174, message=159 | 管理者们负责什么？, status=linked
+00001070  C001  push_int 20
+00001076  8053  op_8053
+00001078  C001  push_int 4264
+0000107E  80BF  dude_obj
+00001080  C001  push_int 4
+00001086  80CA  get_critter_stat
+00001088  C001  push_int 4
+0000108E  8036  greater_equal
+00001090  802F  if
+00001092  C001  push_int 174
+00001098  C001  push_int 160
+0000109E  8105  message_str
+          ; message_lookup: list=174, message=160 | 那么军火商又是从哪里来的？, status=linked
+000010A0  C001  push_int 10
+000010A6  8053  op_8053
+000010A8  C001  push_int 4312
+000010AE  80BF  dude_obj
+000010B0  C001  push_int 4
+000010B6  80CA  get_critter_stat
+000010B8  C001  push_int 4
+000010BE  8036  greater_equal
+000010C0  802F  if
+000010C2  C001  push_int 174
+000010C8  C001  push_int 161
+000010CE  8105  message_str
+          ; message_lookup: list=174, message=161 | , status=linked
+000010D0  C001  push_int 21
+000010D6  8053  op_8053
+000010D8  C001  push_int 4360
+000010DE  80BF  dude_obj
+000010E0  C001  push_int 4
+000010E6  80CA  get_critter_stat
+000010E8  C001  push_int 4
+000010EE  8036  greater_equal
+000010F0  802F  if
+000010F2  C001  push_int 174
+000010F8  C001  push_int 162
+000010FE  8105  message_str
+          ; message_lookup: list=174, message=162 | 谢谢你的帮助。, status=linked
+00001100  C001  push_int 29
+00001106  8053  op_8053
+00001108  C001  push_int 4408
+0000110E  80BF  dude_obj
+00001110  C001  push_int 4
+00001116  80CA  get_critter_stat
+00001118  C001  push_int 4
+0000111E  8036  greater_equal
+00001120  802F  if
+00001122  C001  push_int 174
+00001128  C001  push_int 163
+0000112E  8105  message_str
+          ; message_lookup: list=174, message=163 | 据我想他们应该是来自这里南面点的地方，不过我并不确定。我只是觉得任何人都会想方设法离开那该死的破地方。, status=linked
+00001130  C001  push_int 7
+00001136  8053  op_8053
+00001138  C001  push_int 0
+0000113E  800D  d_to_a
+00001140  8019  swapa
+00001142  802A  pop_to_base
+00001144  8029  pop_base
+00001146  800C  a_to_d
+00001148  801C  pop_return
+0000114A  802A  pop_to_base
+0000114C  8029  pop_base
+0000114E  801C  pop_return
+
+.procedure 20 Lorri18 offset=0x00001150 size=144 args=0 flags=0x00000000
+00001150  802B  push_base
+00001152  C001  push_int 0
+00001158  C001  push_int 174
+0000115E  C001  push_int 164
+00001164  8105  message_str
+          ; message_lookup: list=174, message=164 | 我能再问些问题吗？, status=linked
+00001166  8052  op_8052
+00001168  C001  push_int 4504
+0000116E  80BF  dude_obj
+00001170  C001  push_int 4
+00001176  80CA  get_critter_stat
+00001178  C001  push_int 4
+0000117E  8036  greater_equal
+00001180  802F  if
+00001182  C001  push_int 174
+00001188  C001  push_int 165
+0000118E  8105  message_str
+          ; message_lookup: list=174, message=165 | 嗯。谢谢。, status=linked
+00001190  C001  push_int 4
+00001196  8053  op_8053
+00001198  C001  push_int 4552
+0000119E  80BF  dude_obj
+000011A0  C001  push_int 4
+000011A6  80CA  get_critter_stat
+000011A8  C001  push_int 4
+000011AE  8036  greater_equal
+000011B0  802F  if
+000011B2  C001  push_int 174
+000011B8  C001  push_int 166
+000011BE  8105  message_str
+          ; message_lookup: list=174, message=166 | 我不太确定。我想他们来自北面。, status=linked
+000011C0  C001  push_int 7
+000011C6  8053  op_8053
+000011C8  C001  push_int 0
+000011CE  800D  d_to_a
+000011D0  8019  swapa
+000011D2  802A  pop_to_base
+000011D4  8029  pop_base
+000011D6  800C  a_to_d
+000011D8  801C  pop_return
+000011DA  802A  pop_to_base
+000011DC  8029  pop_base
+000011DE  801C  pop_return
+
+.procedure 21 Lorri19 offset=0x000011E0 size=192 args=0 flags=0x00000000
+000011E0  802B  push_base
+000011E2  C001  push_int 0
+000011E8  C001  push_int 174
+000011EE  C001  push_int 167
+000011F4  8105  message_str
+          ; message_lookup: list=174, message=167 | 能和我说说管理者吗？, status=linked
+000011F6  8052  op_8052
+000011F8  C001  push_int 4648
+000011FE  80BF  dude_obj
+00001200  C001  push_int 4
+00001206  80CA  get_critter_stat
+00001208  C001  push_int 4
+0000120E  8036  greater_equal
+00001210  802F  if
+00001212  C001  push_int 174
+00001218  C001  push_int 168
+0000121E  8105  message_str
+          ; message_lookup: list=174, message=168 | 我能问些其它问题吗？, status=linked
+00001220  C001  push_int 10
+00001226  8053  op_8053
+00001228  C001  push_int 4696
+0000122E  80BF  dude_obj
+00001230  C001  push_int 4
+00001236  80CA  get_critter_stat
+00001238  C001  push_int 4
+0000123E  8036  greater_equal
+00001240  802F  if
+00001242  C001  push_int 174
+00001248  C001  push_int 169
+0000124E  8105  message_str
+          ; message_lookup: list=174, message=169 | 谢谢你告诉我这么多。, status=linked
+00001250  C001  push_int 4
+00001256  8053  op_8053
+00001258  C001  push_int 4744
+0000125E  80BF  dude_obj
+00001260  C001  push_int 4
+00001266  80CA  get_critter_stat
+00001268  C001  push_int 4
+0000126E  8036  greater_equal
+00001270  802F  if
+00001272  C001  push_int 174
+00001278  C001  push_int 170
+0000127E  8105  message_str
+          ; message_lookup: list=174, message=170 | 你想听谁的故事？, status=linked
+00001280  C001  push_int 7
+00001286  8053  op_8053
+00001288  C001  push_int 0
+0000128E  800D  d_to_a
+00001290  8019  swapa
+00001292  802A  pop_to_base
+00001294  8029  pop_base
+00001296  800C  a_to_d
+00001298  801C  pop_return
+0000129A  802A  pop_to_base
+0000129C  8029  pop_base
+0000129E  801C  pop_return
+
+.procedure 22 Lorri20 offset=0x000012A0 size=336 args=0 flags=0x00000000
+000012A0  802B  push_base
+000012A2  C001  push_int 0
+000012A8  C001  push_int 174
+000012AE  C001  push_int 171
+000012B4  8105  message_str
+          ; message_lookup: list=174, message=171 | 齐默曼市长。, status=linked
+000012B6  8052  op_8052
+000012B8  C001  push_int 4840
+000012BE  80BF  dude_obj
+000012C0  C001  push_int 4
+000012C6  80CA  get_critter_stat
+000012C8  C001  push_int 4
+000012CE  8036  greater_equal
+000012D0  802F  if
+000012D2  C001  push_int 174
+000012D8  C001  push_int 172
+000012DE  8105  message_str
+          ; message_lookup: list=174, message=172 | 卡勒布。, status=linked
+000012E0  C001  push_int 23
+000012E6  8053  op_8053
+000012E8  C001  push_int 4888
+000012EE  80BF  dude_obj
+000012F0  C001  push_int 4
+000012F6  80CA  get_critter_stat
+000012F8  C001  push_int 4
+000012FE  8036  greater_equal
+00001300  802F  if
+00001302  C001  push_int 174
+00001308  C001  push_int 173
+0000130E  8105  message_str
+          ; message_lookup: list=174, message=173 | 麦尔斯。, status=linked
+00001310  C001  push_int 24
+00001316  8053  op_8053
+00001318  C001  push_int 4936
+0000131E  80BF  dude_obj
+00001320  C001  push_int 4
+00001326  80CA  get_critter_stat
+00001328  C001  push_int 4
+0000132E  8036  greater_equal
+00001330  802F  if
+00001332  C001  push_int 174
+00001338  C001  push_int 174
+0000133E  8105  message_str
+          ; message_lookup: list=174, message=174 | 提恩。, status=linked
+00001340  C001  push_int 25
+00001346  8053  op_8053
+00001348  C001  push_int 4984
+0000134E  80BF  dude_obj
+00001350  C001  push_int 4
+00001356  80CA  get_critter_stat
+00001358  C001  push_int 4
+0000135E  8036  greater_equal
+00001360  802F  if
+00001362  C001  push_int 174
+00001368  C001  push_int 175
+0000136E  8105  message_str
+          ; message_lookup: list=174, message=175 | 施密蒂。, status=linked
+00001370  C001  push_int 26
+00001376  8053  op_8053
+00001378  C001  push_int 5032
+0000137E  80BF  dude_obj
+00001380  C001  push_int 4
+00001386  80CA  get_critter_stat
+00001388  C001  push_int 4
+0000138E  8036  greater_equal
+00001390  802F  if
+00001392  C001  push_int 174
+00001398  C001  push_int 176
+0000139E  8105  message_str
+          ; message_lookup: list=174, message=176 | 没事。, status=linked
+000013A0  C001  push_int 27
+000013A6  8053  op_8053
+000013A8  C001  push_int 5080
+000013AE  80BF  dude_obj
+000013B0  C001  push_int 4
+000013B6  80CA  get_critter_stat
+000013B8  C001  push_int 4
+000013BE  8036  greater_equal
+000013C0  802F  if
+000013C2  C001  push_int 174
+000013C8  C001  push_int 177
+000013CE  8105  message_str
+          ; message_lookup: list=174, message=177 | 齐默曼关心着我们的城市。他确保我们每个人都能自食其力。, status=linked
+000013D0  C001  push_int 7
+000013D6  8053  op_8053
+000013D8  C001  push_int 0
+000013DE  800D  d_to_a
+000013E0  8019  swapa
+000013E2  802A  pop_to_base
+000013E4  8029  pop_base
+000013E6  800C  a_to_d
+000013E8  801C  pop_return
+000013EA  802A  pop_to_base
+000013EC  8029  pop_base
+000013EE  801C  pop_return
+
+.procedure 23 Lorri21 offset=0x000013F0 size=72 args=0 flags=0x00000000
+000013F0  802B  push_base
+000013F2  C001  push_int 0
+000013F8  C001  push_int 174
+000013FE  C001  push_int 178
+00001404  8105  message_str
+          ; message_lookup: list=174, message=178 | 卡勒布是管理者的头儿。他负责内城区的安全。我看他对这份工作起劲过头，超过他的本分了。, status=linked
+00001406  8052  op_8052
+00001408  C001  push_int 5150
+0000140E  800D  d_to_a
+00001410  C001  push_int 0
+00001416  C001  push_int 28
+0000141C  8005  call
+0000141E  801A  pop
+00001420  C001  push_int 0
+00001426  800D  d_to_a
+00001428  8019  swapa
+0000142A  802A  pop_to_base
+0000142C  8029  pop_base
+0000142E  800C  a_to_d
+00001430  801C  pop_return
+00001432  802A  pop_to_base
+00001434  8029  pop_base
+00001436  801C  pop_return
+
+.procedure 24 Lorri22 offset=0x00001438 size=72 args=0 flags=0x00000000
+00001438  802B  push_base
+0000143A  C001  push_int 0
+00001440  C001  push_int 174
+00001446  C001  push_int 179
+0000144C  8105  message_str
+          ; message_lookup: list=174, message=179 | 啊哈，我们的长驻化学师。麦尔斯制造子弹，还做出了一个水蒸馏器保证我们的井水得到净化。他现在应该在地下农场，不过她丢了些工具。, status=linked
+0000144E  8052  op_8052
+00001450  C001  push_int 5222
+00001456  800D  d_to_a
+00001458  C001  push_int 0
+0000145E  C001  push_int 28
+00001464  8005  call
+00001466  801A  pop
+00001468  C001  push_int 0
+0000146E  800D  d_to_a
+00001470  8019  swapa
+00001472  802A  pop_to_base
+00001474  8029  pop_base
+00001476  800C  a_to_d
+00001478  801C  pop_return
+0000147A  802A  pop_to_base
+0000147C  8029  pop_base
+0000147E  801C  pop_return
+
+.procedure 25 Lorri23 offset=0x00001480 size=72 args=0 flags=0x00000000
+00001480  802B  push_base
+00001482  C001  push_int 0
+00001488  C001  push_int 174
+0000148E  C001  push_int 180
+00001494  8105  message_str
+          ; message_lookup: list=174, message=180 | 提恩经营着一家商店。就在大门附近的掩体里。他替我们在哈勃城市场进行贸易。, status=linked
+00001496  8052  op_8052
+00001498  C001  push_int 5294
+0000149E  800D  d_to_a
+000014A0  C001  push_int 0
+000014A6  C001  push_int 28
+000014AC  8005  call
+000014AE  801A  pop
+000014B0  C001  push_int 0
+000014B6  800D  d_to_a
+000014B8  8019  swapa
+000014BA  802A  pop_to_base
+000014BC  8029  pop_base
+000014BE  800C  a_to_d
+000014C0  801C  pop_return
+000014C2  802A  pop_to_base
+000014C4  8029  pop_base
+000014C6  801C  pop_return
+
+.procedure 26 Lorri24 offset=0x000014C8 size=72 args=0 flags=0x00000000
+000014C8  802B  push_base
+000014CA  C001  push_int 0
+000014D0  C001  push_int 174
+000014D6  C001  push_int 181
+000014DC  8105  message_str
+          ; message_lookup: list=174, message=181 | 嗯，施密蒂是我们的修理工。他精于此道。他经常在城镇周围捡些子弹或者修理一些坏掉的材料。, status=linked
+000014DE  8052  op_8052
+000014E0  C001  push_int 5366
+000014E6  800D  d_to_a
+000014E8  C001  push_int 0
+000014EE  C001  push_int 28
+000014F4  8005  call
+000014F6  801A  pop
+000014F8  C001  push_int 0
+000014FE  800D  d_to_a
+00001500  8019  swapa
+00001502  802A  pop_to_base
+00001504  8029  pop_base
+00001506  800C  a_to_d
+00001508  801C  pop_return
+0000150A  802A  pop_to_base
+0000150C  8029  pop_base
+0000150E  801C  pop_return
+
+.procedure 27 Lorri25 offset=0x00001510 size=72 args=0 flags=0x00000000
+00001510  802B  push_base
+00001512  C001  push_int 0
+00001518  C001  push_int 174
+0000151E  C001  push_int 182
+00001524  8105  message_str
+          ; message_lookup: list=174, message=182 | 咱们聊聊其他人好吗？, status=linked
+00001526  8052  op_8052
+00001528  C001  push_int 5438
+0000152E  800D  d_to_a
+00001530  C001  push_int 0
+00001536  C001  push_int 28
+0000153C  8005  call
+0000153E  801A  pop
+00001540  C001  push_int 0
+00001546  800D  d_to_a
+00001548  8019  swapa
+0000154A  802A  pop_to_base
+0000154C  8029  pop_base
+0000154E  800C  a_to_d
+00001550  801C  pop_return
+00001552  802A  pop_to_base
+00001554  8029  pop_base
+00001556  801C  pop_return
+
+.procedure 28 Lorri26 offset=0x00001558 size=170 args=0 flags=0x00000000
+00001558  802B  push_base
+0000155A  C001  push_int 5514
+00001560  80BF  dude_obj
+00001562  C001  push_int 4
+00001568  80CA  get_critter_stat
+0000156A  C001  push_int 4
+00001570  8036  greater_equal
+00001572  802F  if
+00001574  C001  push_int 174
+0000157A  C001  push_int 183
+00001580  8105  message_str
+          ; message_lookup: list=174, message=183 | 咱们换个话题好吗？, status=linked
+00001582  C001  push_int 22
+00001588  8053  op_8053
+0000158A  C001  push_int 5562
+00001590  80BF  dude_obj
+00001592  C001  push_int 4
+00001598  80CA  get_critter_stat
+0000159A  C001  push_int 4
+000015A0  8036  greater_equal
+000015A2  802F  if
+000015A4  C001  push_int 174
+000015AA  C001  push_int 184
+000015B0  8105  message_str
+          ; message_lookup: list=174, message=184 | , status=linked
+000015B2  C001  push_int 4
+000015B8  8053  op_8053
+000015BA  C001  push_int 5610
+000015C0  80BF  dude_obj
+000015C2  C001  push_int 4
+000015C8  80CA  get_critter_stat
+000015CA  C001  push_int 4
+000015D0  8036  greater_equal
+000015D2  802F  if
+000015D4  C001  push_int 174
+000015DA  C001  push_int 185
+000015E0  8105  message_str
+          ; message_lookup: list=174, message=185, status=missing-number
+000015E2  C001  push_int 7
+000015E8  8053  op_8053
+000015EA  C001  push_int 0
+000015F0  800D  d_to_a
+000015F2  8019  swapa
+000015F4  802A  pop_to_base
+000015F6  8029  pop_base
+000015F8  800C  a_to_d
+000015FA  801C  pop_return
+000015FC  802A  pop_to_base
+000015FE  8029  pop_base
+00001600  801C  pop_return
+
+.procedure 29 Lorri27 offset=0x00001602 size=48 args=0 flags=0x00000000
+00001602  802B  push_base
+00001604  C001  push_int 0
+0000160A  C001  push_int 174
+00001610  C001  push_int 186
+00001616  8105  message_str
+          ; message_lookup: list=174, message=186 | 你开玩笑吧？如果真有电脑游戏，那你现在怎么不玩啊？, status=linked
+00001618  8054  op_8054
+0000161A  C001  push_int 0
+00001620  800D  d_to_a
+00001622  8019  swapa
+00001624  802A  pop_to_base
+00001626  8029  pop_base
+00001628  800C  a_to_d
+0000162A  801C  pop_return
+0000162C  802A  pop_to_base
+0000162E  8029  pop_base
+00001630  801C  pop_return

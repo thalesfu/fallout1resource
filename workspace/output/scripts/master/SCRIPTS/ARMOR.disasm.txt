@@ -1,0 +1,423 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\ARMOR.INT
+; sha256: E06E143F547FB530BE84527E4A0FEEA24190CBE341ED8448D32767F52F14025A
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 514
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000202  802C  set_global
+00000204  C001  push_int 0
+0000020A  C001  push_int 0
+00000210  C001  push_int 0
+00000216  C001  push_int 0
+0000021C  C001  push_int 0
+00000222  8003  critical_done
+00000224  C001  push_int 556
+0000022A  8004  jump
+
+.procedure 0 .............. offset=0x0000022C size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x0000022C size=282 args=0 flags=0x00000000
+0000022C  802B  push_base
+0000022E  C001  push_int 0
+00000234  C001  push_int 2
+0000023A  8013  store_global
+0000023C  C001  push_int 622
+00000242  80C7  script_action
+00000244  C001  push_int 21
+0000024A  8033  equal
+0000024C  802F  if
+0000024E  C001  push_int 612
+00000254  800D  d_to_a
+00000256  C001  push_int 0
+0000025C  C001  push_int 4
+00000262  8005  call
+00000264  801A  pop
+00000266  C001  push_int 814
+0000026C  8004  jump
+0000026E  C001  push_int 672
+00000274  80C7  script_action
+00000276  C001  push_int 6
+0000027C  8033  equal
+0000027E  802F  if
+00000280  C001  push_int 662
+00000286  800D  d_to_a
+00000288  C001  push_int 0
+0000028E  C001  push_int 2
+00000294  8005  call
+00000296  801A  pop
+00000298  C001  push_int 814
+0000029E  8004  jump
+000002A0  C001  push_int 722
+000002A6  80C7  script_action
+000002A8  C001  push_int 4
+000002AE  8033  equal
+000002B0  802F  if
+000002B2  C001  push_int 712
+000002B8  800D  d_to_a
+000002BA  C001  push_int 0
+000002C0  C001  push_int 3
+000002C6  8005  call
+000002C8  801A  pop
+000002CA  C001  push_int 814
+000002D0  8004  jump
+000002D2  C001  push_int 772
+000002D8  80C7  script_action
+000002DA  C001  push_int 8
+000002E0  8033  equal
+000002E2  802F  if
+000002E4  C001  push_int 762
+000002EA  800D  d_to_a
+000002EC  C001  push_int 0
+000002F2  C001  push_int 5
+000002F8  8005  call
+000002FA  801A  pop
+000002FC  C001  push_int 814
+00000302  8004  jump
+00000304  C001  push_int 814
+0000030A  80C7  script_action
+0000030C  C001  push_int 7
+00000312  8033  equal
+00000314  802F  if
+00000316  C001  push_int 812
+0000031C  800D  d_to_a
+0000031E  C001  push_int 0
+00000324  C001  push_int 6
+0000032A  8005  call
+0000032C  801A  pop
+0000032E  C001  push_int 0
+00000334  800D  d_to_a
+00000336  8019  swapa
+00000338  802A  pop_to_base
+0000033A  8029  pop_base
+0000033C  800C  a_to_d
+0000033E  801C  pop_return
+00000340  802A  pop_to_base
+00000342  8029  pop_base
+00000344  801C  pop_return
+
+.procedure 2 use_p_proc offset=0x00000346 size=64 args=0 flags=0x00000000
+00000346  802B  push_base
+00000348  C001  push_int 862
+0000034E  80BD  source_obj
+00000350  80BF  dude_obj
+00000352  8034  not_equal
+00000354  802F  if
+00000356  C001  push_int 878
+0000035C  8004  jump
+0000035E  C001  push_int 936
+00000364  C001  push_int 101
+0000036A  8105  message_str
+          ; message_lookup: list=936, message=101 | 你不能使用这套装甲，除非你能修好它。, status=linked
+0000036C  80B8  display_msg
+0000036E  C001  push_int 0
+00000374  800D  d_to_a
+00000376  8019  swapa
+00000378  802A  pop_to_base
+0000037A  8029  pop_base
+0000037C  800C  a_to_d
+0000037E  801C  pop_return
+00000380  802A  pop_to_base
+00000382  8029  pop_base
+00000384  801C  pop_return
+
+.procedure 3 pickup_p_proc offset=0x00000386 size=50 args=0 flags=0x00000000
+00000386  802B  push_base
+00000388  C001  push_int 926
+0000038E  800D  d_to_a
+00000390  C001  push_int 0
+00000396  C001  push_int 2
+0000039C  8005  call
+0000039E  801A  pop
+000003A0  C001  push_int 0
+000003A6  800D  d_to_a
+000003A8  8019  swapa
+000003AA  802A  pop_to_base
+000003AC  8029  pop_base
+000003AE  800C  a_to_d
+000003B0  801C  pop_return
+000003B2  802A  pop_to_base
+000003B4  8029  pop_base
+000003B6  801C  pop_return
+
+.procedure 4 look_at_p_proc offset=0x000003B8 size=42 args=0 flags=0x00000000
+000003B8  802B  push_base
+000003BA  C001  push_int 936
+000003C0  C001  push_int 100
+000003C6  8105  message_str
+          ; message_lookup: list=936, message=100 | 你看见一具损坏了的能量装甲。, status=linked
+000003C8  80B8  display_msg
+000003CA  C001  push_int 0
+000003D0  800D  d_to_a
+000003D2  8019  swapa
+000003D4  802A  pop_to_base
+000003D6  8029  pop_base
+000003D8  800C  a_to_d
+000003DA  801C  pop_return
+000003DC  802A  pop_to_base
+000003DE  8029  pop_base
+000003E0  801C  pop_return
+
+.procedure 5 use_skill_on_p_proc offset=0x000003E2 size=60 args=0 flags=0x00000000
+000003E2  802B  push_base
+000003E4  80FA  op_80fa
+000003E6  C001  push_int 3
+000003EC  8013  store_global
+000003EE  C001  push_int 1028
+000003F4  800D  d_to_a
+000003F6  C001  push_int 0
+000003FC  C001  push_int 8
+00000402  8005  call
+00000404  801A  pop
+00000406  C001  push_int 0
+0000040C  800D  d_to_a
+0000040E  8019  swapa
+00000410  802A  pop_to_base
+00000412  8029  pop_base
+00000414  800C  a_to_d
+00000416  801C  pop_return
+00000418  802A  pop_to_base
+0000041A  8029  pop_base
+0000041C  801C  pop_return
+
+.procedure 6 use_obj_on_p_proc offset=0x0000041E size=122 args=0 flags=0x00000000
+0000041E  802B  push_base
+00000420  C001  push_int 1136
+00000426  80C0  op_80c0
+00000428  8100  op_8100
+0000042A  C001  push_int 75
+00000430  8033  equal
+00000432  802F  if
+00000434  C001  push_int 10
+0000043A  C001  push_int 2
+00000440  8013  store_global
+00000442  C001  push_int 13
+00000448  C001  push_int 3
+0000044E  8013  store_global
+00000450  C001  push_int 1126
+00000456  800D  d_to_a
+00000458  C001  push_int 0
+0000045E  C001  push_int 5
+00000464  8005  call
+00000466  801A  pop
+00000468  C001  push_int 1152
+0000046E  8004  jump
+00000470  C001  push_int 936
+00000476  C001  push_int 105
+0000047C  8105  message_str
+          ; message_lookup: list=936, message=105 | 什么用都没有。, status=linked
+0000047E  80B8  display_msg
+00000480  C001  push_int 0
+00000486  800D  d_to_a
+00000488  8019  swapa
+0000048A  802A  pop_to_base
+0000048C  8029  pop_base
+0000048E  800C  a_to_d
+00000490  801C  pop_return
+00000492  802A  pop_to_base
+00000494  8029  pop_base
+00000496  801C  pop_return
+
+.procedure 7 chance offset=0x00000498 size=126 args=0 flags=0x00000000
+00000498  802B  push_base
+0000049A  80BF  dude_obj
+0000049C  C001  push_int 13
+000004A2  C001  push_int 2
+000004A8  8012  fetch_global
+000004AA  80AC  op_80ac
+000004AC  C001  push_int 0
+000004B2  8013  store_global
+000004B4  C001  push_int 1254
+000004BA  C001  push_int 0
+000004C0  8012  fetch_global
+000004C2  80AF  op_80af
+000004C4  802F  if
+000004C6  C001  push_int 1244
+000004CC  800D  d_to_a
+000004CE  C001  push_int 0
+000004D4  C001  push_int 9
+000004DA  8005  call
+000004DC  801A  pop
+000004DE  C001  push_int 1278
+000004E4  8004  jump
+000004E6  C001  push_int 1276
+000004EC  800D  d_to_a
+000004EE  C001  push_int 0
+000004F4  C001  push_int 10
+000004FA  8005  call
+000004FC  801A  pop
+000004FE  C001  push_int 0
+00000504  800D  d_to_a
+00000506  8019  swapa
+00000508  802A  pop_to_base
+0000050A  8029  pop_base
+0000050C  800C  a_to_d
+0000050E  801C  pop_return
+00000510  802A  pop_to_base
+00000512  8029  pop_base
+00000514  801C  pop_return
+
+.procedure 8 try_skill offset=0x00000516 size=258 args=0 flags=0x00000000
+00000516  802B  push_base
+00000518  C001  push_int 1518
+0000051E  C001  push_int 3
+00000524  8012  fetch_global
+00000526  C001  push_int 13
+0000052C  8033  equal
+0000052E  802F  if
+00000530  C001  push_int 1492
+00000536  C001  push_int 304
+0000053C  80C5  global_var
+0000053E  C001  push_int 1
+00000544  8038  greater
+00000546  802F  if
+00000548  C001  push_int 1460
+0000054E  C001  push_int 304
+00000554  80C5  global_var
+00000556  C001  push_int 3
+0000055C  8033  equal
+0000055E  802F  if
+00000560  C001  push_int 1428
+00000566  80BF  dude_obj
+00000568  C001  push_int 13
+0000056E  80AA  op_80aa
+00000570  C001  push_int 75
+00000576  8037  less
+00000578  802F  if
+0000057A  80B9  script_overrides
+0000057C  C001  push_int 936
+00000582  C001  push_int 103
+00000588  8105  message_str
+          ; message_lookup: list=936, message=103 | 很显然，你现在还没有这种技能能修好这套装甲。, status=linked
+0000058A  80B8  display_msg
+0000058C  C001  push_int 1452
+00000592  8004  jump
+00000594  C001  push_int 1450
+0000059A  800D  d_to_a
+0000059C  C001  push_int 0
+000005A2  C001  push_int 7
+000005A8  8005  call
+000005AA  801A  pop
+000005AC  C001  push_int 1484
+000005B2  8004  jump
+000005B4  C001  push_int 1482
+000005BA  800D  d_to_a
+000005BC  C001  push_int 0
+000005C2  C001  push_int 7
+000005C8  8005  call
+000005CA  801A  pop
+000005CC  C001  push_int 1510
+000005D2  8004  jump
+000005D4  80B9  script_overrides
+000005D6  C001  push_int 936
+000005DC  C001  push_int 102
+000005E2  8105  message_str
+          ; message_lookup: list=936, message=102 | 它似乎缺少一个部件，而你还没找到这个部件。, status=linked
+000005E4  80B8  display_msg
+000005E6  C001  push_int 1536
+000005EC  8004  jump
+000005EE  80B9  script_overrides
+000005F0  C001  push_int 936
+000005F6  C001  push_int 105
+000005FC  8105  message_str
+          ; message_lookup: list=936, message=105 | 什么用都没有。, status=linked
+000005FE  80B8  display_msg
+00000600  C001  push_int 0
+00000606  800D  d_to_a
+00000608  8019  swapa
+0000060A  802A  pop_to_base
+0000060C  8029  pop_base
+0000060E  800C  a_to_d
+00000610  801C  pop_return
+00000612  802A  pop_to_base
+00000614  8029  pop_base
+00000616  801C  pop_return
+
+.procedure 9 fixed offset=0x00000618 size=158 args=0 flags=0x00000000
+00000618  802B  push_base
+0000061A  80B9  script_overrides
+0000061C  C001  push_int 304
+00000622  C001  push_int 4
+00000628  80C6  set_global_var
+0000062A  C001  push_int 936
+00000630  C001  push_int 104
+00000636  8105  message_str
+          ; message_lookup: list=936, message=104 | 你修好了这套装甲。, status=linked
+00000638  80B8  display_msg
+0000063A  C001  push_int 3
+00000640  C001  push_int 22475
+00000646  C001  push_int 0
+0000064C  C001  push_int 1
+00000652  8046  negate
+00000654  80B7  op_80b7
+00000656  801A  pop
+00000658  C001  push_int 500
+0000065E  C001  push_int 1
+00000664  8013  store_global
+00000666  C001  push_int 936
+0000066C  C001  push_int 107
+00000672  8105  message_str
+          ; message_lookup: list=936, message=107 | 你获得了, status=linked
+00000674  C001  push_int 1
+0000067A  8012  fetch_global
+0000067C  8039  add
+0000067E  C001  push_int 936
+00000684  C001  push_int 108
+0000068A  8105  message_str
+          ; message_lookup: list=936, message=108 | 点经验值，因为你修好了这套能量装甲。, status=linked
+0000068C  8039  add
+0000068E  80B8  display_msg
+00000690  C001  push_int 1
+00000696  8012  fetch_global
+00000698  80A1  op_80a1
+0000069A  80BC  self_obj
+0000069C  80F4  op_80f4
+0000069E  C001  push_int 0
+000006A4  800D  d_to_a
+000006A6  8019  swapa
+000006A8  802A  pop_to_base
+000006AA  8029  pop_base
+000006AC  800C  a_to_d
+000006AE  801C  pop_return
+000006B0  802A  pop_to_base
+000006B2  8029  pop_base
+000006B4  801C  pop_return
+
+.procedure 10 failure offset=0x000006B6 size=58 args=0 flags=0x00000000
+000006B6  802B  push_base
+000006B8  80B9  script_overrides
+000006BA  C001  push_int 304
+000006C0  C001  push_int 3
+000006C6  80C6  set_global_var
+000006C8  C001  push_int 936
+000006CE  C001  push_int 106
+000006D4  8105  message_str
+          ; message_lookup: list=936, message=106 | 你尝试修理这套装甲失败。, status=linked
+000006D6  80B8  display_msg
+000006D8  C001  push_int 0
+000006DE  800D  d_to_a
+000006E0  8019  swapa
+000006E2  802A  pop_to_base
+000006E4  8029  pop_base
+000006E6  800C  a_to_d
+000006E8  801C  pop_return
+000006EA  802A  pop_to_base
+000006EC  8029  pop_base
+000006EE  801C  pop_return

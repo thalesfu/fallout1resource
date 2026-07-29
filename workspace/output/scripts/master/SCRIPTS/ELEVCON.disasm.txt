@@ -1,0 +1,133 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\ELEVCON.INT
+; sha256: 416FF53E82156756B331CB0A38530C615CB9A8359C9B7FF40CF5C8DECA7DAB68
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 210
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000000D2  802C  set_global
+000000D4  C001  push_int 17140
+000000DA  C001  push_int 0
+000000E0  C001  push_int 0
+000000E6  8003  critical_done
+000000E8  C001  push_int 240
+000000EE  8004  jump
+
+.procedure 0 .............. offset=0x000000F0 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000F0 size=312 args=0 flags=0x00000000
+000000F0  802B  push_base
+000000F2  C001  push_int 316
+000000F8  80C7  script_action
+000000FA  C001  push_int 15
+00000100  8033  equal
+00000102  802F  if
+00000104  C001  push_int 33554921
+0000010A  C001  push_int 0
+00000110  8012  fetch_global
+00000112  C001  push_int 0
+00000118  C001  push_int 1
+0000011E  8046  negate
+00000120  80B7  op_80b7
+00000122  C001  push_int 1
+00000128  8013  store_global
+0000012A  C001  push_int 1
+00000130  8012  fetch_global
+00000132  C001  push_int 0
+00000138  80C1  local_var
+0000013A  80E3  op_80e3
+0000013C  C001  push_int 458
+00000142  80C7  script_action
+00000144  C001  push_int 6
+0000014A  8033  equal
+0000014C  802F  if
+0000014E  C001  push_int 388
+00000154  C001  push_int 0
+0000015A  80C1  local_var
+0000015C  802F  if
+0000015E  C001  push_int 1
+00000164  8012  fetch_global
+00000166  C001  push_int 0
+0000016C  80E3  op_80e3
+0000016E  C001  push_int 0
+00000174  C001  push_int 0
+0000017A  80C2  set_local_var
+0000017C  C001  push_int 458
+00000182  8004  jump
+00000184  C001  push_int 428
+0000018A  80BF  dude_obj
+0000018C  C001  push_int 8
+00000192  80AA  op_80aa
+00000194  C001  push_int 50
+0000019A  8038  greater
+0000019C  802F  if
+0000019E  C001  push_int 1
+000001A4  9001  push_string "<unresolved-string:0x44>"
+000001AA  8015  store_external
+000001AC  C001  push_int 1
+000001B2  8012  fetch_global
+000001B4  C001  push_int 1
+000001BA  80E3  op_80e3
+000001BC  C001  push_int 0
+000001C2  C001  push_int 1
+000001C8  80C2  set_local_var
+000001CA  C001  push_int 500
+000001D0  80C7  script_action
+000001D2  C001  push_int 21
+000001D8  8033  equal
+000001DA  802F  if
+000001DC  C001  push_int 498
+000001E2  800D  d_to_a
+000001E4  C001  push_int 0
+000001EA  C001  push_int 2
+000001F0  8005  call
+000001F2  801A  pop
+000001F4  C001  push_int 528
+000001FA  80C7  script_action
+000001FC  C001  push_int 16
+00000202  8033  equal
+00000204  802F  if
+00000206  C001  push_int 1
+0000020C  8012  fetch_global
+0000020E  80F4  op_80f4
+00000210  C001  push_int 0
+00000216  800D  d_to_a
+00000218  8019  swapa
+0000021A  802A  pop_to_base
+0000021C  8029  pop_base
+0000021E  800C  a_to_d
+00000220  801C  pop_return
+00000222  802A  pop_to_base
+00000224  8029  pop_base
+00000226  801C  pop_return
+
+.procedure 2 look_at_p_proc offset=0x00000228 size=28 args=0 flags=0x00000000
+00000228  802B  push_base
+0000022A  80B9  script_overrides
+0000022C  C001  push_int 0
+00000232  800D  d_to_a
+00000234  8019  swapa
+00000236  802A  pop_to_base
+00000238  8029  pop_base
+0000023A  800C  a_to_d
+0000023C  801C  pop_return
+0000023E  802A  pop_to_base
+00000240  8029  pop_base
+00000242  801C  pop_return

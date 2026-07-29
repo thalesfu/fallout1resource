@@ -1,0 +1,162 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\GLO3WEP.INT
+; sha256: D5F84A16249F843650E2A42EA8F2D22DD02F65D574130F76CABB04B277156DC6
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 132
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000084  802C  set_global
+00000086  C001  push_int 0
+0000008C  8003  critical_done
+0000008E  C001  push_int 150
+00000094  8004  jump
+
+.procedure 0 .............. offset=0x00000096 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00000096 size=442 args=0 flags=0x00000000
+00000096  802B  push_base
+00000098  C001  push_int 208
+0000009E  80C7  script_action
+000000A0  C001  push_int 21
+000000A6  8033  equal
+000000A8  80C7  script_action
+000000AA  C001  push_int 3
+000000B0  8033  equal
+000000B2  803F  or
+000000B4  802F  if
+000000B6  80B9  script_overrides
+000000B8  C001  push_int 307
+000000BE  C001  push_int 100
+000000C4  8105  message_str
+          ; message_lookup: list=307, message=100 | 这看上去很像一个武器柜的门。, status=linked
+000000C6  80B8  display_msg
+000000C8  C001  push_int 568
+000000CE  8004  jump
+000000D0  C001  push_int 356
+000000D6  80C7  script_action
+000000D8  C001  push_int 7
+000000DE  8033  equal
+000000E0  802F  if
+000000E2  C001  push_int 332
+000000E8  80C0  op_80c0
+000000EA  C001  push_int 84
+000000F0  8033  equal
+000000F2  802F  if
+000000F4  C001  push_int 308
+000000FA  80BF  dude_obj
+000000FC  C001  push_int 9
+00000102  C001  push_int 0
+00000108  80AC  op_80ac
+0000010A  80AF  op_80af
+0000010C  802F  if
+0000010E  C001  push_int 0
+00000114  C001  push_int 1
+0000011A  80C2  set_local_var
+0000011C  C001  push_int 307
+00000122  C001  push_int 101
+00000128  8105  message_str
+          ; message_lookup: list=307, message=101 | 你打开了门上的锁。, status=linked
+0000012A  80B8  display_msg
+0000012C  C001  push_int 324
+00000132  8004  jump
+00000134  C001  push_int 307
+0000013A  C001  push_int 102
+00000140  8105  message_str
+          ; message_lookup: list=307, message=102 | 你没能打开门锁。, status=linked
+00000142  80B8  display_msg
+00000144  C001  push_int 348
+0000014A  8004  jump
+0000014C  C001  push_int 307
+00000152  C001  push_int 103
+00000158  8105  message_str
+          ; message_lookup: list=307, message=103 | 这个物品在门上没有用。, status=linked
+0000015A  80B8  display_msg
+0000015C  C001  push_int 568
+00000162  8004  jump
+00000164  C001  push_int 424
+0000016A  80C7  script_action
+0000016C  C001  push_int 6
+00000172  8033  equal
+00000174  802F  if
+00000176  C001  push_int 416
+0000017C  C001  push_int 0
+00000182  80C1  local_var
+00000184  C001  push_int 0
+0000018A  8033  equal
+0000018C  802F  if
+0000018E  80B9  script_overrides
+00000190  C001  push_int 307
+00000196  C001  push_int 104
+0000019C  8105  message_str
+          ; message_lookup: list=307, message=104 | 这个门是锁着的。, status=linked
+0000019E  80B8  display_msg
+000001A0  C001  push_int 568
+000001A6  8004  jump
+000001A8  C001  push_int 568
+000001AE  80C7  script_action
+000001B0  C001  push_int 8
+000001B6  8033  equal
+000001B8  802F  if
+000001BA  80B9  script_overrides
+000001BC  C001  push_int 552
+000001C2  80FA  op_80fa
+000001C4  C001  push_int 9
+000001CA  8033  equal
+000001CC  802F  if
+000001CE  C001  push_int 528
+000001D4  80BF  dude_obj
+000001D6  C001  push_int 9
+000001DC  C001  push_int 10
+000001E2  8046  negate
+000001E4  80AC  op_80ac
+000001E6  80AF  op_80af
+000001E8  802F  if
+000001EA  C001  push_int 0
+000001F0  C001  push_int 1
+000001F6  80C2  set_local_var
+000001F8  C001  push_int 307
+000001FE  C001  push_int 105
+00000204  8105  message_str
+          ; message_lookup: list=307, message=105 | 你打开了门上的锁。, status=linked
+00000206  80B8  display_msg
+00000208  C001  push_int 544
+0000020E  8004  jump
+00000210  C001  push_int 307
+00000216  C001  push_int 106
+0000021C  8105  message_str
+          ; message_lookup: list=307, message=106 | 你打开门锁失败了。, status=linked
+0000021E  80B8  display_msg
+00000220  C001  push_int 568
+00000226  8004  jump
+00000228  C001  push_int 307
+0000022E  C001  push_int 107
+00000234  8105  message_str
+          ; message_lookup: list=307, message=107 | 这个技能在门上没有用。, status=linked
+00000236  80B8  display_msg
+00000238  C001  push_int 0
+0000023E  800D  d_to_a
+00000240  8019  swapa
+00000242  802A  pop_to_base
+00000244  8029  pop_base
+00000246  800C  a_to_d
+00000248  801C  pop_return
+0000024A  802A  pop_to_base
+0000024C  8029  pop_base
+0000024E  801C  pop_return

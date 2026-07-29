@@ -1,0 +1,365 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\NH2OPUMP.INT
+; sha256: 13465B4F5998623C987CFEE0F90C65B21CFD22622CEFBDA258BEC23BC68645A2
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 244
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000000F4  802C  set_global
+000000F6  C001  push_int 0
+000000FC  C001  push_int 0
+00000102  C001  push_int 0
+00000108  C001  push_int 0
+0000010E  C001  push_int 0
+00000114  C001  push_int 0
+0000011A  8003  critical_done
+0000011C  C001  push_int 292
+00000122  8004  jump
+
+.procedure 0 .............. offset=0x00000124 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00000124 size=528 args=0 flags=0x00000000
+00000124  802B  push_base
+00000126  C001  push_int 346
+0000012C  80C7  script_action
+0000012E  C001  push_int 21
+00000134  8033  equal
+00000136  802F  if
+00000138  80B9  script_overrides
+0000013A  C001  push_int 336
+00000140  800D  d_to_a
+00000142  C001  push_int 0
+00000148  C001  push_int 2
+0000014E  8005  call
+00000150  801A  pop
+00000152  C001  push_int 796
+00000158  8004  jump
+0000015A  C001  push_int 408
+00000160  80C7  script_action
+00000162  C001  push_int 8
+00000168  8033  equal
+0000016A  802F  if
+0000016C  80FA  op_80fa
+0000016E  C001  push_int 4
+00000174  8013  store_global
+00000176  80B9  script_overrides
+00000178  C001  push_int 398
+0000017E  800D  d_to_a
+00000180  C001  push_int 0
+00000186  C001  push_int 3
+0000018C  8005  call
+0000018E  801A  pop
+00000190  C001  push_int 796
+00000196  8004  jump
+00000198  C001  push_int 476
+0000019E  80C7  script_action
+000001A0  C001  push_int 6
+000001A6  8033  equal
+000001A8  802F  if
+000001AA  C001  push_int 468
+000001B0  C001  push_int 31
+000001B6  80C5  global_var
+000001B8  C001  push_int 2
+000001BE  8034  not_equal
+000001C0  802F  if
+000001C2  80B9  script_overrides
+000001C4  C001  push_int 87
+000001CA  C001  push_int 112
+000001D0  8105  message_str
+          ; message_lookup: list=87, message=112 | 水泵没有在运转。, status=linked
+000001D2  80B8  display_msg
+000001D4  C001  push_int 796
+000001DA  8004  jump
+000001DC  C001  push_int 796
+000001E2  80C7  script_action
+000001E4  C001  push_int 7
+000001EA  8033  equal
+000001EC  802F  if
+000001EE  C001  push_int 780
+000001F4  80C0  op_80c0
+000001F6  8100  op_8100
+000001F8  C001  push_int 98
+000001FE  8033  equal
+00000200  802F  if
+00000202  80B9  script_overrides
+00000204  80BF  dude_obj
+00000206  C001  push_int 13
+0000020C  C001  push_int 5
+00000212  8046  negate
+00000214  80AC  op_80ac
+00000216  C001  push_int 2
+0000021C  8013  store_global
+0000021E  C001  push_int 672
+00000224  C001  push_int 2
+0000022A  8012  fetch_global
+0000022C  80AF  op_80af
+0000022E  802F  if
+00000230  C001  push_int 87
+00000236  C001  push_int 114
+0000023C  8105  message_str
+          ; message_lookup: list=87, message=114 | 巨大水泵的一阵颠簸，你把那个丢失的零件安装上了。, status=linked
+0000023E  80B8  display_msg
+00000240  80BF  dude_obj
+00000242  80C0  op_80c0
+00000244  80D9  op_80d9
+00000246  80BC  self_obj
+00000248  80C0  op_80c0
+0000024A  80D8  op_80d8
+0000024C  C001  push_int 31
+00000252  C001  push_int 2
+00000258  80C6  set_global_var
+0000025A  C001  push_int 227
+00000260  C001  push_int 0
+00000266  80C6  set_global_var
+00000268  C001  push_int 155
+0000026E  C001  push_int 155
+00000274  80C5  global_var
+00000276  C001  push_int 1
+0000027C  8039  add
+0000027E  80C6  set_global_var
+00000280  C001  push_int 1000
+00000286  80A1  op_80a1
+00000288  C001  push_int 87
+0000028E  C001  push_int 118
+00000294  8105  message_str
+          ; message_lookup: list=87, message=118 | 你修好了水泵，获得了1000点经验值。, status=linked
+00000296  80B8  display_msg
+00000298  C001  push_int 772
+0000029E  8004  jump
+000002A0  C001  push_int 746
+000002A6  C001  push_int 2
+000002AC  8012  fetch_global
+000002AE  80B0  op_80b0
+000002B0  802F  if
+000002B2  C001  push_int 87
+000002B8  C001  push_int 115
+000002BE  8105  message_str
+          ; message_lookup: list=87, message=115 | 不知什么原因，损坏的零件割破了你的手对你造成1点伤害。, status=linked
+000002C0  80B8  display_msg
+000002C2  C001  push_int 240
+000002C8  80F2  op_80f2
+000002CA  80FC  op_80fc
+000002CC  80BF  dude_obj
+000002CE  80C0  op_80c0
+000002D0  80D9  op_80d9
+000002D2  80BF  dude_obj
+000002D4  C001  push_int 1
+000002DA  C001  push_int 0
+000002E0  80EF  op_80ef
+000002E2  C001  push_int 772
+000002E8  8004  jump
+000002EA  C001  push_int 87
+000002F0  C001  push_int 116
+000002F6  8105  message_str
+          ; message_lookup: list=87, message=116 | 你修理那个部件有些困难。, status=linked
+000002F8  80B8  display_msg
+000002FA  C001  push_int 180
+00000300  80F2  op_80f2
+00000302  80FC  op_80fc
+00000304  C001  push_int 796
+0000030A  8004  jump
+0000030C  C001  push_int 87
+00000312  C001  push_int 117
+00000318  8105  message_str
+          ; message_lookup: list=87, message=117 | 这个不能用在水泵上。, status=linked
+0000031A  80B8  display_msg
+0000031C  C001  push_int 0
+00000322  800D  d_to_a
+00000324  8019  swapa
+00000326  802A  pop_to_base
+00000328  8029  pop_base
+0000032A  800C  a_to_d
+0000032C  801C  pop_return
+0000032E  802A  pop_to_base
+00000330  8029  pop_base
+00000332  801C  pop_return
+
+.procedure 2 search offset=0x00000334 size=198 args=0 flags=0x00000000
+00000334  802B  push_base
+00000336  80BF  dude_obj
+00000338  C001  push_int 4
+0000033E  C001  push_int 0
+00000344  80AE  op_80ae
+00000346  C001  push_int 0
+0000034C  8013  store_global
+0000034E  C001  push_int 894
+00000354  C001  push_int 31
+0000035A  80C5  global_var
+0000035C  C001  push_int 2
+00000362  8033  equal
+00000364  802F  if
+00000366  C001  push_int 87
+0000036C  C001  push_int 100
+00000372  8105  message_str
+          ; message_lookup: list=87, message=100 | 修复的水泵现在运转的很好。, status=linked
+00000374  80B8  display_msg
+00000376  C001  push_int 994
+0000037C  8004  jump
+0000037E  C001  push_int 978
+00000384  C001  push_int 0
+0000038A  8012  fetch_global
+0000038C  80AF  op_80af
+0000038E  802F  if
+00000390  C001  push_int 954
+00000396  C001  push_int 0
+0000039C  8012  fetch_global
+0000039E  80B0  op_80b0
+000003A0  802F  if
+000003A2  C001  push_int 87
+000003A8  C001  push_int 101
+000003AE  8105  message_str
+          ; message_lookup: list=87, message=101 | 水泵不运转是因为真空泵坏了。, status=linked
+000003B0  80B8  display_msg
+000003B2  C001  push_int 970
+000003B8  8004  jump
+000003BA  C001  push_int 87
+000003C0  C001  push_int 102
+000003C6  8105  message_str
+          ; message_lookup: list=87, message=102 | 水泵没有运行。, status=linked
+000003C8  80B8  display_msg
+000003CA  C001  push_int 994
+000003D0  8004  jump
+000003D2  C001  push_int 87
+000003D8  C001  push_int 103
+000003DE  8105  message_str
+          ; message_lookup: list=87, message=103 | 一个机器。, status=linked
+000003E0  80B8  display_msg
+000003E2  C001  push_int 0
+000003E8  800D  d_to_a
+000003EA  8019  swapa
+000003EC  802A  pop_to_base
+000003EE  8029  pop_base
+000003F0  800C  a_to_d
+000003F2  801C  pop_return
+000003F4  802A  pop_to_base
+000003F6  8029  pop_base
+000003F8  801C  pop_return
+
+.procedure 3 skills offset=0x000003FA size=382 args=0 flags=0x00000000
+000003FA  802B  push_base
+000003FC  80BF  dude_obj
+000003FE  C001  push_int 12
+00000404  C001  push_int 10
+0000040A  8046  negate
+0000040C  80AC  op_80ac
+0000040E  C001  push_int 1
+00000414  8013  store_global
+00000416  80BF  dude_obj
+00000418  C001  push_int 13
+0000041E  C001  push_int 0
+00000424  80AC  op_80ac
+00000426  C001  push_int 2
+0000042C  8013  store_global
+0000042E  80BF  dude_obj
+00000430  C001  push_int 12
+00000436  C001  push_int 20
+0000043C  8046  negate
+0000043E  80AC  op_80ac
+00000440  C001  push_int 3
+00000446  8013  store_global
+00000448  C001  push_int 1228
+0000044E  C001  push_int 4
+00000454  8012  fetch_global
+00000456  C001  push_int 13
+0000045C  8033  equal
+0000045E  802F  if
+00000460  C001  push_int 1162
+00000466  C001  push_int 2
+0000046C  8012  fetch_global
+0000046E  80AF  op_80af
+00000470  802F  if
+00000472  C001  push_int 87
+00000478  C001  push_int 108
+0000047E  8105  message_str
+          ; message_lookup: list=87, message=108 | 你修理水泵失败了，它可能需要一个新保险丝。, status=linked
+00000480  80B8  display_msg
+00000482  C001  push_int 1220
+00000488  8004  jump
+0000048A  C001  push_int 1204
+00000490  C001  push_int 2
+00000496  8012  fetch_global
+00000498  80B0  op_80b0
+0000049A  802F  if
+0000049C  C001  push_int 87
+000004A2  C001  push_int 107
+000004A8  8105  message_str
+          ; message_lookup: list=87, message=107 | 没有备用真空泵你无法修理水泵。, status=linked
+000004AA  80B8  display_msg
+000004AC  C001  push_int 1220
+000004B2  8004  jump
+000004B4  C001  push_int 87
+000004BA  C001  push_int 109
+000004C0  8105  message_str
+          ; message_lookup: list=87, message=109 | 你修理水泵失败了。, status=linked
+000004C2  80B8  display_msg
+000004C4  C001  push_int 1376
+000004CA  8004  jump
+000004CC  C001  push_int 1360
+000004D2  C001  push_int 4
+000004D8  8012  fetch_global
+000004DA  C001  push_int 12
+000004E0  8033  equal
+000004E2  802F  if
+000004E4  C001  push_int 1294
+000004EA  C001  push_int 3
+000004F0  8012  fetch_global
+000004F2  80AF  op_80af
+000004F4  802F  if
+000004F6  C001  push_int 87
+000004FC  C001  push_int 111
+00000502  8105  message_str
+          ; message_lookup: list=87, message=111 | 这个水泵或许需要一个新保险丝。, status=linked
+00000504  80B8  display_msg
+00000506  C001  push_int 1352
+0000050C  8004  jump
+0000050E  C001  push_int 1336
+00000514  C001  push_int 3
+0000051A  8012  fetch_global
+0000051C  80B0  op_80b0
+0000051E  802F  if
+00000520  C001  push_int 87
+00000526  C001  push_int 110
+0000052C  8105  message_str
+          ; message_lookup: list=87, message=110 | 这个水泵不能运转是因为真空泵坏了。, status=linked
+0000052E  80B8  display_msg
+00000530  C001  push_int 1352
+00000536  8004  jump
+00000538  C001  push_int 87
+0000053E  C001  push_int 112
+00000544  8105  message_str
+          ; message_lookup: list=87, message=112 | 水泵没有在运转。, status=linked
+00000546  80B8  display_msg
+00000548  C001  push_int 1376
+0000054E  8004  jump
+00000550  C001  push_int 87
+00000556  C001  push_int 113
+0000055C  8105  message_str
+          ; message_lookup: list=87, message=113 | 你没有发现什么不正常。, status=linked
+0000055E  80B8  display_msg
+00000560  C001  push_int 0
+00000566  800D  d_to_a
+00000568  8019  swapa
+0000056A  802A  pop_to_base
+0000056C  8029  pop_base
+0000056E  800C  a_to_d
+00000570  801C  pop_return
+00000572  802A  pop_to_base
+00000574  8029  pop_base
+00000576  801C  pop_return

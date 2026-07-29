@@ -1,0 +1,722 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\CHIDNITE.INT
+; sha256: EA835E12AB191759EF8328937428AE36238DF2A2211E7AA05656BF7E2E1106E1
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 568
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000238  802C  set_global
+0000023A  C001  push_int 0
+00000240  C001  push_int 1
+00000246  C001  push_int 0
+0000024C  8003  critical_done
+0000024E  C001  push_int 598
+00000254  8004  jump
+
+.procedure 0 .............. offset=0x00000256 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00000256 size=974 args=0 flags=0x00000000
+00000256  802B  push_base
+00000258  C001  push_int 674
+0000025E  C001  push_int 1
+00000264  8012  fetch_global
+00000266  802F  if
+00000268  80BC  self_obj
+0000026A  C001  push_int 1
+00000270  C001  push_int 6
+00000276  C001  push_int 20
+0000027C  8102  critter_add_trait
+0000027E  80BC  self_obj
+00000280  C001  push_int 1
+00000286  C001  push_int 5
+0000028C  C001  push_int 66
+00000292  8102  critter_add_trait
+00000294  C001  push_int 0
+0000029A  C001  push_int 1
+000002A0  8013  store_global
+000002A2  C001  push_int 730
+000002A8  80C7  script_action
+000002AA  C001  push_int 21
+000002B0  8033  equal
+000002B2  80C7  script_action
+000002B4  C001  push_int 3
+000002BA  8033  equal
+000002BC  803F  or
+000002BE  802F  if
+000002C0  80B9  script_overrides
+000002C2  C001  push_int 394
+000002C8  C001  push_int 100
+000002CE  8105  message_str
+          ; message_lookup: list=394, message=100 | 你看见一名夜行团成员。, status=linked
+000002D0  80B8  display_msg
+000002D2  C001  push_int 1548
+000002D8  8004  jump
+000002DA  C001  push_int 1066
+000002E0  80C7  script_action
+000002E2  C001  push_int 18
+000002E8  8033  equal
+000002EA  802F  if
+000002EC  C001  push_int 1058
+000002F2  80BD  source_obj
+000002F4  80BF  dude_obj
+000002F6  8033  equal
+000002F8  802F  if
+000002FA  C001  push_int 870
+00000300  C001  push_int 160
+00000306  80C5  global_var
+00000308  C001  push_int 159
+0000030E  80C5  global_var
+00000310  8039  add
+00000312  C001  push_int 25
+00000318  8036  greater_equal
+0000031A  C001  push_int 159
+00000320  80C5  global_var
+00000322  C001  push_int 2
+00000328  C001  push_int 160
+0000032E  80C5  global_var
+00000330  803B  mul
+00000332  8038  greater
+00000334  C001  push_int 156
+0000033A  80C5  global_var
+0000033C  C001  push_int 1
+00000342  8033  equal
+00000344  803F  or
+00000346  803E  and
+00000348  802F  if
+0000034A  C001  push_int 156
+00000350  C001  push_int 1
+00000356  80C6  set_global_var
+00000358  C001  push_int 157
+0000035E  C001  push_int 0
+00000364  80C6  set_global_var
+00000366  C001  push_int 978
+0000036C  C001  push_int 160
+00000372  80C5  global_var
+00000374  C001  push_int 159
+0000037A  80C5  global_var
+0000037C  8039  add
+0000037E  C001  push_int 25
+00000384  8036  greater_equal
+00000386  C001  push_int 160
+0000038C  80C5  global_var
+0000038E  C001  push_int 3
+00000394  C001  push_int 159
+0000039A  80C5  global_var
+0000039C  803B  mul
+0000039E  8038  greater
+000003A0  C001  push_int 157
+000003A6  80C5  global_var
+000003A8  C001  push_int 1
+000003AE  8033  equal
+000003B0  803F  or
+000003B2  803E  and
+000003B4  802F  if
+000003B6  C001  push_int 157
+000003BC  C001  push_int 1
+000003C2  80C6  set_global_var
+000003C4  C001  push_int 156
+000003CA  C001  push_int 0
+000003D0  80C6  set_global_var
+000003D2  C001  push_int 160
+000003D8  C001  push_int 160
+000003DE  80C5  global_var
+000003E0  C001  push_int 1
+000003E6  8039  add
+000003E8  80C6  set_global_var
+000003EA  C001  push_int 1058
+000003F0  C001  push_int 160
+000003F6  80C5  global_var
+000003F8  C001  push_int 6
+000003FE  803D  mod
+00000400  C001  push_int 0
+00000406  8033  equal
+00000408  802F  if
+0000040A  C001  push_int 155
+00000410  C001  push_int 155
+00000416  80C5  global_var
+00000418  C001  push_int 1
+0000041E  8039  add
+00000420  80C6  set_global_var
+00000422  C001  push_int 1548
+00000428  8004  jump
+0000042A  C001  push_int 1106
+00000430  80C7  script_action
+00000432  C001  push_int 14
+00000438  8033  equal
+0000043A  802F  if
+0000043C  C001  push_int 245
+00000442  C001  push_int 1
+00000448  80C6  set_global_var
+0000044A  C001  push_int 1548
+00000450  8004  jump
+00000452  C001  push_int 1356
+00000458  80C7  script_action
+0000045A  C001  push_int 12
+00000460  8033  equal
+00000462  802F  if
+00000464  C001  push_int 1220
+0000046A  80BC  self_obj
+0000046C  80BF  dude_obj
+0000046E  80DC  op_80dc
+00000470  802F  if
+00000472  C001  push_int 1220
+00000478  80BF  dude_obj
+0000047A  C001  push_int 142
+00000480  80BA  op_80ba
+00000482  8045  not
+00000484  802F  if
+00000486  C001  push_int 1220
+0000048C  80BF  dude_obj
+0000048E  C001  push_int 141
+00000494  80BA  op_80ba
+00000496  8045  not
+00000498  802F  if
+0000049A  C001  push_int 1220
+000004A0  80BF  dude_obj
+000004A2  C001  push_int 0
+000004A8  8106  op_8106
+000004AA  8100  op_8100
+000004AC  C001  push_int 113
+000004B2  8034  not_equal
+000004B4  802F  if
+000004B6  C001  push_int 1
+000004BC  C001  push_int 0
+000004C2  8013  store_global
+000004C4  C001  push_int 1272
+000004CA  C001  push_int 16
+000004D0  C001  push_int 0
+000004D6  810B  op_810b
+000004D8  C001  push_int 1
+000004DE  8038  greater
+000004E0  80BC  self_obj
+000004E2  80BF  dude_obj
+000004E4  80DC  op_80dc
+000004E6  803E  and
+000004E8  802F  if
+000004EA  C001  push_int 1
+000004F0  C001  push_int 0
+000004F6  8013  store_global
+000004F8  C001  push_int 1348
+000004FE  C001  push_int 0
+00000504  8012  fetch_global
+00000506  802F  if
+00000508  C001  push_int 0
+0000050E  C001  push_int 0
+00000514  8013  store_global
+00000516  80BF  dude_obj
+00000518  C001  push_int 0
+0000051E  C001  push_int 1
+00000524  C001  push_int 0
+0000052A  C001  push_int 0
+00000530  C001  push_int 30000
+00000536  C001  push_int 0
+0000053C  C001  push_int 0
+00000542  80D0  attack
+00000544  C001  push_int 1548
+0000054A  8004  jump
+0000054C  C001  push_int 1396
+00000552  80C7  script_action
+00000554  C001  push_int 4
+0000055A  8033  equal
+0000055C  802F  if
+0000055E  C001  push_int 1
+00000564  C001  push_int 0
+0000056A  8013  store_global
+0000056C  C001  push_int 1548
+00000572  8004  jump
+00000574  C001  push_int 1548
+0000057A  80C7  script_action
+0000057C  C001  push_int 11
+00000582  8033  equal
+00000584  802F  if
+00000586  80B9  script_overrides
+00000588  C001  push_int 1486
+0000058E  C001  push_int 195
+00000594  80C5  global_var
+00000596  C001  push_int 1
+0000059C  8033  equal
+0000059E  802F  if
+000005A0  80BC  self_obj
+000005A2  C001  push_int 394
+000005A8  C001  push_int 101
+000005AE  8105  message_str
+          ; message_lookup: list=394, message=101 | 死！, status=linked
+000005B0  C001  push_int 0
+000005B6  810A  op_810a
+000005B8  C001  push_int 1
+000005BE  C001  push_int 0
+000005C4  8013  store_global
+000005C6  C001  push_int 1548
+000005CC  8004  jump
+000005CE  C001  push_int 394
+000005D4  80BC  self_obj
+000005D6  C001  push_int 4
+000005DC  C001  push_int 1
+000005E2  8046  negate
+000005E4  C001  push_int 1
+000005EA  8046  negate
+000005EC  80DE  start_gdialog
+000005EE  811C  gsay_start
+000005F0  C001  push_int 1542
+000005F6  800D  d_to_a
+000005F8  C001  push_int 0
+000005FE  C001  push_int 2
+00000604  8005  call
+00000606  801A  pop
+00000608  811D  gsay_end
+0000060A  80DF  end_dialogue
+0000060C  C001  push_int 0
+00000612  800D  d_to_a
+00000614  8019  swapa
+00000616  802A  pop_to_base
+00000618  8029  pop_base
+0000061A  800C  a_to_d
+0000061C  801C  pop_return
+0000061E  802A  pop_to_base
+00000620  8029  pop_base
+00000622  801C  pop_return
+
+.procedure 2 Nightkin01 offset=0x00000624 size=338 args=0 flags=0x00000000
+00000624  802B  push_base
+00000626  C001  push_int 394
+0000062C  C001  push_int 102
+00000632  811E  gsay_reply
+          ; reply: list=394, message=102 | 滚开，不然我要你命！, status=linked
+00000634  C001  push_int 7
+0000063A  C001  push_int 394
+00000640  C001  push_int 103
+00000646  C001  push_int 3
+0000064C  C001  push_int 50
+00000652  8121  giq_option
+          ; intelligence_option: list=394, message=103 | 我不喜欢你的口气。如果我不能面见主教，我会让你死的很难看。, status=linked
+00000654  C001  push_int 4
+0000065A  C001  push_int 394
+00000660  C001  push_int 104
+00000666  C001  push_int 6
+0000066C  C001  push_int 50
+00000672  8121  giq_option
+          ; intelligence_option: list=394, message=104 | 我只是想说，你背上的驼峰好帅啊，当然，这可能对你的呼吸不好。, status=linked
+00000674  C001  push_int 4
+0000067A  C001  push_int 394
+00000680  C001  push_int 105
+00000686  C001  push_int 7
+0000068C  C001  push_int 50
+00000692  8121  giq_option
+          ; intelligence_option: list=394, message=105 | 你能领我去见你们的头儿吗？, status=linked
+00000694  C001  push_int 1740
+0000069A  C001  push_int 194
+000006A0  80C5  global_var
+000006A2  C001  push_int 1
+000006A8  8033  equal
+000006AA  802F  if
+000006AC  C001  push_int 4
+000006B2  C001  push_int 394
+000006B8  C001  push_int 106
+000006BE  C001  push_int 7
+000006C4  C001  push_int 50
+000006CA  8121  giq_option
+          ; intelligence_option: list=394, message=106 | 老兄，你比我更需要来两杯。, status=linked
+000006CC  C001  push_int 1852
+000006D2  C001  push_int 160
+000006D8  80C5  global_var
+000006DA  C001  push_int 159
+000006E0  80C5  global_var
+000006E2  8039  add
+000006E4  C001  push_int 25
+000006EA  8036  greater_equal
+000006EC  C001  push_int 159
+000006F2  80C5  global_var
+000006F4  C001  push_int 2
+000006FA  C001  push_int 160
+00000700  80C5  global_var
+00000702  803B  mul
+00000704  8038  greater
+00000706  C001  push_int 156
+0000070C  80C5  global_var
+0000070E  C001  push_int 1
+00000714  8033  equal
+00000716  803F  or
+00000718  803E  and
+0000071A  802F  if
+0000071C  C001  push_int 4
+00000722  C001  push_int 394
+00000728  C001  push_int 107
+0000072E  C001  push_int 6
+00000734  C001  push_int 50
+0000073A  8121  giq_option
+          ; intelligence_option: list=394, message=107 | 我不会离开！, status=linked
+0000073C  C001  push_int 3
+00000742  8046  negate
+00000744  C001  push_int 394
+0000074A  C001  push_int 108
+00000750  C001  push_int 11
+00000756  C001  push_int 50
+0000075C  8121  giq_option
+          ; intelligence_option: list=394, message=108 | 好吧，我走。, status=linked
+0000075E  C001  push_int 0
+00000764  800D  d_to_a
+00000766  8019  swapa
+00000768  802A  pop_to_base
+0000076A  8029  pop_base
+0000076C  800C  a_to_d
+0000076E  801C  pop_return
+00000770  802A  pop_to_base
+00000772  8029  pop_base
+00000774  801C  pop_return
+
+.procedure 3 Nightkin01a offset=0x00000776 size=108 args=0 flags=0x00000000
+00000776  802B  push_base
+00000778  C001  push_int 1970
+0000077E  80BF  dude_obj
+00000780  C001  push_int 14
+00000786  C001  push_int 0
+0000078C  80AC  op_80ac
+0000078E  80AF  op_80af
+00000790  802F  if
+00000792  C001  push_int 1960
+00000798  800D  d_to_a
+0000079A  C001  push_int 0
+000007A0  C001  push_int 4
+000007A6  8005  call
+000007A8  801A  pop
+000007AA  C001  push_int 1994
+000007B0  8004  jump
+000007B2  C001  push_int 1992
+000007B8  800D  d_to_a
+000007BA  C001  push_int 0
+000007C0  C001  push_int 5
+000007C6  8005  call
+000007C8  801A  pop
+000007CA  C001  push_int 0
+000007D0  800D  d_to_a
+000007D2  8019  swapa
+000007D4  802A  pop_to_base
+000007D6  8029  pop_base
+000007D8  800C  a_to_d
+000007DA  801C  pop_return
+000007DC  802A  pop_to_base
+000007DE  8029  pop_base
+000007E0  801C  pop_return
+
+.procedure 4 Nightkin02 offset=0x000007E2 size=66 args=0 flags=0x00000000
+000007E2  802B  push_base
+000007E4  C001  push_int 394
+000007EA  C001  push_int 109
+000007F0  811E  gsay_reply
+          ; reply: list=394, message=109 | 和我们夜行团斗嘴可不是好玩的，快滚！, status=linked
+000007F2  C001  push_int 394
+000007F8  C001  push_int 125
+000007FE  C001  push_int 11
+00000804  C001  push_int 50
+0000080A  811F  gsay_option
+          ; option: list=394, message=125 | 【完成】, status=linked
+0000080C  C001  push_int 0
+00000812  800D  d_to_a
+00000814  8019  swapa
+00000816  802A  pop_to_base
+00000818  8029  pop_base
+0000081A  800C  a_to_d
+0000081C  801C  pop_return
+0000081E  802A  pop_to_base
+00000820  8029  pop_base
+00000822  801C  pop_return
+
+.procedure 5 Nightkin03 offset=0x00000824 size=64 args=0 flags=0x00000000
+00000824  802B  push_base
+00000826  C001  push_int 394
+0000082C  C001  push_int 110
+00000832  811E  gsay_reply
+          ; reply: list=394, message=110 | 我倒不觉得。, status=linked
+00000834  C001  push_int 2122
+0000083A  800D  d_to_a
+0000083C  C001  push_int 0
+00000842  C001  push_int 12
+00000848  8005  call
+0000084A  801A  pop
+0000084C  C001  push_int 0
+00000852  800D  d_to_a
+00000854  8019  swapa
+00000856  802A  pop_to_base
+00000858  8029  pop_base
+0000085A  800C  a_to_d
+0000085C  801C  pop_return
+0000085E  802A  pop_to_base
+00000860  8029  pop_base
+00000862  801C  pop_return
+
+.procedure 6 Nightkin04 offset=0x00000864 size=64 args=0 flags=0x00000000
+00000864  802B  push_base
+00000866  C001  push_int 394
+0000086C  C001  push_int 111
+00000872  811E  gsay_reply
+          ; reply: list=394, message=111 | 那就让你死得痛快！, status=linked
+00000874  C001  push_int 2186
+0000087A  800D  d_to_a
+0000087C  C001  push_int 0
+00000882  C001  push_int 12
+00000888  8005  call
+0000088A  801A  pop
+0000088C  C001  push_int 0
+00000892  800D  d_to_a
+00000894  8019  swapa
+00000896  802A  pop_to_base
+00000898  8029  pop_base
+0000089A  800C  a_to_d
+0000089C  801C  pop_return
+0000089E  802A  pop_to_base
+000008A0  8029  pop_base
+000008A2  801C  pop_return
+
+.procedure 7 Nightkin05 offset=0x000008A4 size=312 args=0 flags=0x00000000
+000008A4  802B  push_base
+000008A6  C001  push_int 394
+000008AC  C001  push_int 112
+000008B2  811E  gsay_reply
+          ; reply: list=394, message=112 | 你没听见吗！藐视夜行团是很不明智的。, status=linked
+000008B4  C001  push_int 7
+000008BA  C001  push_int 394
+000008C0  C001  push_int 113
+000008C6  C001  push_int 8
+000008CC  C001  push_int 50
+000008D2  8121  giq_option
+          ; intelligence_option: list=394, message=113 | 我有事要和你说，是急事！, status=linked
+000008D4  C001  push_int 4
+000008DA  C001  push_int 394
+000008E0  C001  push_int 114
+000008E6  C001  push_int 6
+000008EC  C001  push_int 50
+000008F2  8121  giq_option
+          ; intelligence_option: list=394, message=114 | 还没人说过我不明智呢！, status=linked
+000008F4  C001  push_int 4
+000008FA  C001  push_int 394
+00000900  C001  push_int 115
+00000906  C001  push_int 10
+0000090C  C001  push_int 50
+00000912  8121  giq_option
+          ; intelligence_option: list=394, message=115 | 我就是想和你们管事的说话！, status=linked
+00000914  C001  push_int 4
+0000091A  C001  push_int 394
+00000920  C001  push_int 116
+00000926  C001  push_int 10
+0000092C  C001  push_int 50
+00000932  8121  giq_option
+          ; intelligence_option: list=394, message=116 | 你以为你很拽啊？, status=linked
+00000934  C001  push_int 4
+0000093A  C001  push_int 394
+00000940  C001  push_int 117
+00000946  C001  push_int 11
+0000094C  C001  push_int 50
+00000952  8121  giq_option
+          ; intelligence_option: list=394, message=117 | 对不起，再见。, status=linked
+00000954  C001  push_int 2500
+0000095A  C001  push_int 160
+00000960  80C5  global_var
+00000962  C001  push_int 159
+00000968  80C5  global_var
+0000096A  8039  add
+0000096C  C001  push_int 25
+00000972  8036  greater_equal
+00000974  C001  push_int 159
+0000097A  80C5  global_var
+0000097C  C001  push_int 2
+00000982  C001  push_int 160
+00000988  80C5  global_var
+0000098A  803B  mul
+0000098C  8038  greater
+0000098E  C001  push_int 156
+00000994  80C5  global_var
+00000996  C001  push_int 1
+0000099C  8033  equal
+0000099E  803F  or
+000009A0  803E  and
+000009A2  802F  if
+000009A4  C001  push_int 4
+000009AA  C001  push_int 394
+000009B0  C001  push_int 118
+000009B6  C001  push_int 6
+000009BC  C001  push_int 50
+000009C2  8121  giq_option
+          ; intelligence_option: list=394, message=118 | 你想知道什么叫不明智？和我拌嘴就是！白痴！, status=linked
+000009C4  C001  push_int 0
+000009CA  800D  d_to_a
+000009CC  8019  swapa
+000009CE  802A  pop_to_base
+000009D0  8029  pop_base
+000009D2  800C  a_to_d
+000009D4  801C  pop_return
+000009D6  802A  pop_to_base
+000009D8  8029  pop_base
+000009DA  801C  pop_return
+
+.procedure 8 Nightkin05a offset=0x000009DC size=108 args=0 flags=0x00000000
+000009DC  802B  push_base
+000009DE  C001  push_int 2584
+000009E4  80BF  dude_obj
+000009E6  C001  push_int 14
+000009EC  C001  push_int 0
+000009F2  80AC  op_80ac
+000009F4  80AF  op_80af
+000009F6  802F  if
+000009F8  C001  push_int 2574
+000009FE  800D  d_to_a
+00000A00  C001  push_int 0
+00000A06  C001  push_int 9
+00000A0C  8005  call
+00000A0E  801A  pop
+00000A10  C001  push_int 2608
+00000A16  8004  jump
+00000A18  C001  push_int 2606
+00000A1E  800D  d_to_a
+00000A20  C001  push_int 0
+00000A26  C001  push_int 5
+00000A2C  8005  call
+00000A2E  801A  pop
+00000A30  C001  push_int 0
+00000A36  800D  d_to_a
+00000A38  8019  swapa
+00000A3A  802A  pop_to_base
+00000A3C  8029  pop_base
+00000A3E  800C  a_to_d
+00000A40  801C  pop_return
+00000A42  802A  pop_to_base
+00000A44  8029  pop_base
+00000A46  801C  pop_return
+
+.procedure 9 Nightkin06 offset=0x00000A48 size=66 args=0 flags=0x00000000
+00000A48  802B  push_base
+00000A4A  C001  push_int 394
+00000A50  C001  push_int 119
+00000A56  811E  gsay_reply
+          ; reply: list=394, message=119 | 上楼去。我的弟兄们会听听你带来的信息。, status=linked
+00000A58  C001  push_int 394
+00000A5E  C001  push_int 125
+00000A64  C001  push_int 11
+00000A6A  C001  push_int 50
+00000A70  811F  gsay_option
+          ; option: list=394, message=125 | 【完成】, status=linked
+00000A72  C001  push_int 0
+00000A78  800D  d_to_a
+00000A7A  8019  swapa
+00000A7C  802A  pop_to_base
+00000A7E  8029  pop_base
+00000A80  800C  a_to_d
+00000A82  801C  pop_return
+00000A84  802A  pop_to_base
+00000A86  8029  pop_base
+00000A88  801C  pop_return
+
+.procedure 10 Nightkin07 offset=0x00000A8A size=248 args=0 flags=0x00000000
+00000A8A  802B  push_base
+00000A8C  C001  push_int 394
+00000A92  C001  push_int 120
+00000A98  811E  gsay_reply
+          ; reply: list=394, message=120 | 最后一次警告你！, status=linked
+00000A9A  C001  push_int 4
+00000AA0  C001  push_int 394
+00000AA6  C001  push_int 121
+00000AAC  C001  push_int 6
+00000AB2  C001  push_int 50
+00000AB8  8121  giq_option
+          ; intelligence_option: list=394, message=121 | 当然！我是大人物……, status=linked
+00000ABA  C001  push_int 4
+00000AC0  C001  push_int 394
+00000AC6  C001  push_int 122
+00000ACC  C001  push_int 6
+00000AD2  C001  push_int 50
+00000AD8  8121  giq_option
+          ; intelligence_option: list=394, message=122 | 我真的真的真的要和你们的头儿说话！, status=linked
+00000ADA  C001  push_int 4
+00000AE0  C001  push_int 394
+00000AE6  C001  push_int 123
+00000AEC  C001  push_int 11
+00000AF2  C001  push_int 50
+00000AF8  8121  giq_option
+          ; intelligence_option: list=394, message=123 | 好吧！好吧！再见。, status=linked
+00000AFA  C001  push_int 2922
+00000B00  C001  push_int 160
+00000B06  80C5  global_var
+00000B08  C001  push_int 159
+00000B0E  80C5  global_var
+00000B10  8039  add
+00000B12  C001  push_int 25
+00000B18  8036  greater_equal
+00000B1A  C001  push_int 159
+00000B20  80C5  global_var
+00000B22  C001  push_int 2
+00000B28  C001  push_int 160
+00000B2E  80C5  global_var
+00000B30  803B  mul
+00000B32  8038  greater
+00000B34  C001  push_int 156
+00000B3A  80C5  global_var
+00000B3C  C001  push_int 1
+00000B42  8033  equal
+00000B44  803F  or
+00000B46  803E  and
+00000B48  802F  if
+00000B4A  C001  push_int 4
+00000B50  C001  push_int 394
+00000B56  C001  push_int 124
+00000B5C  C001  push_int 12
+00000B62  C001  push_int 50
+00000B68  8121  giq_option
+          ; intelligence_option: list=394, message=124 | 你知道你傻在哪里吗？你会警告我，而我不会警告你的。看招！, status=linked
+00000B6A  C001  push_int 0
+00000B70  800D  d_to_a
+00000B72  8019  swapa
+00000B74  802A  pop_to_base
+00000B76  8029  pop_base
+00000B78  800C  a_to_d
+00000B7A  801C  pop_return
+00000B7C  802A  pop_to_base
+00000B7E  8029  pop_base
+00000B80  801C  pop_return
+
+.procedure 11 Nightkinend offset=0x00000B82 size=26 args=0 flags=0x00000000
+00000B82  802B  push_base
+00000B84  C001  push_int 0
+00000B8A  800D  d_to_a
+00000B8C  8019  swapa
+00000B8E  802A  pop_to_base
+00000B90  8029  pop_base
+00000B92  800C  a_to_d
+00000B94  801C  pop_return
+00000B96  802A  pop_to_base
+00000B98  8029  pop_base
+00000B9A  801C  pop_return
+
+.procedure 12 Combat offset=0x00000B9C size=54 args=0 flags=0x00000000
+00000B9C  802B  push_base
+00000B9E  C001  push_int 195
+00000BA4  C001  push_int 1
+00000BAA  80C6  set_global_var
+00000BAC  C001  push_int 1
+00000BB2  C001  push_int 0
+00000BB8  8013  store_global
+00000BBA  C001  push_int 0
+00000BC0  800D  d_to_a
+00000BC2  8019  swapa
+00000BC4  802A  pop_to_base
+00000BC6  8029  pop_base
+00000BC8  800C  a_to_d
+00000BCA  801C  pop_return
+00000BCC  802A  pop_to_base
+00000BCE  8029  pop_base
+00000BD0  801C  pop_return

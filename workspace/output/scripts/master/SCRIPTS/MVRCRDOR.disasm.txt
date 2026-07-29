@@ -1,0 +1,164 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\MVRCRDOR.INT
+; sha256: D5905CACE0D9BFFFE8A1B8D526ECD70B08E432F10F7797327F7BF6FC8B7D5F39
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 216
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000000D8  802C  set_global
+000000DA  C001  push_int 0
+000000E0  C001  push_int 0
+000000E6  8003  critical_done
+000000E8  C001  push_int 240
+000000EE  8004  jump
+
+.procedure 0 .............. offset=0x000000F0 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000F0 size=194 args=0 flags=0x00000000
+000000F0  802B  push_base
+000000F2  C001  push_int 298
+000000F8  80C7  script_action
+000000FA  C001  push_int 21
+00000100  8033  equal
+00000102  80C7  script_action
+00000104  C001  push_int 3
+0000010A  8033  equal
+0000010C  803F  or
+0000010E  802F  if
+00000110  80B9  script_overrides
+00000112  C001  push_int 431
+00000118  C001  push_int 100
+0000011E  8105  message_str
+          ; message_lookup: list=431, message=100 | 你看到一扇金属门，上面的标着：“核心反应器控制室。只有经过授权的人员可以进入。”, status=linked
+00000120  80B8  display_msg
+00000122  C001  push_int 410
+00000128  8004  jump
+0000012A  C001  push_int 348
+00000130  80C7  script_action
+00000132  C001  push_int 6
+00000138  8033  equal
+0000013A  802F  if
+0000013C  C001  push_int 338
+00000142  800D  d_to_a
+00000144  C001  push_int 0
+0000014A  C001  push_int 2
+00000150  8005  call
+00000152  801A  pop
+00000154  C001  push_int 410
+0000015A  8004  jump
+0000015C  C001  push_int 410
+00000162  80C7  script_action
+00000164  C001  push_int 7
+0000016A  8033  equal
+0000016C  802F  if
+0000016E  C001  push_int 410
+00000174  80C0  op_80c0
+00000176  8100  op_8100
+00000178  C001  push_int 77
+0000017E  8033  equal
+00000180  802F  if
+00000182  C001  push_int 408
+00000188  800D  d_to_a
+0000018A  C001  push_int 0
+00000190  C001  push_int 3
+00000196  8005  call
+00000198  801A  pop
+0000019A  C001  push_int 0
+000001A0  800D  d_to_a
+000001A2  8019  swapa
+000001A4  802A  pop_to_base
+000001A6  8029  pop_base
+000001A8  800C  a_to_d
+000001AA  801C  pop_return
+000001AC  802A  pop_to_base
+000001AE  8029  pop_base
+000001B0  801C  pop_return
+
+.procedure 2 use_stuff offset=0x000001B2 size=62 args=0 flags=0x00000000
+000001B2  802B  push_base
+000001B4  C001  push_int 472
+000001BA  C001  push_int 0
+000001C0  8012  fetch_global
+000001C2  8045  not
+000001C4  802F  if
+000001C6  80B9  script_overrides
+000001C8  C001  push_int 431
+000001CE  C001  push_int 101
+000001D4  8105  message_str
+          ; message_lookup: list=431, message=101 | 这门被电子锁锁着。, status=linked
+000001D6  80B8  display_msg
+000001D8  C001  push_int 0
+000001DE  800D  d_to_a
+000001E0  8019  swapa
+000001E2  802A  pop_to_base
+000001E4  8029  pop_base
+000001E6  800C  a_to_d
+000001E8  801C  pop_return
+000001EA  802A  pop_to_base
+000001EC  8029  pop_base
+000001EE  801C  pop_return
+
+.procedure 3 pick_lock offset=0x000001F0 size=150 args=0 flags=0x00000000
+000001F0  802B  push_base
+000001F2  80B9  script_overrides
+000001F4  C001  push_int 540
+000001FA  C001  push_int 0
+00000200  8012  fetch_global
+00000202  802F  if
+00000204  C001  push_int 431
+0000020A  C001  push_int 102
+00000210  8105  message_str
+          ; message_lookup: list=431, message=102 | 这门没有上锁。, status=linked
+00000212  80B8  display_msg
+00000214  C001  push_int 622
+0000021A  8004  jump
+0000021C  C001  push_int 606
+00000222  80BF  dude_obj
+00000224  C001  push_int 9
+0000022A  C001  push_int 20
+00000230  8046  negate
+00000232  80AC  op_80ac
+00000234  80AF  op_80af
+00000236  802F  if
+00000238  C001  push_int 431
+0000023E  C001  push_int 103
+00000244  8105  message_str
+          ; message_lookup: list=431, message=103 | 你设法解开电子锁。, status=linked
+00000246  80B8  display_msg
+00000248  C001  push_int 1
+0000024E  C001  push_int 0
+00000254  8013  store_global
+00000256  C001  push_int 622
+0000025C  8004  jump
+0000025E  C001  push_int 431
+00000264  C001  push_int 104
+0000026A  8105  message_str
+          ; message_lookup: list=431, message=104 | 你没能把电子锁解开。, status=linked
+0000026C  80B8  display_msg
+0000026E  C001  push_int 0
+00000274  800D  d_to_a
+00000276  8019  swapa
+00000278  802A  pop_to_base
+0000027A  8029  pop_base
+0000027C  800C  a_to_d
+0000027E  801C  pop_return
+00000280  802A  pop_to_base
+00000282  8029  pop_base
+00000284  801C  pop_return

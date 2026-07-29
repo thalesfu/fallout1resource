@@ -1,0 +1,434 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\TYLIER.INT
+; sha256: 58C1E35E63E4F60D0FD07C724C9FAF9F7EC2BF8A8B8D67CFFD8FB5B5681619EE
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 530
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000212  802C  set_global
+00000214  C001  push_int 0
+0000021A  8003  critical_done
+0000021C  C001  push_int 548
+00000222  8004  jump
+
+.procedure 0 .............. offset=0x00000224 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00000224 size=132 args=0 flags=0x00000000
+00000224  802B  push_base
+00000226  C001  push_int 600
+0000022C  80C7  script_action
+0000022E  C001  push_int 11
+00000234  8033  equal
+00000236  802F  if
+00000238  C001  push_int 590
+0000023E  800D  d_to_a
+00000240  C001  push_int 0
+00000246  C001  push_int 2
+0000024C  8005  call
+0000024E  801A  pop
+00000250  C001  push_int 656
+00000256  8004  jump
+00000258  C001  push_int 656
+0000025E  80C7  script_action
+00000260  C001  push_int 21
+00000266  8033  equal
+00000268  80C7  script_action
+0000026A  C001  push_int 3
+00000270  8033  equal
+00000272  803F  or
+00000274  802F  if
+00000276  80B9  script_overrides
+00000278  80BC  self_obj
+0000027A  C001  push_int 309
+00000280  C001  push_int 100
+00000286  8105  message_str
+          ; message_lookup: list=309, message=100 | 安全岗哨, status=linked
+00000288  C001  push_int 0
+0000028E  810A  op_810a
+00000290  C001  push_int 0
+00000296  800D  d_to_a
+00000298  8019  swapa
+0000029A  802A  pop_to_base
+0000029C  8029  pop_base
+0000029E  800C  a_to_d
+000002A0  801C  pop_return
+000002A2  802A  pop_to_base
+000002A4  8029  pop_base
+000002A6  801C  pop_return
+
+.procedure 2 do_dialogue offset=0x000002A8 size=136 args=0 flags=0x00000000
+000002A8  802B  push_base
+000002AA  C001  push_int 309
+000002B0  80BC  self_obj
+000002B2  C001  push_int 4
+000002B8  C001  push_int 1
+000002BE  8046  negate
+000002C0  C001  push_int 1
+000002C6  8046  negate
+000002C8  80DE  start_gdialog
+000002CA  811C  gsay_start
+000002CC  C001  push_int 764
+000002D2  C001  push_int 140
+000002D8  80C5  global_var
+000002DA  802F  if
+000002DC  C001  push_int 754
+000002E2  800D  d_to_a
+000002E4  C001  push_int 0
+000002EA  C001  push_int 3
+000002F0  8005  call
+000002F2  801A  pop
+000002F4  C001  push_int 788
+000002FA  8004  jump
+000002FC  C001  push_int 786
+00000302  800D  d_to_a
+00000304  C001  push_int 0
+0000030A  C001  push_int 11
+00000310  8005  call
+00000312  801A  pop
+00000314  811D  gsay_end
+00000316  80DF  end_dialogue
+00000318  C001  push_int 0
+0000031E  800D  d_to_a
+00000320  8019  swapa
+00000322  802A  pop_to_base
+00000324  8029  pop_base
+00000326  800C  a_to_d
+00000328  801C  pop_return
+0000032A  802A  pop_to_base
+0000032C  8029  pop_base
+0000032E  801C  pop_return
+
+.procedure 3 tylier01 offset=0x00000330 size=242 args=0 flags=0x00000000
+00000330  802B  push_base
+00000332  C001  push_int 309
+00000338  C001  push_int 101
+0000033E  811E  gsay_reply
+          ; reply: list=309, message=101 | 这个终端【泰勒尔】，控制特殊武器运转。请提供声音认证。, status=linked
+00000340  C001  push_int 3
+00000346  8046  negate
+00000348  C001  push_int 309
+0000034E  C001  push_int 102
+00000354  C001  push_int 4
+0000035A  C001  push_int 50
+00000360  8121  giq_option
+          ; intelligence_option: list=309, message=102 | 噜哪！, status=linked
+00000362  C001  push_int 3
+00000368  8046  negate
+0000036A  C001  push_int 309
+00000370  C001  push_int 103
+00000376  C001  push_int 4
+0000037C  C001  push_int 50
+00000382  8121  giq_option
+          ; intelligence_option: list=309, message=103 | 救救我，我受伤了。, status=linked
+00000384  C001  push_int 4
+0000038A  C001  push_int 309
+00000390  C001  push_int 104
+00000396  C001  push_int 4
+0000039C  C001  push_int 50
+000003A2  8121  giq_option
+          ; intelligence_option: list=309, message=104 | 让我进去。, status=linked
+000003A4  C001  push_int 5
+000003AA  C001  push_int 309
+000003B0  C001  push_int 309
+000003B6  C001  push_int 105
+000003BC  8105  message_str
+          ; message_lookup: list=309, message=105 | 我是, status=linked
+000003BE  80BF  dude_obj
+000003C0  8100  op_8100
+000003C2  C001  push_int 1
+000003C8  8104  op_8104
+000003CA  8039  add
+000003CC  C001  push_int 309
+000003D2  C001  push_int 106
+000003D8  8105  message_str
+          ; message_lookup: list=309, message=106 | 。让我通过。, status=linked
+000003DA  8039  add
+000003DC  C001  push_int 4
+000003E2  C001  push_int 50
+000003E8  8121  giq_option
+          ; intelligence_option: list=None, message=<unresolved>, status=dynamic-number
+000003EA  C001  push_int 5
+000003F0  C001  push_int 309
+000003F6  C001  push_int 107
+000003FC  C001  push_int 5
+00000402  C001  push_int 50
+00000408  8121  giq_option
+          ; intelligence_option: list=309, message=107 | 你在这里干吗？, status=linked
+0000040A  C001  push_int 0
+00000410  800D  d_to_a
+00000412  8019  swapa
+00000414  802A  pop_to_base
+00000416  8029  pop_base
+00000418  800C  a_to_d
+0000041A  801C  pop_return
+0000041C  802A  pop_to_base
+0000041E  8029  pop_base
+00000420  801C  pop_return
+
+.procedure 4 tylier02 offset=0x00000422 size=46 args=0 flags=0x00000000
+00000422  802B  push_base
+00000424  C001  push_int 309
+0000042A  C001  push_int 108
+00000430  C001  push_int 50
+00000436  8120  gsay_message
+          ; message: list=309, message=108 | 声音认证没有被通过。安全系统状态：防御。, status=linked
+00000438  C001  push_int 0
+0000043E  800D  d_to_a
+00000440  8019  swapa
+00000442  802A  pop_to_base
+00000444  8029  pop_base
+00000446  800C  a_to_d
+00000448  801C  pop_return
+0000044A  802A  pop_to_base
+0000044C  8029  pop_base
+0000044E  801C  pop_return
+
+.procedure 5 tylier03 offset=0x00000450 size=136 args=0 flags=0x00000000
+00000450  802B  push_base
+00000452  C001  push_int 309
+00000458  C001  push_int 109
+0000045E  811E  gsay_reply
+          ; reply: list=309, message=109 | 我是蓝层的安全系统。所有系统进入防御状态。, status=linked
+00000460  C001  push_int 5
+00000466  C001  push_int 309
+0000046C  C001  push_int 110
+00000472  C001  push_int 6
+00000478  C001  push_int 50
+0000047E  8121  giq_option
+          ; intelligence_option: list=309, message=110 | 你可以解除防御系统吗？, status=linked
+00000480  C001  push_int 5
+00000486  C001  push_int 309
+0000048C  C001  push_int 111
+00000492  C001  push_int 6
+00000498  C001  push_int 50
+0000049E  8121  giq_option
+          ; intelligence_option: list=309, message=111 | 为什么战争已经结束了系统却仍在防御状态中？, status=linked
+000004A0  C001  push_int 5
+000004A6  C001  push_int 309
+000004AC  C001  push_int 112
+000004B2  C001  push_int 12
+000004B8  C001  push_int 50
+000004BE  8121  giq_option
+          ; intelligence_option: list=309, message=112 | 谢谢。, status=linked
+000004C0  C001  push_int 0
+000004C6  800D  d_to_a
+000004C8  8019  swapa
+000004CA  802A  pop_to_base
+000004CC  8029  pop_base
+000004CE  800C  a_to_d
+000004D0  801C  pop_return
+000004D2  802A  pop_to_base
+000004D4  8029  pop_base
+000004D6  801C  pop_return
+
+.procedure 6 tylier04 offset=0x000004D8 size=136 args=0 flags=0x00000000
+000004D8  802B  push_base
+000004DA  C001  push_int 309
+000004E0  C001  push_int 113
+000004E6  811E  gsay_reply
+          ; reply: list=309, message=113 | 我已经被设定为防御状态，直到有授权工作人员输入声音代码。, status=linked
+000004E8  C001  push_int 5
+000004EE  C001  push_int 309
+000004F4  C001  push_int 114
+000004FA  C001  push_int 7
+00000500  C001  push_int 50
+00000506  8121  giq_option
+          ; intelligence_option: list=309, message=114 | 你会为我接触防御系统吗？, status=linked
+00000508  C001  push_int 5
+0000050E  C001  push_int 309
+00000514  C001  push_int 115
+0000051A  C001  push_int 12
+00000520  C001  push_int 50
+00000526  8121  giq_option
+          ; intelligence_option: list=309, message=115 | 再见。, status=linked
+00000528  C001  push_int 6
+0000052E  C001  push_int 309
+00000534  C001  push_int 116
+0000053A  C001  push_int 8
+00000540  C001  push_int 50
+00000546  8121  giq_option
+          ; intelligence_option: list=309, message=116 | 声音改变：伽马、德尔塔、贝塔。所有系统防御解除。, status=linked
+00000548  C001  push_int 0
+0000054E  800D  d_to_a
+00000550  8019  swapa
+00000552  802A  pop_to_base
+00000554  8029  pop_base
+00000556  800C  a_to_d
+00000558  801C  pop_return
+0000055A  802A  pop_to_base
+0000055C  8029  pop_base
+0000055E  801C  pop_return
+
+.procedure 7 tylier05 offset=0x00000560 size=46 args=0 flags=0x00000000
+00000560  802B  push_base
+00000562  C001  push_int 309
+00000568  C001  push_int 117
+0000056E  C001  push_int 50
+00000574  8120  gsay_message
+          ; message: list=309, message=117 | 你不是工作人员。认证失败。, status=linked
+00000576  C001  push_int 0
+0000057C  800D  d_to_a
+0000057E  8019  swapa
+00000580  802A  pop_to_base
+00000582  8029  pop_base
+00000584  800C  a_to_d
+00000586  801C  pop_return
+00000588  802A  pop_to_base
+0000058A  8029  pop_base
+0000058C  801C  pop_return
+
+.procedure 8 tylier06 offset=0x0000058E size=216 args=0 flags=0x00000000
+0000058E  802B  push_base
+00000590  C001  push_int 309
+00000596  C001  push_int 118
+0000059C  811E  gsay_reply
+          ; reply: list=309, message=118 | 错误的密码。认证失败。, status=linked
+0000059E  C001  push_int 1486
+000005A4  C001  push_int 141
+000005AA  80C5  global_var
+000005AC  802F  if
+000005AE  C001  push_int 5
+000005B4  C001  push_int 309
+000005BA  C001  push_int 119
+000005C0  C001  push_int 9
+000005C6  C001  push_int 50
+000005CC  8121  giq_option
+          ; intelligence_option: list=309, message=119 | 声音改变：伽马－欧米咖－德尔塔。系统防御解除。, status=linked
+000005CE  C001  push_int 5
+000005D4  C001  push_int 309
+000005DA  C001  push_int 120
+000005E0  C001  push_int 8
+000005E6  C001  push_int 50
+000005EC  8121  giq_option
+          ; intelligence_option: list=309, message=120 | 声音改变：欧米咖－德尔塔－德尔塔。系统防御解除。, status=linked
+000005EE  C001  push_int 5
+000005F4  C001  push_int 309
+000005FA  C001  push_int 121
+00000600  C001  push_int 8
+00000606  C001  push_int 50
+0000060C  8121  giq_option
+          ; intelligence_option: list=309, message=121 | 声音改变：阿尔法－德尔塔－德尔塔。系统防御解除。, status=linked
+0000060E  C001  push_int 5
+00000614  C001  push_int 309
+0000061A  C001  push_int 122
+00000620  C001  push_int 8
+00000626  C001  push_int 50
+0000062C  8121  giq_option
+          ; intelligence_option: list=309, message=122 | 声音改变：德尔塔－欧米咖－伽马。系统防御解除。, status=linked
+0000062E  C001  push_int 0
+00000634  C001  push_int 309
+0000063A  C001  push_int 123
+00000640  C001  push_int 12
+00000646  C001  push_int 50
+0000064C  8121  giq_option
+          ; intelligence_option: list=309, message=123 | 再见。, status=linked
+0000064E  C001  push_int 0
+00000654  800D  d_to_a
+00000656  8019  swapa
+00000658  802A  pop_to_base
+0000065A  8029  pop_base
+0000065C  800C  a_to_d
+0000065E  801C  pop_return
+00000660  802A  pop_to_base
+00000662  8029  pop_base
+00000664  801C  pop_return
+
+.procedure 9 tylier07 offset=0x00000666 size=60 args=0 flags=0x00000000
+00000666  802B  push_base
+00000668  C001  push_int 309
+0000066E  C001  push_int 124
+00000674  C001  push_int 50
+0000067A  8120  gsay_message
+          ; message: list=309, message=124 | 声音认证通过，解除防御系统。, status=linked
+0000067C  C001  push_int 140
+00000682  C001  push_int 1
+00000688  80C6  set_global_var
+0000068A  C001  push_int 0
+00000690  800D  d_to_a
+00000692  8019  swapa
+00000694  802A  pop_to_base
+00000696  8029  pop_base
+00000698  800C  a_to_d
+0000069A  801C  pop_return
+0000069C  802A  pop_to_base
+0000069E  8029  pop_base
+000006A0  801C  pop_return
+
+.procedure 10 tylier08 offset=0x000006A2 size=104 args=0 flags=0x00000000
+000006A2  802B  push_base
+000006A4  C001  push_int 309
+000006AA  C001  push_int 125
+000006B0  811E  gsay_reply
+          ; reply: list=309, message=125 | 我无法识别认证命令以外的语言。网络访问无法进行；中央处理器ZAX显然已经被损坏。, status=linked
+000006B2  C001  push_int 5
+000006B8  C001  push_int 309
+000006BE  C001  push_int 126
+000006C4  C001  push_int 8
+000006CA  C001  push_int 50
+000006D0  8121  giq_option
+          ; intelligence_option: list=309, message=126 | 很好。声音改变：西格马、阿尔法、德尔塔。系统防御解除。, status=linked
+000006D2  C001  push_int 0
+000006D8  C001  push_int 309
+000006DE  C001  push_int 127
+000006E4  C001  push_int 12
+000006EA  C001  push_int 50
+000006F0  8121  giq_option
+          ; intelligence_option: list=309, message=127 | 再见。, status=linked
+000006F2  C001  push_int 0
+000006F8  800D  d_to_a
+000006FA  8019  swapa
+000006FC  802A  pop_to_base
+000006FE  8029  pop_base
+00000700  800C  a_to_d
+00000702  801C  pop_return
+00000704  802A  pop_to_base
+00000706  8029  pop_base
+00000708  801C  pop_return
+
+.procedure 11 tylier09 offset=0x0000070A size=46 args=0 flags=0x00000000
+0000070A  802B  push_base
+0000070C  C001  push_int 309
+00000712  C001  push_int 128
+00000718  C001  push_int 50
+0000071E  8120  gsay_message
+          ; message: list=309, message=128 | 现在安全系统解除了防御。, status=linked
+00000720  C001  push_int 0
+00000726  800D  d_to_a
+00000728  8019  swapa
+0000072A  802A  pop_to_base
+0000072C  8029  pop_base
+0000072E  800C  a_to_d
+00000730  801C  pop_return
+00000732  802A  pop_to_base
+00000734  8029  pop_base
+00000736  801C  pop_return
+
+.procedure 12 tylierend offset=0x00000738 size=26 args=0 flags=0x00000000
+00000738  802B  push_base
+0000073A  C001  push_int 0
+00000740  800D  d_to_a
+00000742  8019  swapa
+00000744  802A  pop_to_base
+00000746  8029  pop_base
+00000748  800C  a_to_d
+0000074A  801C  pop_return
+0000074C  802A  pop_to_base
+0000074E  8029  pop_base
+00000750  801C  pop_return

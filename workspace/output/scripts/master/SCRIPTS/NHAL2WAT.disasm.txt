@@ -1,0 +1,57 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\NHAL2WAT.INT
+; sha256: 8F61AC0478D6A8F83BFA1FF03694D7E76E96BE8F134336225C31C596F2C5A210
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 150
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000096  802C  set_global
+00000098  C001  push_int 0
+0000009E  8003  critical_done
+000000A0  C001  push_int 168
+000000A6  8004  jump
+
+.procedure 0 .............. offset=0x000000A8 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000A8 size=72 args=0 flags=0x00000000
+000000A8  802B  push_base
+000000AA  C001  push_int 216
+000000B0  80C7  script_action
+000000B2  C001  push_int 2
+000000B8  8033  equal
+000000BA  802F  if
+000000BC  C001  push_int 216
+000000C2  80BD  source_obj
+000000C4  80BF  dude_obj
+000000C6  8033  equal
+000000C8  802F  if
+000000CA  9001  push_string "Watrshd.map"
+000000D0  C001  push_int 4
+000000D6  80E4  op_80e4
+000000D8  C001  push_int 0
+000000DE  800D  d_to_a
+000000E0  8019  swapa
+000000E2  802A  pop_to_base
+000000E4  8029  pop_base
+000000E6  800C  a_to_d
+000000E8  801C  pop_return
+000000EA  802A  pop_to_base
+000000EC  8029  pop_base
+000000EE  801C  pop_return

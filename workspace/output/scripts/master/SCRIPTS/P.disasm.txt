@@ -1,0 +1,2148 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\P.INT
+; sha256: 66C53FECC050D40019F80DAC56341C7A04626DAA0F036E53276327898E67A742
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 2220
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000008AC  802C  set_global
+000008AE  C001  push_int 0
+000008B4  C001  push_int 0
+000008BA  C001  push_int 0
+000008C0  8003  critical_done
+000008C2  C001  push_int 2250
+000008C8  8004  jump
+
+.procedure 0 .............. offset=0x000008CA size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000008CA size=284 args=0 flags=0x00000000
+000008CA  802B  push_base
+000008CC  C001  push_int 2308
+000008D2  80C7  script_action
+000008D4  C001  push_int 21
+000008DA  8033  equal
+000008DC  80C7  script_action
+000008DE  C001  push_int 3
+000008E4  8033  equal
+000008E6  803F  or
+000008E8  802F  if
+000008EA  80B9  script_overrides
+000008EC  C001  push_int 384
+000008F2  C001  push_int 100
+000008F8  8105  message_str
+          ; message_lookup: list=384, message=100, status=no-msg
+000008FA  80B8  display_msg
+000008FC  C001  push_int 2510
+00000902  8004  jump
+00000904  C001  push_int 2428
+0000090A  80C7  script_action
+0000090C  C001  push_int 18
+00000912  8033  equal
+00000914  802F  if
+00000916  C001  push_int 2420
+0000091C  80BD  source_obj
+0000091E  80BF  dude_obj
+00000920  8033  equal
+00000922  802F  if
+00000924  C001  push_int 160
+0000092A  C001  push_int 160
+00000930  80C5  global_var
+00000932  C001  push_int 1
+00000938  8039  add
+0000093A  80C6  set_global_var
+0000093C  C001  push_int 2420
+00000942  C001  push_int 160
+00000948  80C5  global_var
+0000094A  C001  push_int 7
+00000950  803D  mod
+00000952  C001  push_int 0
+00000958  8033  equal
+0000095A  802F  if
+0000095C  C001  push_int 155
+00000962  C001  push_int 155
+00000968  80C5  global_var
+0000096A  C001  push_int 1
+00000970  8039  add
+00000972  80C6  set_global_var
+00000974  C001  push_int 2510
+0000097A  8004  jump
+0000097C  C001  push_int 2510
+00000982  80C7  script_action
+00000984  C001  push_int 11
+0000098A  8033  equal
+0000098C  802F  if
+0000098E  80B9  script_overrides
+00000990  C001  push_int 384
+00000996  80BC  self_obj
+00000998  C001  push_int 4
+0000099E  C001  push_int 1
+000009A4  8046  negate
+000009A6  C001  push_int 1
+000009AC  8046  negate
+000009AE  80DE  start_gdialog
+000009B0  811C  gsay_start
+000009B2  C001  push_int 2504
+000009B8  800D  d_to_a
+000009BA  C001  push_int 0
+000009C0  C001  push_int 6
+000009C6  8005  call
+000009C8  801A  pop
+000009CA  811D  gsay_end
+000009CC  80DF  end_dialogue
+000009CE  C001  push_int 0
+000009D4  800D  d_to_a
+000009D6  8019  swapa
+000009D8  802A  pop_to_base
+000009DA  8029  pop_base
+000009DC  800C  a_to_d
+000009DE  801C  pop_return
+000009E0  802A  pop_to_base
+000009E2  8029  pop_base
+000009E4  801C  pop_return
+
+.procedure 2 lasher00 offset=0x000009E6 size=114 args=0 flags=0x00000000
+000009E6  802B  push_base
+000009E8  C001  push_int 2584
+000009EE  80BF  dude_obj
+000009F0  C001  push_int 34
+000009F6  80CA  get_critter_stat
+000009F8  C001  push_int 0
+000009FE  8033  equal
+00000A00  802F  if
+00000A02  C001  push_int 384
+00000A08  C001  push_int 101
+00000A0E  811E  gsay_reply
+          ; reply: list=384, message=101, status=no-msg
+00000A10  C001  push_int 2598
+00000A16  8004  jump
+00000A18  C001  push_int 384
+00000A1E  C001  push_int 102
+00000A24  811E  gsay_reply
+          ; reply: list=384, message=102, status=no-msg
+00000A26  C001  push_int 384
+00000A2C  C001  push_int 223
+00000A32  C001  push_int 57
+00000A38  C001  push_int 50
+00000A3E  811F  gsay_option
+          ; option: list=384, message=223, status=no-msg
+00000A40  C001  push_int 0
+00000A46  800D  d_to_a
+00000A48  8019  swapa
+00000A4A  802A  pop_to_base
+00000A4C  8029  pop_base
+00000A4E  800C  a_to_d
+00000A50  801C  pop_return
+00000A52  802A  pop_to_base
+00000A54  8029  pop_base
+00000A56  801C  pop_return
+
+.procedure 3 lasher01 offset=0x00000A58 size=70 args=0 flags=0x00000000
+00000A58  802B  push_base
+00000A5A  C001  push_int 384
+00000A60  C001  push_int 103
+00000A66  C001  push_int 50
+00000A6C  8120  gsay_message
+          ; message: list=384, message=103, status=no-msg
+00000A6E  C001  push_int 2692
+00000A74  800D  d_to_a
+00000A76  C001  push_int 0
+00000A7C  C001  push_int 58
+00000A82  8005  call
+00000A84  801A  pop
+00000A86  C001  push_int 0
+00000A8C  800D  d_to_a
+00000A8E  8019  swapa
+00000A90  802A  pop_to_base
+00000A92  8029  pop_base
+00000A94  800C  a_to_d
+00000A96  801C  pop_return
+00000A98  802A  pop_to_base
+00000A9A  8029  pop_base
+00000A9C  801C  pop_return
+
+.procedure 4 lasher02 offset=0x00000A9E size=70 args=0 flags=0x00000000
+00000A9E  802B  push_base
+00000AA0  C001  push_int 384
+00000AA6  C001  push_int 104
+00000AAC  C001  push_int 50
+00000AB2  8120  gsay_message
+          ; message: list=384, message=104, status=no-msg
+00000AB4  C001  push_int 2762
+00000ABA  800D  d_to_a
+00000ABC  C001  push_int 0
+00000AC2  C001  push_int 58
+00000AC8  8005  call
+00000ACA  801A  pop
+00000ACC  C001  push_int 0
+00000AD2  800D  d_to_a
+00000AD4  8019  swapa
+00000AD6  802A  pop_to_base
+00000AD8  8029  pop_base
+00000ADA  800C  a_to_d
+00000ADC  801C  pop_return
+00000ADE  802A  pop_to_base
+00000AE0  8029  pop_base
+00000AE2  801C  pop_return
+
+.procedure 5 lasher03 offset=0x00000AE4 size=66 args=0 flags=0x00000000
+00000AE4  802B  push_base
+00000AE6  C001  push_int 384
+00000AEC  C001  push_int 105
+00000AF2  811E  gsay_reply
+          ; reply: list=384, message=105, status=no-msg
+00000AF4  C001  push_int 384
+00000AFA  C001  push_int 223
+00000B00  C001  push_int 57
+00000B06  C001  push_int 50
+00000B0C  811F  gsay_option
+          ; option: list=384, message=223, status=no-msg
+00000B0E  C001  push_int 0
+00000B14  800D  d_to_a
+00000B16  8019  swapa
+00000B18  802A  pop_to_base
+00000B1A  8029  pop_base
+00000B1C  800C  a_to_d
+00000B1E  801C  pop_return
+00000B20  802A  pop_to_base
+00000B22  8029  pop_base
+00000B24  801C  pop_return
+
+.procedure 6 lasher04 offset=0x00000B26 size=362 args=0 flags=0x00000000
+00000B26  802B  push_base
+00000B28  C001  push_int 384
+00000B2E  C001  push_int 106
+00000B34  811E  gsay_reply
+          ; reply: list=384, message=106, status=no-msg
+00000B36  C001  push_int 7
+00000B3C  C001  push_int 384
+00000B42  C001  push_int 107
+00000B48  C001  push_int 12
+00000B4E  C001  push_int 50
+00000B54  8121  giq_option
+          ; intelligence_option: list=384, message=107, status=no-msg
+00000B56  C001  push_int 4
+00000B5C  C001  push_int 384
+00000B62  C001  push_int 108
+00000B68  C001  push_int 14
+00000B6E  C001  push_int 50
+00000B74  8121  giq_option
+          ; intelligence_option: list=384, message=108, status=no-msg
+00000B76  C001  push_int 4
+00000B7C  C001  push_int 384
+00000B82  C001  push_int 109
+00000B88  C001  push_int 15
+00000B8E  C001  push_int 50
+00000B94  8121  giq_option
+          ; intelligence_option: list=384, message=109, status=no-msg
+00000B96  C001  push_int 4
+00000B9C  C001  push_int 384
+00000BA2  C001  push_int 110
+00000BA8  C001  push_int 17
+00000BAE  C001  push_int 50
+00000BB4  8121  giq_option
+          ; intelligence_option: list=384, message=110, status=no-msg
+00000BB6  C001  push_int 3046
+00000BBC  C001  push_int 1
+00000BC2  8012  fetch_global
+00000BC4  802F  if
+00000BC6  C001  push_int 4
+00000BCC  C001  push_int 384
+00000BD2  C001  push_int 111
+00000BD8  C001  push_int 18
+00000BDE  C001  push_int 50
+00000BE4  8121  giq_option
+          ; intelligence_option: list=384, message=111, status=no-msg
+00000BE6  C001  push_int 3158
+00000BEC  C001  push_int 160
+00000BF2  80C5  global_var
+00000BF4  C001  push_int 159
+00000BFA  80C5  global_var
+00000BFC  8039  add
+00000BFE  C001  push_int 34
+00000C04  8038  greater
+00000C06  C001  push_int 159
+00000C0C  80C5  global_var
+00000C0E  C001  push_int 2
+00000C14  C001  push_int 160
+00000C1A  80C5  global_var
+00000C1C  803B  mul
+00000C1E  8038  greater
+00000C20  C001  push_int 156
+00000C26  80C5  global_var
+00000C28  C001  push_int 1
+00000C2E  8033  equal
+00000C30  803F  or
+00000C32  803E  and
+00000C34  802F  if
+00000C36  C001  push_int 4
+00000C3C  C001  push_int 384
+00000C42  C001  push_int 112
+00000C48  C001  push_int 4
+00000C4E  C001  push_int 50
+00000C54  8121  giq_option
+          ; intelligence_option: list=384, message=112, status=no-msg
+00000C56  C001  push_int 3
+00000C5C  8046  negate
+00000C5E  C001  push_int 384
+00000C64  C001  push_int 113
+00000C6A  C001  push_int 19
+00000C70  C001  push_int 50
+00000C76  8121  giq_option
+          ; intelligence_option: list=384, message=113, status=no-msg
+00000C78  C001  push_int 0
+00000C7E  800D  d_to_a
+00000C80  8019  swapa
+00000C82  802A  pop_to_base
+00000C84  8029  pop_base
+00000C86  800C  a_to_d
+00000C88  801C  pop_return
+00000C8A  802A  pop_to_base
+00000C8C  8029  pop_base
+00000C8E  801C  pop_return
+
+.procedure 7 lasher05 offset=0x00000C90 size=362 args=0 flags=0x00000000
+00000C90  802B  push_base
+00000C92  C001  push_int 384
+00000C98  C001  push_int 114
+00000C9E  811E  gsay_reply
+          ; reply: list=384, message=114, status=no-msg
+00000CA0  C001  push_int 7
+00000CA6  C001  push_int 384
+00000CAC  C001  push_int 115
+00000CB2  C001  push_int 20
+00000CB8  C001  push_int 50
+00000CBE  8121  giq_option
+          ; intelligence_option: list=384, message=115, status=no-msg
+00000CC0  C001  push_int 7
+00000CC6  C001  push_int 384
+00000CCC  C001  push_int 116
+00000CD2  C001  push_int 22
+00000CD8  C001  push_int 50
+00000CDE  8121  giq_option
+          ; intelligence_option: list=384, message=116, status=no-msg
+00000CE0  C001  push_int 3344
+00000CE6  C001  push_int 1
+00000CEC  8012  fetch_global
+00000CEE  802F  if
+00000CF0  C001  push_int 4
+00000CF6  C001  push_int 384
+00000CFC  C001  push_int 117
+00000D02  C001  push_int 18
+00000D08  C001  push_int 50
+00000D0E  8121  giq_option
+          ; intelligence_option: list=384, message=117, status=no-msg
+00000D10  C001  push_int 4
+00000D16  C001  push_int 384
+00000D1C  C001  push_int 118
+00000D22  C001  push_int 23
+00000D28  C001  push_int 50
+00000D2E  8121  giq_option
+          ; intelligence_option: list=384, message=118, status=no-msg
+00000D30  C001  push_int 4
+00000D36  C001  push_int 384
+00000D3C  C001  push_int 119
+00000D42  C001  push_int 17
+00000D48  C001  push_int 50
+00000D4E  8121  giq_option
+          ; intelligence_option: list=384, message=119, status=no-msg
+00000D50  C001  push_int 3520
+00000D56  C001  push_int 160
+00000D5C  80C5  global_var
+00000D5E  C001  push_int 159
+00000D64  80C5  global_var
+00000D66  8039  add
+00000D68  C001  push_int 34
+00000D6E  8038  greater
+00000D70  C001  push_int 159
+00000D76  80C5  global_var
+00000D78  C001  push_int 2
+00000D7E  C001  push_int 160
+00000D84  80C5  global_var
+00000D86  803B  mul
+00000D88  8038  greater
+00000D8A  C001  push_int 156
+00000D90  80C5  global_var
+00000D92  C001  push_int 1
+00000D98  8033  equal
+00000D9A  803F  or
+00000D9C  803E  and
+00000D9E  802F  if
+00000DA0  C001  push_int 4
+00000DA6  C001  push_int 384
+00000DAC  C001  push_int 120
+00000DB2  C001  push_int 4
+00000DB8  C001  push_int 50
+00000DBE  8121  giq_option
+          ; intelligence_option: list=384, message=120, status=no-msg
+00000DC0  C001  push_int 3
+00000DC6  8046  negate
+00000DC8  C001  push_int 384
+00000DCE  C001  push_int 121
+00000DD4  C001  push_int 19
+00000DDA  C001  push_int 50
+00000DE0  8121  giq_option
+          ; intelligence_option: list=384, message=121, status=no-msg
+00000DE2  C001  push_int 0
+00000DE8  800D  d_to_a
+00000DEA  8019  swapa
+00000DEC  802A  pop_to_base
+00000DEE  8029  pop_base
+00000DF0  800C  a_to_d
+00000DF2  801C  pop_return
+00000DF4  802A  pop_to_base
+00000DF6  8029  pop_base
+00000DF8  801C  pop_return
+
+.procedure 8 lasher06 offset=0x00000DFA size=410 args=0 flags=0x00000000
+00000DFA  802B  push_base
+00000DFC  C001  push_int 3628
+00000E02  80BF  dude_obj
+00000E04  C001  push_int 34
+00000E0A  80CA  get_critter_stat
+00000E0C  C001  push_int 0
+00000E12  8033  equal
+00000E14  802F  if
+00000E16  C001  push_int 384
+00000E1C  C001  push_int 122
+00000E22  811E  gsay_reply
+          ; reply: list=384, message=122, status=no-msg
+00000E24  C001  push_int 3642
+00000E2A  8004  jump
+00000E2C  C001  push_int 384
+00000E32  C001  push_int 123
+00000E38  811E  gsay_reply
+          ; reply: list=384, message=123, status=no-msg
+00000E3A  C001  push_int 7
+00000E40  C001  push_int 384
+00000E46  C001  push_int 124
+00000E4C  C001  push_int 9
+00000E52  C001  push_int 50
+00000E58  8121  giq_option
+          ; intelligence_option: list=384, message=124, status=no-msg
+00000E5A  C001  push_int 7
+00000E60  C001  push_int 384
+00000E66  C001  push_int 125
+00000E6C  C001  push_int 22
+00000E72  C001  push_int 50
+00000E78  8121  giq_option
+          ; intelligence_option: list=384, message=125, status=no-msg
+00000E7A  C001  push_int 3754
+00000E80  C001  push_int 1
+00000E86  8012  fetch_global
+00000E88  802F  if
+00000E8A  C001  push_int 4
+00000E90  C001  push_int 384
+00000E96  C001  push_int 126
+00000E9C  C001  push_int 18
+00000EA2  C001  push_int 50
+00000EA8  8121  giq_option
+          ; intelligence_option: list=384, message=126, status=no-msg
+00000EAA  C001  push_int 4
+00000EB0  C001  push_int 384
+00000EB6  C001  push_int 127
+00000EBC  C001  push_int 23
+00000EC2  C001  push_int 50
+00000EC8  8121  giq_option
+          ; intelligence_option: list=384, message=127, status=no-msg
+00000ECA  C001  push_int 4
+00000ED0  C001  push_int 384
+00000ED6  C001  push_int 128
+00000EDC  C001  push_int 17
+00000EE2  C001  push_int 50
+00000EE8  8121  giq_option
+          ; intelligence_option: list=384, message=128, status=no-msg
+00000EEA  C001  push_int 3930
+00000EF0  C001  push_int 160
+00000EF6  80C5  global_var
+00000EF8  C001  push_int 159
+00000EFE  80C5  global_var
+00000F00  8039  add
+00000F02  C001  push_int 34
+00000F08  8038  greater
+00000F0A  C001  push_int 159
+00000F10  80C5  global_var
+00000F12  C001  push_int 2
+00000F18  C001  push_int 160
+00000F1E  80C5  global_var
+00000F20  803B  mul
+00000F22  8038  greater
+00000F24  C001  push_int 156
+00000F2A  80C5  global_var
+00000F2C  C001  push_int 1
+00000F32  8033  equal
+00000F34  803F  or
+00000F36  803E  and
+00000F38  802F  if
+00000F3A  C001  push_int 4
+00000F40  C001  push_int 384
+00000F46  C001  push_int 129
+00000F4C  C001  push_int 4
+00000F52  C001  push_int 50
+00000F58  8121  giq_option
+          ; intelligence_option: list=384, message=129, status=no-msg
+00000F5A  C001  push_int 3
+00000F60  8046  negate
+00000F62  C001  push_int 384
+00000F68  C001  push_int 130
+00000F6E  C001  push_int 19
+00000F74  C001  push_int 50
+00000F7A  8121  giq_option
+          ; intelligence_option: list=384, message=130, status=no-msg
+00000F7C  C001  push_int 0
+00000F82  800D  d_to_a
+00000F84  8019  swapa
+00000F86  802A  pop_to_base
+00000F88  8029  pop_base
+00000F8A  800C  a_to_d
+00000F8C  801C  pop_return
+00000F8E  802A  pop_to_base
+00000F90  8029  pop_base
+00000F92  801C  pop_return
+
+.procedure 9 lasher06a offset=0x00000F94 size=108 args=0 flags=0x00000000
+00000F94  802B  push_base
+00000F96  C001  push_int 4048
+00000F9C  80BF  dude_obj
+00000F9E  C001  push_int 14
+00000FA4  C001  push_int 0
+00000FAA  80AC  op_80ac
+00000FAC  80AF  op_80af
+00000FAE  802F  if
+00000FB0  C001  push_int 4038
+00000FB6  800D  d_to_a
+00000FB8  C001  push_int 0
+00000FBE  C001  push_int 24
+00000FC4  8005  call
+00000FC6  801A  pop
+00000FC8  C001  push_int 4072
+00000FCE  8004  jump
+00000FD0  C001  push_int 4070
+00000FD6  800D  d_to_a
+00000FD8  C001  push_int 0
+00000FDE  C001  push_int 26
+00000FE4  8005  call
+00000FE6  801A  pop
+00000FE8  C001  push_int 0
+00000FEE  800D  d_to_a
+00000FF0  8019  swapa
+00000FF2  802A  pop_to_base
+00000FF4  8029  pop_base
+00000FF6  800C  a_to_d
+00000FF8  801C  pop_return
+00000FFA  802A  pop_to_base
+00000FFC  8029  pop_base
+00000FFE  801C  pop_return
+
+.procedure 10 lasher07 offset=0x00001000 size=330 args=0 flags=0x00000000
+00001000  802B  push_base
+00001002  C001  push_int 384
+00001008  C001  push_int 131
+0000100E  811E  gsay_reply
+          ; reply: list=384, message=131, status=no-msg
+00001010  C001  push_int 7
+00001016  C001  push_int 384
+0000101C  C001  push_int 132
+00001022  C001  push_int 11
+00001028  C001  push_int 50
+0000102E  8121  giq_option
+          ; intelligence_option: list=384, message=132, status=no-msg
+00001030  C001  push_int 4192
+00001036  C001  push_int 1
+0000103C  8012  fetch_global
+0000103E  802F  if
+00001040  C001  push_int 4
+00001046  C001  push_int 384
+0000104C  C001  push_int 133
+00001052  C001  push_int 18
+00001058  C001  push_int 50
+0000105E  8121  giq_option
+          ; intelligence_option: list=384, message=133, status=no-msg
+00001060  C001  push_int 4
+00001066  C001  push_int 384
+0000106C  C001  push_int 134
+00001072  C001  push_int 27
+00001078  C001  push_int 50
+0000107E  8121  giq_option
+          ; intelligence_option: list=384, message=134, status=no-msg
+00001080  C001  push_int 4
+00001086  C001  push_int 384
+0000108C  C001  push_int 135
+00001092  C001  push_int 17
+00001098  C001  push_int 50
+0000109E  8121  giq_option
+          ; intelligence_option: list=384, message=135, status=no-msg
+000010A0  C001  push_int 4368
+000010A6  C001  push_int 160
+000010AC  80C5  global_var
+000010AE  C001  push_int 159
+000010B4  80C5  global_var
+000010B6  8039  add
+000010B8  C001  push_int 34
+000010BE  8038  greater
+000010C0  C001  push_int 159
+000010C6  80C5  global_var
+000010C8  C001  push_int 2
+000010CE  C001  push_int 160
+000010D4  80C5  global_var
+000010D6  803B  mul
+000010D8  8038  greater
+000010DA  C001  push_int 156
+000010E0  80C5  global_var
+000010E2  C001  push_int 1
+000010E8  8033  equal
+000010EA  803F  or
+000010EC  803E  and
+000010EE  802F  if
+000010F0  C001  push_int 4
+000010F6  C001  push_int 384
+000010FC  C001  push_int 136
+00001102  C001  push_int 4
+00001108  C001  push_int 50
+0000110E  8121  giq_option
+          ; intelligence_option: list=384, message=136, status=no-msg
+00001110  C001  push_int 3
+00001116  8046  negate
+00001118  C001  push_int 384
+0000111E  C001  push_int 137
+00001124  C001  push_int 19
+0000112A  C001  push_int 50
+00001130  8121  giq_option
+          ; intelligence_option: list=384, message=137, status=no-msg
+00001132  C001  push_int 0
+00001138  800D  d_to_a
+0000113A  8019  swapa
+0000113C  802A  pop_to_base
+0000113E  8029  pop_base
+00001140  800C  a_to_d
+00001142  801C  pop_return
+00001144  802A  pop_to_base
+00001146  8029  pop_base
+00001148  801C  pop_return
+
+.procedure 11 lasher07a offset=0x0000114A size=108 args=0 flags=0x00000000
+0000114A  802B  push_base
+0000114C  C001  push_int 4486
+00001152  80BF  dude_obj
+00001154  C001  push_int 14
+0000115A  C001  push_int 0
+00001160  80AC  op_80ac
+00001162  80AF  op_80af
+00001164  802F  if
+00001166  C001  push_int 4476
+0000116C  800D  d_to_a
+0000116E  C001  push_int 0
+00001174  C001  push_int 24
+0000117A  8005  call
+0000117C  801A  pop
+0000117E  C001  push_int 4510
+00001184  8004  jump
+00001186  C001  push_int 4508
+0000118C  800D  d_to_a
+0000118E  C001  push_int 0
+00001194  C001  push_int 26
+0000119A  8005  call
+0000119C  801A  pop
+0000119E  C001  push_int 0
+000011A4  800D  d_to_a
+000011A6  8019  swapa
+000011A8  802A  pop_to_base
+000011AA  8029  pop_base
+000011AC  800C  a_to_d
+000011AE  801C  pop_return
+000011B0  802A  pop_to_base
+000011B2  8029  pop_base
+000011B4  801C  pop_return
+
+.procedure 12 lasher08 offset=0x000011B6 size=296 args=0 flags=0x00000000
+000011B6  802B  push_base
+000011B8  C001  push_int 384
+000011BE  C001  push_int 138
+000011C4  811E  gsay_reply
+          ; reply: list=384, message=138, status=no-msg
+000011C6  C001  push_int 7
+000011CC  C001  push_int 384
+000011D2  C001  push_int 139
+000011D8  C001  push_int 13
+000011DE  C001  push_int 50
+000011E4  8121  giq_option
+          ; intelligence_option: list=384, message=139, status=no-msg
+000011E6  C001  push_int 4630
+000011EC  C001  push_int 1
+000011F2  8012  fetch_global
+000011F4  802F  if
+000011F6  C001  push_int 4
+000011FC  C001  push_int 384
+00001202  C001  push_int 140
+00001208  C001  push_int 18
+0000120E  C001  push_int 50
+00001214  8121  giq_option
+          ; intelligence_option: list=384, message=140, status=no-msg
+00001216  C001  push_int 4
+0000121C  C001  push_int 384
+00001222  C001  push_int 141
+00001228  C001  push_int 27
+0000122E  C001  push_int 50
+00001234  8121  giq_option
+          ; intelligence_option: list=384, message=141, status=no-msg
+00001236  C001  push_int 4
+0000123C  C001  push_int 384
+00001242  C001  push_int 142
+00001248  C001  push_int 31
+0000124E  C001  push_int 50
+00001254  8121  giq_option
+          ; intelligence_option: list=384, message=142, status=no-msg
+00001256  C001  push_int 4806
+0000125C  C001  push_int 160
+00001262  80C5  global_var
+00001264  C001  push_int 159
+0000126A  80C5  global_var
+0000126C  8039  add
+0000126E  C001  push_int 34
+00001274  8038  greater
+00001276  C001  push_int 159
+0000127C  80C5  global_var
+0000127E  C001  push_int 2
+00001284  C001  push_int 160
+0000128A  80C5  global_var
+0000128C  803B  mul
+0000128E  8038  greater
+00001290  C001  push_int 156
+00001296  80C5  global_var
+00001298  C001  push_int 1
+0000129E  8033  equal
+000012A0  803F  or
+000012A2  803E  and
+000012A4  802F  if
+000012A6  C001  push_int 4
+000012AC  C001  push_int 384
+000012B2  C001  push_int 143
+000012B8  C001  push_int 19
+000012BE  C001  push_int 50
+000012C4  8121  giq_option
+          ; intelligence_option: list=384, message=143, status=no-msg
+000012C6  C001  push_int 0
+000012CC  800D  d_to_a
+000012CE  8019  swapa
+000012D0  802A  pop_to_base
+000012D2  8029  pop_base
+000012D4  800C  a_to_d
+000012D6  801C  pop_return
+000012D8  802A  pop_to_base
+000012DA  8029  pop_base
+000012DC  801C  pop_return
+
+.procedure 13 lasher08a offset=0x000012DE size=108 args=0 flags=0x00000000
+000012DE  802B  push_base
+000012E0  C001  push_int 4890
+000012E6  80BF  dude_obj
+000012E8  C001  push_int 14
+000012EE  C001  push_int 0
+000012F4  80AC  op_80ac
+000012F6  80AF  op_80af
+000012F8  802F  if
+000012FA  C001  push_int 4880
+00001300  800D  d_to_a
+00001302  C001  push_int 0
+00001308  C001  push_int 28
+0000130E  8005  call
+00001310  801A  pop
+00001312  C001  push_int 4914
+00001318  8004  jump
+0000131A  C001  push_int 4912
+00001320  800D  d_to_a
+00001322  C001  push_int 0
+00001328  C001  push_int 26
+0000132E  8005  call
+00001330  801A  pop
+00001332  C001  push_int 0
+00001338  800D  d_to_a
+0000133A  8019  swapa
+0000133C  802A  pop_to_base
+0000133E  8029  pop_base
+00001340  800C  a_to_d
+00001342  801C  pop_return
+00001344  802A  pop_to_base
+00001346  8029  pop_base
+00001348  801C  pop_return
+
+.procedure 14 lasher09 offset=0x0000134A size=66 args=0 flags=0x00000000
+0000134A  802B  push_base
+0000134C  C001  push_int 384
+00001352  C001  push_int 144
+00001358  811E  gsay_reply
+          ; reply: list=384, message=144, status=no-msg
+0000135A  C001  push_int 384
+00001360  C001  push_int 223
+00001366  C001  push_int 57
+0000136C  C001  push_int 50
+00001372  811F  gsay_option
+          ; option: list=384, message=223, status=no-msg
+00001374  C001  push_int 0
+0000137A  800D  d_to_a
+0000137C  8019  swapa
+0000137E  802A  pop_to_base
+00001380  8029  pop_base
+00001382  800C  a_to_d
+00001384  801C  pop_return
+00001386  802A  pop_to_base
+00001388  8029  pop_base
+0000138A  801C  pop_return
+
+.procedure 15 lasher10 offset=0x0000138C size=296 args=0 flags=0x00000000
+0000138C  802B  push_base
+0000138E  C001  push_int 384
+00001394  C001  push_int 145
+0000139A  811E  gsay_reply
+          ; reply: list=384, message=145, status=no-msg
+0000139C  C001  push_int 7
+000013A2  C001  push_int 384
+000013A8  C001  push_int 146
+000013AE  C001  push_int 16
+000013B4  C001  push_int 50
+000013BA  8121  giq_option
+          ; intelligence_option: list=384, message=146, status=no-msg
+000013BC  C001  push_int 5100
+000013C2  C001  push_int 1
+000013C8  8012  fetch_global
+000013CA  802F  if
+000013CC  C001  push_int 4
+000013D2  C001  push_int 384
+000013D8  C001  push_int 147
+000013DE  C001  push_int 35
+000013E4  C001  push_int 50
+000013EA  8121  giq_option
+          ; intelligence_option: list=384, message=147, status=no-msg
+000013EC  C001  push_int 4
+000013F2  C001  push_int 384
+000013F8  C001  push_int 148
+000013FE  C001  push_int 37
+00001404  C001  push_int 50
+0000140A  8121  giq_option
+          ; intelligence_option: list=384, message=148, status=no-msg
+0000140C  C001  push_int 4
+00001412  C001  push_int 384
+00001418  C001  push_int 149
+0000141E  C001  push_int 38
+00001424  C001  push_int 50
+0000142A  8121  giq_option
+          ; intelligence_option: list=384, message=149, status=no-msg
+0000142C  C001  push_int 5276
+00001432  C001  push_int 160
+00001438  80C5  global_var
+0000143A  C001  push_int 159
+00001440  80C5  global_var
+00001442  8039  add
+00001444  C001  push_int 34
+0000144A  8038  greater
+0000144C  C001  push_int 159
+00001452  80C5  global_var
+00001454  C001  push_int 2
+0000145A  C001  push_int 160
+00001460  80C5  global_var
+00001462  803B  mul
+00001464  8038  greater
+00001466  C001  push_int 156
+0000146C  80C5  global_var
+0000146E  C001  push_int 1
+00001474  8033  equal
+00001476  803F  or
+00001478  803E  and
+0000147A  802F  if
+0000147C  C001  push_int 4
+00001482  C001  push_int 384
+00001488  C001  push_int 150
+0000148E  C001  push_int 39
+00001494  C001  push_int 50
+0000149A  8121  giq_option
+          ; intelligence_option: list=384, message=150, status=no-msg
+0000149C  C001  push_int 0
+000014A2  800D  d_to_a
+000014A4  8019  swapa
+000014A6  802A  pop_to_base
+000014A8  8029  pop_base
+000014AA  800C  a_to_d
+000014AC  801C  pop_return
+000014AE  802A  pop_to_base
+000014B0  8029  pop_base
+000014B2  801C  pop_return
+
+.procedure 16 lasher10a offset=0x000014B4 size=108 args=0 flags=0x00000000
+000014B4  802B  push_base
+000014B6  C001  push_int 5360
+000014BC  80BF  dude_obj
+000014BE  C001  push_int 14
+000014C4  C001  push_int 0
+000014CA  80AC  op_80ac
+000014CC  80AF  op_80af
+000014CE  802F  if
+000014D0  C001  push_int 5350
+000014D6  800D  d_to_a
+000014D8  C001  push_int 0
+000014DE  C001  push_int 33
+000014E4  8005  call
+000014E6  801A  pop
+000014E8  C001  push_int 5384
+000014EE  8004  jump
+000014F0  C001  push_int 5382
+000014F6  800D  d_to_a
+000014F8  C001  push_int 0
+000014FE  C001  push_int 34
+00001504  8005  call
+00001506  801A  pop
+00001508  C001  push_int 0
+0000150E  800D  d_to_a
+00001510  8019  swapa
+00001512  802A  pop_to_base
+00001514  8029  pop_base
+00001516  800C  a_to_d
+00001518  801C  pop_return
+0000151A  802A  pop_to_base
+0000151C  8029  pop_base
+0000151E  801C  pop_return
+
+.procedure 17 lasher11 offset=0x00001520 size=216 args=0 flags=0x00000000
+00001520  802B  push_base
+00001522  C001  push_int 384
+00001528  C001  push_int 151
+0000152E  811E  gsay_reply
+          ; reply: list=384, message=151, status=no-msg
+00001530  C001  push_int 4
+00001536  C001  push_int 384
+0000153C  C001  push_int 152
+00001542  C001  push_int 14
+00001548  C001  push_int 50
+0000154E  8121  giq_option
+          ; intelligence_option: list=384, message=152, status=no-msg
+00001550  C001  push_int 4
+00001556  C001  push_int 384
+0000155C  C001  push_int 153
+00001562  C001  push_int 40
+00001568  C001  push_int 50
+0000156E  8121  giq_option
+          ; intelligence_option: list=384, message=153, status=no-msg
+00001570  C001  push_int 5600
+00001576  C001  push_int 160
+0000157C  80C5  global_var
+0000157E  C001  push_int 159
+00001584  80C5  global_var
+00001586  8039  add
+00001588  C001  push_int 34
+0000158E  8038  greater
+00001590  C001  push_int 159
+00001596  80C5  global_var
+00001598  C001  push_int 2
+0000159E  C001  push_int 160
+000015A4  80C5  global_var
+000015A6  803B  mul
+000015A8  8038  greater
+000015AA  C001  push_int 156
+000015B0  80C5  global_var
+000015B2  C001  push_int 1
+000015B8  8033  equal
+000015BA  803F  or
+000015BC  803E  and
+000015BE  802F  if
+000015C0  C001  push_int 4
+000015C6  C001  push_int 384
+000015CC  C001  push_int 154
+000015D2  C001  push_int 4
+000015D8  C001  push_int 50
+000015DE  8121  giq_option
+          ; intelligence_option: list=384, message=154, status=no-msg
+000015E0  C001  push_int 0
+000015E6  800D  d_to_a
+000015E8  8019  swapa
+000015EA  802A  pop_to_base
+000015EC  8029  pop_base
+000015EE  800C  a_to_d
+000015F0  801C  pop_return
+000015F2  802A  pop_to_base
+000015F4  8029  pop_base
+000015F6  801C  pop_return
+
+.procedure 18 lasher12 offset=0x000015F8 size=280 args=0 flags=0x00000000
+000015F8  802B  push_base
+000015FA  C001  push_int 384
+00001600  C001  push_int 155
+00001606  811E  gsay_reply
+          ; reply: list=384, message=155, status=no-msg
+00001608  C001  push_int 7
+0000160E  C001  push_int 384
+00001614  C001  push_int 156
+0000161A  C001  push_int 41
+00001620  C001  push_int 50
+00001626  8121  giq_option
+          ; intelligence_option: list=384, message=156, status=no-msg
+00001628  C001  push_int 4
+0000162E  C001  push_int 384
+00001634  C001  push_int 157
+0000163A  C001  push_int 40
+00001640  C001  push_int 50
+00001646  8121  giq_option
+          ; intelligence_option: list=384, message=157, status=no-msg
+00001648  C001  push_int 4
+0000164E  C001  push_int 384
+00001654  C001  push_int 158
+0000165A  C001  push_int 4
+00001660  C001  push_int 50
+00001666  8121  giq_option
+          ; intelligence_option: list=384, message=158, status=no-msg
+00001668  C001  push_int 4
+0000166E  C001  push_int 384
+00001674  C001  push_int 159
+0000167A  C001  push_int 42
+00001680  C001  push_int 50
+00001686  8121  giq_option
+          ; intelligence_option: list=384, message=159, status=no-msg
+00001688  C001  push_int 5880
+0000168E  C001  push_int 160
+00001694  80C5  global_var
+00001696  C001  push_int 159
+0000169C  80C5  global_var
+0000169E  8039  add
+000016A0  C001  push_int 34
+000016A6  8038  greater
+000016A8  C001  push_int 159
+000016AE  80C5  global_var
+000016B0  C001  push_int 2
+000016B6  C001  push_int 160
+000016BC  80C5  global_var
+000016BE  803B  mul
+000016C0  8038  greater
+000016C2  C001  push_int 156
+000016C8  80C5  global_var
+000016CA  C001  push_int 1
+000016D0  8033  equal
+000016D2  803F  or
+000016D4  803E  and
+000016D6  802F  if
+000016D8  C001  push_int 4
+000016DE  C001  push_int 384
+000016E4  C001  push_int 160
+000016EA  C001  push_int 43
+000016F0  C001  push_int 50
+000016F6  8121  giq_option
+          ; intelligence_option: list=384, message=160, status=no-msg
+000016F8  C001  push_int 0
+000016FE  800D  d_to_a
+00001700  8019  swapa
+00001702  802A  pop_to_base
+00001704  8029  pop_base
+00001706  800C  a_to_d
+00001708  801C  pop_return
+0000170A  802A  pop_to_base
+0000170C  8029  pop_base
+0000170E  801C  pop_return
+
+.procedure 19 lasher13 offset=0x00001710 size=46 args=0 flags=0x00000000
+00001710  802B  push_base
+00001712  C001  push_int 384
+00001718  C001  push_int 161
+0000171E  C001  push_int 50
+00001724  8120  gsay_message
+          ; message: list=384, message=161, status=no-msg
+00001726  C001  push_int 0
+0000172C  800D  d_to_a
+0000172E  8019  swapa
+00001730  802A  pop_to_base
+00001732  8029  pop_base
+00001734  800C  a_to_d
+00001736  801C  pop_return
+00001738  802A  pop_to_base
+0000173A  8029  pop_base
+0000173C  801C  pop_return
+
+.procedure 20 lasher14 offset=0x0000173E size=296 args=0 flags=0x00000000
+0000173E  802B  push_base
+00001740  C001  push_int 6000
+00001746  80BF  dude_obj
+00001748  C001  push_int 34
+0000174E  80CA  get_critter_stat
+00001750  C001  push_int 0
+00001756  8033  equal
+00001758  802F  if
+0000175A  C001  push_int 384
+00001760  C001  push_int 163
+00001766  811E  gsay_reply
+          ; reply: list=384, message=163, status=no-msg
+00001768  C001  push_int 6014
+0000176E  8004  jump
+00001770  C001  push_int 384
+00001776  C001  push_int 162
+0000177C  811E  gsay_reply
+          ; reply: list=384, message=162, status=no-msg
+0000177E  C001  push_int 7
+00001784  C001  push_int 384
+0000178A  C001  push_int 164
+00001790  C001  push_int 41
+00001796  C001  push_int 50
+0000179C  8121  giq_option
+          ; intelligence_option: list=384, message=164, status=no-msg
+0000179E  C001  push_int 4
+000017A4  C001  push_int 384
+000017AA  C001  push_int 165
+000017B0  C001  push_int 40
+000017B6  C001  push_int 50
+000017BC  8121  giq_option
+          ; intelligence_option: list=384, message=165, status=no-msg
+000017BE  C001  push_int 4
+000017C4  C001  push_int 384
+000017CA  C001  push_int 166
+000017D0  C001  push_int 4
+000017D6  C001  push_int 50
+000017DC  8121  giq_option
+          ; intelligence_option: list=384, message=166, status=no-msg
+000017DE  C001  push_int 6222
+000017E4  C001  push_int 160
+000017EA  80C5  global_var
+000017EC  C001  push_int 159
+000017F2  80C5  global_var
+000017F4  8039  add
+000017F6  C001  push_int 34
+000017FC  8038  greater
+000017FE  C001  push_int 159
+00001804  80C5  global_var
+00001806  C001  push_int 2
+0000180C  C001  push_int 160
+00001812  80C5  global_var
+00001814  803B  mul
+00001816  8038  greater
+00001818  C001  push_int 156
+0000181E  80C5  global_var
+00001820  C001  push_int 1
+00001826  8033  equal
+00001828  803F  or
+0000182A  803E  and
+0000182C  802F  if
+0000182E  C001  push_int 4
+00001834  C001  push_int 384
+0000183A  C001  push_int 167
+00001840  C001  push_int 43
+00001846  C001  push_int 50
+0000184C  8121  giq_option
+          ; intelligence_option: list=384, message=167, status=no-msg
+0000184E  C001  push_int 0
+00001854  800D  d_to_a
+00001856  8019  swapa
+00001858  802A  pop_to_base
+0000185A  8029  pop_base
+0000185C  800C  a_to_d
+0000185E  801C  pop_return
+00001860  802A  pop_to_base
+00001862  8029  pop_base
+00001864  801C  pop_return
+
+.procedure 21 lasher14a offset=0x00001866 size=108 args=0 flags=0x00000000
+00001866  802B  push_base
+00001868  C001  push_int 6306
+0000186E  80BF  dude_obj
+00001870  C001  push_int 14
+00001876  C001  push_int 0
+0000187C  80AC  op_80ac
+0000187E  80AF  op_80af
+00001880  802F  if
+00001882  C001  push_int 6296
+00001888  800D  d_to_a
+0000188A  C001  push_int 0
+00001890  C001  push_int 44
+00001896  8005  call
+00001898  801A  pop
+0000189A  C001  push_int 6330
+000018A0  8004  jump
+000018A2  C001  push_int 6328
+000018A8  800D  d_to_a
+000018AA  C001  push_int 0
+000018B0  C001  push_int 26
+000018B6  8005  call
+000018B8  801A  pop
+000018BA  C001  push_int 0
+000018C0  800D  d_to_a
+000018C2  8019  swapa
+000018C4  802A  pop_to_base
+000018C6  8029  pop_base
+000018C8  800C  a_to_d
+000018CA  801C  pop_return
+000018CC  802A  pop_to_base
+000018CE  8029  pop_base
+000018D0  801C  pop_return
+
+.procedure 22 lasher15 offset=0x000018D2 size=280 args=0 flags=0x00000000
+000018D2  802B  push_base
+000018D4  C001  push_int 384
+000018DA  C001  push_int 168
+000018E0  811E  gsay_reply
+          ; reply: list=384, message=168, status=no-msg
+000018E2  C001  push_int 7
+000018E8  C001  push_int 384
+000018EE  C001  push_int 169
+000018F4  C001  push_int 26
+000018FA  C001  push_int 50
+00001900  8121  giq_option
+          ; intelligence_option: list=384, message=169, status=no-msg
+00001902  C001  push_int 4
+00001908  C001  push_int 384
+0000190E  C001  push_int 170
+00001914  C001  push_int 45
+0000191A  C001  push_int 50
+00001920  8121  giq_option
+          ; intelligence_option: list=384, message=170, status=no-msg
+00001922  C001  push_int 4
+00001928  C001  push_int 384
+0000192E  C001  push_int 171
+00001934  C001  push_int 46
+0000193A  C001  push_int 50
+00001940  8121  giq_option
+          ; intelligence_option: list=384, message=171, status=no-msg
+00001942  C001  push_int 4
+00001948  C001  push_int 384
+0000194E  C001  push_int 172
+00001954  C001  push_int 14
+0000195A  C001  push_int 50
+00001960  8121  giq_option
+          ; intelligence_option: list=384, message=172, status=no-msg
+00001962  C001  push_int 6610
+00001968  C001  push_int 160
+0000196E  80C5  global_var
+00001970  C001  push_int 159
+00001976  80C5  global_var
+00001978  8039  add
+0000197A  C001  push_int 34
+00001980  8038  greater
+00001982  C001  push_int 159
+00001988  80C5  global_var
+0000198A  C001  push_int 2
+00001990  C001  push_int 160
+00001996  80C5  global_var
+00001998  803B  mul
+0000199A  8038  greater
+0000199C  C001  push_int 156
+000019A2  80C5  global_var
+000019A4  C001  push_int 1
+000019AA  8033  equal
+000019AC  803F  or
+000019AE  803E  and
+000019B0  802F  if
+000019B2  C001  push_int 4
+000019B8  C001  push_int 384
+000019BE  C001  push_int 173
+000019C4  C001  push_int 47
+000019CA  C001  push_int 50
+000019D0  8121  giq_option
+          ; intelligence_option: list=384, message=173, status=no-msg
+000019D2  C001  push_int 0
+000019D8  800D  d_to_a
+000019DA  8019  swapa
+000019DC  802A  pop_to_base
+000019DE  8029  pop_base
+000019E0  800C  a_to_d
+000019E2  801C  pop_return
+000019E4  802A  pop_to_base
+000019E6  8029  pop_base
+000019E8  801C  pop_return
+
+.procedure 23 lasher16 offset=0x000019EA size=46 args=0 flags=0x00000000
+000019EA  802B  push_base
+000019EC  C001  push_int 384
+000019F2  C001  push_int 174
+000019F8  C001  push_int 50
+000019FE  8120  gsay_message
+          ; message: list=384, message=174, status=no-msg
+00001A00  C001  push_int 0
+00001A06  800D  d_to_a
+00001A08  8019  swapa
+00001A0A  802A  pop_to_base
+00001A0C  8029  pop_base
+00001A0E  800C  a_to_d
+00001A10  801C  pop_return
+00001A12  802A  pop_to_base
+00001A14  8029  pop_base
+00001A16  801C  pop_return
+
+.procedure 24 lasher17 offset=0x00001A18 size=304 args=0 flags=0x00000000
+00001A18  802B  push_base
+00001A1A  C001  push_int 384
+00001A20  C001  push_int 175
+00001A26  811E  gsay_reply
+          ; reply: list=384, message=175, status=no-msg
+00001A28  C001  push_int 6752
+00001A2E  C001  push_int 196
+00001A34  80C5  global_var
+00001A36  C001  push_int 1
+00001A3C  8033  equal
+00001A3E  802F  if
+00001A40  C001  push_int 7
+00001A46  C001  push_int 384
+00001A4C  C001  push_int 176
+00001A52  C001  push_int 25
+00001A58  C001  push_int 50
+00001A5E  8121  giq_option
+          ; intelligence_option: list=384, message=176, status=no-msg
+00001A60  C001  push_int 4
+00001A66  C001  push_int 384
+00001A6C  C001  push_int 177
+00001A72  C001  push_int 50
+00001A78  C001  push_int 50
+00001A7E  8121  giq_option
+          ; intelligence_option: list=384, message=177, status=no-msg
+00001A80  C001  push_int 4
+00001A86  C001  push_int 384
+00001A8C  C001  push_int 178
+00001A92  C001  push_int 52
+00001A98  C001  push_int 50
+00001A9E  8121  giq_option
+          ; intelligence_option: list=384, message=178, status=no-msg
+00001AA0  C001  push_int 4
+00001AA6  C001  push_int 384
+00001AAC  C001  push_int 179
+00001AB2  C001  push_int 18
+00001AB8  C001  push_int 50
+00001ABE  8121  giq_option
+          ; intelligence_option: list=384, message=179, status=no-msg
+00001AC0  C001  push_int 6960
+00001AC6  C001  push_int 160
+00001ACC  80C5  global_var
+00001ACE  C001  push_int 159
+00001AD4  80C5  global_var
+00001AD6  8039  add
+00001AD8  C001  push_int 34
+00001ADE  8038  greater
+00001AE0  C001  push_int 159
+00001AE6  80C5  global_var
+00001AE8  C001  push_int 2
+00001AEE  C001  push_int 160
+00001AF4  80C5  global_var
+00001AF6  803B  mul
+00001AF8  8038  greater
+00001AFA  C001  push_int 156
+00001B00  80C5  global_var
+00001B02  C001  push_int 1
+00001B08  8033  equal
+00001B0A  803F  or
+00001B0C  803E  and
+00001B0E  802F  if
+00001B10  C001  push_int 4
+00001B16  C001  push_int 384
+00001B1C  C001  push_int 180
+00001B22  C001  push_int 45
+00001B28  C001  push_int 50
+00001B2E  8121  giq_option
+          ; intelligence_option: list=384, message=180, status=no-msg
+00001B30  C001  push_int 0
+00001B36  800D  d_to_a
+00001B38  8019  swapa
+00001B3A  802A  pop_to_base
+00001B3C  8029  pop_base
+00001B3E  800C  a_to_d
+00001B40  801C  pop_return
+00001B42  802A  pop_to_base
+00001B44  8029  pop_base
+00001B46  801C  pop_return
+
+.procedure 25 lasher17a offset=0x00001B48 size=108 args=0 flags=0x00000000
+00001B48  802B  push_base
+00001B4A  C001  push_int 7044
+00001B50  80BF  dude_obj
+00001B52  C001  push_int 14
+00001B58  C001  push_int 0
+00001B5E  80AC  op_80ac
+00001B60  80AF  op_80af
+00001B62  802F  if
+00001B64  C001  push_int 7034
+00001B6A  800D  d_to_a
+00001B6C  C001  push_int 0
+00001B72  C001  push_int 48
+00001B78  8005  call
+00001B7A  801A  pop
+00001B7C  C001  push_int 7068
+00001B82  8004  jump
+00001B84  C001  push_int 7066
+00001B8A  800D  d_to_a
+00001B8C  C001  push_int 0
+00001B92  C001  push_int 49
+00001B98  8005  call
+00001B9A  801A  pop
+00001B9C  C001  push_int 0
+00001BA2  800D  d_to_a
+00001BA4  8019  swapa
+00001BA6  802A  pop_to_base
+00001BA8  8029  pop_base
+00001BAA  800C  a_to_d
+00001BAC  801C  pop_return
+00001BAE  802A  pop_to_base
+00001BB0  8029  pop_base
+00001BB2  801C  pop_return
+
+.procedure 26 lasher18 offset=0x00001BB4 size=46 args=0 flags=0x00000000
+00001BB4  802B  push_base
+00001BB6  C001  push_int 384
+00001BBC  C001  push_int 181
+00001BC2  C001  push_int 50
+00001BC8  8120  gsay_message
+          ; message: list=384, message=181, status=no-msg
+00001BCA  C001  push_int 0
+00001BD0  800D  d_to_a
+00001BD2  8019  swapa
+00001BD4  802A  pop_to_base
+00001BD6  8029  pop_base
+00001BD8  800C  a_to_d
+00001BDA  801C  pop_return
+00001BDC  802A  pop_to_base
+00001BDE  8029  pop_base
+00001BE0  801C  pop_return
+
+.procedure 27 lasher19 offset=0x00001BE2 size=46 args=0 flags=0x00000000
+00001BE2  802B  push_base
+00001BE4  C001  push_int 384
+00001BEA  C001  push_int 182
+00001BF0  C001  push_int 50
+00001BF6  8120  gsay_message
+          ; message: list=384, message=182, status=no-msg
+00001BF8  C001  push_int 0
+00001BFE  800D  d_to_a
+00001C00  8019  swapa
+00001C02  802A  pop_to_base
+00001C04  8029  pop_base
+00001C06  800C  a_to_d
+00001C08  801C  pop_return
+00001C0A  802A  pop_to_base
+00001C0C  8029  pop_base
+00001C0E  801C  pop_return
+
+.procedure 28 lasher20_1 offset=0x00001C10 size=70 args=0 flags=0x00000000
+00001C10  802B  push_base
+00001C12  C001  push_int 384
+00001C18  C001  push_int 384
+00001C1E  C001  push_int 183
+00001C24  8105  message_str
+          ; message_lookup: list=384, message=183, status=no-msg
+00001C26  C001  push_int 384
+00001C2C  C001  push_int 183
+00001C32  8105  message_str
+          ; message_lookup: list=384, message=183, status=no-msg
+00001C34  8039  add
+00001C36  C001  push_int 50
+00001C3C  8120  gsay_message
+          ; message: list=384, message=add(message_str(384, 183), message_str(384, 183)), status=no-msg
+00001C3E  C001  push_int 0
+00001C44  800D  d_to_a
+00001C46  8019  swapa
+00001C48  802A  pop_to_base
+00001C4A  8029  pop_base
+00001C4C  800C  a_to_d
+00001C4E  801C  pop_return
+00001C50  802A  pop_to_base
+00001C52  8029  pop_base
+00001C54  801C  pop_return
+
+.procedure 29 lasher20_2 offset=0x00001C56 size=26 args=0 flags=0x00000000
+00001C56  802B  push_base
+00001C58  C001  push_int 0
+00001C5E  800D  d_to_a
+00001C60  8019  swapa
+00001C62  802A  pop_to_base
+00001C64  8029  pop_base
+00001C66  800C  a_to_d
+00001C68  801C  pop_return
+00001C6A  802A  pop_to_base
+00001C6C  8029  pop_base
+00001C6E  801C  pop_return
+
+.procedure 30 lasher21 offset=0x00001C70 size=46 args=0 flags=0x00000000
+00001C70  802B  push_base
+00001C72  C001  push_int 384
+00001C78  C001  push_int 186
+00001C7E  C001  push_int 50
+00001C84  8120  gsay_message
+          ; message: list=384, message=186, status=no-msg
+00001C86  C001  push_int 0
+00001C8C  800D  d_to_a
+00001C8E  8019  swapa
+00001C90  802A  pop_to_base
+00001C92  8029  pop_base
+00001C94  800C  a_to_d
+00001C96  801C  pop_return
+00001C98  802A  pop_to_base
+00001C9A  8029  pop_base
+00001C9C  801C  pop_return
+
+.procedure 31 lasher22 offset=0x00001C9E size=46 args=0 flags=0x00000000
+00001C9E  802B  push_base
+00001CA0  C001  push_int 384
+00001CA6  C001  push_int 187
+00001CAC  C001  push_int 50
+00001CB2  8120  gsay_message
+          ; message: list=384, message=187, status=no-msg
+00001CB4  C001  push_int 0
+00001CBA  800D  d_to_a
+00001CBC  8019  swapa
+00001CBE  802A  pop_to_base
+00001CC0  8029  pop_base
+00001CC2  800C  a_to_d
+00001CC4  801C  pop_return
+00001CC6  802A  pop_to_base
+00001CC8  8029  pop_base
+00001CCA  801C  pop_return
+
+.procedure 32 lasher23 offset=0x00001CCC size=46 args=0 flags=0x00000000
+00001CCC  802B  push_base
+00001CCE  C001  push_int 384
+00001CD4  C001  push_int 188
+00001CDA  C001  push_int 50
+00001CE0  8120  gsay_message
+          ; message: list=384, message=188, status=no-msg
+00001CE2  C001  push_int 0
+00001CE8  800D  d_to_a
+00001CEA  8019  swapa
+00001CEC  802A  pop_to_base
+00001CEE  8029  pop_base
+00001CF0  800C  a_to_d
+00001CF2  801C  pop_return
+00001CF4  802A  pop_to_base
+00001CF6  8029  pop_base
+00001CF8  801C  pop_return
+
+.procedure 33 lasher24 offset=0x00001CFA size=100 args=0 flags=0x00000000
+00001CFA  802B  push_base
+00001CFC  C001  push_int 0
+00001D02  C001  push_int 142
+00001D08  C001  push_int 0
+00001D0E  C001  push_int 0
+00001D14  C001  push_int 1
+00001D1A  8046  negate
+00001D1C  80B7  op_80b7
+00001D1E  C001  push_int 0
+00001D24  8031  store
+00001D26  80BF  dude_obj
+00001D28  C001  push_int 0
+00001D2E  8032  fetch
+00001D30  80D8  op_80d8
+00001D32  C001  push_int 384
+00001D38  C001  push_int 189
+00001D3E  C001  push_int 50
+00001D44  8120  gsay_message
+          ; message: list=384, message=189, status=no-msg
+00001D46  C001  push_int 0
+00001D4C  800D  d_to_a
+00001D4E  8019  swapa
+00001D50  802A  pop_to_base
+00001D52  8029  pop_base
+00001D54  800C  a_to_d
+00001D56  801C  pop_return
+00001D58  802A  pop_to_base
+00001D5A  8029  pop_base
+00001D5C  801C  pop_return
+
+.procedure 34 lasher25 offset=0x00001D5E size=46 args=0 flags=0x00000000
+00001D5E  802B  push_base
+00001D60  C001  push_int 384
+00001D66  C001  push_int 190
+00001D6C  C001  push_int 50
+00001D72  8120  gsay_message
+          ; message: list=384, message=190, status=no-msg
+00001D74  C001  push_int 0
+00001D7A  800D  d_to_a
+00001D7C  8019  swapa
+00001D7E  802A  pop_to_base
+00001D80  8029  pop_base
+00001D82  800C  a_to_d
+00001D84  801C  pop_return
+00001D86  802A  pop_to_base
+00001D88  8029  pop_base
+00001D8A  801C  pop_return
+
+.procedure 35 lasher26 offset=0x00001D8C size=280 args=0 flags=0x00000000
+00001D8C  802B  push_base
+00001D8E  C001  push_int 384
+00001D94  C001  push_int 191
+00001D9A  811E  gsay_reply
+          ; reply: list=384, message=191, status=no-msg
+00001D9C  C001  push_int 7
+00001DA2  C001  push_int 384
+00001DA8  C001  push_int 192
+00001DAE  C001  push_int 36
+00001DB4  C001  push_int 50
+00001DBA  8121  giq_option
+          ; intelligence_option: list=384, message=192, status=no-msg
+00001DBC  C001  push_int 4
+00001DC2  C001  push_int 384
+00001DC8  C001  push_int 193
+00001DCE  C001  push_int 34
+00001DD4  C001  push_int 50
+00001DDA  8121  giq_option
+          ; intelligence_option: list=384, message=193, status=no-msg
+00001DDC  C001  push_int 4
+00001DE2  C001  push_int 384
+00001DE8  C001  push_int 194
+00001DEE  C001  push_int 37
+00001DF4  C001  push_int 50
+00001DFA  8121  giq_option
+          ; intelligence_option: list=384, message=194, status=no-msg
+00001DFC  C001  push_int 4
+00001E02  C001  push_int 384
+00001E08  C001  push_int 195
+00001E0E  C001  push_int 38
+00001E14  C001  push_int 50
+00001E1A  8121  giq_option
+          ; intelligence_option: list=384, message=195, status=no-msg
+00001E1C  C001  push_int 7820
+00001E22  C001  push_int 160
+00001E28  80C5  global_var
+00001E2A  C001  push_int 159
+00001E30  80C5  global_var
+00001E32  8039  add
+00001E34  C001  push_int 34
+00001E3A  8038  greater
+00001E3C  C001  push_int 159
+00001E42  80C5  global_var
+00001E44  C001  push_int 2
+00001E4A  C001  push_int 160
+00001E50  80C5  global_var
+00001E52  803B  mul
+00001E54  8038  greater
+00001E56  C001  push_int 156
+00001E5C  80C5  global_var
+00001E5E  C001  push_int 1
+00001E64  8033  equal
+00001E66  803F  or
+00001E68  803E  and
+00001E6A  802F  if
+00001E6C  C001  push_int 4
+00001E72  C001  push_int 384
+00001E78  C001  push_int 196
+00001E7E  C001  push_int 32
+00001E84  C001  push_int 50
+00001E8A  8121  giq_option
+          ; intelligence_option: list=384, message=196, status=no-msg
+00001E8C  C001  push_int 0
+00001E92  800D  d_to_a
+00001E94  8019  swapa
+00001E96  802A  pop_to_base
+00001E98  8029  pop_base
+00001E9A  800C  a_to_d
+00001E9C  801C  pop_return
+00001E9E  802A  pop_to_base
+00001EA0  8029  pop_base
+00001EA2  801C  pop_return
+
+.procedure 36 lasher26a offset=0x00001EA4 size=108 args=0 flags=0x00000000
+00001EA4  802B  push_base
+00001EA6  C001  push_int 7904
+00001EAC  80BF  dude_obj
+00001EAE  C001  push_int 14
+00001EB4  C001  push_int 0
+00001EBA  80AC  op_80ac
+00001EBC  80AF  op_80af
+00001EBE  802F  if
+00001EC0  C001  push_int 7894
+00001EC6  800D  d_to_a
+00001EC8  C001  push_int 0
+00001ECE  C001  push_int 33
+00001ED4  8005  call
+00001ED6  801A  pop
+00001ED8  C001  push_int 7928
+00001EDE  8004  jump
+00001EE0  C001  push_int 7926
+00001EE6  800D  d_to_a
+00001EE8  C001  push_int 0
+00001EEE  C001  push_int 34
+00001EF4  8005  call
+00001EF6  801A  pop
+00001EF8  C001  push_int 0
+00001EFE  800D  d_to_a
+00001F00  8019  swapa
+00001F02  802A  pop_to_base
+00001F04  8029  pop_base
+00001F06  800C  a_to_d
+00001F08  801C  pop_return
+00001F0A  802A  pop_to_base
+00001F0C  8029  pop_base
+00001F0E  801C  pop_return
+
+.procedure 37 lasher27 offset=0x00001F10 size=46 args=0 flags=0x00000000
+00001F10  802B  push_base
+00001F12  C001  push_int 384
+00001F18  C001  push_int 197
+00001F1E  C001  push_int 50
+00001F24  8120  gsay_message
+          ; message: list=384, message=197, status=no-msg
+00001F26  C001  push_int 0
+00001F2C  800D  d_to_a
+00001F2E  8019  swapa
+00001F30  802A  pop_to_base
+00001F32  8029  pop_base
+00001F34  800C  a_to_d
+00001F36  801C  pop_return
+00001F38  802A  pop_to_base
+00001F3A  8029  pop_base
+00001F3C  801C  pop_return
+
+.procedure 38 lasher28 offset=0x00001F3E size=46 args=0 flags=0x00000000
+00001F3E  802B  push_base
+00001F40  C001  push_int 384
+00001F46  C001  push_int 198
+00001F4C  C001  push_int 50
+00001F52  8120  gsay_message
+          ; message: list=384, message=198, status=no-msg
+00001F54  C001  push_int 0
+00001F5A  800D  d_to_a
+00001F5C  8019  swapa
+00001F5E  802A  pop_to_base
+00001F60  8029  pop_base
+00001F62  800C  a_to_d
+00001F64  801C  pop_return
+00001F66  802A  pop_to_base
+00001F68  8029  pop_base
+00001F6A  801C  pop_return
+
+.procedure 39 lasher29 offset=0x00001F6C size=46 args=0 flags=0x00000000
+00001F6C  802B  push_base
+00001F6E  C001  push_int 384
+00001F74  C001  push_int 199
+00001F7A  C001  push_int 50
+00001F80  8120  gsay_message
+          ; message: list=384, message=199, status=no-msg
+00001F82  C001  push_int 0
+00001F88  800D  d_to_a
+00001F8A  8019  swapa
+00001F8C  802A  pop_to_base
+00001F8E  8029  pop_base
+00001F90  800C  a_to_d
+00001F92  801C  pop_return
+00001F94  802A  pop_to_base
+00001F96  8029  pop_base
+00001F98  801C  pop_return
+
+.procedure 40 lasher30 offset=0x00001F9A size=46 args=0 flags=0x00000000
+00001F9A  802B  push_base
+00001F9C  C001  push_int 384
+00001FA2  C001  push_int 200
+00001FA8  C001  push_int 50
+00001FAE  8120  gsay_message
+          ; message: list=384, message=200, status=no-msg
+00001FB0  C001  push_int 0
+00001FB6  800D  d_to_a
+00001FB8  8019  swapa
+00001FBA  802A  pop_to_base
+00001FBC  8029  pop_base
+00001FBE  800C  a_to_d
+00001FC0  801C  pop_return
+00001FC2  802A  pop_to_base
+00001FC4  8029  pop_base
+00001FC6  801C  pop_return
+
+.procedure 41 lasher31 offset=0x00001FC8 size=46 args=0 flags=0x00000000
+00001FC8  802B  push_base
+00001FCA  C001  push_int 384
+00001FD0  C001  push_int 201
+00001FD6  C001  push_int 50
+00001FDC  8120  gsay_message
+          ; message: list=384, message=201, status=no-msg
+00001FDE  C001  push_int 0
+00001FE4  800D  d_to_a
+00001FE6  8019  swapa
+00001FE8  802A  pop_to_base
+00001FEA  8029  pop_base
+00001FEC  800C  a_to_d
+00001FEE  801C  pop_return
+00001FF0  802A  pop_to_base
+00001FF2  8029  pop_base
+00001FF4  801C  pop_return
+
+.procedure 42 lasher32 offset=0x00001FF6 size=312 args=0 flags=0x00000000
+00001FF6  802B  push_base
+00001FF8  C001  push_int 384
+00001FFE  C001  push_int 202
+00002004  811E  gsay_reply
+          ; reply: list=384, message=202, status=no-msg
+00002006  C001  push_int 7
+0000200C  C001  push_int 384
+00002012  C001  push_int 203
+00002018  C001  push_int 30
+0000201E  C001  push_int 50
+00002024  8121  giq_option
+          ; intelligence_option: list=384, message=203, status=no-msg
+00002026  C001  push_int 4
+0000202C  C001  push_int 384
+00002032  C001  push_int 204
+00002038  C001  push_int 54
+0000203E  C001  push_int 50
+00002044  8121  giq_option
+          ; intelligence_option: list=384, message=204, status=no-msg
+00002046  C001  push_int 4
+0000204C  C001  push_int 384
+00002052  C001  push_int 205
+00002058  C001  push_int 55
+0000205E  C001  push_int 50
+00002064  8121  giq_option
+          ; intelligence_option: list=384, message=205, status=no-msg
+00002066  C001  push_int 4
+0000206C  C001  push_int 384
+00002072  C001  push_int 206
+00002078  C001  push_int 56
+0000207E  C001  push_int 50
+00002084  8121  giq_option
+          ; intelligence_option: list=384, message=206, status=no-msg
+00002086  C001  push_int 4
+0000208C  C001  push_int 384
+00002092  C001  push_int 207
+00002098  C001  push_int 38
+0000209E  C001  push_int 50
+000020A4  8121  giq_option
+          ; intelligence_option: list=384, message=207, status=no-msg
+000020A6  C001  push_int 8470
+000020AC  C001  push_int 160
+000020B2  80C5  global_var
+000020B4  C001  push_int 159
+000020BA  80C5  global_var
+000020BC  8039  add
+000020BE  C001  push_int 34
+000020C4  8038  greater
+000020C6  C001  push_int 159
+000020CC  80C5  global_var
+000020CE  C001  push_int 2
+000020D4  C001  push_int 160
+000020DA  80C5  global_var
+000020DC  803B  mul
+000020DE  8038  greater
+000020E0  C001  push_int 156
+000020E6  80C5  global_var
+000020E8  C001  push_int 1
+000020EE  8033  equal
+000020F0  803F  or
+000020F2  803E  and
+000020F4  802F  if
+000020F6  C001  push_int 4
+000020FC  C001  push_int 384
+00002102  C001  push_int 208
+00002108  C001  push_int 45
+0000210E  C001  push_int 50
+00002114  8121  giq_option
+          ; intelligence_option: list=384, message=208, status=no-msg
+00002116  C001  push_int 0
+0000211C  800D  d_to_a
+0000211E  8019  swapa
+00002120  802A  pop_to_base
+00002122  8029  pop_base
+00002124  800C  a_to_d
+00002126  801C  pop_return
+00002128  802A  pop_to_base
+0000212A  8029  pop_base
+0000212C  801C  pop_return
+
+.procedure 43 lasher33 offset=0x0000212E size=100 args=0 flags=0x00000000
+0000212E  802B  push_base
+00002130  C001  push_int 8550
+00002136  80BF  dude_obj
+00002138  C001  push_int 34
+0000213E  80CA  get_critter_stat
+00002140  C001  push_int 1
+00002146  8033  equal
+00002148  802F  if
+0000214A  C001  push_int 384
+00002150  C001  push_int 209
+00002156  C001  push_int 50
+0000215C  8120  gsay_message
+          ; message: list=384, message=209, status=no-msg
+0000215E  C001  push_int 8570
+00002164  8004  jump
+00002166  C001  push_int 384
+0000216C  C001  push_int 210
+00002172  C001  push_int 50
+00002178  8120  gsay_message
+          ; message: list=384, message=210, status=no-msg
+0000217A  C001  push_int 0
+00002180  800D  d_to_a
+00002182  8019  swapa
+00002184  802A  pop_to_base
+00002186  8029  pop_base
+00002188  800C  a_to_d
+0000218A  801C  pop_return
+0000218C  802A  pop_to_base
+0000218E  8029  pop_base
+00002190  801C  pop_return
+
+.procedure 44 lasher34 offset=0x00002192 size=46 args=0 flags=0x00000000
+00002192  802B  push_base
+00002194  C001  push_int 384
+0000219A  C001  push_int 211
+000021A0  C001  push_int 50
+000021A6  8120  gsay_message
+          ; message: list=384, message=211, status=no-msg
+000021A8  C001  push_int 0
+000021AE  800D  d_to_a
+000021B0  8019  swapa
+000021B2  802A  pop_to_base
+000021B4  8029  pop_base
+000021B6  800C  a_to_d
+000021B8  801C  pop_return
+000021BA  802A  pop_to_base
+000021BC  8029  pop_base
+000021BE  801C  pop_return
+
+.procedure 45 lasher35 offset=0x000021C0 size=46 args=0 flags=0x00000000
+000021C0  802B  push_base
+000021C2  C001  push_int 384
+000021C8  C001  push_int 212
+000021CE  C001  push_int 50
+000021D4  8120  gsay_message
+          ; message: list=384, message=212, status=no-msg
+000021D6  C001  push_int 0
+000021DC  800D  d_to_a
+000021DE  8019  swapa
+000021E0  802A  pop_to_base
+000021E2  8029  pop_base
+000021E4  800C  a_to_d
+000021E6  801C  pop_return
+000021E8  802A  pop_to_base
+000021EA  8029  pop_base
+000021EC  801C  pop_return
+
+.procedure 46 lasher36 offset=0x000021EE size=46 args=0 flags=0x00000000
+000021EE  802B  push_base
+000021F0  C001  push_int 384
+000021F6  C001  push_int 213
+000021FC  C001  push_int 50
+00002202  8120  gsay_message
+          ; message: list=384, message=213, status=no-msg
+00002204  C001  push_int 0
+0000220A  800D  d_to_a
+0000220C  8019  swapa
+0000220E  802A  pop_to_base
+00002210  8029  pop_base
+00002212  800C  a_to_d
+00002214  801C  pop_return
+00002216  802A  pop_to_base
+00002218  8029  pop_base
+0000221A  801C  pop_return
+
+.procedure 47 lasher37 offset=0x0000221C size=46 args=0 flags=0x00000000
+0000221C  802B  push_base
+0000221E  C001  push_int 384
+00002224  C001  push_int 214
+0000222A  C001  push_int 50
+00002230  8120  gsay_message
+          ; message: list=384, message=214, status=no-msg
+00002232  C001  push_int 0
+00002238  800D  d_to_a
+0000223A  8019  swapa
+0000223C  802A  pop_to_base
+0000223E  8029  pop_base
+00002240  800C  a_to_d
+00002242  801C  pop_return
+00002244  802A  pop_to_base
+00002246  8029  pop_base
+00002248  801C  pop_return
+
+.procedure 48 lasher38 offset=0x0000224A size=46 args=0 flags=0x00000000
+0000224A  802B  push_base
+0000224C  C001  push_int 384
+00002252  C001  push_int 224
+00002258  C001  push_int 50
+0000225E  8120  gsay_message
+          ; message: list=384, message=224, status=no-msg
+00002260  C001  push_int 0
+00002266  800D  d_to_a
+00002268  8019  swapa
+0000226A  802A  pop_to_base
+0000226C  8029  pop_base
+0000226E  800C  a_to_d
+00002270  801C  pop_return
+00002272  802A  pop_to_base
+00002274  8029  pop_base
+00002276  801C  pop_return
+
+.procedure 49 lasher39 offset=0x00002278 size=46 args=0 flags=0x00000000
+00002278  802B  push_base
+0000227A  C001  push_int 384
+00002280  C001  push_int 215
+00002286  C001  push_int 50
+0000228C  8120  gsay_message
+          ; message: list=384, message=215, status=no-msg
+0000228E  C001  push_int 0
+00002294  800D  d_to_a
+00002296  8019  swapa
+00002298  802A  pop_to_base
+0000229A  8029  pop_base
+0000229C  800C  a_to_d
+0000229E  801C  pop_return
+000022A0  802A  pop_to_base
+000022A2  8029  pop_base
+000022A4  801C  pop_return
+
+.procedure 50 lasher40_1 offset=0x000022A6 size=70 args=0 flags=0x00000000
+000022A6  802B  push_base
+000022A8  C001  push_int 384
+000022AE  C001  push_int 384
+000022B4  C001  push_int 216
+000022BA  8105  message_str
+          ; message_lookup: list=384, message=216, status=no-msg
+000022BC  C001  push_int 384
+000022C2  C001  push_int 217
+000022C8  8105  message_str
+          ; message_lookup: list=384, message=217, status=no-msg
+000022CA  8039  add
+000022CC  C001  push_int 50
+000022D2  8120  gsay_message
+          ; message: list=384, message=add(message_str(384, 216), message_str(384, 217)), status=no-msg
+000022D4  C001  push_int 0
+000022DA  800D  d_to_a
+000022DC  8019  swapa
+000022DE  802A  pop_to_base
+000022E0  8029  pop_base
+000022E2  800C  a_to_d
+000022E4  801C  pop_return
+000022E6  802A  pop_to_base
+000022E8  8029  pop_base
+000022EA  801C  pop_return
+
+.procedure 51 lasher40_2 offset=0x000022EC size=26 args=0 flags=0x00000000
+000022EC  802B  push_base
+000022EE  C001  push_int 0
+000022F4  800D  d_to_a
+000022F6  8019  swapa
+000022F8  802A  pop_to_base
+000022FA  8029  pop_base
+000022FC  800C  a_to_d
+000022FE  801C  pop_return
+00002300  802A  pop_to_base
+00002302  8029  pop_base
+00002304  801C  pop_return
+
+.procedure 52 lasher41_1 offset=0x00002306 size=70 args=0 flags=0x00000000
+00002306  802B  push_base
+00002308  C001  push_int 384
+0000230E  C001  push_int 384
+00002314  C001  push_int 218
+0000231A  8105  message_str
+          ; message_lookup: list=384, message=218, status=no-msg
+0000231C  C001  push_int 384
+00002322  C001  push_int 219
+00002328  8105  message_str
+          ; message_lookup: list=384, message=219, status=no-msg
+0000232A  8039  add
+0000232C  C001  push_int 50
+00002332  8120  gsay_message
+          ; message: list=384, message=add(message_str(384, 218), message_str(384, 219)), status=no-msg
+00002334  C001  push_int 0
+0000233A  800D  d_to_a
+0000233C  8019  swapa
+0000233E  802A  pop_to_base
+00002340  8029  pop_base
+00002342  800C  a_to_d
+00002344  801C  pop_return
+00002346  802A  pop_to_base
+00002348  8029  pop_base
+0000234A  801C  pop_return
+
+.procedure 53 lasher41_2 offset=0x0000234C size=26 args=0 flags=0x00000000
+0000234C  802B  push_base
+0000234E  C001  push_int 0
+00002354  800D  d_to_a
+00002356  8019  swapa
+00002358  802A  pop_to_base
+0000235A  8029  pop_base
+0000235C  800C  a_to_d
+0000235E  801C  pop_return
+00002360  802A  pop_to_base
+00002362  8029  pop_base
+00002364  801C  pop_return
+
+.procedure 54 lasher42 offset=0x00002366 size=46 args=0 flags=0x00000000
+00002366  802B  push_base
+00002368  C001  push_int 384
+0000236E  C001  push_int 220
+00002374  C001  push_int 50
+0000237A  8120  gsay_message
+          ; message: list=384, message=220, status=no-msg
+0000237C  C001  push_int 0
+00002382  800D  d_to_a
+00002384  8019  swapa
+00002386  802A  pop_to_base
+00002388  8029  pop_base
+0000238A  800C  a_to_d
+0000238C  801C  pop_return
+0000238E  802A  pop_to_base
+00002390  8029  pop_base
+00002392  801C  pop_return
+
+.procedure 55 lasher43 offset=0x00002394 size=46 args=0 flags=0x00000000
+00002394  802B  push_base
+00002396  C001  push_int 384
+0000239C  C001  push_int 221
+000023A2  C001  push_int 50
+000023A8  8120  gsay_message
+          ; message: list=384, message=221, status=no-msg
+000023AA  C001  push_int 0
+000023B0  800D  d_to_a
+000023B2  8019  swapa
+000023B4  802A  pop_to_base
+000023B6  8029  pop_base
+000023B8  800C  a_to_d
+000023BA  801C  pop_return
+000023BC  802A  pop_to_base
+000023BE  8029  pop_base
+000023C0  801C  pop_return
+
+.procedure 56 lasher44 offset=0x000023C2 size=46 args=0 flags=0x00000000
+000023C2  802B  push_base
+000023C4  C001  push_int 384
+000023CA  C001  push_int 222
+000023D0  C001  push_int 50
+000023D6  8120  gsay_message
+          ; message: list=384, message=222, status=no-msg
+000023D8  C001  push_int 0
+000023DE  800D  d_to_a
+000023E0  8019  swapa
+000023E2  802A  pop_to_base
+000023E4  8029  pop_base
+000023E6  800C  a_to_d
+000023E8  801C  pop_return
+000023EA  802A  pop_to_base
+000023EC  8029  pop_base
+000023EE  801C  pop_return
+
+.procedure 57 lasherend offset=0x000023F0 size=26 args=0 flags=0x00000000
+000023F0  802B  push_base
+000023F2  C001  push_int 0
+000023F8  800D  d_to_a
+000023FA  8019  swapa
+000023FC  802A  pop_to_base
+000023FE  8029  pop_base
+00002400  800C  a_to_d
+00002402  801C  pop_return
+00002404  802A  pop_to_base
+00002406  8029  pop_base
+00002408  801C  pop_return
+
+.procedure 58 combat offset=0x0000240A size=40 args=0 flags=0x00000000
+0000240A  802B  push_base
+0000240C  C001  push_int 1
+00002412  C001  push_int 0
+00002418  8013  store_global
+0000241A  C001  push_int 0
+00002420  800D  d_to_a
+00002422  8019  swapa
+00002424  802A  pop_to_base
+00002426  8029  pop_base
+00002428  800C  a_to_d
+0000242A  801C  pop_return
+0000242C  802A  pop_to_base
+0000242E  8029  pop_base
+00002430  801C  pop_return

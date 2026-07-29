@@ -6,7 +6,8 @@
 
 - 游戏安装目录始终作为只读输入。
 - 所有本地清单、缓存和后续提取物只能写入 `workspace/`。
-- `workspace/`、DAT、游戏资源和第三方二进制不会提交到 Git。
+- 当前 `workspace/` 快照纳入 Git，用于复现研究结果并避免重复提取；更新前应检查差异和容量。
+- 原始 DAT 档案和游戏安装目录仍不提交；`workspace/index/derived.jsonl` 通过 Git LFS 保存。
 - `DATA/SAVEGAME/` 默认排除。
 
 ## 运行

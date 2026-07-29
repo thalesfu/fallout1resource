@@ -1,0 +1,141 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\GENT2LV1.INT
+; sha256: 4FD7489E4B8385CBB72871221B718B46BE5FF4DD09A0C67ABBE12C65B2DB3171
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 230
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000000E6  802C  set_global
+000000E8  C001  push_int 0
+000000EE  8003  critical_done
+000000F0  C001  push_int 248
+000000F6  8004  jump
+
+.procedure 0 .............. offset=0x000000F8 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000F8 size=118 args=0 flags=0x00000000
+000000F8  802B  push_base
+000000FA  C001  push_int 300
+00000100  80C7  script_action
+00000102  C001  push_int 6
+00000108  8033  equal
+0000010A  802F  if
+0000010C  C001  push_int 290
+00000112  800D  d_to_a
+00000114  C001  push_int 0
+0000011A  C001  push_int 2
+00000120  8005  call
+00000122  801A  pop
+00000124  C001  push_int 342
+0000012A  8004  jump
+0000012C  C001  push_int 342
+00000132  80C7  script_action
+00000134  C001  push_int 7
+0000013A  8033  equal
+0000013C  802F  if
+0000013E  C001  push_int 340
+00000144  800D  d_to_a
+00000146  C001  push_int 0
+0000014C  C001  push_int 3
+00000152  8005  call
+00000154  801A  pop
+00000156  C001  push_int 0
+0000015C  800D  d_to_a
+0000015E  8019  swapa
+00000160  802A  pop_to_base
+00000162  8029  pop_base
+00000164  800C  a_to_d
+00000166  801C  pop_return
+00000168  802A  pop_to_base
+0000016A  8029  pop_base
+0000016C  801C  pop_return
+
+.procedure 2 use_p_proc offset=0x0000016E size=90 args=0 flags=0x00000000
+0000016E  802B  push_base
+00000170  C001  push_int 414
+00000176  C001  push_int 0
+0000017C  80C3  op_80c3
+0000017E  C001  push_int 1
+00000184  8033  equal
+00000186  802F  if
+00000188  9001  push_string "Glow1.map"
+0000018E  C001  push_int 1
+00000194  80E4  op_80e4
+00000196  C001  push_int 432
+0000019C  8004  jump
+0000019E  80B9  script_overrides
+000001A0  C001  push_int 786
+000001A6  C001  push_int 102
+000001AC  8105  message_str
+          ; message_lookup: list=786, message=102, status=no-msg
+000001AE  80B8  display_msg
+000001B0  C001  push_int 0
+000001B6  800D  d_to_a
+000001B8  8019  swapa
+000001BA  802A  pop_to_base
+000001BC  8029  pop_base
+000001BE  800C  a_to_d
+000001C0  801C  pop_return
+000001C2  802A  pop_to_base
+000001C4  8029  pop_base
+000001C6  801C  pop_return
+
+.procedure 3 use_obj_on_p_proc offset=0x000001C8 size=124 args=0 flags=0x00000000
+000001C8  802B  push_base
+000001CA  C001  push_int 0
+000001D0  C001  push_int 556
+000001D6  80C0  op_80c0
+000001D8  8100  op_8100
+000001DA  C001  push_int 127
+000001E0  8033  equal
+000001E2  802F  if
+000001E4  80B9  script_overrides
+000001E6  C001  push_int 0
+000001EC  C001  push_int 1
+000001F2  80C4  op_80c4
+000001F4  80BF  dude_obj
+000001F6  80C0  op_80c0
+000001F8  80D9  op_80d9
+000001FA  80C0  op_80c0
+000001FC  80F4  op_80f4
+000001FE  C001  push_int 33555000
+00000204  80BC  self_obj
+00000206  80D4  op_80d4
+00000208  80BC  self_obj
+0000020A  80EC  op_80ec
+0000020C  C001  push_int 511
+00000212  80B7  op_80b7
+00000214  C001  push_int 0
+0000021A  8031  store
+0000021C  C001  push_int 786
+00000222  C001  push_int 103
+00000228  8105  message_str
+          ; message_lookup: list=786, message=103, status=no-msg
+0000022A  80B8  display_msg
+0000022C  C001  push_int 0
+00000232  800D  d_to_a
+00000234  8019  swapa
+00000236  802A  pop_to_base
+00000238  8029  pop_base
+0000023A  800C  a_to_d
+0000023C  801C  pop_return
+0000023E  802A  pop_to_base
+00000240  8029  pop_base
+00000242  801C  pop_return

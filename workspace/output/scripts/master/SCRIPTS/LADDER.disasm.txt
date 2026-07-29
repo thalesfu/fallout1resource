@@ -1,0 +1,263 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\LADDER.INT
+; sha256: A41F884B1045D89523770906D1CFF818BC13E261ED6422F733521476582A5775
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 362
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+0000016A  802C  set_global
+0000016C  C001  push_int 0
+00000172  C001  push_int 0
+00000178  C001  push_int 0
+0000017E  C001  push_int 0
+00000184  C001  push_int 0
+0000018A  C001  push_int 0
+00000190  8003  critical_done
+00000192  C001  push_int 410
+00000198  8004  jump
+
+.procedure 0 .............. offset=0x0000019A size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x0000019A size=70 args=0 flags=0x00000000
+0000019A  802B  push_base
+0000019C  C001  push_int 456
+000001A2  80C7  script_action
+000001A4  C001  push_int 6
+000001AA  8033  equal
+000001AC  802F  if
+000001AE  80B9  script_overrides
+000001B0  C001  push_int 454
+000001B6  800D  d_to_a
+000001B8  C001  push_int 0
+000001BE  C001  push_int 2
+000001C4  8005  call
+000001C6  801A  pop
+000001C8  C001  push_int 0
+000001CE  800D  d_to_a
+000001D0  8019  swapa
+000001D2  802A  pop_to_base
+000001D4  8029  pop_base
+000001D6  800C  a_to_d
+000001D8  801C  pop_return
+000001DA  802A  pop_to_base
+000001DC  8029  pop_base
+000001DE  801C  pop_return
+
+.procedure 2 do_stuff offset=0x000001E0 size=116 args=0 flags=0x00000000
+000001E0  802B  push_base
+000001E2  C001  push_int 0
+000001E8  80C1  local_var
+000001EA  80C3  op_80c3
+000001EC  C001  push_int 4
+000001F2  8013  store_global
+000001F4  C001  push_int 548
+000001FA  C001  push_int 4
+00000200  8012  fetch_global
+00000202  802F  if
+00000204  C001  push_int 538
+0000020A  800D  d_to_a
+0000020C  C001  push_int 0
+00000212  C001  push_int 4
+00000218  8005  call
+0000021A  801A  pop
+0000021C  C001  push_int 572
+00000222  8004  jump
+00000224  C001  push_int 570
+0000022A  800D  d_to_a
+0000022C  C001  push_int 0
+00000232  C001  push_int 5
+00000238  8005  call
+0000023A  801A  pop
+0000023C  C001  push_int 0
+00000242  800D  d_to_a
+00000244  8019  swapa
+00000246  802A  pop_to_base
+00000248  8029  pop_base
+0000024A  800C  a_to_d
+0000024C  801C  pop_return
+0000024E  802A  pop_to_base
+00000250  8029  pop_base
+00000252  801C  pop_return
+
+.procedure 3 ladderend offset=0x00000254 size=26 args=0 flags=0x00000000
+00000254  802B  push_base
+00000256  C001  push_int 0
+0000025C  800D  d_to_a
+0000025E  8019  swapa
+00000260  802A  pop_to_base
+00000262  8029  pop_base
+00000264  800C  a_to_d
+00000266  801C  pop_return
+00000268  802A  pop_to_base
+0000026A  8029  pop_base
+0000026C  801C  pop_return
+
+.procedure 4 ladder00 offset=0x0000026E size=48 args=0 flags=0x00000000
+0000026E  802B  push_base
+00000270  80BF  dude_obj
+00000272  C001  push_int 1
+00000278  80C1  local_var
+0000027A  C001  push_int 2
+00000280  80C1  local_var
+00000282  80B6  op_80b6
+00000284  801A  pop
+00000286  C001  push_int 0
+0000028C  800D  d_to_a
+0000028E  8019  swapa
+00000290  802A  pop_to_base
+00000292  8029  pop_base
+00000294  800C  a_to_d
+00000296  801C  pop_return
+00000298  802A  pop_to_base
+0000029A  8029  pop_base
+0000029C  801C  pop_return
+
+.procedure 5 ladder01 offset=0x0000029E size=100 args=0 flags=0x00000000
+0000029E  802B  push_base
+000002A0  C001  push_int 1
+000002A6  C001  push_int 0
+000002AC  80C1  local_var
+000002AE  803A  sub
+000002B0  C001  push_int 2
+000002B6  8013  store_global
+000002B8  80BF  dude_obj
+000002BA  C001  push_int 0
+000002C0  C001  push_int 2
+000002C6  8012  fetch_global
+000002C8  80AE  op_80ae
+000002CA  C001  push_int 0
+000002D0  8013  store_global
+000002D2  C001  push_int 744
+000002D8  800D  d_to_a
+000002DA  C001  push_int 0
+000002E0  C001  push_int 6
+000002E6  8005  call
+000002E8  801A  pop
+000002EA  C001  push_int 0
+000002F0  800D  d_to_a
+000002F2  8019  swapa
+000002F4  802A  pop_to_base
+000002F6  8029  pop_base
+000002F8  800C  a_to_d
+000002FA  801C  pop_return
+000002FC  802A  pop_to_base
+000002FE  8029  pop_base
+00000300  801C  pop_return
+
+.procedure 6 ladder01a offset=0x00000302 size=356 args=0 flags=0x00000000
+00000302  802B  push_base
+00000304  C001  push_int 852
+0000030A  C001  push_int 0
+00000310  8012  fetch_global
+00000312  80AF  op_80af
+00000314  802F  if
+00000316  C001  push_int 0
+0000031C  C001  push_int 0
+00000322  80C2  set_local_var
+00000324  C001  push_int 20
+0000032A  C001  push_int 100
+00000330  8105  message_str
+          ; message_lookup: list=20, message=100 | 你打开了井盖，从阴冷潮湿的下水道里爬了出来。, status=linked
+00000332  80B8  display_msg
+00000334  C001  push_int 842
+0000033A  800D  d_to_a
+0000033C  C001  push_int 0
+00000342  C001  push_int 4
+00000348  8005  call
+0000034A  801A  pop
+0000034C  C001  push_int 1102
+00000352  8004  jump
+00000354  C001  push_int 0
+0000035A  C001  push_int 0
+00000360  80C1  local_var
+00000362  C001  push_int 1
+00000368  8039  add
+0000036A  80C2  set_local_var
+0000036C  C001  push_int 1004
+00000372  C001  push_int 0
+00000378  8012  fetch_global
+0000037A  80B0  op_80b0
+0000037C  802F  if
+0000037E  C001  push_int 20
+00000384  C001  push_int 101
+0000038A  8105  message_str
+          ; message_lookup: list=20, message=101 | 你拉伤了肩膀，并从梯子上滑了下来。, status=linked
+0000038C  80B8  display_msg
+0000038E  C001  push_int 1
+00000394  C001  push_int 6
+0000039A  80B4  random
+0000039C  C001  push_int 4
+000003A2  803A  sub
+000003A4  C001  push_int 3
+000003AA  8013  store_global
+000003AC  C001  push_int 978
+000003B2  C001  push_int 3
+000003B8  8012  fetch_global
+000003BA  C001  push_int 1
+000003C0  8037  less
+000003C2  802F  if
+000003C4  C001  push_int 1
+000003CA  C001  push_int 3
+000003D0  8013  store_global
+000003D2  80BF  dude_obj
+000003D4  C001  push_int 3
+000003DA  8012  fetch_global
+000003DC  C001  push_int 0
+000003E2  80EF  op_80ef
+000003E4  C001  push_int 1102
+000003EA  8004  jump
+000003EC  C001  push_int 20
+000003F2  C001  push_int 102
+000003F8  8105  message_str
+          ; message_lookup: list=20, message=102 | 你无法搬动那个井盖。, status=linked
+000003FA  80B8  display_msg
+000003FC  80BF  dude_obj
+000003FE  C001  push_int 5
+00000404  C001  push_int 0
+0000040A  80AE  op_80ae
+0000040C  C001  push_int 1
+00000412  8013  store_global
+00000414  C001  push_int 1086
+0000041A  C001  push_int 1
+00000420  8012  fetch_global
+00000422  80AF  op_80af
+00000424  802F  if
+00000426  C001  push_int 20
+0000042C  C001  push_int 103
+00000432  8105  message_str
+          ; message_lookup: list=20, message=103 | 你差点从梯子上滑下来。, status=linked
+00000434  80B8  display_msg
+00000436  C001  push_int 1102
+0000043C  8004  jump
+0000043E  C001  push_int 20
+00000444  C001  push_int 104
+0000044A  8105  message_str
+          ; message_lookup: list=20, message=104 | 你摔倒在地。, status=linked
+0000044C  80B8  display_msg
+0000044E  C001  push_int 0
+00000454  800D  d_to_a
+00000456  8019  swapa
+00000458  802A  pop_to_base
+0000045A  8029  pop_base
+0000045C  800C  a_to_d
+0000045E  801C  pop_return
+00000460  802A  pop_to_base
+00000462  8029  pop_base
+00000464  801C  pop_return

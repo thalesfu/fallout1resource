@@ -1,0 +1,391 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\MBOUT2IN.INT
+; sha256: 8B1DE591C04138672873D1D2AB0C1F17812374A4701E08D0997C2D9368F5412A
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 402
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000192  802C  set_global
+00000194  C001  push_int 0
+0000019A  8003  critical_done
+0000019C  C001  push_int 420
+000001A2  8004  jump
+
+.procedure 0 .............. offset=0x000001A4 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000001A4 size=218 args=0 flags=0x00000000
+000001A4  802B  push_base
+000001A6  C001  push_int 472
+000001AC  80C7  script_action
+000001AE  C001  push_int 21
+000001B4  8033  equal
+000001B6  802F  if
+000001B8  C001  push_int 462
+000001BE  800D  d_to_a
+000001C0  C001  push_int 0
+000001C6  C001  push_int 2
+000001CC  8005  call
+000001CE  801A  pop
+000001D0  C001  push_int 614
+000001D6  8004  jump
+000001D8  C001  push_int 522
+000001DE  80C7  script_action
+000001E0  C001  push_int 6
+000001E6  8033  equal
+000001E8  802F  if
+000001EA  C001  push_int 512
+000001F0  800D  d_to_a
+000001F2  C001  push_int 0
+000001F8  C001  push_int 3
+000001FE  8005  call
+00000200  801A  pop
+00000202  C001  push_int 614
+00000208  8004  jump
+0000020A  C001  push_int 572
+00000210  80C7  script_action
+00000212  C001  push_int 7
+00000218  8033  equal
+0000021A  802F  if
+0000021C  C001  push_int 562
+00000222  800D  d_to_a
+00000224  C001  push_int 0
+0000022A  C001  push_int 4
+00000230  8005  call
+00000232  801A  pop
+00000234  C001  push_int 614
+0000023A  8004  jump
+0000023C  C001  push_int 614
+00000242  80C7  script_action
+00000244  C001  push_int 8
+0000024A  8033  equal
+0000024C  802F  if
+0000024E  C001  push_int 612
+00000254  800D  d_to_a
+00000256  C001  push_int 0
+0000025C  C001  push_int 5
+00000262  8005  call
+00000264  801A  pop
+00000266  C001  push_int 0
+0000026C  800D  d_to_a
+0000026E  8019  swapa
+00000270  802A  pop_to_base
+00000272  8029  pop_base
+00000274  800C  a_to_d
+00000276  801C  pop_return
+00000278  802A  pop_to_base
+0000027A  8029  pop_base
+0000027C  801C  pop_return
+
+.procedure 2 look_at_p_proc offset=0x0000027E size=36 args=0 flags=0x00000000
+0000027E  802B  push_base
+00000280  C001  push_int 3
+00000286  80BC  self_obj
+00000288  80C4  op_80c4
+0000028A  C001  push_int 0
+00000290  800D  d_to_a
+00000292  8019  swapa
+00000294  802A  pop_to_base
+00000296  8029  pop_base
+00000298  800C  a_to_d
+0000029A  801C  pop_return
+0000029C  802A  pop_to_base
+0000029E  8029  pop_base
+000002A0  801C  pop_return
+
+.procedure 3 use_p_proc offset=0x000002A2 size=212 args=0 flags=0x00000000
+000002A2  802B  push_base
+000002A4  80B9  script_overrides
+000002A6  C001  push_int 740
+000002AC  80BD  source_obj
+000002AE  9001  push_string "<unresolved-string:0x72>"
+000002B4  8014  fetch_external
+000002B6  8033  equal
+000002B8  802F  if
+000002BA  80BC  self_obj
+000002BC  812F  op_812f
+000002BE  9001  push_string "<unresolved-string:0x72>"
+000002C4  8014  fetch_external
+000002C6  C001  push_int 623
+000002CC  C001  push_int 172
+000002D2  8105  message_str
+          ; message_lookup: list=623, message=172, status=different-message-list
+000002D4  C001  push_int 0
+000002DA  810A  op_810a
+000002DC  C001  push_int 862
+000002E2  8004  jump
+000002E4  C001  push_int 776
+000002EA  80BC  self_obj
+000002EC  812D  op_812d
+000002EE  8045  not
+000002F0  802F  if
+000002F2  C001  push_int 31
+000002F8  C001  push_int 12
+000002FE  80E4  op_80e4
+00000300  C001  push_int 862
+00000306  8004  jump
+00000308  C001  push_int 846
+0000030E  C001  push_int 1
+00000314  80C3  op_80c3
+00000316  C001  push_int 1
+0000031C  8033  equal
+0000031E  C001  push_int 271
+00000324  80C5  global_var
+00000326  C001  push_int 1
+0000032C  8033  equal
+0000032E  803F  or
+00000330  802F  if
+00000332  C001  push_int 526
+00000338  C001  push_int 101
+0000033E  8105  message_str
+          ; message_lookup: list=526, message=101 | 根据磁盘上的信息你输入了密码，打开了这扇门。, status=linked
+00000340  80B8  display_msg
+00000342  80BC  self_obj
+00000344  812F  op_812f
+00000346  C001  push_int 862
+0000034C  8004  jump
+0000034E  C001  push_int 526
+00000354  C001  push_int 100
+0000035A  8105  message_str
+          ; message_lookup: list=526, message=100 | 这门是锁着的。需要一个安全密码才能打开它。, status=linked
+0000035C  80B8  display_msg
+0000035E  C001  push_int 0
+00000364  800D  d_to_a
+00000366  8019  swapa
+00000368  802A  pop_to_base
+0000036A  8029  pop_base
+0000036C  800C  a_to_d
+0000036E  801C  pop_return
+00000370  802A  pop_to_base
+00000372  8029  pop_base
+00000374  801C  pop_return
+
+.procedure 4 use_obj_on_p_proc offset=0x00000376 size=258 args=0 flags=0x00000000
+00000376  802B  push_base
+00000378  C001  push_int 1096
+0000037E  80C0  op_80c0
+00000380  8100  op_8100
+00000382  C001  push_int 77
+00000388  8033  equal
+0000038A  802F  if
+0000038C  C001  push_int 948
+00000392  80BC  self_obj
+00000394  812D  op_812d
+00000396  8045  not
+00000398  802F  if
+0000039A  80B9  script_overrides
+0000039C  C001  push_int 526
+000003A2  C001  push_int 102
+000003A8  8105  message_str
+          ; message_lookup: list=526, message=102 | 这扇门没有上锁。, status=linked
+000003AA  80B8  display_msg
+000003AC  C001  push_int 1096
+000003B2  8004  jump
+000003B4  C001  push_int 1054
+000003BA  80BF  dude_obj
+000003BC  C001  push_int 9
+000003C2  C001  push_int 40
+000003C8  8046  negate
+000003CA  80AC  op_80ac
+000003CC  80AF  op_80af
+000003CE  802F  if
+000003D0  80B9  script_overrides
+000003D2  C001  push_int 526
+000003D8  C001  push_int 103
+000003DE  8105  message_str
+          ; message_lookup: list=526, message=103 | 你破解了安全密码并打开了门。, status=linked
+000003E0  80B8  display_msg
+000003E2  80BC  self_obj
+000003E4  812F  op_812f
+000003E6  C001  push_int 766
+000003EC  C001  push_int 103
+000003F2  8105  message_str
+          ; message_lookup: list=766, message=103, status=different-message-list
+000003F4  9001  push_string "65"
+000003FA  8039  add
+000003FC  C001  push_int 766
+00000402  C001  push_int 104
+00000408  8105  message_str
+          ; message_lookup: list=766, message=104, status=different-message-list
+0000040A  8039  add
+0000040C  80B8  display_msg
+0000040E  C001  push_int 65
+00000414  80A1  op_80a1
+00000416  C001  push_int 1096
+0000041C  8004  jump
+0000041E  80B9  script_overrides
+00000420  C001  push_int 526
+00000426  C001  push_int 104
+0000042C  8105  message_str
+          ; message_lookup: list=526, message=104 | 你无法解开这道锁。, status=linked
+0000042E  80B8  display_msg
+00000430  C001  push_int 0
+00000436  C001  push_int 0
+0000043C  80C1  local_var
+0000043E  C001  push_int 1
+00000444  8039  add
+00000446  80C2  set_local_var
+00000448  C001  push_int 1118
+0000044E  800D  d_to_a
+00000450  C001  push_int 0
+00000456  C001  push_int 6
+0000045C  8005  call
+0000045E  801A  pop
+00000460  C001  push_int 0
+00000466  800D  d_to_a
+00000468  8019  swapa
+0000046A  802A  pop_to_base
+0000046C  8029  pop_base
+0000046E  800C  a_to_d
+00000470  801C  pop_return
+00000472  802A  pop_to_base
+00000474  8029  pop_base
+00000476  801C  pop_return
+
+.procedure 5 use_skill_on_p_proc offset=0x00000478 size=254 args=0 flags=0x00000000
+00000478  802B  push_base
+0000047A  C001  push_int 1350
+00000480  80FA  op_80fa
+00000482  C001  push_int 9
+00000488  8033  equal
+0000048A  802F  if
+0000048C  C001  push_int 1202
+00000492  80BC  self_obj
+00000494  812D  op_812d
+00000496  8045  not
+00000498  802F  if
+0000049A  C001  push_int 526
+000004A0  C001  push_int 102
+000004A6  8105  message_str
+          ; message_lookup: list=526, message=102 | 这扇门没有上锁。, status=linked
+000004A8  80B8  display_msg
+000004AA  C001  push_int 1350
+000004B0  8004  jump
+000004B2  C001  push_int 1308
+000004B8  80BF  dude_obj
+000004BA  C001  push_int 9
+000004C0  C001  push_int 60
+000004C6  8046  negate
+000004C8  80AC  op_80ac
+000004CA  80AF  op_80af
+000004CC  802F  if
+000004CE  80B9  script_overrides
+000004D0  80BC  self_obj
+000004D2  812F  op_812f
+000004D4  C001  push_int 526
+000004DA  C001  push_int 103
+000004E0  8105  message_str
+          ; message_lookup: list=526, message=103 | 你破解了安全密码并打开了门。, status=linked
+000004E2  80B8  display_msg
+000004E4  C001  push_int 85
+000004EA  80A1  op_80a1
+000004EC  C001  push_int 766
+000004F2  C001  push_int 103
+000004F8  8105  message_str
+          ; message_lookup: list=766, message=103, status=different-message-list
+000004FA  9001  push_string "85"
+00000500  8039  add
+00000502  C001  push_int 766
+00000508  C001  push_int 104
+0000050E  8105  message_str
+          ; message_lookup: list=766, message=104, status=different-message-list
+00000510  8039  add
+00000512  80B8  display_msg
+00000514  C001  push_int 1350
+0000051A  8004  jump
+0000051C  80B9  script_overrides
+0000051E  C001  push_int 526
+00000524  C001  push_int 105
+0000052A  8105  message_str
+          ; message_lookup: list=526, message=105 | 你没法打开门。如果你使用电子开锁器的话可能会容易点。, status=linked
+0000052C  80B8  display_msg
+0000052E  C001  push_int 0
+00000534  C001  push_int 0
+0000053A  80C1  local_var
+0000053C  C001  push_int 1
+00000542  8039  add
+00000544  80C2  set_local_var
+00000546  C001  push_int 1372
+0000054C  800D  d_to_a
+0000054E  C001  push_int 0
+00000554  C001  push_int 6
+0000055A  8005  call
+0000055C  801A  pop
+0000055E  C001  push_int 0
+00000564  800D  d_to_a
+00000566  8019  swapa
+00000568  802A  pop_to_base
+0000056A  8029  pop_base
+0000056C  800C  a_to_d
+0000056E  801C  pop_return
+00000570  802A  pop_to_base
+00000572  8029  pop_base
+00000574  801C  pop_return
+
+.procedure 6 alert offset=0x00000576 size=64 args=0 flags=0x00000000
+00000576  802B  push_base
+00000578  C001  push_int 1438
+0000057E  C001  push_int 0
+00000584  80C1  local_var
+00000586  C001  push_int 2
+0000058C  8038  greater
+0000058E  802F  if
+00000590  C001  push_int 146
+00000596  C001  push_int 1
+0000059C  80C6  set_global_var
+0000059E  C001  push_int 0
+000005A4  800D  d_to_a
+000005A6  8019  swapa
+000005A8  802A  pop_to_base
+000005AA  8029  pop_base
+000005AC  800C  a_to_d
+000005AE  801C  pop_return
+000005B0  802A  pop_to_base
+000005B2  8029  pop_base
+000005B4  801C  pop_return
+
+.procedure 7 damage_p_proc offset=0x000005B6 size=90 args=0 flags=0x00000000
+000005B6  802B  push_base
+000005B8  C001  push_int 0
+000005BE  C001  push_int 0
+000005C4  80C1  local_var
+000005C6  C001  push_int 1
+000005CC  8039  add
+000005CE  80C2  set_local_var
+000005D0  C001  push_int 526
+000005D6  C001  push_int 106
+000005DC  8105  message_str
+          ; message_lookup: list=526, message=106 | 爆炸非常剧烈，但是安全门依旧毫发无伤。, status=linked
+000005DE  80B8  display_msg
+000005E0  C001  push_int 1526
+000005E6  800D  d_to_a
+000005E8  C001  push_int 0
+000005EE  C001  push_int 6
+000005F4  8005  call
+000005F6  801A  pop
+000005F8  C001  push_int 0
+000005FE  800D  d_to_a
+00000600  8019  swapa
+00000602  802A  pop_to_base
+00000604  8029  pop_base
+00000606  800C  a_to_d
+00000608  801C  pop_return
+0000060A  802A  pop_to_base
+0000060C  8029  pop_base
+0000060E  801C  pop_return

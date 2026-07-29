@@ -1,0 +1,177 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\CORECOMP.INT
+; sha256: 91F2E799FB26B80A12E4BDFEF8281C35110527DD38817F220EF81128C373D4D7
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 262
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000106  802C  set_global
+00000108  C001  push_int 0
+0000010E  8003  critical_done
+00000110  C001  push_int 280
+00000116  8004  jump
+
+.procedure 0 .............. offset=0x00000118 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00000118 size=168 args=0 flags=0x00000000
+00000118  802B  push_base
+0000011A  C001  push_int 332
+00000120  80C7  script_action
+00000122  C001  push_int 3
+00000128  8033  equal
+0000012A  802F  if
+0000012C  C001  push_int 322
+00000132  800D  d_to_a
+00000134  C001  push_int 0
+0000013A  C001  push_int 2
+00000140  8005  call
+00000142  801A  pop
+00000144  C001  push_int 424
+0000014A  8004  jump
+0000014C  C001  push_int 382
+00000152  80C7  script_action
+00000154  C001  push_int 6
+0000015A  8033  equal
+0000015C  802F  if
+0000015E  C001  push_int 372
+00000164  800D  d_to_a
+00000166  C001  push_int 0
+0000016C  C001  push_int 3
+00000172  8005  call
+00000174  801A  pop
+00000176  C001  push_int 424
+0000017C  8004  jump
+0000017E  C001  push_int 424
+00000184  80C7  script_action
+00000186  C001  push_int 8
+0000018C  8033  equal
+0000018E  802F  if
+00000190  C001  push_int 422
+00000196  800D  d_to_a
+00000198  C001  push_int 0
+0000019E  C001  push_int 4
+000001A4  8005  call
+000001A6  801A  pop
+000001A8  C001  push_int 0
+000001AE  800D  d_to_a
+000001B0  8019  swapa
+000001B2  802A  pop_to_base
+000001B4  8029  pop_base
+000001B6  800C  a_to_d
+000001B8  801C  pop_return
+000001BA  802A  pop_to_base
+000001BC  8029  pop_base
+000001BE  801C  pop_return
+
+.procedure 2 description_p_proc offset=0x000001C0 size=44 args=0 flags=0x00000000
+000001C0  802B  push_base
+000001C2  80B9  script_overrides
+000001C4  C001  push_int 133
+000001CA  C001  push_int 100
+000001D0  8105  message_str
+          ; message_lookup: list=133, message=100 | 这个电脑监控着避难所所有仪器设施的工作状况。, status=linked
+000001D2  80B8  display_msg
+000001D4  C001  push_int 0
+000001DA  800D  d_to_a
+000001DC  8019  swapa
+000001DE  802A  pop_to_base
+000001E0  8029  pop_base
+000001E2  800C  a_to_d
+000001E4  801C  pop_return
+000001E6  802A  pop_to_base
+000001E8  8029  pop_base
+000001EA  801C  pop_return
+
+.procedure 3 use_p_proc offset=0x000001EC size=44 args=0 flags=0x00000000
+000001EC  802B  push_base
+000001EE  80B9  script_overrides
+000001F0  C001  push_int 793
+000001F6  C001  push_int 100
+000001FC  8105  message_str
+          ; message_lookup: list=793, message=100, status=different-message-list
+000001FE  80B8  display_msg
+00000200  C001  push_int 0
+00000206  800D  d_to_a
+00000208  8019  swapa
+0000020A  802A  pop_to_base
+0000020C  8029  pop_base
+0000020E  800C  a_to_d
+00000210  801C  pop_return
+00000212  802A  pop_to_base
+00000214  8029  pop_base
+00000216  801C  pop_return
+
+.procedure 4 use_skill_on_p_proc offset=0x00000218 size=182 args=0 flags=0x00000000
+00000218  802B  push_base
+0000021A  C001  push_int 694
+00000220  80FA  op_80fa
+00000222  C001  push_int 12
+00000228  8033  equal
+0000022A  802F  if
+0000022C  80B9  script_overrides
+0000022E  C001  push_int 678
+00000234  80BF  dude_obj
+00000236  80FA  op_80fa
+00000238  C001  push_int 0
+0000023E  80AC  op_80ac
+00000240  80AF  op_80af
+00000242  802F  if
+00000244  C001  push_int 654
+0000024A  80EA  game_time
+0000024C  C001  push_int 10
+00000252  C001  push_int 60
+00000258  803B  mul
+0000025A  C001  push_int 60
+00000260  803B  mul
+00000262  C001  push_int 24
+00000268  803B  mul
+0000026A  803C  div
+0000026C  C001  push_int 90
+00000272  8036  greater_equal
+00000274  802F  if
+00000276  C001  push_int 133
+0000027C  C001  push_int 101
+00000282  8105  message_str
+          ; message_lookup: list=133, message=101 | 避难所智能系统已经把你的大多数电脑权限关闭。, status=linked
+00000284  80B8  display_msg
+00000286  C001  push_int 670
+0000028C  8004  jump
+0000028E  C001  push_int 133
+00000294  C001  push_int 102
+0000029A  8105  message_str
+          ; message_lookup: list=133, message=102 | 这里是13号避难所的中央计算机核心，多数的工作站都可以在这里找到。, status=linked
+0000029C  80B8  display_msg
+0000029E  C001  push_int 694
+000002A4  8004  jump
+000002A6  C001  push_int 133
+000002AC  C001  push_int 103
+000002B2  8105  message_str
+          ; message_lookup: list=133, message=103 | 你弄了几下电脑，但实在找不出什么特别的东西。, status=linked
+000002B4  80B8  display_msg
+000002B6  C001  push_int 0
+000002BC  800D  d_to_a
+000002BE  8019  swapa
+000002C0  802A  pop_to_base
+000002C2  8029  pop_base
+000002C4  800C  a_to_d
+000002C6  801C  pop_return
+000002C8  802A  pop_to_base
+000002CA  8029  pop_base
+000002CC  801C  pop_return

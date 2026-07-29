@@ -1,0 +1,97 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\SHADDESK.INT
+; sha256: B6B7CA66B7B60719452DC65704440030071B52DE8F81A50C945241C1A26F74E5
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 220
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000000DC  802C  set_global
+000000DE  C001  push_int 0
+000000E4  8003  critical_done
+000000E6  C001  push_int 238
+000000EC  8004  jump
+
+.procedure 0 .............. offset=0x000000EE size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000EE size=80 args=0 flags=0x00000000
+000000EE  802B  push_base
+000000F0  C001  push_int 294
+000000F6  80C7  script_action
+000000F8  C001  push_int 3
+000000FE  8033  equal
+00000100  80C7  script_action
+00000102  C001  push_int 21
+00000108  8033  equal
+0000010A  803F  or
+0000010C  802F  if
+0000010E  C001  push_int 292
+00000114  800D  d_to_a
+00000116  C001  push_int 0
+0000011C  C001  push_int 2
+00000122  8005  call
+00000124  801A  pop
+00000126  C001  push_int 0
+0000012C  800D  d_to_a
+0000012E  8019  swapa
+00000130  802A  pop_to_base
+00000132  8029  pop_base
+00000134  800C  a_to_d
+00000136  801C  pop_return
+00000138  802A  pop_to_base
+0000013A  8029  pop_base
+0000013C  801C  pop_return
+
+.procedure 2 look_at_p_proc offset=0x0000013E size=44 args=0 flags=0x00000000
+0000013E  802B  push_base
+00000140  80B9  script_overrides
+00000142  C001  push_int 124
+00000148  C001  push_int 100
+0000014E  8105  message_str
+          ; message_lookup: list=124, message=100 | 你注意到这桌子上散落着一些纸张。, status=linked
+00000150  80B8  display_msg
+00000152  C001  push_int 0
+00000158  800D  d_to_a
+0000015A  8019  swapa
+0000015C  802A  pop_to_base
+0000015E  8029  pop_base
+00000160  800C  a_to_d
+00000162  801C  pop_return
+00000164  802A  pop_to_base
+00000166  8029  pop_base
+00000168  801C  pop_return
+
+.procedure 3 description_p_proc offset=0x0000016A size=44 args=0 flags=0x00000000
+0000016A  802B  push_base
+0000016C  80B9  script_overrides
+0000016E  C001  push_int 124
+00000174  C001  push_int 100
+0000017A  8105  message_str
+          ; message_lookup: list=124, message=100 | 你注意到这桌子上散落着一些纸张。, status=linked
+0000017C  80B8  display_msg
+0000017E  C001  push_int 0
+00000184  800D  d_to_a
+00000186  8019  swapa
+00000188  802A  pop_to_base
+0000018A  8029  pop_base
+0000018C  800C  a_to_d
+0000018E  801C  pop_return
+00000190  802A  pop_to_base
+00000192  8029  pop_base
+00000194  801C  pop_return

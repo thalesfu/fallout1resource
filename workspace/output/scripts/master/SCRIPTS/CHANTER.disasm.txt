@@ -1,0 +1,478 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\CHANTER.INT
+; sha256: 9F5D9CE63FC9804681DB2B8F0AD2E21FF081FAB9253A4272271153A32201BD23
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 462
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000001CE  802C  set_global
+000001D0  C001  push_int 0
+000001D6  C001  push_int 1
+000001DC  C001  push_int 0
+000001E2  8003  critical_done
+000001E4  C001  push_int 492
+000001EA  8004  jump
+
+.procedure 0 .............. offset=0x000001EC size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000001EC size=772 args=0 flags=0x00000000
+000001EC  802B  push_base
+000001EE  C001  push_int 568
+000001F4  C001  push_int 1
+000001FA  8012  fetch_global
+000001FC  802F  if
+000001FE  80BC  self_obj
+00000200  C001  push_int 1
+00000206  C001  push_int 6
+0000020C  C001  push_int 20
+00000212  8102  critter_add_trait
+00000214  80BC  self_obj
+00000216  C001  push_int 1
+0000021C  C001  push_int 5
+00000222  C001  push_int 69
+00000228  8102  critter_add_trait
+0000022A  C001  push_int 0
+00000230  C001  push_int 1
+00000236  8013  store_global
+00000238  C001  push_int 624
+0000023E  80C7  script_action
+00000240  C001  push_int 21
+00000246  8033  equal
+00000248  80C7  script_action
+0000024A  C001  push_int 3
+00000250  8033  equal
+00000252  803F  or
+00000254  802F  if
+00000256  80B9  script_overrides
+00000258  C001  push_int 398
+0000025E  C001  push_int 100
+00000264  8105  message_str
+          ; message_lookup: list=398, message=100 | 你看见大教堂一名牧师。, status=linked
+00000266  80B8  display_msg
+00000268  C001  push_int 1240
+0000026E  8004  jump
+00000270  C001  push_int 726
+00000276  80C7  script_action
+00000278  C001  push_int 12
+0000027E  8033  equal
+00000280  802F  if
+00000282  C001  push_int 718
+00000288  C001  push_int 0
+0000028E  8012  fetch_global
+00000290  802F  if
+00000292  C001  push_int 0
+00000298  C001  push_int 0
+0000029E  8013  store_global
+000002A0  80BF  dude_obj
+000002A2  C001  push_int 0
+000002A8  C001  push_int 1
+000002AE  C001  push_int 0
+000002B4  C001  push_int 0
+000002BA  C001  push_int 30000
+000002C0  C001  push_int 0
+000002C6  C001  push_int 0
+000002CC  80D0  attack
+000002CE  C001  push_int 1240
+000002D4  8004  jump
+000002D6  C001  push_int 766
+000002DC  80C7  script_action
+000002DE  C001  push_int 4
+000002E4  8033  equal
+000002E6  802F  if
+000002E8  C001  push_int 1
+000002EE  C001  push_int 0
+000002F4  8013  store_global
+000002F6  C001  push_int 1240
+000002FC  8004  jump
+000002FE  C001  push_int 1102
+00000304  80C7  script_action
+00000306  C001  push_int 18
+0000030C  8033  equal
+0000030E  802F  if
+00000310  C001  push_int 1094
+00000316  80BD  source_obj
+00000318  80BF  dude_obj
+0000031A  8033  equal
+0000031C  802F  if
+0000031E  C001  push_int 906
+00000324  C001  push_int 160
+0000032A  80C5  global_var
+0000032C  C001  push_int 159
+00000332  80C5  global_var
+00000334  8039  add
+00000336  C001  push_int 25
+0000033C  8036  greater_equal
+0000033E  C001  push_int 159
+00000344  80C5  global_var
+00000346  C001  push_int 2
+0000034C  C001  push_int 160
+00000352  80C5  global_var
+00000354  803B  mul
+00000356  8038  greater
+00000358  C001  push_int 156
+0000035E  80C5  global_var
+00000360  C001  push_int 1
+00000366  8033  equal
+00000368  803F  or
+0000036A  803E  and
+0000036C  802F  if
+0000036E  C001  push_int 156
+00000374  C001  push_int 1
+0000037A  80C6  set_global_var
+0000037C  C001  push_int 157
+00000382  C001  push_int 0
+00000388  80C6  set_global_var
+0000038A  C001  push_int 1014
+00000390  C001  push_int 160
+00000396  80C5  global_var
+00000398  C001  push_int 159
+0000039E  80C5  global_var
+000003A0  8039  add
+000003A2  C001  push_int 25
+000003A8  8036  greater_equal
+000003AA  C001  push_int 160
+000003B0  80C5  global_var
+000003B2  C001  push_int 3
+000003B8  C001  push_int 159
+000003BE  80C5  global_var
+000003C0  803B  mul
+000003C2  8038  greater
+000003C4  C001  push_int 157
+000003CA  80C5  global_var
+000003CC  C001  push_int 1
+000003D2  8033  equal
+000003D4  803F  or
+000003D6  803E  and
+000003D8  802F  if
+000003DA  C001  push_int 157
+000003E0  C001  push_int 1
+000003E6  80C6  set_global_var
+000003E8  C001  push_int 156
+000003EE  C001  push_int 0
+000003F4  80C6  set_global_var
+000003F6  C001  push_int 159
+000003FC  C001  push_int 159
+00000402  80C5  global_var
+00000404  C001  push_int 1
+0000040A  8039  add
+0000040C  80C6  set_global_var
+0000040E  C001  push_int 1094
+00000414  C001  push_int 159
+0000041A  80C5  global_var
+0000041C  C001  push_int 2
+00000422  803D  mod
+00000424  C001  push_int 0
+0000042A  8033  equal
+0000042C  802F  if
+0000042E  C001  push_int 155
+00000434  C001  push_int 155
+0000043A  80C5  global_var
+0000043C  C001  push_int 1
+00000442  803A  sub
+00000444  80C6  set_global_var
+00000446  C001  push_int 1240
+0000044C  8004  jump
+0000044E  C001  push_int 1240
+00000454  80C7  script_action
+00000456  C001  push_int 11
+0000045C  8033  equal
+0000045E  802F  if
+00000460  80B9  script_overrides
+00000462  C001  push_int 1178
+00000468  C001  push_int 195
+0000046E  80C5  global_var
+00000470  C001  push_int 1
+00000476  8033  equal
+00000478  802F  if
+0000047A  80BC  self_obj
+0000047C  C001  push_int 398
+00000482  C001  push_int 101
+00000488  8105  message_str
+          ; message_lookup: list=398, message=101 | 主教会宽恕你的罪行！加入我们吧，获得自由吧！赞美主教！赞美他的宽容！, status=linked
+0000048A  C001  push_int 0
+00000490  810A  op_810a
+00000492  C001  push_int 1240
+00000498  8004  jump
+0000049A  C001  push_int 398
+000004A0  80BC  self_obj
+000004A2  C001  push_int 4
+000004A8  C001  push_int 1
+000004AE  8046  negate
+000004B0  C001  push_int 1
+000004B6  8046  negate
+000004B8  80DE  start_gdialog
+000004BA  811C  gsay_start
+000004BC  C001  push_int 1234
+000004C2  800D  d_to_a
+000004C4  C001  push_int 0
+000004CA  C001  push_int 2
+000004D0  8005  call
+000004D2  801A  pop
+000004D4  811D  gsay_end
+000004D6  80DF  end_dialogue
+000004D8  C001  push_int 0
+000004DE  800D  d_to_a
+000004E0  8019  swapa
+000004E2  802A  pop_to_base
+000004E4  8029  pop_base
+000004E6  800C  a_to_d
+000004E8  801C  pop_return
+000004EA  802A  pop_to_base
+000004EC  8029  pop_base
+000004EE  801C  pop_return
+
+.procedure 2 Chant01 offset=0x000004F0 size=338 args=0 flags=0x00000000
+000004F0  802B  push_base
+000004F2  C001  push_int 398
+000004F8  C001  push_int 102
+000004FE  811E  gsay_reply
+          ; reply: list=398, message=102 | 你好，朋友！主教的天眼使我第一次感到存在的意义。我可以和你聊聊我的故事吗？, status=linked
+00000500  C001  push_int 7
+00000506  C001  push_int 398
+0000050C  C001  push_int 103
+00000512  C001  push_int 3
+00000518  C001  push_int 50
+0000051E  8121  giq_option
+          ; intelligence_option: list=398, message=103 | 你说的主教在哪里？, status=linked
+00000520  C001  push_int 4
+00000526  C001  push_int 398
+0000052C  C001  push_int 104
+00000532  C001  push_int 4
+00000538  C001  push_int 50
+0000053E  8121  giq_option
+          ; intelligence_option: list=398, message=104 | 说啊。, status=linked
+00000540  C001  push_int 4
+00000546  C001  push_int 398
+0000054C  C001  push_int 105
+00000552  C001  push_int 5
+00000558  C001  push_int 50
+0000055E  8121  giq_option
+          ; intelligence_option: list=398, message=105 | 这里谁管事？, status=linked
+00000560  C001  push_int 1432
+00000566  C001  push_int 194
+0000056C  80C5  global_var
+0000056E  C001  push_int 1
+00000574  8033  equal
+00000576  802F  if
+00000578  C001  push_int 4
+0000057E  C001  push_int 398
+00000584  C001  push_int 106
+0000058A  C001  push_int 6
+00000590  C001  push_int 50
+00000596  8121  giq_option
+          ; intelligence_option: list=398, message=106 | 主教的天眼？比蝎子酒也要好？, status=linked
+00000598  C001  push_int 1544
+0000059E  C001  push_int 160
+000005A4  80C5  global_var
+000005A6  C001  push_int 159
+000005AC  80C5  global_var
+000005AE  8039  add
+000005B0  C001  push_int 25
+000005B6  8036  greater_equal
+000005B8  C001  push_int 159
+000005BE  80C5  global_var
+000005C0  C001  push_int 2
+000005C6  C001  push_int 160
+000005CC  80C5  global_var
+000005CE  803B  mul
+000005D0  8038  greater
+000005D2  C001  push_int 156
+000005D8  80C5  global_var
+000005DA  C001  push_int 1
+000005E0  8033  equal
+000005E2  803F  or
+000005E4  803E  and
+000005E6  802F  if
+000005E8  C001  push_int 4
+000005EE  C001  push_int 398
+000005F4  C001  push_int 107
+000005FA  C001  push_int 6
+00000600  C001  push_int 50
+00000606  8121  giq_option
+          ; intelligence_option: list=398, message=107 | 他的天眼预见到了死亡没有？如果不是的话，我帮他开开天眼。, status=linked
+00000608  C001  push_int 3
+0000060E  8046  negate
+00000610  C001  push_int 398
+00000616  C001  push_int 108
+0000061C  C001  push_int 7
+00000622  C001  push_int 50
+00000628  8121  giq_option
+          ; intelligence_option: list=398, message=108 | 我，我喜欢故事！, status=linked
+0000062A  C001  push_int 0
+00000630  800D  d_to_a
+00000632  8019  swapa
+00000634  802A  pop_to_base
+00000636  8029  pop_base
+00000638  800C  a_to_d
+0000063A  801C  pop_return
+0000063C  802A  pop_to_base
+0000063E  8029  pop_base
+00000640  801C  pop_return
+
+.procedure 3 Chant02 offset=0x00000642 size=46 args=0 flags=0x00000000
+00000642  802B  push_base
+00000644  C001  push_int 398
+0000064A  C001  push_int 109
+00000650  C001  push_int 50
+00000656  8120  gsay_message
+          ; message: list=398, message=109 | 主教仰看苍天！主教端坐世间！和平与统一的力量与日弥新！, status=linked
+00000658  C001  push_int 0
+0000065E  800D  d_to_a
+00000660  8019  swapa
+00000662  802A  pop_to_base
+00000664  8029  pop_base
+00000666  800C  a_to_d
+00000668  801C  pop_return
+0000066A  802A  pop_to_base
+0000066C  8029  pop_base
+0000066E  801C  pop_return
+
+.procedure 4 Chant03 offset=0x00000670 size=46 args=0 flags=0x00000000
+00000670  802B  push_base
+00000672  C001  push_int 398
+00000678  C001  push_int 110
+0000067E  C001  push_int 50
+00000684  8120  gsay_message
+          ; message: list=398, message=110 | 曾经有一个人因为充满仇恨而几乎死去，但是现在他，我……赞美主教！赞美圣火！赞美生命的家园！当当当！, status=linked
+00000686  C001  push_int 0
+0000068C  800D  d_to_a
+0000068E  8019  swapa
+00000690  802A  pop_to_base
+00000692  8029  pop_base
+00000694  800C  a_to_d
+00000696  801C  pop_return
+00000698  802A  pop_to_base
+0000069A  8029  pop_base
+0000069C  801C  pop_return
+
+.procedure 5 Chant04 offset=0x0000069E size=46 args=0 flags=0x00000000
+0000069E  802B  push_base
+000006A0  C001  push_int 398
+000006A6  C001  push_int 111
+000006AC  C001  push_int 50
+000006B2  8120  gsay_message
+          ; message: list=398, message=111 | 你掌管自己的一切，朋友，但是主教是你的导师。赞美主教！赞美照耀前程的伟大圣火！, status=linked
+000006B4  C001  push_int 0
+000006BA  800D  d_to_a
+000006BC  8019  swapa
+000006BE  802A  pop_to_base
+000006C0  8029  pop_base
+000006C2  800C  a_to_d
+000006C4  801C  pop_return
+000006C6  802A  pop_to_base
+000006C8  8029  pop_base
+000006CA  801C  pop_return
+
+.procedure 6 Chant05 offset=0x000006CC size=46 args=0 flags=0x00000000
+000006CC  802B  push_base
+000006CE  C001  push_int 398
+000006D4  C001  push_int 112
+000006DA  C001  push_int 50
+000006E0  8120  gsay_message
+          ; message: list=398, message=112 | 主教的天眼教诲比什么酒都好！比他妈的做爱都好！哦！哦！他超越了世间的善恶！啊！啊！主教是我们的严父！主教是我们的爱人！, status=linked
+000006E2  C001  push_int 0
+000006E8  800D  d_to_a
+000006EA  8019  swapa
+000006EC  802A  pop_to_base
+000006EE  8029  pop_base
+000006F0  800C  a_to_d
+000006F2  801C  pop_return
+000006F4  802A  pop_to_base
+000006F6  8029  pop_base
+000006F8  801C  pop_return
+
+.procedure 7 Chant06 offset=0x000006FA size=46 args=0 flags=0x00000000
+000006FA  802B  push_base
+000006FC  C001  push_int 398
+00000702  C001  push_int 113
+00000708  C001  push_int 49
+0000070E  8120  gsay_message
+          ; message: list=398, message=113 | 永远没有死亡，只要有主教保护我们！, status=linked
+00000710  C001  push_int 0
+00000716  800D  d_to_a
+00000718  8019  swapa
+0000071A  802A  pop_to_base
+0000071C  8029  pop_base
+0000071E  800C  a_to_d
+00000720  801C  pop_return
+00000722  802A  pop_to_base
+00000724  8029  pop_base
+00000726  801C  pop_return
+
+.procedure 8 ChantEnd offset=0x00000728 size=26 args=0 flags=0x00000000
+00000728  802B  push_base
+0000072A  C001  push_int 0
+00000730  800D  d_to_a
+00000732  8019  swapa
+00000734  802A  pop_to_base
+00000736  8029  pop_base
+00000738  800C  a_to_d
+0000073A  801C  pop_return
+0000073C  802A  pop_to_base
+0000073E  8029  pop_base
+00000740  801C  pop_return
+
+.procedure 9 Combat offset=0x00000742 size=40 args=0 flags=0x00000000
+00000742  802B  push_base
+00000744  C001  push_int 1
+0000074A  C001  push_int 0
+00000750  8013  store_global
+00000752  C001  push_int 0
+00000758  800D  d_to_a
+0000075A  8019  swapa
+0000075C  802A  pop_to_base
+0000075E  8029  pop_base
+00000760  800C  a_to_d
+00000762  801C  pop_return
+00000764  802A  pop_to_base
+00000766  8029  pop_base
+00000768  801C  pop_return
+
+.procedure 10 Chant07 offset=0x0000076A size=100 args=0 flags=0x00000000
+0000076A  802B  push_base
+0000076C  C001  push_int 1954
+00000772  80BF  dude_obj
+00000774  C001  push_int 34
+0000077A  80CA  get_critter_stat
+0000077C  C001  push_int 0
+00000782  8033  equal
+00000784  802F  if
+00000786  C001  push_int 398
+0000078C  C001  push_int 114
+00000792  C001  push_int 49
+00000798  8120  gsay_message
+          ; message: list=398, message=114 | 但是我必须赞美主教！再见，我的朋友！咱们以后再聊！, status=linked
+0000079A  C001  push_int 1974
+000007A0  8004  jump
+000007A2  C001  push_int 398
+000007A8  C001  push_int 115
+000007AE  C001  push_int 49
+000007B4  8120  gsay_message
+          ; message: list=398, message=115 | 但是我必须赞美主教！再见，我的朋友！咱们以后再聊！, status=linked
+000007B6  C001  push_int 0
+000007BC  800D  d_to_a
+000007BE  8019  swapa
+000007C0  802A  pop_to_base
+000007C2  8029  pop_base
+000007C4  800C  a_to_d
+000007C6  801C  pop_return
+000007C8  802A  pop_to_base
+000007CA  8029  pop_base
+000007CC  801C  pop_return

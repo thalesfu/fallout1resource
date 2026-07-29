@@ -1,0 +1,829 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\REVULSE.INT
+; sha256: 4F9CF15D2CDEC1DB8D349FA0B4771DFC513FFA58DAF2F012050D0F5DBF1CD236
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 256
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000100  802C  set_global
+00000102  C001  push_int 0
+00000108  C001  push_int 0
+0000010E  C001  push_int 0
+00000114  C001  push_int 0
+0000011A  C001  push_int 0
+00000120  C001  push_int 1
+00000126  C001  push_int 0
+0000012C  8003  critical_done
+0000012E  C001  push_int 310
+00000134  8004  jump
+
+.procedure 0 .............. offset=0x00000136 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00000136 size=1860 args=0 flags=0x00000000
+00000136  802B  push_base
+00000138  C001  push_int 2146
+0000013E  80C7  script_action
+00000140  C001  push_int 2
+00000146  8033  equal
+00000148  802F  if
+0000014A  C001  push_int 2146
+00000150  80BD  source_obj
+00000152  80BF  dude_obj
+00000154  8033  equal
+00000156  802F  if
+00000158  80BF  dude_obj
+0000015A  C001  push_int 1
+00000160  80CA  get_critter_stat
+00000162  C001  push_int 3
+00000168  8013  store_global
+0000016A  C001  push_int 2146
+00000170  C001  push_int 0
+00000176  80C1  local_var
+00000178  C001  push_int 2
+0000017E  80C3  op_80c3
+00000180  8035  less_equal
+00000182  802F  if
+00000184  C001  push_int 0
+0000018A  C001  push_int 2
+00000190  80C3  op_80c3
+00000192  C001  push_int 1
+00000198  8039  add
+0000019A  80C2  set_local_var
+0000019C  C001  push_int 3
+000001A2  8012  fetch_global
+000001A4  C001  push_int 0
+000001AA  80C3  op_80c3
+000001AC  8039  add
+000001AE  C001  push_int 0
+000001B4  8013  store_global
+000001B6  C001  push_int 2146
+000001BC  C001  push_int 1
+000001C2  C001  push_int 10
+000001C8  80B4  random
+000001CA  C001  push_int 0
+000001D0  8012  fetch_global
+000001D2  8037  less
+000001D4  802F  if
+000001D6  C001  push_int 0
+000001DC  80C3  op_80c3
+000001DE  C001  push_int 4
+000001E4  8013  store_global
+000001E6  C001  push_int 558
+000001EC  80BF  dude_obj
+000001EE  C001  push_int 123
+000001F4  810D  op_810d
+000001F6  802F  if
+000001F8  C001  push_int 550
+000001FE  C001  push_int 1
+00000204  80C3  op_80c3
+00000206  802F  if
+00000208  C001  push_int 1
+0000020E  C001  push_int 0
+00000214  80C4  op_80c4
+00000216  C001  push_int 740
+0000021C  C001  push_int 107
+00000222  8105  message_str
+          ; message_lookup: list=740, message=107 | 你的头不那么痛了。这个奇怪的走廊的影响不那么强烈了。, status=linked
+00000224  80B8  display_msg
+00000226  C001  push_int 2146
+0000022C  8004  jump
+0000022E  C001  push_int 644
+00000234  C001  push_int 4
+0000023A  8012  fetch_global
+0000023C  C001  push_int 0
+00000242  8033  equal
+00000244  802F  if
+00000246  C001  push_int 740
+0000024C  C001  push_int 100
+00000252  8105  message_str
+          ; message_lookup: list=740, message=100 | 你脖子后面的头发都竖起来了。你感觉到走廊前方有些东西。当你发觉前面有大堆的肉块——人的残肢短臂在墙上时，你的怒气开始发作。它在动，在召唤你，这是最可怕的事情。, status=linked
+00000254  80B8  display_msg
+00000256  C001  push_int 1
+0000025C  C001  push_int 1
+00000262  80C4  op_80c4
+00000264  C001  push_int 0
+0000026A  C001  push_int 0
+00000270  80C3  op_80c3
+00000272  C001  push_int 1
+00000278  8039  add
+0000027A  80C4  op_80c4
+0000027C  C001  push_int 2146
+00000282  8004  jump
+00000284  C001  push_int 850
+0000028A  C001  push_int 4
+00000290  8012  fetch_global
+00000292  C001  push_int 1
+00000298  8033  equal
+0000029A  802F  if
+0000029C  C001  push_int 714
+000002A2  C001  push_int 0
+000002A8  80BF  dude_obj
+000002AA  C001  push_int 27
+000002B0  80F3  has_trait
+000002B2  802F  if
+000002B4  C001  push_int 0
+000002BA  C001  push_int 2
+000002C0  8013  store_global
+000002C2  C001  push_int 780
+000002C8  8004  jump
+000002CA  C001  push_int 740
+000002D0  C001  push_int 101
+000002D6  8105  message_str
+          ; message_lookup: list=740, message=101 | 你的鼻子开始出血。你听见有声音在你脑中回响。它们在叫你的名字。你眼前一黑，但马上又恢复了。, status=linked
+000002D8  80B8  display_msg
+000002DA  C001  push_int 1
+000002E0  C001  push_int 3
+000002E6  8012  fetch_global
+000002E8  80B4  random
+000002EA  C001  push_int 2
+000002F0  8013  store_global
+000002F2  80BF  dude_obj
+000002F4  C001  push_int 2
+000002FA  8012  fetch_global
+000002FC  C001  push_int 0
+00000302  C001  push_int 256
+00000308  8041  bitwise_or
+0000030A  80EF  op_80ef
+0000030C  C001  push_int 0
+00000312  C001  push_int 0
+00000318  80C3  op_80c3
+0000031A  C001  push_int 1
+00000320  8039  add
+00000322  80C4  op_80c4
+00000324  C001  push_int 1
+0000032A  C001  push_int 5
+00000330  8013  store_global
+00000332  C001  push_int 840
+00000338  800D  d_to_a
+0000033A  C001  push_int 0
+00000340  C001  push_int 2
+00000346  8005  call
+00000348  801A  pop
+0000034A  C001  push_int 2146
+00000350  8004  jump
+00000352  C001  push_int 1074
+00000358  C001  push_int 4
+0000035E  8012  fetch_global
+00000360  C001  push_int 2
+00000366  8033  equal
+00000368  802F  if
+0000036A  C001  push_int 920
+00000370  C001  push_int 0
+00000376  80BF  dude_obj
+00000378  C001  push_int 27
+0000037E  80F3  has_trait
+00000380  802F  if
+00000382  C001  push_int 0
+00000388  C001  push_int 2
+0000038E  8013  store_global
+00000390  C001  push_int 1004
+00000396  8004  jump
+00000398  C001  push_int 740
+0000039E  C001  push_int 102
+000003A4  8105  message_str
+          ; message_lookup: list=740, message=102 | 一个声音在召唤你。你转过身去，看见一个被遗忘的朋友，很显然她已经死了。当看见虫子从她腐烂的额头里掉出来时，你的头开始剧烈地疼痛。, status=linked
+000003A6  80B8  display_msg
+000003A8  C001  push_int 1
+000003AE  C001  push_int 3
+000003B4  8012  fetch_global
+000003B6  80B4  random
+000003B8  C001  push_int 1
+000003BE  C001  push_int 3
+000003C4  8012  fetch_global
+000003C6  80B4  random
+000003C8  8039  add
+000003CA  C001  push_int 2
+000003D0  8013  store_global
+000003D2  80BF  dude_obj
+000003D4  C001  push_int 2
+000003DA  8012  fetch_global
+000003DC  C001  push_int 0
+000003E2  C001  push_int 256
+000003E8  8041  bitwise_or
+000003EA  80EF  op_80ef
+000003EC  C001  push_int 0
+000003F2  C001  push_int 0
+000003F8  80C3  op_80c3
+000003FA  C001  push_int 1
+00000400  8039  add
+00000402  80C4  op_80c4
+00000404  C001  push_int 2
+0000040A  C001  push_int 5
+00000410  8013  store_global
+00000412  C001  push_int 1064
+00000418  800D  d_to_a
+0000041A  C001  push_int 0
+00000420  C001  push_int 2
+00000426  8005  call
+00000428  801A  pop
+0000042A  C001  push_int 2146
+00000430  8004  jump
+00000432  C001  push_int 1316
+00000438  C001  push_int 4
+0000043E  8012  fetch_global
+00000440  C001  push_int 3
+00000446  8033  equal
+00000448  802F  if
+0000044A  C001  push_int 1144
+00000450  C001  push_int 0
+00000456  80BF  dude_obj
+00000458  C001  push_int 27
+0000045E  80F3  has_trait
+00000460  802F  if
+00000462  C001  push_int 0
+00000468  C001  push_int 2
+0000046E  8013  store_global
+00000470  C001  push_int 1246
+00000476  8004  jump
+00000478  C001  push_int 740
+0000047E  C001  push_int 103
+00000484  8105  message_str
+          ; message_lookup: list=740, message=103 | 向前走变得困难起来了。你的脚好象被绑在了地上。你低头看，地上的碎肉爬上了你的腿。牙齿咬着你的膝盖。你的头痛越来越厉害了。, status=linked
+00000486  80B8  display_msg
+00000488  C001  push_int 1
+0000048E  C001  push_int 3
+00000494  8012  fetch_global
+00000496  80B4  random
+00000498  C001  push_int 1
+0000049E  C001  push_int 3
+000004A4  8012  fetch_global
+000004A6  80B4  random
+000004A8  8039  add
+000004AA  C001  push_int 1
+000004B0  C001  push_int 3
+000004B6  8012  fetch_global
+000004B8  80B4  random
+000004BA  8039  add
+000004BC  C001  push_int 2
+000004C2  8013  store_global
+000004C4  80BF  dude_obj
+000004C6  C001  push_int 2
+000004CC  8012  fetch_global
+000004CE  C001  push_int 0
+000004D4  C001  push_int 256
+000004DA  8041  bitwise_or
+000004DC  80EF  op_80ef
+000004DE  C001  push_int 0
+000004E4  C001  push_int 0
+000004EA  80C3  op_80c3
+000004EC  C001  push_int 1
+000004F2  8039  add
+000004F4  80C4  op_80c4
+000004F6  C001  push_int 3
+000004FC  C001  push_int 5
+00000502  8013  store_global
+00000504  C001  push_int 1306
+0000050A  800D  d_to_a
+0000050C  C001  push_int 0
+00000512  C001  push_int 2
+00000518  8005  call
+0000051A  801A  pop
+0000051C  C001  push_int 2146
+00000522  8004  jump
+00000524  C001  push_int 1604
+0000052A  C001  push_int 4
+00000530  8012  fetch_global
+00000532  C001  push_int 4
+00000538  8033  equal
+0000053A  802F  if
+0000053C  C001  push_int 1386
+00000542  C001  push_int 0
+00000548  80BF  dude_obj
+0000054A  C001  push_int 27
+00000550  80F3  has_trait
+00000552  802F  if
+00000554  C001  push_int 0
+0000055A  C001  push_int 2
+00000560  8013  store_global
+00000562  C001  push_int 1534
+00000568  8004  jump
+0000056A  C001  push_int 740
+00000570  C001  push_int 104
+00000576  8105  message_str
+          ; message_lookup: list=740, message=104 | 有些东西吸引了你，一个亮光从天花板上闪过，然后一个银色的骨头刺穿了你的双眼！它使你想到了死亡和磨难。, status=linked
+00000578  80B8  display_msg
+0000057A  C001  push_int 1
+00000580  C001  push_int 3
+00000586  8012  fetch_global
+00000588  80B4  random
+0000058A  C001  push_int 1
+00000590  C001  push_int 3
+00000596  8012  fetch_global
+00000598  80B4  random
+0000059A  8039  add
+0000059C  C001  push_int 1
+000005A2  C001  push_int 3
+000005A8  8012  fetch_global
+000005AA  80B4  random
+000005AC  8039  add
+000005AE  C001  push_int 2
+000005B4  8013  store_global
+000005B6  80BF  dude_obj
+000005B8  C001  push_int 2
+000005BE  8012  fetch_global
+000005C0  C001  push_int 0
+000005C6  C001  push_int 256
+000005CC  8041  bitwise_or
+000005CE  80EF  op_80ef
+000005D0  80BF  dude_obj
+000005D2  C001  push_int 64
+000005D8  8127  op_8127
+000005DA  80BF  dude_obj
+000005DC  C001  push_int 1
+000005E2  80CA  get_critter_stat
+000005E4  C001  push_int 1
+000005EA  8013  store_global
+000005EC  80BF  dude_obj
+000005EE  C001  push_int 1
+000005F4  C001  push_int 1
+000005FA  8046  negate
+000005FC  80CB  op_80cb
+000005FE  C001  push_int 0
+00000604  C001  push_int 0
+0000060A  80C3  op_80c3
+0000060C  C001  push_int 1
+00000612  8039  add
+00000614  80C4  op_80c4
+00000616  C001  push_int 3
+0000061C  C001  push_int 5
+00000622  8013  store_global
+00000624  C001  push_int 1594
+0000062A  800D  d_to_a
+0000062C  C001  push_int 0
+00000632  C001  push_int 2
+00000638  8005  call
+0000063A  801A  pop
+0000063C  C001  push_int 2146
+00000642  8004  jump
+00000644  C001  push_int 1988
+0000064A  C001  push_int 4
+00000650  8012  fetch_global
+00000652  C001  push_int 5
+00000658  8033  equal
+0000065A  802F  if
+0000065C  C001  push_int 1674
+00000662  C001  push_int 0
+00000668  80BF  dude_obj
+0000066A  C001  push_int 27
+00000670  80F3  has_trait
+00000672  802F  if
+00000674  C001  push_int 0
+0000067A  C001  push_int 2
+00000680  8013  store_global
+00000682  C001  push_int 1918
+00000688  8004  jump
+0000068A  C001  push_int 740
+00000690  C001  push_int 105
+00000696  8105  message_str
+          ; message_lookup: list=740, message=105 | 头痛使你发狂。你感到别人的罪恶冲刷着你的灵魂。当是的罪恶迎合它的时候，它变得越来越厉害。像疯子一样，它们打击着你的精神，把你的人格撕个粉碎。, status=linked
+00000698  80B8  display_msg
+0000069A  C001  push_int 1
+000006A0  C001  push_int 2
+000006A6  8013  store_global
+000006A8  C001  push_int 1808
+000006AE  C001  push_int 160
+000006B4  80C5  global_var
+000006B6  C001  push_int 159
+000006BC  80C5  global_var
+000006BE  8039  add
+000006C0  C001  push_int 25
+000006C6  8036  greater_equal
+000006C8  C001  push_int 159
+000006CE  80C5  global_var
+000006D0  C001  push_int 2
+000006D6  C001  push_int 160
+000006DC  80C5  global_var
+000006DE  803B  mul
+000006E0  8038  greater
+000006E2  C001  push_int 156
+000006E8  80C5  global_var
+000006EA  C001  push_int 1
+000006F0  8033  equal
+000006F2  803F  or
+000006F4  803E  and
+000006F6  802F  if
+000006F8  C001  push_int 2
+000006FE  8012  fetch_global
+00000700  C001  push_int 15
+00000706  8039  add
+00000708  C001  push_int 2
+0000070E  8013  store_global
+00000710  C001  push_int 1856
+00000716  C001  push_int 158
+0000071C  80C5  global_var
+0000071E  C001  push_int 2
+00000724  8038  greater
+00000726  802F  if
+00000728  C001  push_int 2
+0000072E  8012  fetch_global
+00000730  C001  push_int 20
+00000736  8039  add
+00000738  C001  push_int 2
+0000073E  8013  store_global
+00000740  80BF  dude_obj
+00000742  C001  push_int 2
+00000748  8012  fetch_global
+0000074A  C001  push_int 0
+00000750  C001  push_int 256
+00000756  8041  bitwise_or
+00000758  80EF  op_80ef
+0000075A  80BF  dude_obj
+0000075C  C001  push_int 4
+00000762  80CA  get_critter_stat
+00000764  C001  push_int 1
+0000076A  8013  store_global
+0000076C  80BF  dude_obj
+0000076E  C001  push_int 4
+00000774  C001  push_int 1
+0000077A  8046  negate
+0000077C  80CB  op_80cb
+0000077E  C001  push_int 0
+00000784  C001  push_int 0
+0000078A  80C3  op_80c3
+0000078C  C001  push_int 1
+00000792  8039  add
+00000794  80C4  op_80c4
+00000796  C001  push_int 4
+0000079C  C001  push_int 5
+000007A2  8013  store_global
+000007A4  C001  push_int 1978
+000007AA  800D  d_to_a
+000007AC  C001  push_int 0
+000007B2  C001  push_int 2
+000007B8  8005  call
+000007BA  801A  pop
+000007BC  C001  push_int 2146
+000007C2  8004  jump
+000007C4  C001  push_int 2146
+000007CA  C001  push_int 4
+000007D0  8012  fetch_global
+000007D2  C001  push_int 6
+000007D8  8033  equal
+000007DA  802F  if
+000007DC  C001  push_int 2058
+000007E2  C001  push_int 0
+000007E8  80BF  dude_obj
+000007EA  C001  push_int 27
+000007F0  80F3  has_trait
+000007F2  802F  if
+000007F4  C001  push_int 0
+000007FA  C001  push_int 2
+00000800  8013  store_global
+00000802  C001  push_int 2146
+00000808  8004  jump
+0000080A  C001  push_int 740
+00000810  C001  push_int 106
+00000816  8105  message_str
+          ; message_lookup: list=740, message=106 | 你的头被别塞入了别人侵犯性的思想。疼痛越来越厉害。突然，它消失了，再也不出现了。你倒在地上，呜呜地哭泣。你觉得很不对劲。, status=linked
+00000818  80B8  display_msg
+0000081A  80BF  dude_obj
+0000081C  C001  push_int 1
+00000822  80CA  get_critter_stat
+00000824  C001  push_int 1
+0000082A  8013  store_global
+0000082C  80BF  dude_obj
+0000082E  C001  push_int 1
+00000834  C001  push_int 1
+0000083A  8046  negate
+0000083C  80CB  op_80cb
+0000083E  80BF  dude_obj
+00000840  C001  push_int 4
+00000846  80CA  get_critter_stat
+00000848  C001  push_int 1
+0000084E  8013  store_global
+00000850  80BF  dude_obj
+00000852  C001  push_int 4
+00000858  C001  push_int 1
+0000085E  8046  negate
+00000860  80CB  op_80cb
+00000862  C001  push_int 0
+00000868  800D  d_to_a
+0000086A  8019  swapa
+0000086C  802A  pop_to_base
+0000086E  8029  pop_base
+00000870  800C  a_to_d
+00000872  801C  pop_return
+00000874  802A  pop_to_base
+00000876  8029  pop_base
+00000878  801C  pop_return
+
+.procedure 2 blast_party offset=0x0000087A size=1168 args=0 flags=0x00000000
+0000087A  802B  push_base
+0000087C  C001  push_int 1
+00000882  C001  push_int 2
+00000888  8013  store_global
+0000088A  C001  push_int 2290
+00000890  C001  push_int 160
+00000896  80C5  global_var
+00000898  C001  push_int 159
+0000089E  80C5  global_var
+000008A0  8039  add
+000008A2  C001  push_int 25
+000008A8  8036  greater_equal
+000008AA  C001  push_int 159
+000008B0  80C5  global_var
+000008B2  C001  push_int 2
+000008B8  C001  push_int 160
+000008BE  80C5  global_var
+000008C0  803B  mul
+000008C2  8038  greater
+000008C4  C001  push_int 156
+000008CA  80C5  global_var
+000008CC  C001  push_int 1
+000008D2  8033  equal
+000008D4  803F  or
+000008D6  803E  and
+000008D8  802F  if
+000008DA  C001  push_int 2
+000008E0  8012  fetch_global
+000008E2  C001  push_int 7
+000008E8  8039  add
+000008EA  C001  push_int 2
+000008F0  8013  store_global
+000008F2  C001  push_int 2338
+000008F8  C001  push_int 158
+000008FE  80C5  global_var
+00000900  C001  push_int 2
+00000906  8038  greater
+00000908  802F  if
+0000090A  C001  push_int 2
+00000910  8012  fetch_global
+00000912  C001  push_int 10
+00000918  8039  add
+0000091A  C001  push_int 2
+00000920  8013  store_global
+00000922  C001  push_int 2582
+00000928  C001  push_int 118
+0000092E  80C5  global_var
+00000930  C001  push_int 2
+00000936  8033  equal
+00000938  802F  if
+0000093A  C001  push_int 2550
+00000940  C001  push_int 5
+00000946  8012  fetch_global
+00000948  C001  push_int 4
+0000094E  8037  less
+00000950  802F  if
+00000952  C001  push_int 16777292
+00000958  814B  op_814b
+0000095A  C001  push_int 1
+00000960  80CA  get_critter_stat
+00000962  C001  push_int 3
+00000968  8013  store_global
+0000096A  C001  push_int 1
+00000970  C001  push_int 3
+00000976  8012  fetch_global
+00000978  80B4  random
+0000097A  C001  push_int 2
+00000980  8013  store_global
+00000982  C001  push_int 2492
+00000988  C001  push_int 5
+0000098E  8012  fetch_global
+00000990  C001  push_int 1
+00000996  8038  greater
+00000998  802F  if
+0000099A  C001  push_int 2
+000009A0  8012  fetch_global
+000009A2  C001  push_int 1
+000009A8  C001  push_int 3
+000009AE  8012  fetch_global
+000009B0  80B4  random
+000009B2  8039  add
+000009B4  C001  push_int 2
+000009BA  8013  store_global
+000009BC  C001  push_int 2550
+000009C2  C001  push_int 5
+000009C8  8012  fetch_global
+000009CA  C001  push_int 2
+000009D0  8038  greater
+000009D2  802F  if
+000009D4  C001  push_int 2
+000009DA  8012  fetch_global
+000009DC  C001  push_int 1
+000009E2  C001  push_int 3
+000009E8  8012  fetch_global
+000009EA  80B4  random
+000009EC  8039  add
+000009EE  C001  push_int 2
+000009F4  8013  store_global
+000009F6  C001  push_int 16777292
+000009FC  814B  op_814b
+000009FE  C001  push_int 2
+00000A04  8012  fetch_global
+00000A06  C001  push_int 0
+00000A0C  C001  push_int 256
+00000A12  8041  bitwise_or
+00000A14  80EF  op_80ef
+00000A16  C001  push_int 2826
+00000A1C  C001  push_int 121
+00000A22  80C5  global_var
+00000A24  C001  push_int 2
+00000A2A  8033  equal
+00000A2C  802F  if
+00000A2E  C001  push_int 2794
+00000A34  C001  push_int 5
+00000A3A  8012  fetch_global
+00000A3C  C001  push_int 4
+00000A42  8037  less
+00000A44  802F  if
+00000A46  C001  push_int 16777426
+00000A4C  814B  op_814b
+00000A4E  C001  push_int 1
+00000A54  80CA  get_critter_stat
+00000A56  C001  push_int 3
+00000A5C  8013  store_global
+00000A5E  C001  push_int 1
+00000A64  C001  push_int 3
+00000A6A  8012  fetch_global
+00000A6C  80B4  random
+00000A6E  C001  push_int 2
+00000A74  8013  store_global
+00000A76  C001  push_int 2736
+00000A7C  C001  push_int 5
+00000A82  8012  fetch_global
+00000A84  C001  push_int 1
+00000A8A  8038  greater
+00000A8C  802F  if
+00000A8E  C001  push_int 2
+00000A94  8012  fetch_global
+00000A96  C001  push_int 1
+00000A9C  C001  push_int 3
+00000AA2  8012  fetch_global
+00000AA4  80B4  random
+00000AA6  8039  add
+00000AA8  C001  push_int 2
+00000AAE  8013  store_global
+00000AB0  C001  push_int 2794
+00000AB6  C001  push_int 5
+00000ABC  8012  fetch_global
+00000ABE  C001  push_int 2
+00000AC4  8038  greater
+00000AC6  802F  if
+00000AC8  C001  push_int 2
+00000ACE  8012  fetch_global
+00000AD0  C001  push_int 1
+00000AD6  C001  push_int 3
+00000ADC  8012  fetch_global
+00000ADE  80B4  random
+00000AE0  8039  add
+00000AE2  C001  push_int 2
+00000AE8  8013  store_global
+00000AEA  C001  push_int 16777426
+00000AF0  814B  op_814b
+00000AF2  C001  push_int 2
+00000AF8  8012  fetch_global
+00000AFA  C001  push_int 0
+00000B00  C001  push_int 256
+00000B06  8041  bitwise_or
+00000B08  80EF  op_80ef
+00000B0A  C001  push_int 3070
+00000B10  C001  push_int 244
+00000B16  80C5  global_var
+00000B18  C001  push_int 2
+00000B1E  8033  equal
+00000B20  802F  if
+00000B22  C001  push_int 3038
+00000B28  C001  push_int 5
+00000B2E  8012  fetch_global
+00000B30  C001  push_int 4
+00000B36  8037  less
+00000B38  802F  if
+00000B3A  C001  push_int 16777518
+00000B40  814B  op_814b
+00000B42  C001  push_int 1
+00000B48  80CA  get_critter_stat
+00000B4A  C001  push_int 3
+00000B50  8013  store_global
+00000B52  C001  push_int 1
+00000B58  C001  push_int 3
+00000B5E  8012  fetch_global
+00000B60  80B4  random
+00000B62  C001  push_int 2
+00000B68  8013  store_global
+00000B6A  C001  push_int 2980
+00000B70  C001  push_int 5
+00000B76  8012  fetch_global
+00000B78  C001  push_int 1
+00000B7E  8038  greater
+00000B80  802F  if
+00000B82  C001  push_int 2
+00000B88  8012  fetch_global
+00000B8A  C001  push_int 1
+00000B90  C001  push_int 3
+00000B96  8012  fetch_global
+00000B98  80B4  random
+00000B9A  8039  add
+00000B9C  C001  push_int 2
+00000BA2  8013  store_global
+00000BA4  C001  push_int 3038
+00000BAA  C001  push_int 5
+00000BB0  8012  fetch_global
+00000BB2  C001  push_int 2
+00000BB8  8038  greater
+00000BBA  802F  if
+00000BBC  C001  push_int 2
+00000BC2  8012  fetch_global
+00000BC4  C001  push_int 1
+00000BCA  C001  push_int 3
+00000BD0  8012  fetch_global
+00000BD2  80B4  random
+00000BD4  8039  add
+00000BD6  C001  push_int 2
+00000BDC  8013  store_global
+00000BDE  C001  push_int 16777518
+00000BE4  814B  op_814b
+00000BE6  C001  push_int 2
+00000BEC  8012  fetch_global
+00000BEE  C001  push_int 0
+00000BF4  C001  push_int 256
+00000BFA  8041  bitwise_or
+00000BFC  80EF  op_80ef
+00000BFE  C001  push_int 3314
+00000C04  C001  push_int 26
+00000C0A  80C5  global_var
+00000C0C  C001  push_int 5
+00000C12  8033  equal
+00000C14  802F  if
+00000C16  C001  push_int 3282
+00000C1C  C001  push_int 5
+00000C22  8012  fetch_global
+00000C24  C001  push_int 4
+00000C2A  8037  less
+00000C2C  802F  if
+00000C2E  C001  push_int 16777279
+00000C34  814B  op_814b
+00000C36  C001  push_int 1
+00000C3C  80CA  get_critter_stat
+00000C3E  C001  push_int 3
+00000C44  8013  store_global
+00000C46  C001  push_int 1
+00000C4C  C001  push_int 3
+00000C52  8012  fetch_global
+00000C54  80B4  random
+00000C56  C001  push_int 2
+00000C5C  8013  store_global
+00000C5E  C001  push_int 3224
+00000C64  C001  push_int 5
+00000C6A  8012  fetch_global
+00000C6C  C001  push_int 1
+00000C72  8038  greater
+00000C74  802F  if
+00000C76  C001  push_int 2
+00000C7C  8012  fetch_global
+00000C7E  C001  push_int 1
+00000C84  C001  push_int 3
+00000C8A  8012  fetch_global
+00000C8C  80B4  random
+00000C8E  8039  add
+00000C90  C001  push_int 2
+00000C96  8013  store_global
+00000C98  C001  push_int 3282
+00000C9E  C001  push_int 5
+00000CA4  8012  fetch_global
+00000CA6  C001  push_int 2
+00000CAC  8038  greater
+00000CAE  802F  if
+00000CB0  C001  push_int 2
+00000CB6  8012  fetch_global
+00000CB8  C001  push_int 1
+00000CBE  C001  push_int 3
+00000CC4  8012  fetch_global
+00000CC6  80B4  random
+00000CC8  8039  add
+00000CCA  C001  push_int 2
+00000CD0  8013  store_global
+00000CD2  C001  push_int 16777279
+00000CD8  814B  op_814b
+00000CDA  C001  push_int 2
+00000CE0  8012  fetch_global
+00000CE2  C001  push_int 0
+00000CE8  C001  push_int 256
+00000CEE  8041  bitwise_or
+00000CF0  80EF  op_80ef
+00000CF2  C001  push_int 0
+00000CF8  800D  d_to_a
+00000CFA  8019  swapa
+00000CFC  802A  pop_to_base
+00000CFE  8029  pop_base
+00000D00  800C  a_to_d
+00000D02  801C  pop_return
+00000D04  802A  pop_to_base
+00000D06  8029  pop_base
+00000D08  801C  pop_return
