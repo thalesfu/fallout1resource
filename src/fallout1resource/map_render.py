@@ -23,12 +23,16 @@ from .inventory import ensure_within_workspace
 from .proto import ListDocument, load_lst
 from .safe_io import write_file_atomic
 
-MAP_RENDERER_VERSION = 2
+MAP_RENDERER_VERSION = 3
 HEX_GRID_WIDTH = 200
 HEX_GRID_HEIGHT = 200
 OBJECT_HIDDEN = 0x01
 OBJECT_FLAT = 0x08
+SCENERY_FID_TYPE = 2
 WALL_FID_TYPE = 3
+DOOR_OPEN = 0x01
+DOOR_LOCKED = 0x02000000
+DOOR_JAMMED = 0x04000000
 
 
 class MapRenderError(ValueError):
@@ -111,6 +115,57 @@ class WallRenderPlan:
     bounds_bottom: int
     output_json: Path
     output_wall_png: Path
+    output_composite_png: Path
+    output_hash: Path
+
+    @property
+    def canvas_width(self) -> int:
+        return self.bounds_right - self.bounds_left
+
+    @property
+    def canvas_height(self) -> int:
+        return self.bounds_bottom - self.bounds_top
+
+
+@dataclass(frozen=True, slots=True)
+class DoorPlacement:
+    source_index: int
+    object_id: int
+    tile: int
+    art_id: int
+    filename: str
+    rotation: int
+    frame_index: int
+    flags: int
+    open_flags: int
+    direction_x_offset: int
+    direction_y_offset: int
+    screen_x: int
+    screen_y: int
+    frame: FrmFrame
+
+
+@dataclass(frozen=True, slots=True)
+class DoorRenderPlan:
+    wall: WallRenderPlan
+    scenery_list: ListDocument
+    scenery_root: Path
+    placements: tuple[DoorPlacement, ...]
+    used_door_ids: tuple[int, ...]
+    hidden_placements: int
+    transparent_placements: int
+    flat_placements: int
+    closed_placements: int
+    open_or_transition_placements: int
+    target_open_placements: int
+    locked_placements: int
+    jammed_placements: int
+    bounds_left: int
+    bounds_top: int
+    bounds_right: int
+    bounds_bottom: int
+    output_json: Path
+    output_door_png: Path
     output_composite_png: Path
     output_hash: Path
 
@@ -262,6 +317,23 @@ def wall_render_output_paths(
     return json_path, wall_path, composite_path, hash_path
 
 
+def door_render_output_paths(
+    workspace: Path | str, output: Path | str
+) -> tuple[Path, Path, Path, Path]:
+    json_path = ensure_within_workspace(workspace, output)
+    if json_path.suffix.casefold() != ".json":
+        raise MapRenderError("map render output must use a .json metadata filename")
+    composite_path = ensure_within_workspace(workspace, json_path.with_suffix(".png"))
+    stem = json_path.stem
+    suffix = "-floor-walls-doors"
+    door_stem = f"{stem[:-len(suffix)]}-doors" if stem.endswith(suffix) else f"{stem}-doors"
+    door_path = ensure_within_workspace(workspace, json_path.with_name(f"{door_stem}.png"))
+    hash_path = ensure_within_workspace(workspace, json_path.with_suffix(".json.sha256"))
+    if len({json_path, door_path, composite_path, hash_path}) != 4:
+        raise MapRenderError("door render output paths collide")
+    return json_path, door_path, composite_path, hash_path
+
+
 def build_floor_render_plan(
     map_json: Path | str,
     tiles_list: Path | str,
@@ -390,6 +462,12 @@ def _wall_frame(
     return direction, sequence.frames[frame_index]
 
 
+def _object_placement_sort_key(
+    item: WallPlacement | DoorPlacement,
+) -> tuple[int, int, int]:
+    return 0 if item.flags & OBJECT_FLAT else 1, item.tile, item.source_index
+
+
 def build_wall_render_plan(
     map_json: Path | str,
     tiles_list: Path | str,
@@ -507,9 +585,7 @@ def build_wall_render_plan(
         )
     if not placements:
         raise MapRenderError("map elevation contains no visible non-transparent wall pixels")
-    placements.sort(
-        key=lambda item: (0 if item.flags & OBJECT_FLAT else 1, item.tile, item.source_index)
-    )
+    placements.sort(key=_object_placement_sort_key)
 
     left = min(floor.bounds_left, *(item.screen_x for item in placements))
     top = min(floor.bounds_top, *(item.screen_y for item in placements))
@@ -561,12 +637,258 @@ def wall_render_summary(plan: WallRenderPlan) -> dict[str, Any]:
     }
 
 
+def _scenery_document(
+    art_id: int, scenery_list: ListDocument, files: dict[str, Path]
+) -> tuple[str, FrmDocument]:
+    if art_id >= len(scenery_list.entries):
+        raise MapRenderError(
+            f"door art id {art_id} is outside SCENERY.LST range "
+            f"0..{len(scenery_list.entries) - 1}"
+        )
+    filename = scenery_list.entries[art_id].filename
+    if (
+        not filename
+        or Path(filename).name != filename
+        or Path(filename).suffix.casefold() != ".frm"
+    ):
+        raise MapRenderError(f"unsafe or unsupported SCENERY.LST entry {art_id}: {filename!r}")
+    source = files.get(filename.casefold())
+    if source is None:
+        raise FileNotFoundError(f"door FRM for art id {art_id} does not exist: {filename}")
+    return filename, load_frm(source)
+
+
+def _scenery_frame(
+    document: FrmDocument, rotation: int, frame_index: int
+) -> tuple[FrmDirection, FrmFrame]:
+    direction = next((item for item in document.directions if item.index == rotation), None)
+    if direction is None:
+        raise MapRenderError(f"door FRM has no direction {rotation}: {document.source_path}")
+    sequence = document.sequences[direction.sequence_index]
+    if frame_index < 0 or frame_index >= len(sequence.frames):
+        raise MapRenderError(
+            f"door frame {frame_index} is outside range 0..{len(sequence.frames) - 1}: "
+            f"{document.source_path}"
+        )
+    return direction, sequence.frames[frame_index]
+
+
+def build_door_render_plan(
+    map_json: Path | str,
+    tiles_list: Path | str,
+    tiles_dir: Path | str,
+    walls_list: Path | str,
+    walls_dir: Path | str,
+    scenery_list: Path | str,
+    scenery_dir: Path | str,
+    palette_path: Path | str,
+    elevation: int,
+    workspace: Path | str,
+    output: Path | str,
+) -> DoorRenderPlan:
+    """Validate and plan door-only and game-ordered floor-wall-door renders."""
+    output_json, output_door_png, output_composite_png, output_hash = door_render_output_paths(
+        workspace, output
+    )
+    wall_output = output_json.with_name(f"elevation-{elevation}-floor-walls.json")
+    wall = build_wall_render_plan(
+        map_json,
+        tiles_list,
+        tiles_dir,
+        walls_list,
+        walls_dir,
+        palette_path,
+        elevation,
+        workspace,
+        wall_output,
+    )
+    source, source_data, payload = _stable_json(map_json)
+    if (
+        source != wall.floor.map_json_path
+        or hashlib.sha256(source_data).hexdigest().upper() != wall.floor.map_json_sha256
+    ):
+        raise MapRenderError(f"map JSON changed while building render plan: {source}")
+    objects = payload.get("objects")
+    entries = objects.get("entries") if isinstance(objects, dict) else None
+    if not isinstance(entries, list):
+        raise MapRenderError("map JSON objects.entries must be an array")
+
+    scenery = load_lst(scenery_list)
+    scenery_root = Path(scenery_dir).resolve()
+    files = _casefold_file_index(scenery_root)
+    selected: list[tuple[int, dict[str, Any]]] = []
+    for source_index, item in enumerate(entries):
+        if not isinstance(item, dict) or item.get("elevation_group") != elevation:
+            continue
+        prototype = item.get("prototype")
+        if (
+            not isinstance(prototype, dict)
+            or prototype.get("type") != "scenery"
+            or prototype.get("subtype") != 0
+            or prototype.get("subtype_name") != "door"
+        ):
+            continue
+        selected.append((source_index, item))
+    if not selected:
+        raise MapRenderError("map elevation contains no door objects")
+
+    documents: dict[int, tuple[str, FrmDocument]] = {}
+    for source_index, item in selected:
+        fid = item.get("fid")
+        if not isinstance(fid, int) or fid < 0:
+            raise MapRenderError(f"door object {source_index} has invalid FID")
+        if (fid >> 24) & 0x0F != SCENERY_FID_TYPE:
+            raise MapRenderError(f"door object {source_index} FID is not scenery art: 0x{fid:08X}")
+        art_id = fid & 0x0FFF
+        if art_id not in documents:
+            documents[art_id] = _scenery_document(art_id, scenery, files)
+
+    placements: list[DoorPlacement] = []
+    hidden = 0
+    transparent = 0
+    flat = 0
+    closed = 0
+    open_or_transition = 0
+    target_open = 0
+    locked = 0
+    jammed = 0
+    for source_index, item in selected:
+        tile = item.get("tile")
+        object_id = item.get("object_id")
+        rotation = item.get("rotation")
+        frame_index = item.get("frame")
+        object_x = item.get("x")
+        object_y = item.get("y")
+        flags = item.get("flags")
+        update_data = item.get("update_data")
+        open_flags = update_data.get("open_flags") if isinstance(update_data, dict) else None
+        if not isinstance(tile, int) or tile < 0 or tile >= HEX_GRID_WIDTH * HEX_GRID_HEIGHT:
+            raise MapRenderError(f"door object {source_index} has invalid tile")
+        if not isinstance(object_id, int):
+            raise MapRenderError(f"door object {source_index} has invalid object id")
+        if not isinstance(rotation, int) or rotation < 0 or rotation >= 6:
+            raise MapRenderError(f"door object {source_index} has invalid rotation")
+        if not isinstance(frame_index, int):
+            raise MapRenderError(f"door object {source_index} has invalid frame")
+        if not isinstance(object_x, int) or not isinstance(object_y, int):
+            raise MapRenderError(f"door object {source_index} has invalid pixel offset")
+        if not isinstance(flags, int):
+            raise MapRenderError(f"door object {source_index} has invalid flags")
+        if not isinstance(open_flags, int):
+            raise MapRenderError(f"door object {source_index} has invalid open flags")
+
+        flat += bool(flags & OBJECT_FLAT)
+        closed += frame_index == 0
+        open_or_transition += frame_index != 0
+        target_open += bool(open_flags & DOOR_OPEN)
+        locked += bool(open_flags & DOOR_LOCKED)
+        jammed += bool(open_flags & DOOR_JAMMED)
+        art_id = item["fid"] & 0x0FFF
+        filename, document = documents[art_id]
+        direction, frame = _scenery_frame(document, rotation, frame_index)
+        if flags & OBJECT_HIDDEN:
+            hidden += 1
+            continue
+        if not any(frame.pixels):
+            transparent += 1
+            continue
+        hex_x, hex_y = hex_tile_screen_position(tile)
+        anchor_x = hex_x + 16 + direction.x_offset + object_x
+        anchor_y = hex_y + 8 + direction.y_offset + object_y
+        placements.append(
+            DoorPlacement(
+                source_index=source_index,
+                object_id=object_id,
+                tile=tile,
+                art_id=art_id,
+                filename=filename,
+                rotation=rotation,
+                frame_index=frame_index,
+                flags=flags,
+                open_flags=open_flags,
+                direction_x_offset=direction.x_offset,
+                direction_y_offset=direction.y_offset,
+                screen_x=anchor_x - frame.width // 2,
+                screen_y=anchor_y - (frame.height - 1),
+                frame=frame,
+            )
+        )
+    if not placements:
+        raise MapRenderError("map elevation contains no visible non-transparent door pixels")
+    placements.sort(key=_object_placement_sort_key)
+
+    left = min(wall.bounds_left, *(item.screen_x for item in placements))
+    top = min(wall.bounds_top, *(item.screen_y for item in placements))
+    right = max(wall.bounds_right, *(item.screen_x + item.frame.width for item in placements))
+    bottom = max(wall.bounds_bottom, *(item.screen_y + item.frame.height for item in placements))
+    sources = {source, scenery.source_path, *files.values()}
+    collision = sources.intersection(
+        (output_json, output_door_png, output_composite_png, output_hash)
+    )
+    if collision:
+        raise MapRenderError(f"render output would replace an input: {next(iter(collision))}")
+    return DoorRenderPlan(
+        wall=wall,
+        scenery_list=scenery,
+        scenery_root=scenery_root,
+        placements=tuple(placements),
+        used_door_ids=tuple(sorted({item.art_id for item in placements})),
+        hidden_placements=hidden,
+        transparent_placements=transparent,
+        flat_placements=flat,
+        closed_placements=closed,
+        open_or_transition_placements=open_or_transition,
+        target_open_placements=target_open,
+        locked_placements=locked,
+        jammed_placements=jammed,
+        bounds_left=left,
+        bounds_top=top,
+        bounds_right=right,
+        bounds_bottom=bottom,
+        output_json=output_json,
+        output_door_png=output_door_png,
+        output_composite_png=output_composite_png,
+        output_hash=output_hash,
+    )
+
+
+def door_render_summary(plan: DoorRenderPlan) -> dict[str, Any]:
+    return {
+        "map": plan.wall.floor.map_name,
+        "elevation": plan.wall.floor.elevation,
+        "visible_floor_placements": len(plan.wall.floor.placements),
+        "visible_wall_placements": len(plan.wall.placements),
+        "validated_door_objects": (
+            len(plan.placements) + plan.hidden_placements + plan.transparent_placements
+        ),
+        "visible_door_placements": len(plan.placements),
+        "hidden_door_placements": plan.hidden_placements,
+        "transparent_door_placements": plan.transparent_placements,
+        "flat_door_objects": plan.flat_placements,
+        "closed_door_objects": plan.closed_placements,
+        "open_or_transition_door_objects": plan.open_or_transition_placements,
+        "target_open_door_objects": plan.target_open_placements,
+        "locked_door_objects": plan.locked_placements,
+        "jammed_door_objects": plan.jammed_placements,
+        "unique_visible_door_ids": len(plan.used_door_ids),
+        "canvas_width": plan.canvas_width,
+        "canvas_height": plan.canvas_height,
+        "origin_x": plan.bounds_left,
+        "origin_y": plan.bounds_top,
+    }
+
+
 def _blit_placements(
     pixels: bytearray,
     canvas_width: int,
     bounds_left: int,
     bounds_top: int,
-    placements: tuple[TilePlacement, ...] | tuple[WallPlacement, ...],
+    placements: (
+        tuple[TilePlacement, ...]
+        | tuple[WallPlacement, ...]
+        | tuple[DoorPlacement, ...]
+        | tuple[WallPlacement | DoorPlacement, ...]
+    ),
 ) -> None:
     for placement in placements:
         destination_x = placement.screen_x - bounds_left
@@ -810,6 +1132,187 @@ def write_wall_render(
     return (
         plan.output_json,
         plan.output_wall_png,
+        plan.output_composite_png,
+        plan.output_hash,
+    )
+
+
+def _door_pngs(plan: DoorRenderPlan) -> tuple[bytes, bytes]:
+    door_pixels = bytearray(plan.canvas_width * plan.canvas_height)
+    _blit_placements(
+        door_pixels,
+        plan.canvas_width,
+        plan.bounds_left,
+        plan.bounds_top,
+        plan.placements,
+    )
+    composite_pixels = bytearray(plan.canvas_width * plan.canvas_height)
+    _blit_placements(
+        composite_pixels,
+        plan.canvas_width,
+        plan.bounds_left,
+        plan.bounds_top,
+        plan.wall.floor.placements,
+    )
+    objects: tuple[WallPlacement | DoorPlacement, ...] = tuple(
+        sorted(
+            (*plan.wall.placements, *plan.placements),
+            key=_object_placement_sort_key,
+        )
+    )
+    _blit_placements(
+        composite_pixels,
+        plan.canvas_width,
+        plan.bounds_left,
+        plan.bounds_top,
+        objects,
+    )
+    door_png = encode_indexed_png(
+        plan.canvas_width,
+        plan.canvas_height,
+        bytes(door_pixels),
+        plan.wall.floor.palette,
+        transparent_index_zero=True,
+    )
+    composite_png = encode_indexed_png(
+        plan.canvas_width,
+        plan.canvas_height,
+        bytes(composite_pixels),
+        plan.wall.floor.palette,
+        transparent_index_zero=True,
+    )
+    return door_png, composite_png
+
+
+def write_door_render(
+    plan: DoorRenderPlan, *, overwrite: bool = False
+) -> tuple[Path, Path, Path, Path]:
+    """Write door-only and game-ordered floor-wall-door render outputs."""
+    targets = (
+        plan.output_json,
+        plan.output_door_png,
+        plan.output_composite_png,
+        plan.output_hash,
+    )
+    if not overwrite:
+        existing = [path for path in targets if path.exists()]
+        if existing:
+            raise FileExistsError(
+                f"render output already exists; refusing to overwrite: {existing[0]}"
+            )
+    door_png, composite_png = _door_pngs(plan)
+    door_sha256 = hashlib.sha256(door_png).hexdigest().upper()
+    composite_sha256 = hashlib.sha256(composite_png).hexdigest().upper()
+    floor = plan.wall.floor
+    metadata = {
+        "schema_version": 1,
+        "generated_at_utc": datetime.now(UTC).isoformat(),
+        "format": "Fallout MAP floor, wall, and door render",
+        "generator": {
+            "name": "fallout1resource",
+            "version": __version__,
+            "component": "map_render",
+            "component_version": MAP_RENDERER_VERSION,
+        },
+        "source": {
+            "map_json": {
+                "path": str(floor.map_json_path),
+                "size": floor.map_json_size,
+                "sha256": floor.map_json_sha256,
+            },
+            "tiles_list": {
+                "path": str(floor.tile_list.source_path),
+                "size": floor.tile_list.source_size,
+                "sha256": floor.tile_list.source_sha256,
+            },
+            "tiles_directory": str(floor.tile_root),
+            "walls_list": {
+                "path": str(plan.wall.wall_list.source_path),
+                "size": plan.wall.wall_list.source_size,
+                "sha256": plan.wall.wall_list.source_sha256,
+            },
+            "walls_directory": str(plan.wall.wall_root),
+            "scenery_list": {
+                "path": str(plan.scenery_list.source_path),
+                "size": plan.scenery_list.source_size,
+                "sha256": plan.scenery_list.source_sha256,
+            },
+            "scenery_directory": str(plan.scenery_root),
+            "palette": {
+                "path": str(floor.palette.source_path),
+                "size": floor.palette.source_size,
+                "sha256": floor.palette.source_sha256,
+            },
+        },
+        "summary": door_render_summary(plan),
+        "coordinates": {
+            "hex_column": "199 - (tile % 200)",
+            "hex_row": "tile // 200",
+            "anchor_x": "hex_x + 16 + direction_x_offset + object_x",
+            "anchor_y": "hex_y + 8 + direction_y_offset + object_y",
+            "frame_left": "anchor_x - frame_width // 2",
+            "frame_top": "anchor_y - (frame_height - 1)",
+            "canvas_translation": [-plan.bounds_left, -plan.bounds_top],
+            "draw_order": (
+                "walls and doors combined: OBJECT_FLAT first, then non-flat; "
+                "tile and MAP source order ascending"
+            ),
+        },
+        "door_state": {
+            "closed": "stored frame == 0",
+            "open_or_transition": "stored frame != 0",
+            "target_open_mask": f"0x{DOOR_OPEN:08X}",
+            "locked_mask": f"0x{DOOR_LOCKED:08X}",
+            "jammed_mask": f"0x{DOOR_JAMMED:08X}",
+        },
+        "used_doors": [
+            {
+                "id": art_id,
+                "filename": plan.scenery_list.entries[art_id].filename,
+                "placements": sum(item.art_id == art_id for item in plan.placements),
+            }
+            for art_id in plan.used_door_ids
+        ],
+        "doors": [
+            {
+                "object_id": item.object_id,
+                "tile": item.tile,
+                "art_id": item.art_id,
+                "filename": item.filename,
+                "rotation": item.rotation,
+                "frame": item.frame_index,
+                "state": "closed" if item.frame_index == 0 else "open_or_transition",
+                "open_flags": item.open_flags,
+                "open_flags_hex": f"0x{item.open_flags & 0xFFFFFFFF:08X}",
+            }
+            for item in plan.placements
+        ],
+        "derived": {
+            "door_png": {
+                "path": plan.output_door_png.name,
+                "size": len(door_png),
+                "sha256": door_sha256,
+                "transparency": "palette index 0",
+            },
+            "floor_walls_doors_png": {
+                "path": plan.output_composite_png.name,
+                "size": len(composite_png),
+                "sha256": composite_sha256,
+                "transparency": "palette index 0",
+            },
+        },
+    }
+    json_bytes = (json.dumps(metadata, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    hash_bytes = (
+        f"{hashlib.sha256(json_bytes).hexdigest().upper()}  {plan.output_json.name}\n"
+    ).encode("ascii")
+    write_file_atomic(plan.output_door_png, door_png, overwrite=overwrite)
+    write_file_atomic(plan.output_composite_png, composite_png, overwrite=overwrite)
+    write_file_atomic(plan.output_json, json_bytes, overwrite=overwrite)
+    write_file_atomic(plan.output_hash, hash_bytes, overwrite=overwrite)
+    return (
+        plan.output_json,
+        plan.output_door_png,
         plan.output_composite_png,
         plan.output_hash,
     )

@@ -9,10 +9,12 @@ from pathlib import Path
 
 from fallout1resource.map_render import (
     MapRenderError,
+    build_door_render_plan,
     build_floor_render_plan,
     build_wall_render_plan,
     hex_tile_screen_position,
     square_tile_screen_position,
+    write_door_render,
     write_floor_render,
     write_wall_render,
 )
@@ -26,15 +28,31 @@ def _frm_bytes(
     x_offsets: tuple[int, ...] = (0, 0, 0, 0, 0, 0),
     y_offsets: tuple[int, ...] = (0, 0, 0, 0, 0, 0),
 ) -> bytes:
-    frame = struct.pack(">hhi2h", width, height, len(pixels), 0, 0) + pixels
+    return _frm_multi_bytes(
+        ((pixels, width, height, 0, 0),),
+        x_offsets=x_offsets,
+        y_offsets=y_offsets,
+    )
+
+
+def _frm_multi_bytes(
+    frames: tuple[tuple[bytes, int, int, int, int], ...],
+    *,
+    x_offsets: tuple[int, ...] = (0, 0, 0, 0, 0, 0),
+    y_offsets: tuple[int, ...] = (0, 0, 0, 0, 0, 0),
+) -> bytes:
+    frame_data = b"".join(
+        struct.pack(">hhi2h", width, height, len(pixels), x_offset, y_offset) + pixels
+        for pixels, width, height, x_offset, y_offset in frames
+    )
     return b"".join(
         (
-            struct.pack(">ihhh", 4, 0, 0, 1),
+            struct.pack(">ihhh", 4, 0, 0, len(frames)),
             struct.pack(">6h", *x_offsets),
             struct.pack(">6h", *y_offsets),
             struct.pack(">6i", *([0] * 6)),
-            struct.pack(">i", len(frame)),
-            frame,
+            struct.pack(">i", len(frame_data)),
+            frame_data,
         )
     )
 
@@ -255,6 +273,137 @@ class WallRenderTests(FloorRenderTests):
                 self.tiles,
                 self.walls_list,
                 self.walls,
+                self.palette,
+                0,
+                self.workspace,
+                Path("../escape.json"),
+            )
+
+
+class DoorRenderTests(WallRenderTests):
+    def setUp(self) -> None:
+        super().setUp()
+        self.scenery = self.workspace / "raw" / "master" / "ART" / "SCENERY"
+        self.scenery.mkdir(parents=True)
+        self.scenery_list = self.scenery / "SCENERY.LST"
+        self.scenery_list.write_bytes(b"door0.frm\r\n")
+        (self.scenery / "DOOR0.FRM").write_bytes(
+            _frm_multi_bytes(
+                (
+                    (bytes((6, 6, 6, 6, 6, 6)), 2, 3, 0, 0),
+                    (bytes((7, 7, 7, 7, 7, 7)), 3, 2, 1, -1),
+                ),
+                x_offsets=(1, 0, 0, 0, 0, 0),
+                y_offsets=(2, 0, 0, 0, 0, 0),
+            )
+        )
+        self.payload["objects"]["entries"].extend(
+            (
+                {
+                    "elevation_group": 0,
+                    "object_id": 4,
+                    "tile": 197,
+                    "x": 0,
+                    "y": 0,
+                    "frame": 0,
+                    "rotation": 0,
+                    "fid": 0x02000000,
+                    "flags": 0,
+                    "prototype": {"type": "scenery", "subtype": 0, "subtype_name": "door"},
+                    "update_data": {"open_flags": 0},
+                },
+                {
+                    "elevation_group": 0,
+                    "object_id": 5,
+                    "tile": 196,
+                    "x": 0,
+                    "y": 0,
+                    "frame": 1,
+                    "rotation": 0,
+                    "fid": 0x02000000,
+                    "flags": 0,
+                    "prototype": {"type": "scenery", "subtype": 0, "subtype_name": "door"},
+                    "update_data": {"open_flags": 1},
+                },
+                {
+                    "elevation_group": 0,
+                    "object_id": 6,
+                    "tile": 195,
+                    "x": 0,
+                    "y": 0,
+                    "frame": 0,
+                    "rotation": 0,
+                    "fid": 0x02000000,
+                    "flags": 1,
+                    "prototype": {"type": "scenery", "subtype": 0, "subtype_name": "door"},
+                    "update_data": {"open_flags": 0},
+                },
+            )
+        )
+        self._write_map()
+
+    def _door_plan(self):
+        return build_door_render_plan(
+            self.map_json,
+            self.tiles_list,
+            self.tiles,
+            self.walls_list,
+            self.walls,
+            self.scenery_list,
+            self.scenery,
+            self.palette,
+            0,
+            self.workspace,
+            Path("output/maps-rendered/TEST/elevation-0-floor-walls-doors.json"),
+        )
+
+    def test_plans_saved_door_frames_states_and_order(self) -> None:
+        plan = self._door_plan()
+
+        self.assertEqual([5, 4], [item.object_id for item in plan.placements])
+        self.assertEqual([1, 0], [item.frame_index for item in plan.placements])
+        self.assertEqual(1, plan.hidden_placements)
+        self.assertEqual(2, plan.closed_placements)
+        self.assertEqual(1, plan.open_or_transition_placements)
+        self.assertEqual(1, plan.target_open_placements)
+        self.assertEqual((0,), plan.used_door_ids)
+
+    def test_writes_matching_door_and_composite_outputs(self) -> None:
+        plan = self._door_plan()
+        json_path, door_path, composite_path, hash_path = write_door_render(plan)
+        metadata = json.loads(json_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(
+            struct.unpack_from(">II", door_path.read_bytes(), 16),
+            struct.unpack_from(">II", composite_path.read_bytes(), 16),
+        )
+        self.assertEqual(3, metadata["summary"]["validated_door_objects"])
+        self.assertEqual(
+            hashlib.sha256(door_path.read_bytes()).hexdigest().upper(),
+            metadata["derived"]["door_png"]["sha256"],
+        )
+        self.assertEqual(
+            hashlib.sha256(composite_path.read_bytes()).hexdigest().upper(),
+            metadata["derived"]["floor_walls_doors_png"]["sha256"],
+        )
+        self.assertEqual(
+            hashlib.sha256(json_path.read_bytes()).hexdigest().upper(),
+            hash_path.read_text(encoding="ascii").split()[0],
+        )
+
+        with self.assertRaises(FileExistsError):
+            write_door_render(plan)
+
+    def test_rejects_door_output_outside_workspace(self) -> None:
+        with self.assertRaises(ValueError):
+            build_door_render_plan(
+                self.map_json,
+                self.tiles_list,
+                self.tiles,
+                self.walls_list,
+                self.walls,
+                self.scenery_list,
+                self.scenery,
                 self.palette,
                 0,
                 self.workspace,

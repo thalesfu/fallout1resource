@@ -60,10 +60,13 @@ from .map_batch import (
 from .map_file import MapFormatError, load_map, map_output_paths, map_summary, write_map_export
 from .map_render import (
     MapRenderError,
+    build_door_render_plan,
     build_floor_render_plan,
     build_wall_render_plan,
+    door_render_summary,
     floor_render_summary,
     wall_render_summary,
+    write_door_render,
     write_floor_render,
     write_wall_render,
 )
@@ -352,6 +355,44 @@ def _parser() -> argparse.ArgumentParser:
         "--execute", action="store_true", help="write wall PNGs, metadata, and checksum"
     )
     render_map_walls.add_argument(
+        "--overwrite", action="store_true", help="atomically replace existing render outputs"
+    )
+
+    render_map_doors = subparsers.add_parser(
+        "render-map-doors",
+        help="compose door-only and game-ordered floor-wall-door MAP layers",
+    )
+    render_map_doors.add_argument(
+        "--map-json", type=Path, required=True, help="read-only structured MAP JSON"
+    )
+    render_map_doors.add_argument(
+        "--tiles-list", type=Path, required=True, help="read-only ART/TILES/TILES.LST"
+    )
+    render_map_doors.add_argument(
+        "--tiles-dir", type=Path, required=True, help="read-only ART/TILES directory"
+    )
+    render_map_doors.add_argument(
+        "--walls-list", type=Path, required=True, help="read-only ART/WALLS/WALLS.LST"
+    )
+    render_map_doors.add_argument(
+        "--walls-dir", type=Path, required=True, help="read-only ART/WALLS directory"
+    )
+    render_map_doors.add_argument(
+        "--scenery-list", type=Path, required=True, help="read-only ART/SCENERY/SCENERY.LST"
+    )
+    render_map_doors.add_argument(
+        "--scenery-dir", type=Path, required=True, help="read-only ART/SCENERY directory"
+    )
+    render_map_doors.add_argument(
+        "--palette", type=Path, required=True, help="read-only Fallout PAL color table"
+    )
+    render_map_doors.add_argument("--elevation", type=int, default=0, choices=range(3))
+    render_map_doors.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    render_map_doors.add_argument("--output", type=Path, help="metadata JSON below workspace")
+    render_map_doors.add_argument(
+        "--execute", action="store_true", help="write door PNGs, metadata, and checksum"
+    )
+    render_map_doors.add_argument(
         "--overwrite", action="store_true", help="atomically replace existing render outputs"
     )
 
@@ -866,6 +907,39 @@ def main(argv: list[str] | None = None) -> int:
             }
             if args.execute:
                 write_wall_render(plan, overwrite=args.overwrite)
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
+        if args.command == "render-map-doors":
+            if args.overwrite and not args.execute:
+                raise MapRenderError("--overwrite requires --execute")
+            output = args.output or (
+                Path("output/maps-rendered")
+                / args.map_json.stem
+                / f"elevation-{args.elevation}-floor-walls-doors.json"
+            )
+            plan = build_door_render_plan(
+                args.map_json,
+                args.tiles_list,
+                args.tiles_dir,
+                args.walls_list,
+                args.walls_dir,
+                args.scenery_list,
+                args.scenery_dir,
+                args.palette,
+                args.elevation,
+                args.workspace,
+                output,
+            )
+            result = {
+                "mode": "render-map-doors" if args.execute else "dry-run",
+                **door_render_summary(plan),
+                "metadata": str(plan.output_json),
+                "door_png": str(plan.output_door_png),
+                "floor_walls_doors_png": str(plan.output_composite_png),
+                "sha256": str(plan.output_hash),
+            }
+            if args.execute:
+                write_door_render(plan, overwrite=args.overwrite)
             print(json.dumps(result, ensure_ascii=False))
             return 0
         if args.command == "convert-acm":

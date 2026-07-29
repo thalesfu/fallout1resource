@@ -2,7 +2,7 @@
 
 ## 目标与边界
 
-本阶段把已结构化的 `.MAP` 数据与原始 FRM 合成为可查看的 PNG。首个样板是哈勃旧城区 `HUBOLDTN`：先完成地面，再加入墙壁独立层和地面墙壁合成图；屋顶、场景物件、人物、光照和脚本状态分阶段加入。游戏安装目录、提取后的 `.MAP`、`.FRM`、`.PAL` 和既有 JSON 均作为只读输入，新产物固定写入 `workspace/output/maps-rendered/`。
+本阶段把已结构化的 `.MAP` 数据与原始 FRM 合成为可查看的 PNG。首个样板是哈勃旧城区 `HUBOLDTN`：先完成地面和墙壁，再加入门独立层及地面墙壁门合成图；屋顶、其他场景物件、人物、光照和脚本状态分阶段加入。游戏安装目录、提取后的 `.MAP`、`.FRM`、`.PAL` 和既有 JSON 均作为只读输入，新产物固定写入 `workspace/output/maps-rendered/`。
 
 “完整地图”需要区分三个层次：
 
@@ -17,6 +17,8 @@
 - `workspace/raw/master/ART/TILES/*.FRM`：调色板索引像素；0 号颜色透明。
 - `workspace/raw/master/ART/WALLS/WALLS.LST`：墙壁 FID 低 12 位到 FRM 文件名的零基映射。
 - `workspace/raw/master/ART/WALLS/*.FRM`：墙壁各方向、帧和方向锚点偏移。
+- `workspace/raw/master/ART/SCENERY/SCENERY.LST`：场景 FID 低 12 位到 FRM 文件名的零基映射。
+- `workspace/raw/master/ART/SCENERY/*.FRM`：门及其他场景物件的方向和动画帧。
 - `workspace/raw/master/COLOR.PAL`：Fallout 主调色板。
 
 渲染器验证 JSON 结构、数组长度、地砖编号范围和所有输入文件，再进行任何写入。默认 dry-run，只有 `--execute` 才原子生成 PNG、元数据 JSON 和校验文件。
@@ -49,6 +51,12 @@ top  = anchor_y - (frame_height - 1)
 
 参考：[`object.cc`](https://github.com/alexbatalov/fallout1-ce/blob/0609bcfd0ec40ff0571d0f57fab2821eb461dc8b/src/game/object.cc)、[`object_types.h`](https://github.com/alexbatalov/fallout1-ce/blob/0609bcfd0ec40ff0571d0f57fab2821eb461dc8b/src/game/object_types.h)。
 
+门通过原型 `type=scenery, subtype=door` 识别，FID 类型必须为 2。门与墙体使用相同的六角格锚点公式，但读取 `SCENERY.LST` 和对象保存的方向、帧。游戏以 `frame == 0` 判断关闭，非零帧表示打开或动画中；`update_data.open_flags` 的最低位记录目标开门状态，另外 `0x02000000` 和 `0x04000000` 分别表示锁定、卡住。离线静态图严格渲染 MAP 保存帧，不自行开门或执行脚本。
+
+最终合成把墙和门放回同一个对象队列：先 `OBJECT_FLAT`，再普通对象，各阶段按六角格编号和 MAP 源顺序递增。门独立层只画门，便于核对门洞；合成层不能简单地先画完所有墙再画门，否则跨格重叠时会破坏游戏遮挡顺序。
+
+参考：[`proto_types.h`](https://github.com/alexbatalov/fallout1-ce/blob/0609bcfd0ec40ff0571d0f57fab2821eb461dc8b/src/game/proto_types.h)、[`protinst.cc`](https://github.com/alexbatalov/fallout1-ce/blob/0609bcfd0ec40ff0571d0f57fab2821eb461dc8b/src/game/protinst.cc)。
+
 ## HUBOLDTN 首轮验收
 
 - [x] elevation 0 的全部有效地砖均能解析。
@@ -67,9 +75,18 @@ top  = anchor_y - (frame_height - 1)
 - [x] 墙壁透明层与合成图使用同一画布原点，可逐像素叠加。
 - [x] 重复运行得到相同 PNG 像素与 SHA-256，并记录墙数、唯一素材数和画布范围。
 
+## HUBOLDTN 门验收
+
+- [x] elevation 0 的 18 扇门和 elevation 1 的 4 扇门均完成原型、FID 与状态校验。
+- [x] 8 个场景素材编号均能映射到 `SCENERY.LST` 和现存 FRM。
+- [x] 门框、门扇与墙体门洞对齐，没有整层平移或帧锚点错误。
+- [x] 墙和门按统一对象顺序合成，跨格遮挡稳定。
+- [x] 门透明层与最终合成图共享画布原点，可逐像素叠加。
+- [x] 重复运行得到相同 PNG 与 SHA-256，并记录开关、锁定、卡住和透明跳过数。
+
 ## 后续迭代
 
-墙壁确认后依次增加：屋顶层（整体上移 96 像素）、场景物件与物品、人物、环境光和地图标注。每轮都保留独立图层，避免把坐标问题、素材问题和光照问题混在一次调试中。
+门确认后依次增加：屋顶层（整体上移 96 像素）、其他场景物件与物品、人物、环境光和地图标注。每轮都保留独立图层，避免把坐标问题、素材问题和光照问题混在一次调试中。
 
 ## 实践记录
 
@@ -114,4 +131,23 @@ FID 的类型字节均为墙体类型 3，低 12 位可以直接零基查询 1,2
 
 所有带 `OBJECT_FLAT` 的墙恰好都是全透明占位，仍按对象和素材完整校验，但不会扩大画布或覆盖可见像素。两层墙都没有隐藏对象，墙体边界也没有超出已裁切的地面范围，因此合成图沿用地面画布尺寸与原始坐标原点。
 
-目视检查显示 elevation 0 的门洞、墙角、围栏和室内隔墙贴合道路与房间地面，elevation 1 的长走廊及各房间连续；未见整层平移、奇偶行错位、错误交叠或裁边。覆盖复跑后四张 PNG 的 SHA-256 均保持不变。当前图仍是未应用动态光照、门状态和玩家遮挡的静态资源视图。
+目视检查显示 elevation 0 的门洞、墙角、围栏和室内隔墙贴合道路与房间地面，elevation 1 的长走廊及各房间连续；未见整层平移、奇偶行错位、错误交叠或裁边。覆盖复跑后四张 PNG 的 SHA-256 均保持不变。该阶段仍未加入门、动态光照和玩家遮挡。
+
+### 2026-07-30：门渲染设计
+
+HUBOLDTN 中有 22 个门原型对象：elevation 0 为 18 个，elevation 1 为 4 个。全部对象都是 rotation 0、frame 0、像素偏移 `(0, 0)`，`open_flags` 均为 0，因此原始 MAP 状态全部为关闭、未锁、未卡住；对象中也没有隐藏门。
+
+门 FID 的类型字节均为场景类型 2，低 12 位引用 `SCENERY.LST` 的 8 个零基条目；所有实际 FRM 均存在。各门动画包含 4、7 或 8 帧，关闭状态使用第 0 帧。实现将生成同尺寸的 `elevation-<n>-doors.png` 与 `elevation-<n>-floor-walls-doors.png`，并在元数据中保留每种素材、对象状态、统一绘制顺序和原始坐标原点。
+
+### 2026-07-30：HUBOLDTN 门首图
+
+新增 `render-map-doors` 命令。渲染器校验门原型、FID、`SCENERY.LST`、方向、保存帧、`open_flags` 和实际 FRM；墙与门重新按统一对象顺序绘制，而门透明层单独输出。真实结果：
+
+| 楼层 | 校验门 | 关闭 | 打开或动画中 | 锁定/卡住 | 唯一门 FRM | 画布 | 门层 SHA-256 | 合成图 SHA-256 |
+|---|---:|---:|---:|---:|---:|---:|---|---|
+| 0 | 18 | 18 | 0 | 0/0 | 8 | 6,656×3,000 | `77EFCF…EF2F` | `ECAA66…8D34` |
+| 1 | 4 | 4 | 0 | 0/0 | 1 | 2,640×1,668 | `613CDE…B693` | `5B05E2…A44C` |
+
+22 扇门都包含可见像素，没有隐藏或透明占位，也没有超出地面墙壁画布，所以两套图继续沿用既有尺寸与原始坐标原点。目视检查表明底层不同材质的门均嵌入对应门洞，上层 4 扇门与走廊墙面贴合；未见漂浮、穿墙、反向覆盖或裁边。覆盖复跑后四张 PNG 的 SHA-256 均保持不变。
+
+当前合成图表达原始 MAP 保存时的静态门状态，不执行脚本或开关动画，也尚未应用动态光照和玩家遮挡。

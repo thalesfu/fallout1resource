@@ -150,7 +150,7 @@ python -m fallout1resource convert-map-batch `
 
 复跑会重新解析地图和实际引用的 PRO，并核对六类 LST、脚本列表、对象 CSV 与 JSON 哈希；依赖或派生物变化后需显式 `--overwrite` 才会替换。
 
-## MAP 地面与墙壁渲染
+## MAP 地面、墙壁与门渲染
 
 `render-map-floor` 把结构化 MAP JSON 的一个楼层与 `TILES.LST`、地砖 FRM 和主调色板合成为等距 PNG。默认 dry-run；执行前会验证所有地砖编号和素材，并从实际非透明像素范围计算画布：
 
@@ -182,7 +182,26 @@ python -m fallout1resource render-map-walls `
   --execute
 ```
 
-墙壁按游戏的六角格锚点和 `OBJECT_FLAT` 两阶段顺序绘制；当前不执行地图脚本，也不绘制屋顶、其他场景对象或人物。算法与实践记录见 `docs/map-rendering.md`。
+墙壁按游戏的六角格锚点和 `OBJECT_FLAT` 两阶段顺序绘制。
+
+`render-map-doors` 继续加入门对象，并把墙和门放回统一的游戏对象顺序；输出门透明层和地面墙壁门合成图：
+
+```powershell
+python -m fallout1resource render-map-doors `
+  --map-json "$PWD\workspace\output\maps\master\MAPS\HUBOLDTN\HUBOLDTN.json" `
+  --tiles-list "$PWD\workspace\raw\master\ART\TILES\TILES.LST" `
+  --tiles-dir "$PWD\workspace\raw\master\ART\TILES" `
+  --walls-list "$PWD\workspace\raw\master\ART\WALLS\WALLS.LST" `
+  --walls-dir "$PWD\workspace\raw\master\ART\WALLS" `
+  --scenery-list "$PWD\workspace\raw\master\ART\SCENERY\SCENERY.LST" `
+  --scenery-dir "$PWD\workspace\raw\master\ART\SCENERY" `
+  --palette "$PWD\workspace\raw\master\COLOR.PAL" `
+  --elevation 0 `
+  --workspace "$PWD\workspace" `
+  --execute
+```
+
+门严格使用 MAP 保存的方向、动画帧和开关标志；当前不执行地图脚本，也不绘制屋顶、其他场景对象或人物。算法与实践记录见 `docs/map-rendering.md`。
 
 ## ACM 音频转换
 
