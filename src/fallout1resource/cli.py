@@ -58,6 +58,12 @@ from .map_batch import (
     map_batch_plan_summary,
 )
 from .map_file import MapFormatError, load_map, map_output_paths, map_summary, write_map_export
+from .map_render import (
+    MapRenderError,
+    build_floor_render_plan,
+    floor_render_summary,
+    write_floor_render,
+)
 from .msg import MsgFormatError, load_msg, msg_output_paths, msg_summary, write_msg_export
 from .msg_batch import (
     MsgBatchError,
@@ -286,6 +292,32 @@ def _parser() -> argparse.ArgumentParser:
     )
     convert_map_batch.add_argument(
         "--overwrite", action="store_true", help="replace stale or older MAP outputs"
+    )
+
+    render_map_floor = subparsers.add_parser(
+        "render-map-floor",
+        help="compose one structured MAP floor layer from tile FRM files",
+    )
+    render_map_floor.add_argument(
+        "--map-json", type=Path, required=True, help="read-only structured MAP JSON"
+    )
+    render_map_floor.add_argument(
+        "--tiles-list", type=Path, required=True, help="read-only ART/TILES/TILES.LST"
+    )
+    render_map_floor.add_argument(
+        "--tiles-dir", type=Path, required=True, help="read-only ART/TILES directory"
+    )
+    render_map_floor.add_argument(
+        "--palette", type=Path, required=True, help="read-only Fallout PAL color table"
+    )
+    render_map_floor.add_argument("--elevation", type=int, default=0, choices=range(3))
+    render_map_floor.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    render_map_floor.add_argument("--output", type=Path, help="metadata JSON below workspace")
+    render_map_floor.add_argument(
+        "--execute", action="store_true", help="write floor PNG, metadata, and checksum"
+    )
+    render_map_floor.add_argument(
+        "--overwrite", action="store_true", help="atomically replace existing render outputs"
     )
 
     convert_acm = subparsers.add_parser(
@@ -742,6 +774,34 @@ def main(argv: list[str] | None = None) -> int:
                 )
             )
             return 2 if result.failed else 0
+        if args.command == "render-map-floor":
+            if args.overwrite and not args.execute:
+                raise MapRenderError("--overwrite requires --execute")
+            output = args.output or (
+                Path("output/maps-rendered")
+                / args.map_json.stem
+                / f"elevation-{args.elevation}-floor.json"
+            )
+            plan = build_floor_render_plan(
+                args.map_json,
+                args.tiles_list,
+                args.tiles_dir,
+                args.palette,
+                args.elevation,
+                args.workspace,
+                output,
+            )
+            result = {
+                "mode": "render-map-floor" if args.execute else "dry-run",
+                **floor_render_summary(plan),
+                "metadata": str(plan.output_json),
+                "floor_png": str(plan.output_png),
+                "sha256": str(plan.output_hash),
+            }
+            if args.execute:
+                write_floor_render(plan, overwrite=args.overwrite)
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
         if args.command == "convert-acm":
             if args.overwrite and not args.execute:
                 raise AcmFormatError("--overwrite requires --execute")
@@ -926,6 +986,7 @@ def main(argv: list[str] | None = None) -> int:
         IntFormatError,
         MapBatchError,
         MapFormatError,
+        MapRenderError,
         MsgBatchError,
         MsgFormatError,
         MveBatchError,

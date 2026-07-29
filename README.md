@@ -150,6 +150,23 @@ python -m fallout1resource convert-map-batch `
 
 复跑会重新解析地图和实际引用的 PRO，并核对六类 LST、脚本列表、对象 CSV 与 JSON 哈希；依赖或派生物变化后需显式 `--overwrite` 才会替换。
 
+## MAP 地面渲染
+
+`render-map-floor` 把结构化 MAP JSON 的一个楼层与 `TILES.LST`、地砖 FRM 和主调色板合成为等距 PNG。默认 dry-run；执行前会验证所有地砖编号和素材，并从实际非透明像素范围计算画布：
+
+```powershell
+python -m fallout1resource render-map-floor `
+  --map-json "$PWD\workspace\output\maps\master\MAPS\HUBOLDTN\HUBOLDTN.json" `
+  --tiles-list "$PWD\workspace\raw\master\ART\TILES\TILES.LST" `
+  --tiles-dir "$PWD\workspace\raw\master\ART\TILES" `
+  --palette "$PWD\workspace\raw\master\COLOR.PAL" `
+  --elevation 0 `
+  --workspace "$PWD\workspace" `
+  --execute
+```
+
+输出位于 `workspace/output/maps-rendered/<地图>/`，包括地面 PNG、记录坐标原点、画布、输入哈希和所用地砖的 JSON，以及 JSON 校验文件。当前只合成地面层，不执行地图脚本，也不绘制屋顶、墙体、场景对象或人物；算法与实践记录见 `docs/map-rendering.md`。
+
 ## ACM 音频转换
 
 `convert-acm` 以只读方式校验并解码 Interplay ACM，输出标准 16 位小端 PCM WAV：
