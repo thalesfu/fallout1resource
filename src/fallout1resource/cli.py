@@ -61,8 +61,11 @@ from .map_file import MapFormatError, load_map, map_output_paths, map_summary, w
 from .map_render import (
     MapRenderError,
     build_floor_render_plan,
+    build_wall_render_plan,
     floor_render_summary,
+    wall_render_summary,
     write_floor_render,
+    write_wall_render,
 )
 from .msg import MsgFormatError, load_msg, msg_output_paths, msg_summary, write_msg_export
 from .msg_batch import (
@@ -317,6 +320,38 @@ def _parser() -> argparse.ArgumentParser:
         "--execute", action="store_true", help="write floor PNG, metadata, and checksum"
     )
     render_map_floor.add_argument(
+        "--overwrite", action="store_true", help="atomically replace existing render outputs"
+    )
+
+    render_map_walls = subparsers.add_parser(
+        "render-map-walls",
+        help="compose matching wall-only and floor-plus-wall MAP layers",
+    )
+    render_map_walls.add_argument(
+        "--map-json", type=Path, required=True, help="read-only structured MAP JSON"
+    )
+    render_map_walls.add_argument(
+        "--tiles-list", type=Path, required=True, help="read-only ART/TILES/TILES.LST"
+    )
+    render_map_walls.add_argument(
+        "--tiles-dir", type=Path, required=True, help="read-only ART/TILES directory"
+    )
+    render_map_walls.add_argument(
+        "--walls-list", type=Path, required=True, help="read-only ART/WALLS/WALLS.LST"
+    )
+    render_map_walls.add_argument(
+        "--walls-dir", type=Path, required=True, help="read-only ART/WALLS directory"
+    )
+    render_map_walls.add_argument(
+        "--palette", type=Path, required=True, help="read-only Fallout PAL color table"
+    )
+    render_map_walls.add_argument("--elevation", type=int, default=0, choices=range(3))
+    render_map_walls.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    render_map_walls.add_argument("--output", type=Path, help="metadata JSON below workspace")
+    render_map_walls.add_argument(
+        "--execute", action="store_true", help="write wall PNGs, metadata, and checksum"
+    )
+    render_map_walls.add_argument(
         "--overwrite", action="store_true", help="atomically replace existing render outputs"
     )
 
@@ -800,6 +835,37 @@ def main(argv: list[str] | None = None) -> int:
             }
             if args.execute:
                 write_floor_render(plan, overwrite=args.overwrite)
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
+        if args.command == "render-map-walls":
+            if args.overwrite and not args.execute:
+                raise MapRenderError("--overwrite requires --execute")
+            output = args.output or (
+                Path("output/maps-rendered")
+                / args.map_json.stem
+                / f"elevation-{args.elevation}-floor-walls.json"
+            )
+            plan = build_wall_render_plan(
+                args.map_json,
+                args.tiles_list,
+                args.tiles_dir,
+                args.walls_list,
+                args.walls_dir,
+                args.palette,
+                args.elevation,
+                args.workspace,
+                output,
+            )
+            result = {
+                "mode": "render-map-walls" if args.execute else "dry-run",
+                **wall_render_summary(plan),
+                "metadata": str(plan.output_json),
+                "wall_png": str(plan.output_wall_png),
+                "floor_walls_png": str(plan.output_composite_png),
+                "sha256": str(plan.output_hash),
+            }
+            if args.execute:
+                write_wall_render(plan, overwrite=args.overwrite)
             print(json.dumps(result, ensure_ascii=False))
             return 0
         if args.command == "convert-acm":
