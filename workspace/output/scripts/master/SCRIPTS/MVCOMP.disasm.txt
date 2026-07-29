@@ -1,0 +1,456 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\MVCOMP.INT
+; sha256: C5177F4444F608F25BBDECA6D7B160211EA9ED140DA261BED828BA21A6B10D69
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 388
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000184  802C  set_global
+00000186  C001  push_int 0
+0000018C  C001  push_int 0
+00000192  C001  push_int 0
+00000198  C001  push_int 0
+0000019E  C001  push_int 0
+000001A4  C001  push_int 0
+000001AA  C001  push_int 0
+000001B0  C001  push_int 0
+000001B6  8003  critical_done
+000001B8  C001  push_int 448
+000001BE  8004  jump
+
+.procedure 0 .............. offset=0x000001C0 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000001C0 size=560 args=0 flags=0x00000000
+000001C0  802B  push_base
+000001C2  C001  push_int 660
+000001C8  80C7  script_action
+000001CA  C001  push_int 6
+000001D0  8033  equal
+000001D2  802F  if
+000001D4  C001  push_int 5
+000001DA  C001  push_int 1
+000001E0  80C4  op_80c4
+000001E2  80B9  script_overrides
+000001E4  C001  push_int 448
+000001EA  C001  push_int 100
+000001F0  8105  message_str
+          ; message_lookup: list=448, message=100 | 这台计算机标签上写着原子控制计算机。, status=linked
+000001F2  80B8  display_msg
+000001F4  80BF  dude_obj
+000001F6  C001  push_int 4
+000001FC  80CA  get_critter_stat
+000001FE  C001  push_int 4
+00000204  8013  store_global
+00000206  80BF  dude_obj
+00000208  C001  push_int 1
+0000020E  80CA  get_critter_stat
+00000210  C001  push_int 5
+00000216  8013  store_global
+00000218  C001  push_int 594
+0000021E  C001  push_int 4
+00000224  8012  fetch_global
+00000226  C001  push_int 5
+0000022C  8012  fetch_global
+0000022E  8037  less
+00000230  802F  if
+00000232  80BF  dude_obj
+00000234  C001  push_int 4
+0000023A  C001  push_int 0
+00000240  80AE  op_80ae
+00000242  C001  push_int 1
+00000248  8013  store_global
+0000024A  C001  push_int 618
+00000250  8004  jump
+00000252  80BF  dude_obj
+00000254  C001  push_int 1
+0000025A  C001  push_int 0
+00000260  80AE  op_80ae
+00000262  C001  push_int 1
+00000268  8013  store_global
+0000026A  C001  push_int 652
+00000270  C001  push_int 1
+00000276  8012  fetch_global
+00000278  80AF  op_80af
+0000027A  802F  if
+0000027C  C001  push_int 448
+00000282  C001  push_int 101
+00000288  8105  message_str
+          ; message_lookup: list=448, message=101 | 有电缆从计算机连接到核弹的后面。, status=linked
+0000028A  80B8  display_msg
+0000028C  C001  push_int 984
+00000292  8004  jump
+00000294  C001  push_int 736
+0000029A  80C7  script_action
+0000029C  C001  push_int 8
+000002A2  8033  equal
+000002A4  802F  if
+000002A6  C001  push_int 5
+000002AC  C001  push_int 1
+000002B2  80C4  op_80c4
+000002B4  80FA  op_80fa
+000002B6  C001  push_int 0
+000002BC  8013  store_global
+000002BE  80B9  script_overrides
+000002C0  C001  push_int 726
+000002C6  800D  d_to_a
+000002C8  C001  push_int 0
+000002CE  C001  push_int 2
+000002D4  8005  call
+000002D6  801A  pop
+000002D8  C001  push_int 984
+000002DE  8004  jump
+000002E0  C001  push_int 984
+000002E6  80C7  script_action
+000002E8  C001  push_int 7
+000002EE  8033  equal
+000002F0  802F  if
+000002F2  C001  push_int 5
+000002F8  C001  push_int 1
+000002FE  80C4  op_80c4
+00000300  C001  push_int 926
+00000306  80C0  op_80c0
+00000308  8100  op_8100
+0000030A  C001  push_int 105
+00000310  8033  equal
+00000312  802F  if
+00000314  80B9  script_overrides
+00000316  C001  push_int 894
+0000031C  9001  push_string "<unresolved-string:0x74>"
+00000322  8014  fetch_external
+00000324  C001  push_int 1
+0000032A  8033  equal
+0000032C  802F  if
+0000032E  C001  push_int 862
+00000334  9001  push_string "<unresolved-string:0x60>"
+0000033A  8014  fetch_external
+0000033C  C001  push_int 1
+00000342  8033  equal
+00000344  802F  if
+00000346  C001  push_int 448
+0000034C  C001  push_int 105
+00000352  8105  message_str
+          ; message_lookup: list=448, message=105 | 那是不能操作的。, status=linked
+00000354  80B8  display_msg
+00000356  C001  push_int 886
+0000035C  8004  jump
+0000035E  C001  push_int 884
+00000364  800D  d_to_a
+00000366  C001  push_int 0
+0000036C  C001  push_int 4
+00000372  8005  call
+00000374  801A  pop
+00000376  C001  push_int 918
+0000037C  8004  jump
+0000037E  C001  push_int 916
+00000384  800D  d_to_a
+00000386  C001  push_int 0
+0000038C  C001  push_int 3
+00000392  8005  call
+00000394  801A  pop
+00000396  C001  push_int 984
+0000039C  8004  jump
+0000039E  C001  push_int 968
+000003A4  80C0  op_80c0
+000003A6  8100  op_8100
+000003A8  C001  push_int 77
+000003AE  8033  equal
+000003B0  802F  if
+000003B2  C001  push_int 40
+000003B8  C001  push_int 6
+000003BE  8013  store_global
+000003C0  C001  push_int 984
+000003C6  8004  jump
+000003C8  C001  push_int 448
+000003CE  C001  push_int 105
+000003D4  8105  message_str
+          ; message_lookup: list=448, message=105 | 那是不能操作的。, status=linked
+000003D6  80B8  display_msg
+000003D8  C001  push_int 0
+000003DE  800D  d_to_a
+000003E0  8019  swapa
+000003E2  802A  pop_to_base
+000003E4  8029  pop_base
+000003E6  800C  a_to_d
+000003E8  801C  pop_return
+000003EA  802A  pop_to_base
+000003EC  8029  pop_base
+000003EE  801C  pop_return
+
+.procedure 2 skills offset=0x000003F0 size=542 args=0 flags=0x00000000
+000003F0  802B  push_base
+000003F2  C001  push_int 1058
+000003F8  9001  push_string "<unresolved-string:0x74>"
+000003FE  8014  fetch_external
+00000400  C001  push_int 1
+00000406  8033  equal
+00000408  802F  if
+0000040A  C001  push_int 448
+00000410  C001  push_int 105
+00000416  8105  message_str
+          ; message_lookup: list=448, message=105 | 那是不能操作的。, status=linked
+00000418  80B8  display_msg
+0000041A  C001  push_int 1526
+00000420  8004  jump
+00000422  C001  push_int 1232
+00000428  C001  push_int 0
+0000042E  8012  fetch_global
+00000430  C001  push_int 12
+00000436  8033  equal
+00000438  802F  if
+0000043A  C001  push_int 1132
+00000440  80BF  dude_obj
+00000442  C001  push_int 12
+00000448  80AA  op_80aa
+0000044A  C001  push_int 70
+00000450  8037  less
+00000452  802F  if
+00000454  C001  push_int 448
+0000045A  C001  push_int 112
+00000460  8105  message_str
+          ; message_lookup: list=448, message=112 | 你没有足够的技能解开安全系统。, status=linked
+00000462  80B8  display_msg
+00000464  C001  push_int 1224
+0000046A  8004  jump
+0000046C  80BF  dude_obj
+0000046E  C001  push_int 12
+00000474  C001  push_int 40
+0000047A  8046  negate
+0000047C  80AC  op_80ac
+0000047E  C001  push_int 1
+00000484  8013  store_global
+00000486  C001  push_int 1208
+0000048C  C001  push_int 1
+00000492  8012  fetch_global
+00000494  80AF  op_80af
+00000496  802F  if
+00000498  C001  push_int 1198
+0000049E  800D  d_to_a
+000004A0  C001  push_int 0
+000004A6  C001  push_int 3
+000004AC  8005  call
+000004AE  801A  pop
+000004B0  C001  push_int 1224
+000004B6  8004  jump
+000004B8  C001  push_int 448
+000004BE  C001  push_int 112
+000004C4  8105  message_str
+          ; message_lookup: list=448, message=112 | 你没有足够的技能解开安全系统。, status=linked
+000004C6  80B8  display_msg
+000004C8  C001  push_int 1526
+000004CE  8004  jump
+000004D0  C001  push_int 1414
+000004D6  C001  push_int 0
+000004DC  8012  fetch_global
+000004DE  C001  push_int 9
+000004E4  8033  equal
+000004E6  802F  if
+000004E8  C001  push_int 1306
+000004EE  80BF  dude_obj
+000004F0  C001  push_int 13
+000004F6  80AA  op_80aa
+000004F8  C001  push_int 70
+000004FE  8037  less
+00000500  802F  if
+00000502  C001  push_int 448
+00000508  C001  push_int 112
+0000050E  8105  message_str
+          ; message_lookup: list=448, message=112 | 你没有足够的技能解开安全系统。, status=linked
+00000510  80B8  display_msg
+00000512  C001  push_int 1406
+00000518  8004  jump
+0000051A  80BF  dude_obj
+0000051C  C001  push_int 9
+00000522  C001  push_int 6
+00000528  8012  fetch_global
+0000052A  C001  push_int 60
+00000530  803A  sub
+00000532  80AC  op_80ac
+00000534  C001  push_int 1
+0000053A  8013  store_global
+0000053C  C001  push_int 1390
+00000542  C001  push_int 1
+00000548  8012  fetch_global
+0000054A  80AF  op_80af
+0000054C  802F  if
+0000054E  C001  push_int 1380
+00000554  800D  d_to_a
+00000556  C001  push_int 0
+0000055C  C001  push_int 3
+00000562  8005  call
+00000564  801A  pop
+00000566  C001  push_int 1406
+0000056C  8004  jump
+0000056E  C001  push_int 448
+00000574  C001  push_int 112
+0000057A  8105  message_str
+          ; message_lookup: list=448, message=112 | 你没有足够的技能解开安全系统。, status=linked
+0000057C  80B8  display_msg
+0000057E  C001  push_int 1526
+00000584  8004  jump
+00000586  C001  push_int 1462
+0000058C  C001  push_int 0
+00000592  8012  fetch_global
+00000594  C001  push_int 11
+0000059A  8033  equal
+0000059C  802F  if
+0000059E  C001  push_int 448
+000005A4  C001  push_int 111
+000005AA  8105  message_str
+          ; message_lookup: list=448, message=111 | 陷阱技术对这计算机没用。, status=linked
+000005AC  80B8  display_msg
+000005AE  C001  push_int 1526
+000005B4  8004  jump
+000005B6  C001  push_int 1510
+000005BC  C001  push_int 0
+000005C2  8012  fetch_global
+000005C4  C001  push_int 13
+000005CA  8033  equal
+000005CC  802F  if
+000005CE  C001  push_int 448
+000005D4  C001  push_int 110
+000005DA  8105  message_str
+          ; message_lookup: list=448, message=110 | 修理技术对这计算机没用。, status=linked
+000005DC  80B8  display_msg
+000005DE  C001  push_int 1526
+000005E4  8004  jump
+000005E6  C001  push_int 448
+000005EC  C001  push_int 105
+000005F2  8105  message_str
+          ; message_lookup: list=448, message=105 | 那是不能操作的。, status=linked
+000005F4  80B8  display_msg
+000005F6  C001  push_int 0
+000005FC  800D  d_to_a
+000005FE  8019  swapa
+00000600  802A  pop_to_base
+00000602  8029  pop_base
+00000604  800C  a_to_d
+00000606  801C  pop_return
+00000608  802A  pop_to_base
+0000060A  8029  pop_base
+0000060C  801C  pop_return
+
+.procedure 3 armit offset=0x0000060E size=136 args=0 flags=0x00000000
+0000060E  802B  push_base
+00000610  C001  push_int 448
+00000616  C001  push_int 102
+0000061C  8105  message_str
+          ; message_lookup: list=448, message=102 | 你检查这个核弹，发现上面有一个4分钟的计时器已经开始倒计时了。, status=linked
+0000061E  80B8  display_msg
+00000620  C001  push_int 1610
+00000626  C001  push_int 55
+0000062C  80C5  global_var
+0000062E  C001  push_int 0
+00000634  8033  equal
+00000636  802F  if
+00000638  C001  push_int 55
+0000063E  80EA  game_time
+00000640  C001  push_int 10
+00000646  803C  div
+00000648  80C6  set_global_var
+0000064A  C001  push_int 18
+00000650  C001  push_int 1
+00000656  80C6  set_global_var
+00000658  C001  push_int 1662
+0000065E  C001  push_int 17
+00000664  80C5  global_var
+00000666  C001  push_int 0
+0000066C  8033  equal
+0000066E  802F  if
+00000670  C001  push_int 51
+00000676  C001  push_int 1
+0000067C  80C6  set_global_var
+0000067E  C001  push_int 0
+00000684  800D  d_to_a
+00000686  8019  swapa
+00000688  802A  pop_to_base
+0000068A  8029  pop_base
+0000068C  800C  a_to_d
+0000068E  801C  pop_return
+00000690  802A  pop_to_base
+00000692  8029  pop_base
+00000694  801C  pop_return
+
+.procedure 4 disarmit offset=0x00000696 size=142 args=0 flags=0x00000000
+00000696  802B  push_base
+00000698  C001  push_int 1774
+0000069E  80EA  game_time
+000006A0  C001  push_int 10
+000006A6  803C  div
+000006A8  C001  push_int 55
+000006AE  80C5  global_var
+000006B0  803A  sub
+000006B2  C001  push_int 30
+000006B8  8038  greater
+000006BA  9001  push_string "<unresolved-string:0x52>"
+000006C0  8014  fetch_external
+000006C2  C001  push_int 1
+000006C8  8033  equal
+000006CA  803F  or
+000006CC  802F  if
+000006CE  C001  push_int 1764
+000006D4  800D  d_to_a
+000006D6  C001  push_int 0
+000006DC  C001  push_int 5
+000006E2  8005  call
+000006E4  801A  pop
+000006E6  C001  push_int 1804
+000006EC  8004  jump
+000006EE  C001  push_int 1
+000006F4  9001  push_string "<unresolved-string:0x46>"
+000006FA  8015  store_external
+000006FC  C001  push_int 448
+00000702  C001  push_int 105
+00000708  8105  message_str
+          ; message_lookup: list=448, message=105 | 那是不能操作的。, status=linked
+0000070A  80B8  display_msg
+0000070C  C001  push_int 0
+00000712  800D  d_to_a
+00000714  8019  swapa
+00000716  802A  pop_to_base
+00000718  8029  pop_base
+0000071A  800C  a_to_d
+0000071C  801C  pop_return
+0000071E  802A  pop_to_base
+00000720  8029  pop_base
+00000722  801C  pop_return
+
+.procedure 5 reset offset=0x00000724 size=70 args=0 flags=0x00000000
+00000724  802B  push_base
+00000726  C001  push_int 448
+0000072C  C001  push_int 103
+00000732  8105  message_str
+          ; message_lookup: list=448, message=103 | 你拆除这个核弹。, status=linked
+00000734  80B8  display_msg
+00000736  C001  push_int 55
+0000073C  C001  push_int 0
+00000742  80C6  set_global_var
+00000744  C001  push_int 18
+0000074A  C001  push_int 0
+00000750  80C6  set_global_var
+00000752  C001  push_int 0
+00000758  800D  d_to_a
+0000075A  8019  swapa
+0000075C  802A  pop_to_base
+0000075E  8029  pop_base
+00000760  800C  a_to_d
+00000762  801C  pop_return
+00000764  802A  pop_to_base
+00000766  8029  pop_base
+00000768  801C  pop_return

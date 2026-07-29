@@ -1,0 +1,55 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\VANCEBOX.INT
+; sha256: 9DCC083FD64EA3B9658133DA22FB5503557EA9C0A3DED915BC24A078FC932749
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 160
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000000A0  802C  set_global
+000000A2  C001  push_int 1
+000000A8  C001  push_int 0
+000000AE  8003  critical_done
+000000B0  C001  push_int 184
+000000B6  8004  jump
+
+.procedure 0 .............. offset=0x000000B8 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000B8 size=66 args=0 flags=0x00000000
+000000B8  802B  push_base
+000000BA  C001  push_int 226
+000000C0  C001  push_int 0
+000000C6  8012  fetch_global
+000000C8  802F  if
+000000CA  C001  push_int 0
+000000D0  C001  push_int 0
+000000D6  8013  store_global
+000000D8  80BC  self_obj
+000000DA  9001  push_string "<unresolved-string:0x2C>"
+000000E0  8015  store_external
+000000E2  C001  push_int 0
+000000E8  800D  d_to_a
+000000EA  8019  swapa
+000000EC  802A  pop_to_base
+000000EE  8029  pop_base
+000000F0  800C  a_to_d
+000000F2  801C  pop_return
+000000F4  802A  pop_to_base
+000000F6  8029  pop_base
+000000F8  801C  pop_return

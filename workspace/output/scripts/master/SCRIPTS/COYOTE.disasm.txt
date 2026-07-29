@@ -1,0 +1,147 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\COYOTE.INT
+; sha256: B17DC41D8E39D489894B6A953CAC79598D8BECC358A0E7AE691DF748EC340457
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 238
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000000EE  802C  set_global
+000000F0  C001  push_int 0
+000000F6  C001  push_int 0
+000000FC  8003  critical_done
+000000FE  C001  push_int 262
+00000104  8004  jump
+
+.procedure 0 .............. offset=0x00000106 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00000106 size=228 args=0 flags=0x00000000
+00000106  802B  push_base
+00000108  C001  push_int 374
+0000010E  C001  push_int 0
+00000114  8012  fetch_global
+00000116  8045  not
+00000118  802F  if
+0000011A  80BC  self_obj
+0000011C  C001  push_int 1
+00000122  C001  push_int 6
+00000128  C001  push_int 21
+0000012E  8102  critter_add_trait
+00000130  80BC  self_obj
+00000132  C001  push_int 1
+00000138  C001  push_int 5
+0000013E  C001  push_int 8
+00000144  8102  critter_add_trait
+00000146  80BC  self_obj
+00000148  C001  push_int 3
+0000014E  C001  push_int 30
+00000154  80B4  random
+00000156  80F2  op_80f2
+00000158  C001  push_int 0
+0000015E  80F0  op_80f0
+00000160  C001  push_int 1
+00000166  C001  push_int 0
+0000016C  8013  store_global
+0000016E  C001  push_int 466
+00000174  8004  jump
+00000176  C001  push_int 424
+0000017C  80C7  script_action
+0000017E  C001  push_int 8
+00000184  8033  equal
+00000186  802F  if
+00000188  C001  push_int 414
+0000018E  800D  d_to_a
+00000190  C001  push_int 0
+00000196  C001  push_int 2
+0000019C  8005  call
+0000019E  801A  pop
+000001A0  C001  push_int 466
+000001A6  8004  jump
+000001A8  C001  push_int 466
+000001AE  80C7  script_action
+000001B0  C001  push_int 22
+000001B6  8033  equal
+000001B8  802F  if
+000001BA  C001  push_int 464
+000001C0  800D  d_to_a
+000001C2  C001  push_int 0
+000001C8  C001  push_int 3
+000001CE  8005  call
+000001D0  801A  pop
+000001D2  C001  push_int 0
+000001D8  800D  d_to_a
+000001DA  8019  swapa
+000001DC  802A  pop_to_base
+000001DE  8029  pop_base
+000001E0  800C  a_to_d
+000001E2  801C  pop_return
+000001E4  802A  pop_to_base
+000001E6  8029  pop_base
+000001E8  801C  pop_return
+
+.procedure 2 use_skill_on_p_proc offset=0x000001EA size=46 args=0 flags=0x00000000
+000001EA  802B  push_base
+000001EC  C001  push_int 512
+000001F2  80FA  op_80fa
+000001F4  C001  push_int 10
+000001FA  8033  equal
+000001FC  802F  if
+000001FE  80B9  script_overrides
+00000200  C001  push_int 0
+00000206  800D  d_to_a
+00000208  8019  swapa
+0000020A  802A  pop_to_base
+0000020C  8029  pop_base
+0000020E  800C  a_to_d
+00000210  801C  pop_return
+00000212  802A  pop_to_base
+00000214  8029  pop_base
+00000216  801C  pop_return
+
+.procedure 3 timed_event_p_proc offset=0x00000218 size=96 args=0 flags=0x00000000
+00000218  802B  push_base
+0000021A  80BC  self_obj
+0000021C  80BC  self_obj
+0000021E  80D4  op_80d4
+00000220  C001  push_int 0
+00000226  C001  push_int 5
+0000022C  80B4  random
+0000022E  C001  push_int 1
+00000234  C001  push_int 3
+0000023A  80B4  random
+0000023C  80D5  op_80d5
+0000023E  C001  push_int 0
+00000244  80CE  op_80ce
+00000246  80BC  self_obj
+00000248  C001  push_int 3
+0000024E  C001  push_int 30
+00000254  80B4  random
+00000256  80F2  op_80f2
+00000258  C001  push_int 0
+0000025E  80F0  op_80f0
+00000260  C001  push_int 0
+00000266  800D  d_to_a
+00000268  8019  swapa
+0000026A  802A  pop_to_base
+0000026C  8029  pop_base
+0000026E  800C  a_to_d
+00000270  801C  pop_return
+00000272  802A  pop_to_base
+00000274  8029  pop_base
+00000276  801C  pop_return

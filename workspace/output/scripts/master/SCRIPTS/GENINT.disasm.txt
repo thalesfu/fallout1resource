@@ -1,0 +1,147 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\GENINT.INT
+; sha256: 48AE72F7EA9589050490BC23129FCC91AB76367EF86A1D7B72410BF5ABF70493
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 432
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000001B0  802C  set_global
+000001B2  C001  push_int 0
+000001B8  C001  push_int 0
+000001BE  8003  critical_done
+000001C0  C001  push_int 456
+000001C6  8004  jump
+
+.procedure 0 .............. offset=0x000001C8 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000001C8 size=170 args=0 flags=0x00000000
+000001C8  802B  push_base
+000001CA  C001  push_int 0
+000001D0  C001  push_int 516
+000001D6  80C7  script_action
+000001D8  C001  push_int 11
+000001DE  8033  equal
+000001E0  802F  if
+000001E2  C001  push_int 504
+000001E8  800D  d_to_a
+000001EA  C001  push_int 0
+000001F0  C001  push_int 2
+000001F6  8005  call
+000001F8  801A  pop
+000001FA  800F  detach
+000001FC  C001  push_int 602
+00000202  8004  jump
+00000204  C001  push_int 554
+0000020A  80C7  script_action
+0000020C  C001  push_int 21
+00000212  8033  equal
+00000214  802F  if
+00000216  80B9  script_overrides
+00000218  9001  push_string "You see one of the acrolytes of the Children of the Cathedral."
+0000021E  80B8  display_msg
+00000220  800F  detach
+00000222  C001  push_int 602
+00000228  8004  jump
+0000022A  C001  push_int 582
+00000230  80C7  script_action
+00000232  C001  push_int 12
+00000238  8033  equal
+0000023A  802F  if
+0000023C  800F  detach
+0000023E  C001  push_int 602
+00000244  8004  jump
+00000246  C001  push_int 602
+0000024C  80C7  script_action
+0000024E  C001  push_int 13
+00000254  8033  equal
+00000256  802F  if
+00000258  800F  detach
+0000025A  C001  push_int 0
+00000260  800D  d_to_a
+00000262  8019  swapa
+00000264  802A  pop_to_base
+00000266  8029  pop_base
+00000268  800C  a_to_d
+0000026A  801C  pop_return
+0000026C  802A  pop_to_base
+0000026E  8029  pop_base
+00000270  801C  pop_return
+
+.procedure 2 do_dialogue offset=0x00000272 size=218 args=0 flags=0x00000000
+00000272  802B  push_base
+00000274  C001  push_int 1
+0000027A  C001  push_int 3
+00000280  80B4  random
+00000282  C001  push_int 0
+00000288  8013  store_global
+0000028A  C001  push_int 107
+00000290  80BC  self_obj
+00000292  C001  push_int 4
+00000298  C001  push_int 1
+0000029E  8046  negate
+000002A0  C001  push_int 1
+000002A6  8046  negate
+000002A8  80DE  start_gdialog
+000002AA  811C  gsay_start
+000002AC  C001  push_int 728
+000002B2  C001  push_int 0
+000002B8  8012  fetch_global
+000002BA  C001  push_int 1
+000002C0  8033  equal
+000002C2  802F  if
+000002C4  C001  push_int 107
+000002CA  9001  push_string "Peace be with you. Please talk to Laura."
+000002D0  C001  push_int 50
+000002D6  8120  gsay_message
+          ; message: list=107, message="Peace be with you. Please talk to Laura.", status=no-msg
+000002D8  C001  push_int 772
+000002DE  C001  push_int 0
+000002E4  8012  fetch_global
+000002E6  C001  push_int 2
+000002EC  8033  equal
+000002EE  802F  if
+000002F0  C001  push_int 107
+000002F6  9001  push_string "Laura taught me that we are all one people and should look to the good in them. She is very wise."
+000002FC  C001  push_int 50
+00000302  8120  gsay_message
+          ; message: list=107, message="Laura taught me that we are all one people and should look to the good in them. She is very wise.", status=no-msg
+00000304  C001  push_int 816
+0000030A  C001  push_int 0
+00000310  8012  fetch_global
+00000312  C001  push_int 3
+00000318  8033  equal
+0000031A  802F  if
+0000031C  C001  push_int 107
+00000322  9001  push_string "Laura is a wise and wonderful person."
+00000328  C001  push_int 50
+0000032E  8120  gsay_message
+          ; message: list=107, message="Laura is a wise and wonderful person.", status=no-msg
+00000330  811D  gsay_end
+00000332  80DF  end_dialogue
+00000334  C001  push_int 0
+0000033A  800D  d_to_a
+0000033C  8019  swapa
+0000033E  802A  pop_to_base
+00000340  8029  pop_base
+00000342  800C  a_to_d
+00000344  801C  pop_return
+00000346  802A  pop_to_base
+00000348  8029  pop_base
+0000034A  801C  pop_return

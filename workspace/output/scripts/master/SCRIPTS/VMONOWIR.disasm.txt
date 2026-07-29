@@ -1,0 +1,267 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\VMONOWIR.INT
+; sha256: DD7BCBABF329917ED5A0F0DF5B3BFDEC253B19A1F9CBB657748999A2F2EB20FB
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 254
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000000FE  802C  set_global
+00000100  C001  push_int 0
+00000106  C001  push_int 0
+0000010C  C001  push_int 0
+00000112  8003  critical_done
+00000114  C001  push_int 284
+0000011A  8004  jump
+
+.procedure 0 .............. offset=0x0000011C size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x0000011C size=118 args=0 flags=0x00000000
+0000011C  802B  push_base
+0000011E  C001  push_int 336
+00000124  80C7  script_action
+00000126  C001  push_int 2
+0000012C  8033  equal
+0000012E  802F  if
+00000130  C001  push_int 326
+00000136  800D  d_to_a
+00000138  C001  push_int 0
+0000013E  C001  push_int 2
+00000144  8005  call
+00000146  801A  pop
+00000148  C001  push_int 378
+0000014E  8004  jump
+00000150  C001  push_int 378
+00000156  80C7  script_action
+00000158  C001  push_int 8
+0000015E  8033  equal
+00000160  802F  if
+00000162  C001  push_int 376
+00000168  800D  d_to_a
+0000016A  C001  push_int 0
+00000170  C001  push_int 3
+00000176  8005  call
+00000178  801A  pop
+0000017A  C001  push_int 0
+00000180  800D  d_to_a
+00000182  8019  swapa
+00000184  802A  pop_to_base
+00000186  8029  pop_base
+00000188  800C  a_to_d
+0000018A  801C  pop_return
+0000018C  802A  pop_to_base
+0000018E  8029  pop_base
+00000190  801C  pop_return
+
+.procedure 2 spatial_p_proc offset=0x00000192 size=422 args=0 flags=0x00000000
+00000192  802B  push_base
+00000194  C001  push_int 800
+0000019A  80BD  source_obj
+0000019C  80BF  dude_obj
+0000019E  8033  equal
+000001A0  802F  if
+000001A2  C001  push_int 458
+000001A8  80BF  dude_obj
+000001AA  80D4  op_80d4
+000001AC  80BC  self_obj
+000001AE  80D4  op_80d4
+000001B0  8034  not_equal
+000001B2  802F  if
+000001B4  C001  push_int 0
+000001BA  C001  push_int 0
+000001C0  8013  store_global
+000001C2  C001  push_int 800
+000001C8  8004  jump
+000001CA  C001  push_int 800
+000001D0  C001  push_int 0
+000001D6  8012  fetch_global
+000001D8  C001  push_int 0
+000001DE  8033  equal
+000001E0  802F  if
+000001E2  C001  push_int 1
+000001E8  C001  push_int 0
+000001EE  8013  store_global
+000001F0  C001  push_int 596
+000001F6  80BF  dude_obj
+000001F8  8149  op_8149
+000001FA  814A  op_814a
+000001FC  C001  push_int 1
+00000202  8033  equal
+00000204  80BF  dude_obj
+00000206  C001  push_int 1
+0000020C  C001  push_int 0
+00000212  80AE  op_80ae
+00000214  80AF  op_80af
+00000216  803E  and
+00000218  80BF  dude_obj
+0000021A  C001  push_int 5
+00000220  C001  push_int 0
+00000226  80AE  op_80ae
+00000228  80AF  op_80af
+0000022A  803E  and
+0000022C  802F  if
+0000022E  C001  push_int 615
+00000234  C001  push_int 100
+0000023A  8105  message_str
+          ; message_lookup: list=615, message=100 | 你发现了一条横在走廊上的绊线机关，机智地躲了过去。, status=linked
+0000023C  80B8  display_msg
+0000023E  C001  push_int 13
+00000244  C001  push_int 1
+0000024A  80C4  op_80c4
+0000024C  C001  push_int 800
+00000252  8004  jump
+00000254  C001  push_int 615
+0000025A  C001  push_int 101
+00000260  8105  message_str
+          ; message_lookup: list=615, message=101 | 你突然感到腿上的剧痛，一条绊线划开了你的皮肉。, status=linked
+00000262  80B8  display_msg
+00000264  C001  push_int 666
+0000026A  80BF  dude_obj
+0000026C  8149  op_8149
+0000026E  814A  op_814a
+00000270  C001  push_int 1
+00000276  8033  equal
+00000278  802F  if
+0000027A  80BF  dude_obj
+0000027C  C001  push_int 10
+00000282  C001  push_int 20
+00000288  80B4  random
+0000028A  C001  push_int 1
+00000290  80EF  op_80ef
+00000292  C001  push_int 690
+00000298  8004  jump
+0000029A  80BF  dude_obj
+0000029C  C001  push_int 15
+000002A2  C001  push_int 30
+000002A8  80B4  random
+000002AA  C001  push_int 1
+000002B0  80EF  op_80ef
+000002B2  C001  push_int 800
+000002B8  80BF  dude_obj
+000002BA  C001  push_int 6
+000002C0  C001  push_int 0
+000002C6  80AE  op_80ae
+000002C8  80AF  op_80af
+000002CA  8045  not
+000002CC  802F  if
+000002CE  C001  push_int 774
+000002D4  C001  push_int 0
+000002DA  C001  push_int 1
+000002E0  80B4  random
+000002E2  802F  if
+000002E4  C001  push_int 615
+000002EA  C001  push_int 102
+000002F0  8105  message_str
+          ; message_lookup: list=615, message=102 | 你的右腿受了重伤。 , status=linked
+000002F2  80B8  display_msg
+000002F4  80BF  dude_obj
+000002F6  C001  push_int 8
+000002FC  8127  op_8127
+000002FE  C001  push_int 800
+00000304  8004  jump
+00000306  C001  push_int 615
+0000030C  C001  push_int 103
+00000312  8105  message_str
+          ; message_lookup: list=615, message=103 | 你的左腿受了重伤。, status=linked
+00000314  80B8  display_msg
+00000316  80BF  dude_obj
+00000318  C001  push_int 4
+0000031E  8127  op_8127
+00000320  C001  push_int 0
+00000326  800D  d_to_a
+00000328  8019  swapa
+0000032A  802A  pop_to_base
+0000032C  8029  pop_base
+0000032E  800C  a_to_d
+00000330  801C  pop_return
+00000332  802A  pop_to_base
+00000334  8029  pop_base
+00000336  801C  pop_return
+
+.procedure 3 use_skill_on_p_proc offset=0x00000338 size=238 args=0 flags=0x00000000
+00000338  802B  push_base
+0000033A  C001  push_int 1038
+00000340  C001  push_int 7
+00000346  80C3  op_80c3
+00000348  C001  push_int 1
+0000034E  8033  equal
+00000350  C001  push_int 13
+00000356  80C3  op_80c3
+00000358  C001  push_int 0
+0000035E  8033  equal
+00000360  803E  and
+00000362  802F  if
+00000364  80B9  script_overrides
+00000366  C001  push_int 964
+0000036C  80BF  dude_obj
+0000036E  C001  push_int 11
+00000374  C001  push_int 20
+0000037A  8046  negate
+0000037C  80AC  op_80ac
+0000037E  80AF  op_80af
+00000380  802F  if
+00000382  C001  push_int 615
+00000388  C001  push_int 104
+0000038E  8105  message_str
+          ; message_lookup: list=615, message=104 | 你解除了绊线机关，把金属线扯了下来，差点把手弄破。, status=linked
+00000390  80B8  display_msg
+00000392  C001  push_int 13
+00000398  C001  push_int 1
+0000039E  80C4  op_80c4
+000003A0  80BC  self_obj
+000003A2  C001  push_int 7000
+000003A8  C001  push_int 0
+000003AE  80B6  op_80b6
+000003B0  801A  pop
+000003B2  80BC  self_obj
+000003B4  9001  push_string "<unresolved-string:0x48>"
+000003BA  8015  store_external
+000003BC  C001  push_int 1038
+000003C2  8004  jump
+000003C4  C001  push_int 1022
+000003CA  C001  push_int 1
+000003D0  8012  fetch_global
+000003D2  80B0  op_80b0
+000003D4  802F  if
+000003D6  C001  push_int 615
+000003DC  C001  push_int 106
+000003E2  8105  message_str
+          ; message_lookup: list=615, message=106 | 你想卸除这条绊线，结果失败了，还被它划伤了。, status=linked
+000003E4  80B8  display_msg
+000003E6  80BF  dude_obj
+000003E8  C001  push_int 1
+000003EE  C001  push_int 1
+000003F4  80EF  op_80ef
+000003F6  C001  push_int 1038
+000003FC  8004  jump
+000003FE  C001  push_int 615
+00000404  C001  push_int 105
+0000040A  8105  message_str
+          ; message_lookup: list=615, message=105 | 你想卸除这条绊线，但是它太难弄了，还差点伤了你，你放弃了。, status=linked
+0000040C  80B8  display_msg
+0000040E  C001  push_int 0
+00000414  800D  d_to_a
+00000416  8019  swapa
+00000418  802A  pop_to_base
+0000041A  8029  pop_base
+0000041C  800C  a_to_d
+0000041E  801C  pop_return
+00000420  802A  pop_to_base
+00000422  8029  pop_base
+00000424  801C  pop_return

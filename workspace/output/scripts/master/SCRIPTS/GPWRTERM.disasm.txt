@@ -1,0 +1,821 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\GPWRTERM.INT
+; sha256: 817DC472EA40C03B9332B74E5FE7D7C73974F30DBF9A776FFFA792FA3148D053
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 968
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000003C8  802C  set_global
+000003CA  C001  push_int 0
+000003D0  8003  critical_done
+000003D2  C001  push_int 986
+000003D8  8004  jump
+
+.procedure 0 .............. offset=0x000003DA size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000003DA size=168 args=0 flags=0x00000000
+000003DA  802B  push_base
+000003DC  C001  push_int 1038
+000003E2  80C7  script_action
+000003E4  C001  push_int 6
+000003EA  8033  equal
+000003EC  802F  if
+000003EE  C001  push_int 1028
+000003F4  800D  d_to_a
+000003F6  C001  push_int 0
+000003FC  C001  push_int 2
+00000402  8005  call
+00000404  801A  pop
+00000406  C001  push_int 1130
+0000040C  8004  jump
+0000040E  C001  push_int 1088
+00000414  80C7  script_action
+00000416  C001  push_int 11
+0000041C  8033  equal
+0000041E  802F  if
+00000420  C001  push_int 1078
+00000426  800D  d_to_a
+00000428  C001  push_int 0
+0000042E  C001  push_int 3
+00000434  8005  call
+00000436  801A  pop
+00000438  C001  push_int 1130
+0000043E  8004  jump
+00000440  C001  push_int 1130
+00000446  80C7  script_action
+00000448  C001  push_int 8
+0000044E  8033  equal
+00000450  802F  if
+00000452  C001  push_int 1128
+00000458  800D  d_to_a
+0000045A  C001  push_int 0
+00000460  C001  push_int 4
+00000466  8005  call
+00000468  801A  pop
+0000046A  C001  push_int 0
+00000470  800D  d_to_a
+00000472  8019  swapa
+00000474  802A  pop_to_base
+00000476  8029  pop_base
+00000478  800C  a_to_d
+0000047A  801C  pop_return
+0000047C  802A  pop_to_base
+0000047E  8029  pop_base
+00000480  801C  pop_return
+
+.procedure 2 use_p_proc offset=0x00000482 size=30 args=0 flags=0x00000000
+00000482  802B  push_base
+00000484  80B9  script_overrides
+00000486  80F9  op_80f9
+00000488  C001  push_int 0
+0000048E  800D  d_to_a
+00000490  8019  swapa
+00000492  802A  pop_to_base
+00000494  8029  pop_base
+00000496  800C  a_to_d
+00000498  801C  pop_return
+0000049A  802A  pop_to_base
+0000049C  8029  pop_base
+0000049E  801C  pop_return
+
+.procedure 3 talk_p_proc offset=0x000004A0 size=200 args=0 flags=0x00000000
+000004A0  802B  push_base
+000004A2  C001  push_int 828
+000004A8  80BC  self_obj
+000004AA  C001  push_int 4
+000004B0  C001  push_int 1
+000004B6  8046  negate
+000004B8  C001  push_int 1
+000004BE  8046  negate
+000004C0  80DE  start_gdialog
+000004C2  811C  gsay_start
+000004C4  C001  push_int 1276
+000004CA  C001  push_int 224
+000004D0  80C5  global_var
+000004D2  C001  push_int 0
+000004D8  8033  equal
+000004DA  802F  if
+000004DC  C001  push_int 1266
+000004E2  800D  d_to_a
+000004E4  C001  push_int 0
+000004EA  C001  push_int 22
+000004F0  8005  call
+000004F2  801A  pop
+000004F4  C001  push_int 1356
+000004FA  8004  jump
+000004FC  C001  push_int 1332
+00000502  C001  push_int 224
+00000508  80C5  global_var
+0000050A  C001  push_int 1
+00000510  8033  equal
+00000512  802F  if
+00000514  C001  push_int 1322
+0000051A  800D  d_to_a
+0000051C  C001  push_int 0
+00000522  C001  push_int 5
+00000528  8005  call
+0000052A  801A  pop
+0000052C  C001  push_int 1356
+00000532  8004  jump
+00000534  C001  push_int 1354
+0000053A  800D  d_to_a
+0000053C  C001  push_int 0
+00000542  C001  push_int 15
+00000548  8005  call
+0000054A  801A  pop
+0000054C  811D  gsay_end
+0000054E  80DF  end_dialogue
+00000550  C001  push_int 0
+00000556  800D  d_to_a
+00000558  8019  swapa
+0000055A  802A  pop_to_base
+0000055C  8029  pop_base
+0000055E  800C  a_to_d
+00000560  801C  pop_return
+00000562  802A  pop_to_base
+00000564  8029  pop_base
+00000566  801C  pop_return
+
+.procedure 4 use_skill_on_p_proc offset=0x00000568 size=48 args=0 flags=0x00000000
+00000568  802B  push_base
+0000056A  C001  push_int 1408
+00000570  80FA  op_80fa
+00000572  C001  push_int 12
+00000578  8033  equal
+0000057A  802F  if
+0000057C  80B9  script_overrides
+0000057E  80F9  op_80f9
+00000580  C001  push_int 0
+00000586  800D  d_to_a
+00000588  8019  swapa
+0000058A  802A  pop_to_base
+0000058C  8029  pop_base
+0000058E  800C  a_to_d
+00000590  801C  pop_return
+00000592  802A  pop_to_base
+00000594  8029  pop_base
+00000596  801C  pop_return
+
+.procedure 5 Term01 offset=0x00000598 size=138 args=0 flags=0x00000000
+00000598  802B  push_base
+0000059A  C001  push_int 828
+000005A0  C001  push_int 100
+000005A6  811E  gsay_reply
+          ; reply: list=828, message=100 | 系统：　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　主电力：离线　　　　　　　　　　　　　　　　　　　　　　　　紧急电力：在线, status=linked
+000005A8  C001  push_int 4
+000005AE  C001  push_int 828
+000005B4  C001  push_int 101
+000005BA  C001  push_int 6
+000005C0  C001  push_int 50
+000005C6  8121  giq_option
+          ; intelligence_option: list=828, message=101 | 电力管理, status=linked
+000005C8  C001  push_int 3
+000005CE  8046  negate
+000005D0  C001  push_int 828
+000005D6  C001  push_int 102
+000005DC  C001  push_int 17
+000005E2  C001  push_int 50
+000005E8  8121  giq_option
+          ; intelligence_option: list=828, message=102 | 电＊＊理, status=linked
+000005EA  C001  push_int 0
+000005F0  C001  push_int 828
+000005F6  C001  push_int 103
+000005FC  C001  push_int 25
+00000602  C001  push_int 50
+00000608  8121  giq_option
+          ; intelligence_option: list=828, message=103 | 退出, status=linked
+0000060A  C001  push_int 0
+00000610  800D  d_to_a
+00000612  8019  swapa
+00000614  802A  pop_to_base
+00000616  8029  pop_base
+00000618  800C  a_to_d
+0000061A  801C  pop_return
+0000061C  802A  pop_to_base
+0000061E  8029  pop_base
+00000620  801C  pop_return
+
+.procedure 6 Term02 offset=0x00000622 size=136 args=0 flags=0x00000000
+00000622  802B  push_base
+00000624  C001  push_int 828
+0000062A  C001  push_int 104
+00000630  811E  gsay_reply
+          ; reply: list=828, message=104 | 电力管理系统, status=linked
+00000632  C001  push_int 4
+00000638  C001  push_int 828
+0000063E  C001  push_int 105
+00000644  C001  push_int 7
+0000064A  C001  push_int 50
+00000650  8121  giq_option
+          ; intelligence_option: list=828, message=105 | 主电力, status=linked
+00000652  C001  push_int 4
+00000658  C001  push_int 828
+0000065E  C001  push_int 106
+00000664  C001  push_int 11
+0000066A  C001  push_int 50
+00000670  8121  giq_option
+          ; intelligence_option: list=828, message=106 | 紧急电力, status=linked
+00000672  C001  push_int 4
+00000678  C001  push_int 828
+0000067E  C001  push_int 107
+00000684  C001  push_int 5
+0000068A  C001  push_int 50
+00000690  8121  giq_option
+          ; intelligence_option: list=828, message=107 | 返回, status=linked
+00000692  C001  push_int 0
+00000698  800D  d_to_a
+0000069A  8019  swapa
+0000069C  802A  pop_to_base
+0000069E  8029  pop_base
+000006A0  800C  a_to_d
+000006A2  801C  pop_return
+000006A4  802A  pop_to_base
+000006A6  8029  pop_base
+000006A8  801C  pop_return
+
+.procedure 7 Term03 offset=0x000006AA size=104 args=0 flags=0x00000000
+000006AA  802B  push_base
+000006AC  C001  push_int 828
+000006B2  C001  push_int 108
+000006B8  811E  gsay_reply
+          ; reply: list=828, message=108 | 主电力管理：离线, status=linked
+000006BA  C001  push_int 4
+000006C0  C001  push_int 828
+000006C6  C001  push_int 109
+000006CC  C001  push_int 8
+000006D2  C001  push_int 50
+000006D8  8121  giq_option
+          ; intelligence_option: list=828, message=109 | 主电力复位, status=linked
+000006DA  C001  push_int 4
+000006E0  C001  push_int 828
+000006E6  C001  push_int 110
+000006EC  C001  push_int 6
+000006F2  C001  push_int 50
+000006F8  8121  giq_option
+          ; intelligence_option: list=828, message=110 | 返回, status=linked
+000006FA  C001  push_int 0
+00000700  800D  d_to_a
+00000702  8019  swapa
+00000704  802A  pop_to_base
+00000706  8029  pop_base
+00000708  800C  a_to_d
+0000070A  801C  pop_return
+0000070C  802A  pop_to_base
+0000070E  8029  pop_base
+00000710  801C  pop_return
+
+.procedure 8 Term03a offset=0x00000712 size=96 args=0 flags=0x00000000
+00000712  802B  push_base
+00000714  C001  push_int 1868
+0000071A  C001  push_int 139
+00000720  80C5  global_var
+00000722  C001  push_int 2
+00000728  8034  not_equal
+0000072A  802F  if
+0000072C  C001  push_int 1858
+00000732  800D  d_to_a
+00000734  C001  push_int 0
+0000073A  C001  push_int 9
+00000740  8005  call
+00000742  801A  pop
+00000744  C001  push_int 1882
+0000074A  8004  jump
+0000074C  C001  push_int 224
+00000752  C001  push_int 2
+00000758  80C6  set_global_var
+0000075A  C001  push_int 0
+00000760  800D  d_to_a
+00000762  8019  swapa
+00000764  802A  pop_to_base
+00000766  8029  pop_base
+00000768  800C  a_to_d
+0000076A  801C  pop_return
+0000076C  802A  pop_to_base
+0000076E  8029  pop_base
+00000770  801C  pop_return
+
+.procedure 9 Term04 offset=0x00000772 size=104 args=0 flags=0x00000000
+00000772  802B  push_base
+00000774  C001  push_int 828
+0000077A  C001  push_int 111
+00000780  811E  gsay_reply
+          ; reply: list=828, message=111 | 主电力管理：　　　　　　　　　　　　　　　　　错误！错误！错误！　　　　　　　　　　　　　　　　　主系统初始化失败, status=linked
+00000782  C001  push_int 8
+00000788  C001  push_int 828
+0000078E  C001  push_int 112
+00000794  C001  push_int 10
+0000079A  C001  push_int 50
+000007A0  8121  giq_option
+          ; intelligence_option: list=828, message=112 | 诊断, status=linked
+000007A2  C001  push_int 4
+000007A8  C001  push_int 828
+000007AE  C001  push_int 113
+000007B4  C001  push_int 6
+000007BA  C001  push_int 50
+000007C0  8121  giq_option
+          ; intelligence_option: list=828, message=113 | 返回, status=linked
+000007C2  C001  push_int 0
+000007C8  800D  d_to_a
+000007CA  8019  swapa
+000007CC  802A  pop_to_base
+000007CE  8029  pop_base
+000007D0  800C  a_to_d
+000007D2  801C  pop_return
+000007D4  802A  pop_to_base
+000007D6  8029  pop_base
+000007D8  801C  pop_return
+
+.procedure 10 Term05 offset=0x000007DA size=72 args=0 flags=0x00000000
+000007DA  802B  push_base
+000007DC  C001  push_int 828
+000007E2  C001  push_int 114
+000007E8  811E  gsay_reply
+          ; reply: list=828, message=114 | 故障：发电机-级别-６　　　　　　　　　　　　　　　０供给返回：无法修复　　　　　　　　　　　　　　　　服务需求, status=linked
+000007EA  C001  push_int 4
+000007F0  C001  push_int 828
+000007F6  C001  push_int 115
+000007FC  C001  push_int 6
+00000802  C001  push_int 50
+00000808  8121  giq_option
+          ; intelligence_option: list=828, message=115 | 返回, status=linked
+0000080A  C001  push_int 0
+00000810  800D  d_to_a
+00000812  8019  swapa
+00000814  802A  pop_to_base
+00000816  8029  pop_base
+00000818  800C  a_to_d
+0000081A  801C  pop_return
+0000081C  802A  pop_to_base
+0000081E  8029  pop_base
+00000820  801C  pop_return
+
+.procedure 11 Term06 offset=0x00000822 size=104 args=0 flags=0x00000000
+00000822  802B  push_base
+00000824  C001  push_int 828
+0000082A  C001  push_int 116
+00000830  811E  gsay_reply
+          ; reply: list=828, message=116 | 紧急电力管理：在线, status=linked
+00000832  C001  push_int 4
+00000838  C001  push_int 828
+0000083E  C001  push_int 117
+00000844  C001  push_int 12
+0000084A  C001  push_int 50
+00000850  8121  giq_option
+          ; intelligence_option: list=828, message=117 | 关闭紧急电力, status=linked
+00000852  C001  push_int 4
+00000858  C001  push_int 828
+0000085E  C001  push_int 118
+00000864  C001  push_int 6
+0000086A  C001  push_int 50
+00000870  8121  giq_option
+          ; intelligence_option: list=828, message=118 | 返回, status=linked
+00000872  C001  push_int 0
+00000878  800D  d_to_a
+0000087A  8019  swapa
+0000087C  802A  pop_to_base
+0000087E  8029  pop_base
+00000880  800C  a_to_d
+00000882  801C  pop_return
+00000884  802A  pop_to_base
+00000886  8029  pop_base
+00000888  801C  pop_return
+
+.procedure 12 Term06a offset=0x0000088A size=40 args=0 flags=0x00000000
+0000088A  802B  push_base
+0000088C  C001  push_int 224
+00000892  C001  push_int 0
+00000898  80C6  set_global_var
+0000089A  C001  push_int 0
+000008A0  800D  d_to_a
+000008A2  8019  swapa
+000008A4  802A  pop_to_base
+000008A6  8029  pop_base
+000008A8  800C  a_to_d
+000008AA  801C  pop_return
+000008AC  802A  pop_to_base
+000008AE  8029  pop_base
+000008B0  801C  pop_return
+
+.procedure 13 Term07 offset=0x000008B2 size=104 args=0 flags=0x00000000
+000008B2  802B  push_base
+000008B4  C001  push_int 828
+000008BA  C001  push_int 119
+000008C0  811E  gsay_reply
+          ; reply: list=828, message=119 | 系统：　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　主电力：离线　　　　　　　　　　　　　　　　　　　　　　　　紧急电力：准备, status=linked
+000008C2  C001  push_int 4
+000008C8  C001  push_int 828
+000008CE  C001  push_int 120
+000008D4  C001  push_int 14
+000008DA  C001  push_int 50
+000008E0  8121  giq_option
+          ; intelligence_option: list=828, message=120 | 电力管理, status=linked
+000008E2  C001  push_int 0
+000008E8  C001  push_int 828
+000008EE  C001  push_int 121
+000008F4  C001  push_int 25
+000008FA  C001  push_int 50
+00000900  8121  giq_option
+          ; intelligence_option: list=828, message=121 | 退出, status=linked
+00000902  C001  push_int 0
+00000908  800D  d_to_a
+0000090A  8019  swapa
+0000090C  802A  pop_to_base
+0000090E  8029  pop_base
+00000910  800C  a_to_d
+00000912  801C  pop_return
+00000914  802A  pop_to_base
+00000916  8029  pop_base
+00000918  801C  pop_return
+
+.procedure 14 Term08 offset=0x0000091A size=104 args=0 flags=0x00000000
+0000091A  802B  push_base
+0000091C  C001  push_int 828
+00000922  C001  push_int 122
+00000928  811E  gsay_reply
+          ; reply: list=828, message=122 | 主电力管理：在线, status=linked
+0000092A  C001  push_int 4
+00000930  C001  push_int 828
+00000936  C001  push_int 123
+0000093C  C001  push_int 16
+00000942  C001  push_int 50
+00000948  8121  giq_option
+          ; intelligence_option: list=828, message=123 | 关闭主电力, status=linked
+0000094A  C001  push_int 4
+00000950  C001  push_int 828
+00000956  C001  push_int 124
+0000095C  C001  push_int 13
+00000962  C001  push_int 50
+00000968  8121  giq_option
+          ; intelligence_option: list=828, message=124 | 返回, status=linked
+0000096A  C001  push_int 0
+00000970  800D  d_to_a
+00000972  8019  swapa
+00000974  802A  pop_to_base
+00000976  8029  pop_base
+00000978  800C  a_to_d
+0000097A  801C  pop_return
+0000097C  802A  pop_to_base
+0000097E  8029  pop_base
+00000980  801C  pop_return
+
+.procedure 15 Term09 offset=0x00000982 size=138 args=0 flags=0x00000000
+00000982  802B  push_base
+00000984  C001  push_int 828
+0000098A  C001  push_int 125
+00000990  811E  gsay_reply
+          ; reply: list=828, message=125 | 系统：　　　　　　　　主电力：在线, status=linked
+00000992  C001  push_int 3
+00000998  8046  negate
+0000099A  C001  push_int 828
+000009A0  C001  push_int 126
+000009A6  C001  push_int 16
+000009AC  C001  push_int 50
+000009B2  8121  giq_option
+          ; intelligence_option: list=828, message=126 | ＊闭主＊力, status=linked
+000009B4  C001  push_int 4
+000009BA  C001  push_int 828
+000009C0  C001  push_int 127
+000009C6  C001  push_int 16
+000009CC  C001  push_int 50
+000009D2  8121  giq_option
+          ; intelligence_option: list=828, message=127 | 关闭主电力, status=linked
+000009D4  C001  push_int 0
+000009DA  C001  push_int 828
+000009E0  C001  push_int 128
+000009E6  C001  push_int 25
+000009EC  C001  push_int 50
+000009F2  8121  giq_option
+          ; intelligence_option: list=828, message=128 | 退出, status=linked
+000009F4  C001  push_int 0
+000009FA  800D  d_to_a
+000009FC  8019  swapa
+000009FE  802A  pop_to_base
+00000A00  8029  pop_base
+00000A02  800C  a_to_d
+00000A04  801C  pop_return
+00000A06  802A  pop_to_base
+00000A08  8029  pop_base
+00000A0A  801C  pop_return
+
+.procedure 16 Term09a offset=0x00000A0C size=40 args=0 flags=0x00000000
+00000A0C  802B  push_base
+00000A0E  C001  push_int 224
+00000A14  C001  push_int 1
+00000A1A  80C6  set_global_var
+00000A1C  C001  push_int 0
+00000A22  800D  d_to_a
+00000A24  8019  swapa
+00000A26  802A  pop_to_base
+00000A28  8029  pop_base
+00000A2A  800C  a_to_d
+00000A2C  801C  pop_return
+00000A2E  802A  pop_to_base
+00000A30  8029  pop_base
+00000A32  801C  pop_return
+
+.procedure 17 Term10 offset=0x00000A34 size=142 args=0 flags=0x00000000
+00000A34  802B  push_base
+00000A36  C001  push_int 828
+00000A3C  C001  push_int 129
+00000A42  811E  gsay_reply
+          ; reply: list=828, message=129 | ＊力＊理系＊, status=linked
+00000A44  C001  push_int 3
+00000A4A  8046  negate
+00000A4C  C001  push_int 828
+00000A52  C001  push_int 130
+00000A58  C001  push_int 18
+00000A5E  C001  push_int 50
+00000A64  8121  giq_option
+          ; intelligence_option: list=828, message=130 | 主＊力, status=linked
+00000A66  C001  push_int 3
+00000A6C  8046  negate
+00000A6E  C001  push_int 828
+00000A74  C001  push_int 131
+00000A7A  C001  push_int 21
+00000A80  C001  push_int 50
+00000A86  8121  giq_option
+          ; intelligence_option: list=828, message=131 | ＊用电＊, status=linked
+00000A88  C001  push_int 3
+00000A8E  8046  negate
+00000A90  C001  push_int 828
+00000A96  C001  push_int 132
+00000A9C  C001  push_int 5
+00000AA2  C001  push_int 50
+00000AA8  8121  giq_option
+          ; intelligence_option: list=828, message=132 | 返回, status=linked
+00000AAA  C001  push_int 0
+00000AB0  800D  d_to_a
+00000AB2  8019  swapa
+00000AB4  802A  pop_to_base
+00000AB6  8029  pop_base
+00000AB8  800C  a_to_d
+00000ABA  801C  pop_return
+00000ABC  802A  pop_to_base
+00000ABE  8029  pop_base
+00000AC0  801C  pop_return
+
+.procedure 18 Term11 offset=0x00000AC2 size=108 args=0 flags=0x00000000
+00000AC2  802B  push_base
+00000AC4  C001  push_int 828
+00000ACA  C001  push_int 133
+00000AD0  811E  gsay_reply
+          ; reply: list=828, message=133 | 主＊＊管＊, status=linked
+00000AD2  C001  push_int 3
+00000AD8  8046  negate
+00000ADA  C001  push_int 828
+00000AE0  C001  push_int 134
+00000AE6  C001  push_int 19
+00000AEC  C001  push_int 50
+00000AF2  8121  giq_option
+          ; intelligence_option: list=828, message=134 | 初＊化主＊＊, status=linked
+00000AF4  C001  push_int 3
+00000AFA  8046  negate
+00000AFC  C001  push_int 828
+00000B02  C001  push_int 135
+00000B08  C001  push_int 17
+00000B0E  C001  push_int 50
+00000B14  8121  giq_option
+          ; intelligence_option: list=828, message=135 | 返回, status=linked
+00000B16  C001  push_int 0
+00000B1C  800D  d_to_a
+00000B1E  8019  swapa
+00000B20  802A  pop_to_base
+00000B22  8029  pop_base
+00000B24  800C  a_to_d
+00000B26  801C  pop_return
+00000B28  802A  pop_to_base
+00000B2A  8029  pop_base
+00000B2C  801C  pop_return
+
+.procedure 19 Term11a offset=0x00000B2E size=96 args=0 flags=0x00000000
+00000B2E  802B  push_base
+00000B30  C001  push_int 2920
+00000B36  C001  push_int 139
+00000B3C  80C5  global_var
+00000B3E  C001  push_int 2
+00000B44  8034  not_equal
+00000B46  802F  if
+00000B48  C001  push_int 2910
+00000B4E  800D  d_to_a
+00000B50  C001  push_int 0
+00000B56  C001  push_int 20
+00000B5C  8005  call
+00000B5E  801A  pop
+00000B60  C001  push_int 2934
+00000B66  8004  jump
+00000B68  C001  push_int 224
+00000B6E  C001  push_int 2
+00000B74  80C6  set_global_var
+00000B76  C001  push_int 0
+00000B7C  800D  d_to_a
+00000B7E  8019  swapa
+00000B80  802A  pop_to_base
+00000B82  8029  pop_base
+00000B84  800C  a_to_d
+00000B86  801C  pop_return
+00000B88  802A  pop_to_base
+00000B8A  8029  pop_base
+00000B8C  801C  pop_return
+
+.procedure 20 Term12 offset=0x00000B8E size=74 args=0 flags=0x00000000
+00000B8E  802B  push_base
+00000B90  C001  push_int 828
+00000B96  C001  push_int 136
+00000B9C  811E  gsay_reply
+          ; reply: list=828, message=136 | 主电力管理：　　　　　　　　　　　　　　　　　＊误！错＊！错＊！　　　　　　　　　　　　　　　　　主＊＊初＊化失＊, status=linked
+00000B9E  C001  push_int 3
+00000BA4  8046  negate
+00000BA6  C001  push_int 828
+00000BAC  C001  push_int 137
+00000BB2  C001  push_int 17
+00000BB8  C001  push_int 50
+00000BBE  8121  giq_option
+          ; intelligence_option: list=828, message=137 | 返回, status=linked
+00000BC0  C001  push_int 0
+00000BC6  800D  d_to_a
+00000BC8  8019  swapa
+00000BCA  802A  pop_to_base
+00000BCC  8029  pop_base
+00000BCE  800C  a_to_d
+00000BD0  801C  pop_return
+00000BD2  802A  pop_to_base
+00000BD4  8029  pop_base
+00000BD6  801C  pop_return
+
+.procedure 21 Term13 offset=0x00000BD8 size=108 args=0 flags=0x00000000
+00000BD8  802B  push_base
+00000BDA  C001  push_int 828
+00000BE0  C001  push_int 138
+00000BE6  811E  gsay_reply
+          ; reply: list=828, message=138 | ＊急电＊管＊：在＊, status=linked
+00000BE8  C001  push_int 3
+00000BEE  8046  negate
+00000BF0  C001  push_int 828
+00000BF6  C001  push_int 148
+00000BFC  C001  push_int 12
+00000C02  C001  push_int 50
+00000C08  8121  giq_option
+          ; intelligence_option: list=828, message=148 | ＊闭主＊＊, status=linked
+00000C0A  C001  push_int 3
+00000C10  8046  negate
+00000C12  C001  push_int 828
+00000C18  C001  push_int 137
+00000C1E  C001  push_int 17
+00000C24  C001  push_int 50
+00000C2A  8121  giq_option
+          ; intelligence_option: list=828, message=137 | 返回, status=linked
+00000C2C  C001  push_int 0
+00000C32  800D  d_to_a
+00000C34  8019  swapa
+00000C36  802A  pop_to_base
+00000C38  8029  pop_base
+00000C3A  800C  a_to_d
+00000C3C  801C  pop_return
+00000C3E  802A  pop_to_base
+00000C40  8029  pop_base
+00000C42  801C  pop_return
+
+.procedure 22 Term14 offset=0x00000C44 size=240 args=0 flags=0x00000000
+00000C44  802B  push_base
+00000C46  C001  push_int 828
+00000C4C  C001  push_int 139
+00000C52  811E  gsay_reply
+          ; reply: list=828, message=139 | 系统：　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　主电力：离线　　　　　　　　　　　　　　　　　　　　　　　　紧急电力：离线, status=linked
+00000C54  C001  push_int 4
+00000C5A  C001  push_int 828
+00000C60  C001  push_int 140
+00000C66  C001  push_int 23
+00000C6C  C001  push_int 50
+00000C72  8121  giq_option
+          ; intelligence_option: list=828, message=140 | 启动紧急电力, status=linked
+00000C74  C001  push_int 3
+00000C7A  8046  negate
+00000C7C  C001  push_int 828
+00000C82  C001  push_int 141
+00000C88  C001  push_int 24
+00000C8E  C001  push_int 50
+00000C94  8121  giq_option
+          ; intelligence_option: list=828, message=141 | 主＊力诊＊, status=linked
+00000C96  C001  push_int 3
+00000C9C  8046  negate
+00000C9E  C001  push_int 828
+00000CA4  C001  push_int 142
+00000CAA  C001  push_int 24
+00000CB0  C001  push_int 50
+00000CB6  8121  giq_option
+          ; intelligence_option: list=828, message=142 | 主电＊　＊v＊l＊＊t＊＊n, status=linked
+00000CB8  C001  push_int 3
+00000CBE  8046  negate
+00000CC0  C001  push_int 828
+00000CC6  C001  push_int 143
+00000CCC  C001  push_int 23
+00000CD2  C001  push_int 50
+00000CD8  8121  giq_option
+          ; intelligence_option: list=828, message=143 | ＊n＊bl＊　＊m＊rg＊nc＊　p＊w＊r, status=linked
+00000CDA  C001  push_int 3
+00000CE0  8046  negate
+00000CE2  C001  push_int 828
+00000CE8  C001  push_int 144
+00000CEE  C001  push_int 24
+00000CF4  C001  push_int 50
+00000CFA  8121  giq_option
+          ; intelligence_option: list=828, message=144 | ＊力管＊　r＊s＊rc＊, status=linked
+00000CFC  C001  push_int 0
+00000D02  C001  push_int 828
+00000D08  C001  push_int 145
+00000D0E  C001  push_int 25
+00000D14  C001  push_int 50
+00000D1A  8121  giq_option
+          ; intelligence_option: list=828, message=145 | 退出, status=linked
+00000D1C  C001  push_int 0
+00000D22  800D  d_to_a
+00000D24  8019  swapa
+00000D26  802A  pop_to_base
+00000D28  8029  pop_base
+00000D2A  800C  a_to_d
+00000D2C  801C  pop_return
+00000D2E  802A  pop_to_base
+00000D30  8029  pop_base
+00000D32  801C  pop_return
+
+.procedure 23 Term14a offset=0x00000D34 size=88 args=0 flags=0x00000000
+00000D34  802B  push_base
+00000D36  C001  push_int 224
+00000D3C  C001  push_int 1
+00000D42  80C6  set_global_var
+00000D44  C001  push_int 3444
+00000D4A  C001  push_int 139
+00000D50  80C5  global_var
+00000D52  C001  push_int 2
+00000D58  8033  equal
+00000D5A  802F  if
+00000D5C  C001  push_int 3442
+00000D62  800D  d_to_a
+00000D64  C001  push_int 0
+00000D6A  C001  push_int 5
+00000D70  8005  call
+00000D72  801A  pop
+00000D74  C001  push_int 0
+00000D7A  800D  d_to_a
+00000D7C  8019  swapa
+00000D7E  802A  pop_to_base
+00000D80  8029  pop_base
+00000D82  800C  a_to_d
+00000D84  801C  pop_return
+00000D86  802A  pop_to_base
+00000D88  8029  pop_base
+00000D8A  801C  pop_return
+
+.procedure 24 Term15 offset=0x00000D8C size=72 args=0 flags=0x00000000
+00000D8C  802B  push_base
+00000D8E  C001  push_int 828
+00000D94  C001  push_int 146
+00000D9A  811E  gsay_reply
+          ; reply: list=828, message=146 | ＊统＊误！　　　　　　　　　　　　　　　　　　　　　　　　　　　＊nv＊l＊d　＊s＊r.　n＊t＊f＊　＊dm＊n＊str＊t＊＊n.　　　　　　　　　　　　　　　　　　　　　　S＊st＊m　h＊lt＊d., status=linked
+00000D9C  C001  push_int 0
+00000DA2  C001  push_int 828
+00000DA8  C001  push_int 147
+00000DAE  C001  push_int 25
+00000DB4  C001  push_int 50
+00000DBA  8121  giq_option
+          ; intelligence_option: list=828, message=147 | 退出, status=linked
+00000DBC  C001  push_int 0
+00000DC2  800D  d_to_a
+00000DC4  8019  swapa
+00000DC6  802A  pop_to_base
+00000DC8  8029  pop_base
+00000DCA  800C  a_to_d
+00000DCC  801C  pop_return
+00000DCE  802A  pop_to_base
+00000DD0  8029  pop_base
+00000DD2  801C  pop_return
+
+.procedure 25 TermEnd offset=0x00000DD4 size=26 args=0 flags=0x00000000
+00000DD4  802B  push_base
+00000DD6  C001  push_int 0
+00000DDC  800D  d_to_a
+00000DDE  8019  swapa
+00000DE0  802A  pop_to_base
+00000DE2  8029  pop_base
+00000DE4  800C  a_to_d
+00000DE6  801C  pop_return
+00000DE8  802A  pop_to_base
+00000DEA  8029  pop_base
+00000DEC  801C  pop_return

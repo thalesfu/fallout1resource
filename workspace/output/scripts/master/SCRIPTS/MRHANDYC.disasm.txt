@@ -1,0 +1,609 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\MRHANDYC.INT
+; sha256: AEFFCE2A117F9274562C9E5EA01E67765ECED3AEFC4ECFF35BF38CA59EE83B2A
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 564
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000234  802C  set_global
+00000236  C001  push_int 0
+0000023C  C001  push_int 0
+00000242  8003  critical_done
+00000244  C001  push_int 588
+0000024A  8004  jump
+
+.procedure 0 .............. offset=0x0000024C size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x0000024C size=344 args=0 flags=0x00000000
+0000024C  802B  push_base
+0000024E  C001  push_int 666
+00000254  C001  push_int 0
+0000025A  8012  fetch_global
+0000025C  8045  not
+0000025E  802F  if
+00000260  80BC  self_obj
+00000262  C001  push_int 1
+00000268  C001  push_int 6
+0000026E  C001  push_int 34
+00000274  8102  critter_add_trait
+00000276  80BC  self_obj
+00000278  C001  push_int 1
+0000027E  C001  push_int 5
+00000284  C001  push_int 71
+0000028A  8102  critter_add_trait
+0000028C  C001  push_int 1
+00000292  C001  push_int 0
+00000298  8013  store_global
+0000029A  C001  push_int 716
+000002A0  80C7  script_action
+000002A2  C001  push_int 12
+000002A8  8033  equal
+000002AA  802F  if
+000002AC  C001  push_int 706
+000002B2  800D  d_to_a
+000002B4  C001  push_int 0
+000002BA  C001  push_int 3
+000002C0  8005  call
+000002C2  801A  pop
+000002C4  C001  push_int 908
+000002CA  8004  jump
+000002CC  C001  push_int 766
+000002D2  80C7  script_action
+000002D4  C001  push_int 13
+000002DA  8033  equal
+000002DC  802F  if
+000002DE  C001  push_int 756
+000002E4  800D  d_to_a
+000002E6  C001  push_int 0
+000002EC  C001  push_int 2
+000002F2  8005  call
+000002F4  801A  pop
+000002F6  C001  push_int 908
+000002FC  8004  jump
+000002FE  C001  push_int 816
+00000304  80C7  script_action
+00000306  C001  push_int 3
+0000030C  8033  equal
+0000030E  802F  if
+00000310  C001  push_int 806
+00000316  800D  d_to_a
+00000318  C001  push_int 0
+0000031E  C001  push_int 4
+00000324  8005  call
+00000326  801A  pop
+00000328  C001  push_int 908
+0000032E  8004  jump
+00000330  C001  push_int 866
+00000336  80C7  script_action
+00000338  C001  push_int 11
+0000033E  8033  equal
+00000340  802F  if
+00000342  C001  push_int 856
+00000348  800D  d_to_a
+0000034A  C001  push_int 0
+00000350  C001  push_int 5
+00000356  8005  call
+00000358  801A  pop
+0000035A  C001  push_int 908
+00000360  8004  jump
+00000362  C001  push_int 908
+00000368  80C7  script_action
+0000036A  C001  push_int 8
+00000370  8033  equal
+00000372  802F  if
+00000374  C001  push_int 906
+0000037A  800D  d_to_a
+0000037C  C001  push_int 0
+00000382  C001  push_int 6
+00000388  8005  call
+0000038A  801A  pop
+0000038C  C001  push_int 0
+00000392  800D  d_to_a
+00000394  8019  swapa
+00000396  802A  pop_to_base
+00000398  8029  pop_base
+0000039A  800C  a_to_d
+0000039C  801C  pop_return
+0000039E  802A  pop_to_base
+000003A0  8029  pop_base
+000003A2  801C  pop_return
+
+.procedure 2 combat_p_proc offset=0x000003A4 size=88 args=0 flags=0x00000000
+000003A4  802B  push_base
+000003A6  C001  push_int 996
+000003AC  80F7  op_80f7
+000003AE  C001  push_int 4
+000003B4  8033  equal
+000003B6  802F  if
+000003B8  C001  push_int 996
+000003BE  C001  push_int 0
+000003C4  80C1  local_var
+000003C6  C001  push_int 0
+000003CC  8033  equal
+000003CE  C001  push_int 1
+000003D4  80C1  local_var
+000003D6  C001  push_int 0
+000003DC  8033  equal
+000003DE  803F  or
+000003E0  802F  if
+000003E2  80B9  script_overrides
+000003E4  C001  push_int 0
+000003EA  800D  d_to_a
+000003EC  8019  swapa
+000003EE  802A  pop_to_base
+000003F0  8029  pop_base
+000003F2  800C  a_to_d
+000003F4  801C  pop_return
+000003F6  802A  pop_to_base
+000003F8  8029  pop_base
+000003FA  801C  pop_return
+
+.procedure 3 critter_p_proc offset=0x000003FC size=392 args=0 flags=0x00000000
+000003FC  802B  push_base
+000003FE  C001  push_int 1116
+00000404  C001  push_int 0
+0000040A  80C1  local_var
+0000040C  C001  push_int 1
+00000412  80C1  local_var
+00000414  803E  and
+00000416  C001  push_int 2
+0000041C  80C1  local_var
+0000041E  C001  push_int 0
+00000424  8033  equal
+00000426  803E  and
+00000428  C001  push_int 3
+0000042E  80C1  local_var
+00000430  C001  push_int 0
+00000436  8033  equal
+00000438  803E  and
+0000043A  80BC  self_obj
+0000043C  80BF  dude_obj
+0000043E  80D3  op_80d3
+00000440  C001  push_int 12
+00000446  8037  less
+00000448  803E  and
+0000044A  802F  if
+0000044C  C001  push_int 2
+00000452  C001  push_int 1
+00000458  80C2  set_local_var
+0000045A  80F9  op_80f9
+0000045C  C001  push_int 1388
+00000462  C001  push_int 3
+00000468  80C1  local_var
+0000046A  C001  push_int 1
+00000470  8033  equal
+00000472  802F  if
+00000474  C001  push_int 1184
+0000047A  80BC  self_obj
+0000047C  80D4  op_80d4
+0000047E  C001  push_int 20530
+00000484  8034  not_equal
+00000486  802F  if
+00000488  80BC  self_obj
+0000048A  C001  push_int 20530
+00000490  C001  push_int 0
+00000496  80CE  op_80ce
+00000498  C001  push_int 1388
+0000049E  8004  jump
+000004A0  9001  push_string "off"
+000004A6  9001  push_string "<unresolved-string:0xD0>"
+000004AC  8015  store_external
+000004AE  80BC  self_obj
+000004B0  80D4  op_80d4
+000004B2  80BC  self_obj
+000004B4  80EC  op_80ec
+000004B6  C001  push_int 0
+000004BC  811A  op_811a
+000004BE  80BC  self_obj
+000004C0  80D4  op_80d4
+000004C2  C001  push_int 5
+000004C8  C001  push_int 1
+000004CE  80D5  op_80d5
+000004D0  80BC  self_obj
+000004D2  80EC  op_80ec
+000004D4  C001  push_int 0
+000004DA  811A  op_811a
+000004DC  80BC  self_obj
+000004DE  80D4  op_80d4
+000004E0  C001  push_int 0
+000004E6  C001  push_int 1
+000004EC  80D5  op_80d5
+000004EE  80BC  self_obj
+000004F0  80EC  op_80ec
+000004F2  C001  push_int 0
+000004F8  811A  op_811a
+000004FA  80BC  self_obj
+000004FC  80D4  op_80d4
+000004FE  C001  push_int 5
+00000504  C001  push_int 2
+0000050A  80D5  op_80d5
+0000050C  80BC  self_obj
+0000050E  80EC  op_80ec
+00000510  C001  push_int 0
+00000516  811A  op_811a
+00000518  80BC  self_obj
+0000051A  80D4  op_80d4
+0000051C  C001  push_int 0
+00000522  C001  push_int 2
+00000528  80D5  op_80d5
+0000052A  80BC  self_obj
+0000052C  80EC  op_80ec
+0000052E  C001  push_int 0
+00000534  811A  op_811a
+00000536  C001  push_int 631
+0000053C  C001  push_int 117
+00000542  8105  message_str
+          ; message_lookup: list=631, message=117 | 因为完成了一个小的清洁工作，你获得了1000点经验值。, status=linked
+00000544  80B8  display_msg
+00000546  C001  push_int 1000
+0000054C  80A1  op_80a1
+0000054E  80BC  self_obj
+00000550  C001  push_int 250
+00000556  C001  push_int 6
+0000055C  80EF  op_80ef
+0000055E  C001  push_int 3
+00000564  C001  push_int 2
+0000056A  80C2  set_local_var
+0000056C  C001  push_int 0
+00000572  800D  d_to_a
+00000574  8019  swapa
+00000576  802A  pop_to_base
+00000578  8029  pop_base
+0000057A  800C  a_to_d
+0000057C  801C  pop_return
+0000057E  802A  pop_to_base
+00000580  8029  pop_base
+00000582  801C  pop_return
+
+.procedure 4 description_p_proc offset=0x00000584 size=252 args=0 flags=0x00000000
+00000584  802B  push_base
+00000586  C001  push_int 1456
+0000058C  C001  push_int 0
+00000592  80C1  local_var
+00000594  8045  not
+00000596  802F  if
+00000598  C001  push_int 631
+0000059E  C001  push_int 100
+000005A4  8105  message_str
+          ; message_lookup: list=631, message=100 | 这是个非功能型的机器人。从上边的一层灰尘来看它最近很少活动。, status=linked
+000005A6  80B8  display_msg
+000005A8  C001  push_int 1640
+000005AE  8004  jump
+000005B0  C001  push_int 1640
+000005B6  C001  push_int 1
+000005BC  80C1  local_var
+000005BE  8045  not
+000005C0  802F  if
+000005C2  C001  push_int 631
+000005C8  C001  push_int 101
+000005CE  8105  message_str
+          ; message_lookup: list=631, message=101 | 这个机器人已经被修好了，但是它仍然没反应。, status=linked
+000005D0  80B8  display_msg
+000005D2  C001  push_int 1588
+000005D8  80BF  dude_obj
+000005DA  C001  push_int 4
+000005E0  80CA  get_critter_stat
+000005E2  80BF  dude_obj
+000005E4  C001  push_int 1
+000005EA  80CA  get_critter_stat
+000005EC  C001  push_int 0
+000005F2  80BF  dude_obj
+000005F4  C001  push_int 0
+000005FA  80F3  has_trait
+000005FC  8039  add
+000005FE  8038  greater
+00000600  802F  if
+00000602  C001  push_int 1580
+00000608  80BF  dude_obj
+0000060A  C001  push_int 4
+00000610  C001  push_int 0
+00000616  80AE  op_80ae
+00000618  80AF  op_80af
+0000061A  802F  if
+0000061C  C001  push_int 631
+00000622  C001  push_int 102
+00000628  8105  message_str
+          ; message_lookup: list=631, message=102 | 硬件没有问题，它必须安装软件。, status=linked
+0000062A  80B8  display_msg
+0000062C  C001  push_int 1640
+00000632  8004  jump
+00000634  C001  push_int 1640
+0000063A  80BF  dude_obj
+0000063C  C001  push_int 1
+00000642  C001  push_int 0
+00000648  80BF  dude_obj
+0000064A  C001  push_int 0
+00000650  80F3  has_trait
+00000652  80AE  op_80ae
+00000654  80AF  op_80af
+00000656  802F  if
+00000658  C001  push_int 631
+0000065E  C001  push_int 102
+00000664  8105  message_str
+          ; message_lookup: list=631, message=102 | 硬件没有问题，它必须安装软件。, status=linked
+00000666  80B8  display_msg
+00000668  C001  push_int 0
+0000066E  800D  d_to_a
+00000670  8019  swapa
+00000672  802A  pop_to_base
+00000674  8029  pop_base
+00000676  800C  a_to_d
+00000678  801C  pop_return
+0000067A  802A  pop_to_base
+0000067C  8029  pop_base
+0000067E  801C  pop_return
+
+.procedure 5 talk_p_proc offset=0x00000680 size=114 args=0 flags=0x00000000
+00000680  802B  push_base
+00000682  C001  push_int 1754
+00000688  C001  push_int 0
+0000068E  80C1  local_var
+00000690  C001  push_int 1
+00000696  80C1  local_var
+00000698  803E  and
+0000069A  802F  if
+0000069C  C001  push_int 631
+000006A2  80BC  self_obj
+000006A4  C001  push_int 4
+000006AA  C001  push_int 1
+000006B0  8046  negate
+000006B2  C001  push_int 1
+000006B8  8046  negate
+000006BA  80DE  start_gdialog
+000006BC  811C  gsay_start
+000006BE  C001  push_int 1748
+000006C4  800D  d_to_a
+000006C6  C001  push_int 0
+000006CC  C001  push_int 7
+000006D2  8005  call
+000006D4  801A  pop
+000006D6  811D  gsay_end
+000006D8  80DF  end_dialogue
+000006DA  C001  push_int 0
+000006E0  800D  d_to_a
+000006E2  8019  swapa
+000006E4  802A  pop_to_base
+000006E6  8029  pop_base
+000006E8  800C  a_to_d
+000006EA  801C  pop_return
+000006EC  802A  pop_to_base
+000006EE  8029  pop_base
+000006F0  801C  pop_return
+
+.procedure 6 use_skill_on_p_proc offset=0x000006F2 size=354 args=0 flags=0x00000000
+000006F2  802B  push_base
+000006F4  C001  push_int 1800
+000006FA  80FA  op_80fa
+000006FC  C001  push_int 10
+00000702  8033  equal
+00000704  802F  if
+00000706  80B9  script_overrides
+00000708  C001  push_int 1980
+0000070E  80FA  op_80fa
+00000710  C001  push_int 12
+00000716  8033  equal
+00000718  802F  if
+0000071A  C001  push_int 1862
+00000720  C001  push_int 0
+00000726  80C1  local_var
+00000728  8045  not
+0000072A  802F  if
+0000072C  80B9  script_overrides
+0000072E  C001  push_int 631
+00000734  C001  push_int 103
+0000073A  8105  message_str
+          ; message_lookup: list=631, message=103 | 你不能访问机器人的系统，因为它被禁用了。, status=linked
+0000073C  80B8  display_msg
+0000073E  C001  push_int 1972
+00000744  8004  jump
+00000746  C001  push_int 1972
+0000074C  C001  push_int 1
+00000752  80C1  local_var
+00000754  8045  not
+00000756  802F  if
+00000758  80B9  script_overrides
+0000075A  C001  push_int 300
+00000760  80F2  op_80f2
+00000762  80FC  op_80fc
+00000764  C001  push_int 1956
+0000076A  80BF  dude_obj
+0000076C  C001  push_int 12
+00000772  C001  push_int 0
+00000778  80AC  op_80ac
+0000077A  80AF  op_80af
+0000077C  802F  if
+0000077E  C001  push_int 631
+00000784  C001  push_int 105
+0000078A  8105  message_str
+          ; message_lookup: list=631, message=105 | 你重新启动了机载电脑，而且顺利的重新启动了机器人。你注意到机器人的无线电设备坏掉了。, status=linked
+0000078C  80B8  display_msg
+0000078E  C001  push_int 1
+00000794  C001  push_int 1
+0000079A  80C2  set_local_var
+0000079C  C001  push_int 1972
+000007A2  8004  jump
+000007A4  C001  push_int 631
+000007AA  C001  push_int 106
+000007B0  8105  message_str
+          ; message_lookup: list=631, message=106 | 你在这个机器人电脑上花了很多时间，但是没有让它重新启动。, status=linked
+000007B2  80B8  display_msg
+000007B4  C001  push_int 2108
+000007BA  8004  jump
+000007BC  C001  push_int 2108
+000007C2  80FA  op_80fa
+000007C4  C001  push_int 13
+000007CA  8033  equal
+000007CC  802F  if
+000007CE  C001  push_int 2108
+000007D4  C001  push_int 0
+000007DA  80C1  local_var
+000007DC  8045  not
+000007DE  802F  if
+000007E0  80B9  script_overrides
+000007E2  C001  push_int 12000
+000007E8  80F2  op_80f2
+000007EA  80FC  op_80fc
+000007EC  C001  push_int 2092
+000007F2  80BF  dude_obj
+000007F4  C001  push_int 13
+000007FA  C001  push_int 0
+00000800  80AC  op_80ac
+00000802  80AF  op_80af
+00000804  802F  if
+00000806  C001  push_int 631
+0000080C  C001  push_int 101
+00000812  8105  message_str
+          ; message_lookup: list=631, message=101 | 这个机器人已经被修好了，但是它仍然没反应。, status=linked
+00000814  80B8  display_msg
+00000816  C001  push_int 0
+0000081C  C001  push_int 1
+00000822  80C2  set_local_var
+00000824  C001  push_int 2108
+0000082A  8004  jump
+0000082C  C001  push_int 631
+00000832  C001  push_int 104
+00000838  8105  message_str
+          ; message_lookup: list=631, message=104 | 你胡乱修复故障部分，但是需要更多的时间来修复。, status=linked
+0000083A  80B8  display_msg
+0000083C  C001  push_int 0
+00000842  800D  d_to_a
+00000844  8019  swapa
+00000846  802A  pop_to_base
+00000848  8029  pop_base
+0000084A  800C  a_to_d
+0000084C  801C  pop_return
+0000084E  802A  pop_to_base
+00000850  8029  pop_base
+00000852  801C  pop_return
+
+.procedure 7 MrHandyC00 offset=0x00000854 size=138 args=0 flags=0x00000000
+00000854  802B  push_base
+00000856  C001  push_int 631
+0000085C  C001  push_int 107
+00000862  811E  gsay_reply
+          ; reply: list=631, message=107 | 462号单位在线。测试。调整单元位置数据。修复。重新建立存储文件。修复。错误－任务未完成。, status=linked
+00000864  C001  push_int 3
+0000086A  8046  negate
+0000086C  C001  push_int 631
+00000872  C001  push_int 108
+00000878  C001  push_int 8
+0000087E  C001  push_int 0
+00000884  8121  giq_option
+          ; intelligence_option: list=631, message=108 | 诺嘎。, status=linked
+00000886  C001  push_int 4
+0000088C  C001  push_int 631
+00000892  C001  push_int 109
+00000898  C001  push_int 9
+0000089E  C001  push_int 0
+000008A4  8121  giq_option
+          ; intelligence_option: list=631, message=109 | 什么是任务未完成？, status=linked
+000008A6  C001  push_int 4
+000008AC  C001  push_int 631
+000008B2  C001  push_int 110
+000008B8  C001  push_int 8
+000008BE  C001  push_int 0
+000008C4  8121  giq_option
+          ; intelligence_option: list=631, message=110 | 很好，该干什么干什么，别妨碍我！, status=linked
+000008C6  C001  push_int 0
+000008CC  800D  d_to_a
+000008CE  8019  swapa
+000008D0  802A  pop_to_base
+000008D2  8029  pop_base
+000008D4  800C  a_to_d
+000008D6  801C  pop_return
+000008D8  802A  pop_to_base
+000008DA  8029  pop_base
+000008DC  801C  pop_return
+
+.procedure 8 MrHandyC01 offset=0x000008DE size=60 args=0 flags=0x00000000
+000008DE  802B  push_base
+000008E0  C001  push_int 631
+000008E6  C001  push_int 111
+000008EC  C001  push_int 0
+000008F2  8120  gsay_message
+          ; message: list=631, message=111 | 【点击】搞定！重新启动任务。, status=linked
+000008F4  C001  push_int 3
+000008FA  C001  push_int 1
+00000900  80C2  set_local_var
+00000902  C001  push_int 0
+00000908  800D  d_to_a
+0000090A  8019  swapa
+0000090C  802A  pop_to_base
+0000090E  8029  pop_base
+00000910  800C  a_to_d
+00000912  801C  pop_return
+00000914  802A  pop_to_base
+00000916  8029  pop_base
+00000918  801C  pop_return
+
+.procedure 9 MrHandyC02 offset=0x0000091A size=104 args=0 flags=0x00000000
+0000091A  802B  push_base
+0000091C  C001  push_int 631
+00000922  C001  push_int 112
+00000928  811E  gsay_reply
+          ; reply: list=631, message=112 | 462号单位是一个清洁模式。必须完成本层的清洁和维护。, status=linked
+0000092A  C001  push_int 4
+00000930  C001  push_int 631
+00000936  C001  push_int 113
+0000093C  C001  push_int 8
+00000942  C001  push_int 0
+00000948  8121  giq_option
+          ; intelligence_option: list=631, message=113 | 立刻去执行！, status=linked
+0000094A  C001  push_int 6
+00000950  C001  push_int 631
+00000956  C001  push_int 114
+0000095C  C001  push_int 10
+00000962  C001  push_int 0
+00000968  8121  giq_option
+          ; intelligence_option: list=631, message=114 | 你要清理什么地方？, status=linked
+0000096A  C001  push_int 0
+00000970  800D  d_to_a
+00000972  8019  swapa
+00000974  802A  pop_to_base
+00000976  8029  pop_base
+00000978  800C  a_to_d
+0000097A  801C  pop_return
+0000097C  802A  pop_to_base
+0000097E  8029  pop_base
+00000980  801C  pop_return
+
+.procedure 10 MrHandyC03 offset=0x00000982 size=72 args=0 flags=0x00000000
+00000982  802B  push_base
+00000984  C001  push_int 631
+0000098A  C001  push_int 115
+00000990  811E  gsay_reply
+          ; reply: list=631, message=115 | 病毒槽控制室。【点击】结束列表。, status=linked
+00000992  C001  push_int 6
+00000998  C001  push_int 631
+0000099E  C001  push_int 116
+000009A4  C001  push_int 8
+000009AA  C001  push_int 0
+000009B0  8121  giq_option
+          ; intelligence_option: list=631, message=116 | 嗯，你完成了任务。, status=linked
+000009B2  C001  push_int 0
+000009B8  800D  d_to_a
+000009BA  8019  swapa
+000009BC  802A  pop_to_base
+000009BE  8029  pop_base
+000009C0  800C  a_to_d
+000009C2  801C  pop_return
+000009C4  802A  pop_to_base
+000009C6  8029  pop_base
+000009C8  801C  pop_return

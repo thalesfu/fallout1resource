@@ -1,0 +1,4524 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\RUTGER.INT
+; sha256: 50925BF946D44EF5A788C2A4426B8F38C8FF4E1623DEABE7F9C5348D1FF8ED04
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 4148
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00001034  802C  set_global
+00001036  C001  push_int 0
+0000103C  C001  push_int 1
+00001042  C001  push_int 0
+00001048  C001  push_int 0
+0000104E  8003  critical_done
+00001050  C001  push_int 4184
+00001056  8004  jump
+
+.procedure 0 .............. offset=0x00001058 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00001058 size=342 args=0 flags=0x00000000
+00001058  802B  push_base
+0000105A  C001  push_int 4260
+00001060  C001  push_int 1
+00001066  8012  fetch_global
+00001068  802F  if
+0000106A  C001  push_int 0
+00001070  C001  push_int 1
+00001076  8013  store_global
+00001078  80BC  self_obj
+0000107A  C001  push_int 1
+00001080  C001  push_int 6
+00001086  C001  push_int 36
+0000108C  8102  critter_add_trait
+0000108E  80BC  self_obj
+00001090  C001  push_int 1
+00001096  C001  push_int 5
+0000109C  C001  push_int 17
+000010A2  8102  critter_add_trait
+000010A4  C001  push_int 4310
+000010AA  80C7  script_action
+000010AC  C001  push_int 21
+000010B2  8033  equal
+000010B4  802F  if
+000010B6  C001  push_int 4300
+000010BC  800D  d_to_a
+000010BE  C001  push_int 0
+000010C4  C001  push_int 8
+000010CA  8005  call
+000010CC  801A  pop
+000010CE  C001  push_int 4502
+000010D4  8004  jump
+000010D6  C001  push_int 4360
+000010DC  80C7  script_action
+000010DE  C001  push_int 4
+000010E4  8033  equal
+000010E6  802F  if
+000010E8  C001  push_int 4350
+000010EE  800D  d_to_a
+000010F0  C001  push_int 0
+000010F6  C001  push_int 4
+000010FC  8005  call
+000010FE  801A  pop
+00001100  C001  push_int 4502
+00001106  8004  jump
+00001108  C001  push_int 4410
+0000110E  80C7  script_action
+00001110  C001  push_int 11
+00001116  8033  equal
+00001118  802F  if
+0000111A  C001  push_int 4400
+00001120  800D  d_to_a
+00001122  C001  push_int 0
+00001128  C001  push_int 5
+0000112E  8005  call
+00001130  801A  pop
+00001132  C001  push_int 4502
+00001138  8004  jump
+0000113A  C001  push_int 4460
+00001140  80C7  script_action
+00001142  C001  push_int 12
+00001148  8033  equal
+0000114A  802F  if
+0000114C  C001  push_int 4450
+00001152  800D  d_to_a
+00001154  C001  push_int 0
+0000115A  C001  push_int 3
+00001160  8005  call
+00001162  801A  pop
+00001164  C001  push_int 4502
+0000116A  8004  jump
+0000116C  C001  push_int 4502
+00001172  80C7  script_action
+00001174  C001  push_int 18
+0000117A  8033  equal
+0000117C  802F  if
+0000117E  C001  push_int 4500
+00001184  800D  d_to_a
+00001186  C001  push_int 0
+0000118C  C001  push_int 6
+00001192  8005  call
+00001194  801A  pop
+00001196  C001  push_int 0
+0000119C  800D  d_to_a
+0000119E  8019  swapa
+000011A0  802A  pop_to_base
+000011A2  8029  pop_base
+000011A4  800C  a_to_d
+000011A6  801C  pop_return
+000011A8  802A  pop_to_base
+000011AA  8029  pop_base
+000011AC  801C  pop_return
+
+.procedure 2 combat offset=0x000011AE size=40 args=0 flags=0x00000000
+000011AE  802B  push_base
+000011B0  C001  push_int 1
+000011B6  C001  push_int 0
+000011BC  8013  store_global
+000011BE  C001  push_int 0
+000011C4  800D  d_to_a
+000011C6  8019  swapa
+000011C8  802A  pop_to_base
+000011CA  8029  pop_base
+000011CC  800C  a_to_d
+000011CE  801C  pop_return
+000011D0  802A  pop_to_base
+000011D2  8029  pop_base
+000011D4  801C  pop_return
+
+.procedure 3 critter_p_proc offset=0x000011D6 size=102 args=0 flags=0x00000000
+000011D6  802B  push_base
+000011D8  C001  push_int 4644
+000011DE  C001  push_int 0
+000011E4  8012  fetch_global
+000011E6  802F  if
+000011E8  C001  push_int 0
+000011EE  C001  push_int 0
+000011F4  8013  store_global
+000011F6  80BF  dude_obj
+000011F8  C001  push_int 0
+000011FE  C001  push_int 1
+00001204  C001  push_int 0
+0000120A  C001  push_int 0
+00001210  C001  push_int 30000
+00001216  C001  push_int 0
+0000121C  C001  push_int 0
+00001222  80D0  attack
+00001224  C001  push_int 0
+0000122A  800D  d_to_a
+0000122C  8019  swapa
+0000122E  802A  pop_to_base
+00001230  8029  pop_base
+00001232  800C  a_to_d
+00001234  801C  pop_return
+00001236  802A  pop_to_base
+00001238  8029  pop_base
+0000123A  801C  pop_return
+
+.procedure 4 pickup_p_proc offset=0x0000123C size=54 args=0 flags=0x00000000
+0000123C  802B  push_base
+0000123E  C001  push_int 4698
+00001244  80BD  source_obj
+00001246  80BF  dude_obj
+00001248  8033  equal
+0000124A  802F  if
+0000124C  C001  push_int 1
+00001252  C001  push_int 0
+00001258  8013  store_global
+0000125A  C001  push_int 0
+00001260  800D  d_to_a
+00001262  8019  swapa
+00001264  802A  pop_to_base
+00001266  8029  pop_base
+00001268  800C  a_to_d
+0000126A  801C  pop_return
+0000126C  802A  pop_to_base
+0000126E  8029  pop_base
+00001270  801C  pop_return
+
+.procedure 5 talk_p_proc offset=0x00001272 size=1504 args=0 flags=0x00000000
+00001272  802B  push_base
+00001274  C001  push_int 4746
+0000127A  800D  d_to_a
+0000127C  C001  push_int 0
+00001282  C001  push_int 99
+00001288  8005  call
+0000128A  801A  pop
+0000128C  C001  push_int 4830
+00001292  80BF  dude_obj
+00001294  C001  push_int 4
+0000129A  80CA  get_critter_stat
+0000129C  C001  push_int 4
+000012A2  8037  less
+000012A4  802F  if
+000012A6  80BF  dude_obj
+000012A8  C001  push_int 401
+000012AE  C001  push_int 314
+000012B4  8105  message_str
+          ; message_lookup: list=401, message=314 | 嘎嘎！！, status=linked
+000012B6  C001  push_int 3
+000012BC  810A  op_810a
+000012BE  80BC  self_obj
+000012C0  C001  push_int 401
+000012C6  C001  push_int 315
+000012CC  8105  message_str
+          ; message_lookup: list=401, message=315 | 对不起，但是我们不和…做生意……恩……这是对智力的挑战。, status=linked
+000012CE  C001  push_int 2
+000012D4  810A  op_810a
+000012D6  C001  push_int 6202
+000012DC  8004  jump
+000012DE  C001  push_int 4988
+000012E4  C001  push_int 18
+000012EA  80C5  global_var
+000012EC  C001  push_int 1
+000012F2  8033  equal
+000012F4  C001  push_int 17
+000012FA  80C5  global_var
+000012FC  C001  push_int 1
+00001302  8034  not_equal
+00001304  803E  and
+00001306  C001  push_int 8
+0000130C  80C1  local_var
+0000130E  C001  push_int 0
+00001314  8033  equal
+00001316  803E  and
+00001318  802F  if
+0000131A  C001  push_int 8
+00001320  C001  push_int 1
+00001326  80C2  set_local_var
+00001328  C001  push_int 4
+0000132E  C001  push_int 1
+00001334  80C2  set_local_var
+00001336  C001  push_int 401
+0000133C  80BC  self_obj
+0000133E  C001  push_int 4
+00001344  C001  push_int 1
+0000134A  8046  negate
+0000134C  C001  push_int 1
+00001352  8046  negate
+00001354  80DE  start_gdialog
+00001356  811C  gsay_start
+00001358  C001  push_int 4974
+0000135E  800D  d_to_a
+00001360  C001  push_int 0
+00001366  C001  push_int 74
+0000136C  8005  call
+0000136E  801A  pop
+00001370  811D  gsay_end
+00001372  80DF  end_dialogue
+00001374  C001  push_int 6202
+0000137A  8004  jump
+0000137C  C001  push_int 5146
+00001382  C001  push_int 18
+00001388  80C5  global_var
+0000138A  C001  push_int 1
+00001390  8034  not_equal
+00001392  C001  push_int 17
+00001398  80C5  global_var
+0000139A  C001  push_int 1
+000013A0  8033  equal
+000013A2  803E  and
+000013A4  C001  push_int 8
+000013AA  80C1  local_var
+000013AC  C001  push_int 0
+000013B2  8033  equal
+000013B4  803E  and
+000013B6  802F  if
+000013B8  C001  push_int 8
+000013BE  C001  push_int 1
+000013C4  80C2  set_local_var
+000013C6  C001  push_int 4
+000013CC  C001  push_int 1
+000013D2  80C2  set_local_var
+000013D4  C001  push_int 401
+000013DA  80BC  self_obj
+000013DC  C001  push_int 4
+000013E2  C001  push_int 1
+000013E8  8046  negate
+000013EA  C001  push_int 1
+000013F0  8046  negate
+000013F2  80DE  start_gdialog
+000013F4  811C  gsay_start
+000013F6  C001  push_int 5132
+000013FC  800D  d_to_a
+000013FE  C001  push_int 0
+00001404  C001  push_int 79
+0000140A  8005  call
+0000140C  801A  pop
+0000140E  811D  gsay_end
+00001410  80DF  end_dialogue
+00001412  C001  push_int 6202
+00001418  8004  jump
+0000141A  C001  push_int 5272
+00001420  C001  push_int 40
+00001426  80C3  op_80c3
+00001428  C001  push_int 1
+0000142E  8033  equal
+00001430  C001  push_int 35
+00001436  80C3  op_80c3
+00001438  C001  push_int 1
+0000143E  8033  equal
+00001440  803F  or
+00001442  802F  if
+00001444  C001  push_int 4
+0000144A  C001  push_int 1
+00001450  80C2  set_local_var
+00001452  C001  push_int 401
+00001458  80BC  self_obj
+0000145A  C001  push_int 4
+00001460  C001  push_int 1
+00001466  8046  negate
+00001468  C001  push_int 1
+0000146E  8046  negate
+00001470  80DE  start_gdialog
+00001472  811C  gsay_start
+00001474  C001  push_int 5258
+0000147A  800D  d_to_a
+0000147C  C001  push_int 0
+00001482  C001  push_int 94
+00001488  8005  call
+0000148A  801A  pop
+0000148C  811D  gsay_end
+0000148E  80DF  end_dialogue
+00001490  C001  push_int 6202
+00001496  8004  jump
+00001498  C001  push_int 5380
+0000149E  C001  push_int 4
+000014A4  80C1  local_var
+000014A6  C001  push_int 0
+000014AC  8033  equal
+000014AE  802F  if
+000014B0  C001  push_int 4
+000014B6  C001  push_int 1
+000014BC  80C2  set_local_var
+000014BE  C001  push_int 401
+000014C4  80BC  self_obj
+000014C6  C001  push_int 4
+000014CC  C001  push_int 1
+000014D2  8046  negate
+000014D4  C001  push_int 1
+000014DA  8046  negate
+000014DC  80DE  start_gdialog
+000014DE  811C  gsay_start
+000014E0  C001  push_int 5366
+000014E6  800D  d_to_a
+000014E8  C001  push_int 0
+000014EE  C001  push_int 9
+000014F4  8005  call
+000014F6  801A  pop
+000014F8  811D  gsay_end
+000014FA  80DF  end_dialogue
+000014FC  C001  push_int 6202
+00001502  8004  jump
+00001504  C001  push_int 5568
+0000150A  C001  push_int 34
+00001510  80C3  op_80c3
+00001512  C001  push_int 0
+00001518  8033  equal
+0000151A  802F  if
+0000151C  C001  push_int 5498
+00001522  C001  push_int 1
+00001528  80C1  local_var
+0000152A  C001  push_int 2
+00001530  8036  greater_equal
+00001532  802F  if
+00001534  C001  push_int 401
+0000153A  80BC  self_obj
+0000153C  C001  push_int 4
+00001542  C001  push_int 1
+00001548  8046  negate
+0000154A  C001  push_int 1
+00001550  8046  negate
+00001552  80DE  start_gdialog
+00001554  811C  gsay_start
+00001556  C001  push_int 5484
+0000155C  800D  d_to_a
+0000155E  C001  push_int 0
+00001564  C001  push_int 93
+0000156A  8005  call
+0000156C  801A  pop
+0000156E  811D  gsay_end
+00001570  80DF  end_dialogue
+00001572  C001  push_int 5560
+00001578  8004  jump
+0000157A  C001  push_int 401
+00001580  80BC  self_obj
+00001582  C001  push_int 4
+00001588  C001  push_int 1
+0000158E  8046  negate
+00001590  C001  push_int 1
+00001596  8046  negate
+00001598  80DE  start_gdialog
+0000159A  811C  gsay_start
+0000159C  C001  push_int 5554
+000015A2  800D  d_to_a
+000015A4  C001  push_int 0
+000015AA  C001  push_int 94
+000015B0  8005  call
+000015B2  801A  pop
+000015B4  811D  gsay_end
+000015B6  80DF  end_dialogue
+000015B8  C001  push_int 6202
+000015BE  8004  jump
+000015C0  C001  push_int 5642
+000015C6  C001  push_int 34
+000015CC  80C3  op_80c3
+000015CE  C001  push_int 1
+000015D4  8033  equal
+000015D6  C001  push_int 41
+000015DC  80C3  op_80c3
+000015DE  C001  push_int 0
+000015E4  8033  equal
+000015E6  803E  and
+000015E8  802F  if
+000015EA  C001  push_int 5632
+000015F0  800D  d_to_a
+000015F2  C001  push_int 0
+000015F8  C001  push_int 34
+000015FE  8005  call
+00001600  801A  pop
+00001602  C001  push_int 6202
+00001608  8004  jump
+0000160A  C001  push_int 5736
+00001610  C001  push_int 41
+00001616  80C3  op_80c3
+00001618  C001  push_int 3
+0000161E  8033  equal
+00001620  802F  if
+00001622  C001  push_int 401
+00001628  80BC  self_obj
+0000162A  C001  push_int 4
+00001630  C001  push_int 1
+00001636  8046  negate
+00001638  C001  push_int 1
+0000163E  8046  negate
+00001640  80DE  start_gdialog
+00001642  811C  gsay_start
+00001644  C001  push_int 5722
+0000164A  800D  d_to_a
+0000164C  C001  push_int 0
+00001652  C001  push_int 73
+00001658  8005  call
+0000165A  801A  pop
+0000165C  811D  gsay_end
+0000165E  80DF  end_dialogue
+00001660  C001  push_int 6202
+00001666  8004  jump
+00001668  C001  push_int 5830
+0000166E  C001  push_int 41
+00001674  80C3  op_80c3
+00001676  C001  push_int 4
+0000167C  8033  equal
+0000167E  802F  if
+00001680  C001  push_int 401
+00001686  80BC  self_obj
+00001688  C001  push_int 4
+0000168E  C001  push_int 1
+00001694  8046  negate
+00001696  C001  push_int 1
+0000169C  8046  negate
+0000169E  80DE  start_gdialog
+000016A0  811C  gsay_start
+000016A2  C001  push_int 5816
+000016A8  800D  d_to_a
+000016AA  C001  push_int 0
+000016B0  C001  push_int 76
+000016B6  8005  call
+000016B8  801A  pop
+000016BA  811D  gsay_end
+000016BC  80DF  end_dialogue
+000016BE  C001  push_int 6202
+000016C4  8004  jump
+000016C6  C001  push_int 6098
+000016CC  C001  push_int 6
+000016D2  80C1  local_var
+000016D4  C001  push_int 0
+000016DA  8033  equal
+000016DC  802F  if
+000016DE  C001  push_int 5948
+000016E4  C001  push_int 41
+000016EA  80C3  op_80c3
+000016EC  C001  push_int 2
+000016F2  8033  equal
+000016F4  802F  if
+000016F6  C001  push_int 401
+000016FC  80BC  self_obj
+000016FE  C001  push_int 4
+00001704  C001  push_int 1
+0000170A  8046  negate
+0000170C  C001  push_int 1
+00001712  8046  negate
+00001714  80DE  start_gdialog
+00001716  811C  gsay_start
+00001718  C001  push_int 5934
+0000171E  800D  d_to_a
+00001720  C001  push_int 0
+00001726  C001  push_int 29
+0000172C  8005  call
+0000172E  801A  pop
+00001730  811D  gsay_end
+00001732  80DF  end_dialogue
+00001734  C001  push_int 6090
+0000173A  8004  jump
+0000173C  C001  push_int 6042
+00001742  C001  push_int 41
+00001748  80C3  op_80c3
+0000174A  C001  push_int 1
+00001750  8033  equal
+00001752  802F  if
+00001754  C001  push_int 401
+0000175A  80BC  self_obj
+0000175C  C001  push_int 4
+00001762  C001  push_int 1
+00001768  8046  negate
+0000176A  C001  push_int 1
+00001770  8046  negate
+00001772  80DE  start_gdialog
+00001774  811C  gsay_start
+00001776  C001  push_int 6028
+0000177C  800D  d_to_a
+0000177E  C001  push_int 0
+00001784  C001  push_int 39
+0000178A  8005  call
+0000178C  801A  pop
+0000178E  811D  gsay_end
+00001790  80DF  end_dialogue
+00001792  C001  push_int 6090
+00001798  8004  jump
+0000179A  C001  push_int 6090
+000017A0  C001  push_int 41
+000017A6  80C3  op_80c3
+000017A8  C001  push_int 0
+000017AE  8033  equal
+000017B0  802F  if
+000017B2  C001  push_int 6088
+000017B8  800D  d_to_a
+000017BA  C001  push_int 0
+000017C0  C001  push_int 34
+000017C6  8005  call
+000017C8  801A  pop
+000017CA  C001  push_int 6202
+000017D0  8004  jump
+000017D2  C001  push_int 6202
+000017D8  C001  push_int 6
+000017DE  80C1  local_var
+000017E0  C001  push_int 1
+000017E6  8033  equal
+000017E8  C001  push_int 41
+000017EE  80C3  op_80c3
+000017F0  C001  push_int 1
+000017F6  8033  equal
+000017F8  803E  and
+000017FA  802F  if
+000017FC  C001  push_int 401
+00001802  80BC  self_obj
+00001804  C001  push_int 4
+0000180A  C001  push_int 1
+00001810  8046  negate
+00001812  C001  push_int 1
+00001818  8046  negate
+0000181A  80DE  start_gdialog
+0000181C  811C  gsay_start
+0000181E  C001  push_int 6196
+00001824  800D  d_to_a
+00001826  C001  push_int 0
+0000182C  C001  push_int 35
+00001832  8005  call
+00001834  801A  pop
+00001836  811D  gsay_end
+00001838  80DF  end_dialogue
+0000183A  C001  push_int 0
+00001840  800D  d_to_a
+00001842  8019  swapa
+00001844  802A  pop_to_base
+00001846  8029  pop_base
+00001848  800C  a_to_d
+0000184A  801C  pop_return
+0000184C  802A  pop_to_base
+0000184E  8029  pop_base
+00001850  801C  pop_return
+
+.procedure 6 destroy_p_proc offset=0x00001852 size=336 args=0 flags=0x00000000
+00001852  802B  push_base
+00001854  C001  push_int 6538
+0000185A  80BD  source_obj
+0000185C  80BF  dude_obj
+0000185E  8033  equal
+00001860  802F  if
+00001862  C001  push_int 6350
+00001868  C001  push_int 160
+0000186E  80C5  global_var
+00001870  C001  push_int 159
+00001876  80C5  global_var
+00001878  8039  add
+0000187A  C001  push_int 25
+00001880  8036  greater_equal
+00001882  C001  push_int 159
+00001888  80C5  global_var
+0000188A  C001  push_int 2
+00001890  C001  push_int 160
+00001896  80C5  global_var
+00001898  803B  mul
+0000189A  8038  greater
+0000189C  C001  push_int 156
+000018A2  80C5  global_var
+000018A4  C001  push_int 1
+000018AA  8033  equal
+000018AC  803F  or
+000018AE  803E  and
+000018B0  802F  if
+000018B2  C001  push_int 156
+000018B8  C001  push_int 1
+000018BE  80C6  set_global_var
+000018C0  C001  push_int 157
+000018C6  C001  push_int 0
+000018CC  80C6  set_global_var
+000018CE  C001  push_int 6458
+000018D4  C001  push_int 160
+000018DA  80C5  global_var
+000018DC  C001  push_int 159
+000018E2  80C5  global_var
+000018E4  8039  add
+000018E6  C001  push_int 25
+000018EC  8036  greater_equal
+000018EE  C001  push_int 160
+000018F4  80C5  global_var
+000018F6  C001  push_int 3
+000018FC  C001  push_int 159
+00001902  80C5  global_var
+00001904  803B  mul
+00001906  8038  greater
+00001908  C001  push_int 157
+0000190E  80C5  global_var
+00001910  C001  push_int 1
+00001916  8033  equal
+00001918  803F  or
+0000191A  803E  and
+0000191C  802F  if
+0000191E  C001  push_int 157
+00001924  C001  push_int 1
+0000192A  80C6  set_global_var
+0000192C  C001  push_int 156
+00001932  C001  push_int 0
+00001938  80C6  set_global_var
+0000193A  C001  push_int 159
+00001940  C001  push_int 159
+00001946  80C5  global_var
+00001948  C001  push_int 1
+0000194E  8039  add
+00001950  80C6  set_global_var
+00001952  C001  push_int 6538
+00001958  C001  push_int 159
+0000195E  80C5  global_var
+00001960  C001  push_int 2
+00001966  803D  mod
+00001968  C001  push_int 0
+0000196E  8033  equal
+00001970  802F  if
+00001972  C001  push_int 155
+00001978  C001  push_int 155
+0000197E  80C5  global_var
+00001980  C001  push_int 1
+00001986  803A  sub
+00001988  80C6  set_global_var
+0000198A  C001  push_int 0
+00001990  800D  d_to_a
+00001992  8019  swapa
+00001994  802A  pop_to_base
+00001996  8029  pop_base
+00001998  800C  a_to_d
+0000199A  801C  pop_return
+0000199C  802A  pop_to_base
+0000199E  8029  pop_base
+000019A0  801C  pop_return
+
+.procedure 7 damage_p_proc offset=0x000019A2 size=84 args=0 flags=0x00000000
+000019A2  802B  push_base
+000019A4  C001  push_int 0
+000019AA  80BD  source_obj
+000019AC  8100  op_8100
+000019AE  C001  push_int 0
+000019B4  8031  store
+000019B6  C001  push_int 6622
+000019BC  C001  push_int 0
+000019C2  8032  fetch
+000019C4  814B  op_814b
+000019C6  C001  push_int 0
+000019CC  8034  not_equal
+000019CE  802F  if
+000019D0  C001  push_int 248
+000019D6  C001  push_int 1
+000019DC  80C6  set_global_var
+000019DE  C001  push_int 0
+000019E4  800D  d_to_a
+000019E6  8019  swapa
+000019E8  802A  pop_to_base
+000019EA  8029  pop_base
+000019EC  800C  a_to_d
+000019EE  801C  pop_return
+000019F0  802A  pop_to_base
+000019F2  8029  pop_base
+000019F4  801C  pop_return
+
+.procedure 8 look_at_p_proc offset=0x000019F6 size=44 args=0 flags=0x00000000
+000019F6  802B  push_base
+000019F8  80B9  script_overrides
+000019FA  C001  push_int 401
+00001A00  C001  push_int 100
+00001A06  8105  message_str
+          ; message_lookup: list=401, message=100 | 你看到了罗格尔。, status=linked
+00001A08  80B8  display_msg
+00001A0A  C001  push_int 0
+00001A10  800D  d_to_a
+00001A12  8019  swapa
+00001A14  802A  pop_to_base
+00001A16  8029  pop_base
+00001A18  800C  a_to_d
+00001A1A  801C  pop_return
+00001A1C  802A  pop_to_base
+00001A1E  8029  pop_base
+00001A20  801C  pop_return
+
+.procedure 9 Rutger00 offset=0x00001A22 size=290 args=0 flags=0x00000000
+00001A22  802B  push_base
+00001A24  C001  push_int 401
+00001A2A  C001  push_int 101
+00001A30  811E  gsay_reply
+          ; reply: list=401, message=101 | 你好，欢迎来到远行商队，有什么能帮上忙的？, status=linked
+00001A32  C001  push_int 6762
+00001A38  C001  push_int 101
+00001A3E  80C5  global_var
+00001A40  C001  push_int 2
+00001A46  8034  not_equal
+00001A48  802F  if
+00001A4A  C001  push_int 4
+00001A50  C001  push_int 401
+00001A56  C001  push_int 102
+00001A5C  C001  push_int 14
+00001A62  C001  push_int 50
+00001A68  8121  giq_option
+          ; intelligence_option: list=401, message=102 | 你能运输水吗？, status=linked
+00001A6A  C001  push_int 6826
+00001A70  C001  push_int 43
+00001A76  80C3  op_80c3
+00001A78  C001  push_int 1
+00001A7E  8033  equal
+00001A80  802F  if
+00001A82  C001  push_int 4
+00001A88  C001  push_int 401
+00001A8E  C001  push_int 103
+00001A94  C001  push_int 10
+00001A9A  C001  push_int 50
+00001AA0  8121  giq_option
+          ; intelligence_option: list=401, message=103 | 我在这里是因为告示的那份工作。, status=linked
+00001AA2  C001  push_int 6858
+00001AA8  8004  jump
+00001AAA  C001  push_int 4
+00001AB0  C001  push_int 401
+00001AB6  C001  push_int 104
+00001ABC  C001  push_int 10
+00001AC2  C001  push_int 50
+00001AC8  8121  giq_option
+          ; intelligence_option: list=401, message=104 | 我在找工作。, status=linked
+00001ACA  C001  push_int 4
+00001AD0  C001  push_int 401
+00001AD6  C001  push_int 105
+00001ADC  C001  push_int 18
+00001AE2  C001  push_int 50
+00001AE8  8121  giq_option
+          ; intelligence_option: list=401, message=105 | 你们在这儿都做些什么？, status=linked
+00001AEA  C001  push_int 4
+00001AF0  C001  push_int 401
+00001AF6  C001  push_int 106
+00001AFC  C001  push_int 97
+00001B02  C001  push_int 50
+00001B08  8121  giq_option
+          ; intelligence_option: list=401, message=106 | 你不能。再见。, status=linked
+00001B0A  C001  push_int 3
+00001B10  8046  negate
+00001B12  C001  push_int 401
+00001B18  C001  push_int 107
+00001B1E  C001  push_int 11
+00001B24  C001  push_int 50
+00001B2A  8121  giq_option
+          ; intelligence_option: list=401, message=107 | 快点！, status=linked
+00001B2C  C001  push_int 0
+00001B32  800D  d_to_a
+00001B34  8019  swapa
+00001B36  802A  pop_to_base
+00001B38  8029  pop_base
+00001B3A  800C  a_to_d
+00001B3C  801C  pop_return
+00001B3E  802A  pop_to_base
+00001B40  8029  pop_base
+00001B42  801C  pop_return
+
+.procedure 10 Rutger00a offset=0x00001B44 size=404 args=0 flags=0x00000000
+00001B44  802B  push_base
+00001B46  C001  push_int 7094
+00001B4C  C001  push_int 160
+00001B52  80C5  global_var
+00001B54  C001  push_int 159
+00001B5A  80C5  global_var
+00001B5C  8039  add
+00001B5E  C001  push_int 25
+00001B64  8036  greater_equal
+00001B66  C001  push_int 159
+00001B6C  80C5  global_var
+00001B6E  C001  push_int 2
+00001B74  C001  push_int 160
+00001B7A  80C5  global_var
+00001B7C  803B  mul
+00001B7E  8038  greater
+00001B80  C001  push_int 156
+00001B86  80C5  global_var
+00001B88  C001  push_int 1
+00001B8E  8033  equal
+00001B90  803F  or
+00001B92  803E  and
+00001B94  802F  if
+00001B96  C001  push_int 7084
+00001B9C  800D  d_to_a
+00001B9E  C001  push_int 0
+00001BA4  C001  push_int 21
+00001BAA  8005  call
+00001BAC  801A  pop
+00001BAE  C001  push_int 7360
+00001BB4  8004  jump
+00001BB6  C001  push_int 7150
+00001BBC  C001  push_int 158
+00001BC2  80C5  global_var
+00001BC4  C001  push_int 2
+00001BCA  8038  greater
+00001BCC  802F  if
+00001BCE  C001  push_int 7140
+00001BD4  800D  d_to_a
+00001BD6  C001  push_int 0
+00001BDC  C001  push_int 22
+00001BE2  8005  call
+00001BE4  801A  pop
+00001BE6  C001  push_int 7360
+00001BEC  8004  jump
+00001BEE  C001  push_int 7262
+00001BF4  C001  push_int 160
+00001BFA  80C5  global_var
+00001BFC  C001  push_int 159
+00001C02  80C5  global_var
+00001C04  8039  add
+00001C06  C001  push_int 25
+00001C0C  8036  greater_equal
+00001C0E  C001  push_int 160
+00001C14  80C5  global_var
+00001C16  C001  push_int 3
+00001C1C  C001  push_int 159
+00001C22  80C5  global_var
+00001C24  803B  mul
+00001C26  8038  greater
+00001C28  C001  push_int 157
+00001C2E  80C5  global_var
+00001C30  C001  push_int 1
+00001C36  8033  equal
+00001C38  803F  or
+00001C3A  803E  and
+00001C3C  802F  if
+00001C3E  C001  push_int 7252
+00001C44  800D  d_to_a
+00001C46  C001  push_int 0
+00001C4C  C001  push_int 27
+00001C52  8005  call
+00001C54  801A  pop
+00001C56  C001  push_int 7360
+00001C5C  8004  jump
+00001C5E  C001  push_int 7336
+00001C64  C001  push_int 35
+00001C6A  80C3  op_80c3
+00001C6C  C001  push_int 1
+00001C72  8033  equal
+00001C74  C001  push_int 40
+00001C7A  80C3  op_80c3
+00001C7C  C001  push_int 1
+00001C82  8033  equal
+00001C84  803F  or
+00001C86  802F  if
+00001C88  C001  push_int 7326
+00001C8E  800D  d_to_a
+00001C90  C001  push_int 0
+00001C96  C001  push_int 95
+00001C9C  8005  call
+00001C9E  801A  pop
+00001CA0  C001  push_int 7360
+00001CA6  8004  jump
+00001CA8  C001  push_int 7358
+00001CAE  800D  d_to_a
+00001CB0  C001  push_int 0
+00001CB6  C001  push_int 28
+00001CBC  8005  call
+00001CBE  801A  pop
+00001CC0  C001  push_int 0
+00001CC6  800D  d_to_a
+00001CC8  8019  swapa
+00001CCA  802A  pop_to_base
+00001CCC  8029  pop_base
+00001CCE  800C  a_to_d
+00001CD0  801C  pop_return
+00001CD2  802A  pop_to_base
+00001CD4  8029  pop_base
+00001CD6  801C  pop_return
+
+.procedure 11 Rutger00b offset=0x00001CD8 size=108 args=0 flags=0x00000000
+00001CD8  802B  push_base
+00001CDA  C001  push_int 7444
+00001CE0  80BF  dude_obj
+00001CE2  C001  push_int 0
+00001CE8  80CA  get_critter_stat
+00001CEA  C001  push_int 6
+00001CF0  8035  less_equal
+00001CF2  802F  if
+00001CF4  C001  push_int 7434
+00001CFA  800D  d_to_a
+00001CFC  C001  push_int 0
+00001D02  C001  push_int 12
+00001D08  8005  call
+00001D0A  801A  pop
+00001D0C  C001  push_int 7468
+00001D12  8004  jump
+00001D14  C001  push_int 7466
+00001D1A  800D  d_to_a
+00001D1C  C001  push_int 0
+00001D22  C001  push_int 13
+00001D28  8005  call
+00001D2A  801A  pop
+00001D2C  C001  push_int 0
+00001D32  800D  d_to_a
+00001D34  8019  swapa
+00001D36  802A  pop_to_base
+00001D38  8029  pop_base
+00001D3A  800C  a_to_d
+00001D3C  801C  pop_return
+00001D3E  802A  pop_to_base
+00001D40  8029  pop_base
+00001D42  801C  pop_return
+
+.procedure 12 Rutger01 offset=0x00001D44 size=46 args=0 flags=0x00000000
+00001D44  802B  push_base
+00001D46  C001  push_int 401
+00001D4C  C001  push_int 108
+00001D52  C001  push_int 51
+00001D58  8120  gsay_message
+          ; message: list=401, message=108 | 我们不会招募瘾君子！走吧。, status=linked
+00001D5A  C001  push_int 0
+00001D60  800D  d_to_a
+00001D62  8019  swapa
+00001D64  802A  pop_to_base
+00001D66  8029  pop_base
+00001D68  800C  a_to_d
+00001D6A  801C  pop_return
+00001D6C  802A  pop_to_base
+00001D6E  8029  pop_base
+00001D70  801C  pop_return
+
+.procedure 13 Rutger02 offset=0x00001D72 size=46 args=0 flags=0x00000000
+00001D72  802B  push_base
+00001D74  C001  push_int 401
+00001D7A  C001  push_int 109
+00001D80  C001  push_int 50
+00001D86  8120  gsay_message
+          ; message: list=401, message=109 | 不好意思，像你这样的空有一身蛮力，却没有大脑的家伙我们这已经有很多了. , status=linked
+00001D88  C001  push_int 0
+00001D8E  800D  d_to_a
+00001D90  8019  swapa
+00001D92  802A  pop_to_base
+00001D94  8029  pop_base
+00001D96  800C  a_to_d
+00001D98  801C  pop_return
+00001D9A  802A  pop_to_base
+00001D9C  8029  pop_base
+00001D9E  801C  pop_return
+
+.procedure 14 Rutger03 offset=0x00001DA0 size=168 args=0 flags=0x00000000
+00001DA0  802B  push_base
+00001DA2  C001  push_int 401
+00001DA8  C001  push_int 110
+00001DAE  811E  gsay_reply
+          ; reply: list=401, message=110 | 哦，我们“可以”运输纯净水，但是那会花你好大一笔钱。你需要多少，要运到哪里？, status=linked
+00001DB0  C001  push_int 7664
+00001DB6  C001  push_int 71
+00001DBC  80C5  global_var
+00001DBE  C001  push_int 0
+00001DC4  8038  greater
+00001DC6  802F  if
+00001DC8  C001  push_int 4
+00001DCE  C001  push_int 401
+00001DD4  C001  push_int 111
+00001DDA  C001  push_int 15
+00001DE0  C001  push_int 50
+00001DE6  8121  giq_option
+          ; intelligence_option: list=401, message=111 | 我需要能够供应一整个避难所的水量。避难所在迦克镇以北，群山之中。, status=linked
+00001DE8  C001  push_int 7696
+00001DEE  8004  jump
+00001DF0  C001  push_int 4
+00001DF6  C001  push_int 401
+00001DFC  C001  push_int 112
+00001E02  C001  push_int 15
+00001E08  C001  push_int 50
+00001E0E  8121  giq_option
+          ; intelligence_option: list=401, message=112 | 我需要能够供应一整个避难所的水量。避难所在北方的群山之中。, status=linked
+00001E10  C001  push_int 4
+00001E16  C001  push_int 401
+00001E1C  C001  push_int 113
+00001E22  C001  push_int 97
+00001E28  C001  push_int 50
+00001E2E  8121  giq_option
+          ; intelligence_option: list=401, message=113 | 有多少要多少！总有一天我会改变这星球的面貌。你会看到那一天的！, status=linked
+00001E30  C001  push_int 0
+00001E36  800D  d_to_a
+00001E38  8019  swapa
+00001E3A  802A  pop_to_base
+00001E3C  8029  pop_base
+00001E3E  800C  a_to_d
+00001E40  801C  pop_return
+00001E42  802A  pop_to_base
+00001E44  8029  pop_base
+00001E46  801C  pop_return
+
+.procedure 15 Rutger04 offset=0x00001E48 size=200 args=0 flags=0x00000000
+00001E48  802B  push_base
+00001E4A  C001  push_int 401
+00001E50  C001  push_int 114
+00001E56  811E  gsay_reply
+          ; reply: list=401, message=114 | 一整个避难所？你脑筋有问题吗？我们搞不到那么多净水，再说，我不想去到那些山脉里面。有很多商队都失踪了。, status=linked
+00001E58  C001  push_int 4
+00001E5E  C001  push_int 401
+00001E64  C001  push_int 115
+00001E6A  C001  push_int 16
+00001E70  C001  push_int 50
+00001E76  8121  giq_option
+          ; intelligence_option: list=401, message=115 | 你不去？那么还有谁能去？, status=linked
+00001E78  C001  push_int 7864
+00001E7E  C001  push_int 43
+00001E84  80C3  op_80c3
+00001E86  C001  push_int 1
+00001E8C  8033  equal
+00001E8E  802F  if
+00001E90  C001  push_int 4
+00001E96  C001  push_int 401
+00001E9C  C001  push_int 116
+00001EA2  C001  push_int 10
+00001EA8  C001  push_int 50
+00001EAE  8121  giq_option
+          ; intelligence_option: list=401, message=116 | 那么，那发布的工作是个什么情况？, status=linked
+00001EB0  C001  push_int 7896
+00001EB6  8004  jump
+00001EB8  C001  push_int 4
+00001EBE  C001  push_int 401
+00001EC4  C001  push_int 117
+00001ECA  C001  push_int 10
+00001ED0  C001  push_int 50
+00001ED6  8121  giq_option
+          ; intelligence_option: list=401, message=117 | 那么，你这里有什么活儿吗？, status=linked
+00001ED8  C001  push_int 4
+00001EDE  C001  push_int 401
+00001EE4  C001  push_int 118
+00001EEA  C001  push_int 97
+00001EF0  C001  push_int 50
+00001EF6  8121  giq_option
+          ; intelligence_option: list=401, message=118 | 好吧，你还真是有用啊。, status=linked
+00001EF8  C001  push_int 0
+00001EFE  800D  d_to_a
+00001F00  8019  swapa
+00001F02  802A  pop_to_base
+00001F04  8029  pop_base
+00001F06  800C  a_to_d
+00001F08  801C  pop_return
+00001F0A  802A  pop_to_base
+00001F0C  8029  pop_base
+00001F0E  801C  pop_return
+
+.procedure 16 Rutger05 offset=0x00001F10 size=104 args=0 flags=0x00000000
+00001F10  802B  push_base
+00001F12  C001  push_int 401
+00001F18  C001  push_int 119
+00001F1E  811E  gsay_reply
+          ; reply: list=401, message=119 | 对不起，看来你还不了解这儿的情况，这里的水由那些纯水商队控制着，别指望我会和那群贪得无厌的人打交道。 , status=linked
+00001F20  C001  push_int 4
+00001F26  C001  push_int 401
+00001F2C  C001  push_int 120
+00001F32  C001  push_int 17
+00001F38  C001  push_int 50
+00001F3E  8121  giq_option
+          ; intelligence_option: list=401, message=120 | 我在哪里可以找到他们？, status=linked
+00001F40  C001  push_int 4
+00001F46  C001  push_int 401
+00001F4C  C001  push_int 121
+00001F52  C001  push_int 97
+00001F58  C001  push_int 50
+00001F5E  8121  giq_option
+          ; intelligence_option: list=401, message=121 | 好的，谢谢了。, status=linked
+00001F60  C001  push_int 0
+00001F66  800D  d_to_a
+00001F68  8019  swapa
+00001F6A  802A  pop_to_base
+00001F6C  8029  pop_base
+00001F6E  800C  a_to_d
+00001F70  801C  pop_return
+00001F72  802A  pop_to_base
+00001F74  8029  pop_base
+00001F76  801C  pop_return
+
+.procedure 17 Rutger06 offset=0x00001F78 size=104 args=0 flags=0x00000000
+00001F78  802B  push_base
+00001F7A  C001  push_int 401
+00001F80  C001  push_int 122
+00001F86  811E  gsay_reply
+          ; reply: list=401, message=122 | 你不会找不到的。他们在南边，都待在见鬼的水塔那边了。, status=linked
+00001F88  C001  push_int 4
+00001F8E  C001  push_int 401
+00001F94  C001  push_int 123
+00001F9A  C001  push_int 18
+00001FA0  C001  push_int 50
+00001FA6  8121  giq_option
+          ; intelligence_option: list=401, message=123 | 那么，你在这边走动是为了什么？, status=linked
+00001FA8  C001  push_int 4
+00001FAE  C001  push_int 401
+00001FB4  C001  push_int 124
+00001FBA  C001  push_int 97
+00001FC0  C001  push_int 50
+00001FC6  8121  giq_option
+          ; intelligence_option: list=401, message=124 | 好的，谢谢了。, status=linked
+00001FC8  C001  push_int 0
+00001FCE  800D  d_to_a
+00001FD0  8019  swapa
+00001FD2  802A  pop_to_base
+00001FD4  8029  pop_base
+00001FD6  800C  a_to_d
+00001FD8  801C  pop_return
+00001FDA  802A  pop_to_base
+00001FDC  8029  pop_base
+00001FDE  801C  pop_return
+
+.procedure 18 Rutger07 offset=0x00001FE0 size=260 args=0 flags=0x00000000
+00001FE0  802B  push_base
+00001FE2  C001  push_int 8222
+00001FE8  C001  push_int 5
+00001FEE  80C1  local_var
+00001FF0  C001  push_int 0
+00001FF6  8033  equal
+00001FF8  802F  if
+00001FFA  C001  push_int 5
+00002000  C001  push_int 1
+00002006  80C2  set_local_var
+00002008  C001  push_int 401
+0000200E  C001  push_int 125
+00002014  811E  gsay_reply
+          ; reply: list=401, message=125 | 我是这儿的老大……喔，我的意思是，我负责整个商队的管理和运营，如果想和商队谈生意的话，那么我就是你要找的人，我们可以把你想要的物品送到任何地方去。, status=linked
+00002016  C001  push_int 8236
+0000201C  8004  jump
+0000201E  C001  push_int 401
+00002024  C001  push_int 126
+0000202A  811E  gsay_reply
+          ; reply: list=401, message=126 | 我已经告诉过你了。我和布奇运作着远行商队。你到底要什么？, status=linked
+0000202C  C001  push_int 4
+00002032  C001  push_int 401
+00002038  C001  push_int 127
+0000203E  C001  push_int 19
+00002044  C001  push_int 50
+0000204A  8121  giq_option
+          ; intelligence_option: list=401, message=127 | 你一般买卖些什么？, status=linked
+0000204C  C001  push_int 4
+00002052  C001  push_int 401
+00002058  C001  push_int 128
+0000205E  C001  push_int 97
+00002064  C001  push_int 50
+0000206A  8121  giq_option
+          ; intelligence_option: list=401, message=128 | 很有趣。再见。, status=linked
+0000206C  C001  push_int 8364
+00002072  C001  push_int 43
+00002078  80C3  op_80c3
+0000207A  C001  push_int 1
+00002080  8033  equal
+00002082  802F  if
+00002084  C001  push_int 4
+0000208A  C001  push_int 401
+00002090  C001  push_int 129
+00002096  C001  push_int 10
+0000209C  C001  push_int 50
+000020A2  8121  giq_option
+          ; intelligence_option: list=401, message=129 | 好极了。那工作招聘是怎么个情况？, status=linked
+000020A4  C001  push_int 8396
+000020AA  8004  jump
+000020AC  C001  push_int 4
+000020B2  C001  push_int 401
+000020B8  C001  push_int 130
+000020BE  C001  push_int 10
+000020C4  C001  push_int 50
+000020CA  8121  giq_option
+          ; intelligence_option: list=401, message=130 | 听起来不错。你需要什么帮助吗？, status=linked
+000020CC  C001  push_int 0
+000020D2  800D  d_to_a
+000020D4  8019  swapa
+000020D6  802A  pop_to_base
+000020D8  8029  pop_base
+000020DA  800C  a_to_d
+000020DC  801C  pop_return
+000020DE  802A  pop_to_base
+000020E0  8029  pop_base
+000020E2  801C  pop_return
+
+.procedure 19 Rutger08 offset=0x000020E4 size=104 args=0 flags=0x00000000
+000020E4  802B  push_base
+000020E6  C001  push_int 401
+000020EC  C001  push_int 131
+000020F2  811E  gsay_reply
+          ; reply: list=401, message=131 | 为什么，我们可以帮你运送你所有能想到到的东西：毒品，衣服，枪支，弹药，食品，粪便，或者废铜烂铁。 , status=linked
+000020F4  C001  push_int 4
+000020FA  C001  push_int 401
+00002100  C001  push_int 132
+00002106  C001  push_int 20
+0000210C  C001  push_int 50
+00002112  8121  giq_option
+          ; intelligence_option: list=401, message=132 | 粪便？废铜烂铁？, status=linked
+00002114  C001  push_int 4
+0000211A  C001  push_int 401
+00002120  C001  push_int 133
+00002126  C001  push_int 97
+0000212C  C001  push_int 50
+00002132  8121  giq_option
+          ; intelligence_option: list=401, message=133 | 呃……那真是迷人，不过我得走了。, status=linked
+00002134  C001  push_int 0
+0000213A  800D  d_to_a
+0000213C  8019  swapa
+0000213E  802A  pop_to_base
+00002140  8029  pop_base
+00002142  800C  a_to_d
+00002144  801C  pop_return
+00002146  802A  pop_to_base
+00002148  8029  pop_base
+0000214A  801C  pop_return
+
+.procedure 20 Rutger09 offset=0x0000214C size=200 args=0 flags=0x00000000
+0000214C  802B  push_base
+0000214E  C001  push_int 401
+00002154  C001  push_int 134
+0000215A  811E  gsay_reply
+          ; reply: list=401, message=134 | 不用惊奇，对于这个地方看来一文不值的东西，或许在10英里就是抢手货。 , status=linked
+0000215C  C001  push_int 4
+00002162  C001  push_int 401
+00002168  C001  push_int 135
+0000216E  C001  push_int 98
+00002174  C001  push_int 50
+0000217A  8121  giq_option
+          ; intelligence_option: list=401, message=135 | 好吧，我对无聊商人的喋喋不休已经受够了。出去的门在哪儿？, status=linked
+0000217C  C001  push_int 4
+00002182  C001  push_int 401
+00002188  C001  push_int 136
+0000218E  C001  push_int 97
+00002194  C001  push_int 50
+0000219A  8121  giq_option
+          ; intelligence_option: list=401, message=136 | 谢了，再见。, status=linked
+0000219C  C001  push_int 8668
+000021A2  C001  push_int 43
+000021A8  80C3  op_80c3
+000021AA  C001  push_int 1
+000021B0  8033  equal
+000021B2  802F  if
+000021B4  C001  push_int 4
+000021BA  C001  push_int 401
+000021C0  C001  push_int 129
+000021C6  C001  push_int 10
+000021CC  C001  push_int 50
+000021D2  8121  giq_option
+          ; intelligence_option: list=401, message=129 | 好极了。那工作招聘是怎么个情况？, status=linked
+000021D4  C001  push_int 8700
+000021DA  8004  jump
+000021DC  C001  push_int 4
+000021E2  C001  push_int 401
+000021E8  C001  push_int 130
+000021EE  C001  push_int 10
+000021F4  C001  push_int 50
+000021FA  8121  giq_option
+          ; intelligence_option: list=401, message=130 | 听起来不错。你需要什么帮助吗？, status=linked
+000021FC  C001  push_int 0
+00002202  800D  d_to_a
+00002204  8019  swapa
+00002206  802A  pop_to_base
+00002208  8029  pop_base
+0000220A  800C  a_to_d
+0000220C  801C  pop_return
+0000220E  802A  pop_to_base
+00002210  8029  pop_base
+00002212  801C  pop_return
+
+.procedure 21 Rutger10 offset=0x00002214 size=60 args=0 flags=0x00000000
+00002214  802B  push_base
+00002216  C001  push_int 34
+0000221C  C001  push_int 1
+00002222  80C4  op_80c4
+00002224  C001  push_int 401
+0000222A  C001  push_int 139
+00002230  C001  push_int 50
+00002236  8120  gsay_message
+          ; message: list=401, message=139 | 我听说你是个很疯狂的人，不过那正是我们现在所需要的，你得去和布奇谈谈，他欢迎所有的新人，他就在我身后右边的房间，进去就是了。, status=linked
+00002238  C001  push_int 0
+0000223E  800D  d_to_a
+00002240  8019  swapa
+00002242  802A  pop_to_base
+00002244  8029  pop_base
+00002246  800C  a_to_d
+00002248  801C  pop_return
+0000224A  802A  pop_to_base
+0000224C  8029  pop_base
+0000224E  801C  pop_return
+
+.procedure 22 Rutger11 offset=0x00002250 size=104 args=0 flags=0x00000000
+00002250  802B  push_base
+00002252  C001  push_int 401
+00002258  C001  push_int 140
+0000225E  811E  gsay_reply
+          ; reply: list=401, message=140 | 我可不想让一个杀小孩的禽兽成为我的商队伙伴。 , status=linked
+00002260  C001  push_int 4
+00002266  C001  push_int 401
+0000226C  C001  push_int 141
+00002272  C001  push_int 23
+00002278  C001  push_int 50
+0000227E  8121  giq_option
+          ; intelligence_option: list=401, message=141 | 杀小孩？但那只是个意外。 , status=linked
+00002280  C001  push_int 4
+00002286  C001  push_int 401
+0000228C  C001  push_int 142
+00002292  C001  push_int 26
+00002298  C001  push_int 50
+0000229E  8121  giq_option
+          ; intelligence_option: list=401, message=142 | 听着，不是我歧视你，但在我看来，能做出这样的事的人，不管什么原因，什么年龄，都他妈当年该被他爸射墙上！ , status=linked
+000022A0  C001  push_int 0
+000022A6  800D  d_to_a
+000022A8  8019  swapa
+000022AA  802A  pop_to_base
+000022AC  8029  pop_base
+000022AE  800C  a_to_d
+000022B0  801C  pop_return
+000022B2  802A  pop_to_base
+000022B4  8029  pop_base
+000022B6  801C  pop_return
+
+.procedure 23 Rutger11a offset=0x000022B8 size=110 args=0 flags=0x00000000
+000022B8  802B  push_base
+000022BA  C001  push_int 8950
+000022C0  80BF  dude_obj
+000022C2  C001  push_int 3
+000022C8  C001  push_int 1
+000022CE  8046  negate
+000022D0  80AE  op_80ae
+000022D2  80AF  op_80af
+000022D4  802F  if
+000022D6  C001  push_int 8940
+000022DC  800D  d_to_a
+000022DE  C001  push_int 0
+000022E4  C001  push_int 24
+000022EA  8005  call
+000022EC  801A  pop
+000022EE  C001  push_int 8974
+000022F4  8004  jump
+000022F6  C001  push_int 8972
+000022FC  800D  d_to_a
+000022FE  C001  push_int 0
+00002304  C001  push_int 25
+0000230A  8005  call
+0000230C  801A  pop
+0000230E  C001  push_int 0
+00002314  800D  d_to_a
+00002316  8019  swapa
+00002318  802A  pop_to_base
+0000231A  8029  pop_base
+0000231C  800C  a_to_d
+0000231E  801C  pop_return
+00002320  802A  pop_to_base
+00002322  8029  pop_base
+00002324  801C  pop_return
+
+.procedure 24 Rutger12 offset=0x00002326 size=60 args=0 flags=0x00000000
+00002326  802B  push_base
+00002328  C001  push_int 34
+0000232E  C001  push_int 1
+00002334  80C4  op_80c4
+00002336  C001  push_int 401
+0000233C  C001  push_int 143
+00002342  C001  push_int 50
+00002348  8120  gsay_message
+          ; message: list=401, message=143 | 我能想到发生了什么事，外面的世界不是一般的糟糕，我仍然不能完全相信你，去和布奇谈，他就在前面的房间。 , status=linked
+0000234A  C001  push_int 0
+00002350  800D  d_to_a
+00002352  8019  swapa
+00002354  802A  pop_to_base
+00002356  8029  pop_base
+00002358  800C  a_to_d
+0000235A  801C  pop_return
+0000235C  802A  pop_to_base
+0000235E  8029  pop_base
+00002360  801C  pop_return
+
+.procedure 25 Rutger13 offset=0x00002362 size=114 args=0 flags=0x00000000
+00002362  802B  push_base
+00002364  C001  push_int 34
+0000236A  C001  push_int 1
+00002370  80C4  op_80c4
+00002372  C001  push_int 9128
+00002378  80BF  dude_obj
+0000237A  C001  push_int 34
+00002380  80CA  get_critter_stat
+00002382  C001  push_int 0
+00002388  8033  equal
+0000238A  802F  if
+0000238C  C001  push_int 401
+00002392  C001  push_int 144
+00002398  C001  push_int 51
+0000239E  8120  gsay_message
+          ; message: list=401, message=144 | 事故个鸡巴！我知道你是个什么鸟，为所欲为的混蛋，听着，别在我面前晃来晃去，滚去找布奇，我会看着你的，他就在前面的房间。, status=linked
+000023A0  C001  push_int 9148
+000023A6  8004  jump
+000023A8  C001  push_int 401
+000023AE  C001  push_int 145
+000023B4  C001  push_int 51
+000023BA  8120  gsay_message
+          ; message: list=401, message=145 | 事故个鸡巴！我知道你是个什么鸟，为所欲为的混蛋，听着，别在我面前晃来晃去，滚去找布奇，我会看着你的，他就在前面的房间。 , status=linked
+000023BC  C001  push_int 0
+000023C2  800D  d_to_a
+000023C4  8019  swapa
+000023C6  802A  pop_to_base
+000023C8  8029  pop_base
+000023CA  800C  a_to_d
+000023CC  801C  pop_return
+000023CE  802A  pop_to_base
+000023D0  8029  pop_base
+000023D2  801C  pop_return
+
+.procedure 26 Rutger14 offset=0x000023D4 size=60 args=0 flags=0x00000000
+000023D4  802B  push_base
+000023D6  C001  push_int 34
+000023DC  C001  push_int 1
+000023E2  80C4  op_80c4
+000023E4  C001  push_int 401
+000023EA  C001  push_int 146
+000023F0  C001  push_int 50
+000023F6  8120  gsay_message
+          ; message: list=401, message=146 | 你真是个婊子养的，居然下的了手。或许我们需要你这样的人，但这并不代表我认可你他妈所做的一切，别动附近的孩子们，不然我就把你变回和你爹射墙上的兄弟一个样。滚去和布奇谈，他的办公室就在前面。 , status=linked
+000023F8  C001  push_int 0
+000023FE  800D  d_to_a
+00002400  8019  swapa
+00002402  802A  pop_to_base
+00002404  8029  pop_base
+00002406  800C  a_to_d
+00002408  801C  pop_return
+0000240A  802A  pop_to_base
+0000240C  8029  pop_base
+0000240E  801C  pop_return
+
+.procedure 27 Rutger15 offset=0x00002410 size=60 args=0 flags=0x00000000
+00002410  802B  push_base
+00002412  C001  push_int 34
+00002418  C001  push_int 1
+0000241E  80C4  op_80c4
+00002420  C001  push_int 401
+00002426  C001  push_int 147
+0000242C  C001  push_int 50
+00002432  8120  gsay_message
+          ; message: list=401, message=147 | 您在找工作？我们已经听说了您做的很多好事。我们大门随时向您敞开，进去和布奇谈吧。他就在我后面的门里。, status=linked
+00002434  C001  push_int 0
+0000243A  800D  d_to_a
+0000243C  8019  swapa
+0000243E  802A  pop_to_base
+00002440  8029  pop_base
+00002442  800C  a_to_d
+00002444  801C  pop_return
+00002446  802A  pop_to_base
+00002448  8029  pop_base
+0000244A  801C  pop_return
+
+.procedure 28 Rutger16 offset=0x0000244C size=60 args=0 flags=0x00000000
+0000244C  802B  push_base
+0000244E  C001  push_int 34
+00002454  C001  push_int 1
+0000245A  80C4  op_80c4
+0000245C  C001  push_int 401
+00002462  C001  push_int 148
+00002468  C001  push_int 50
+0000246E  8120  gsay_message
+          ; message: list=401, message=148 | 你在找工作是吗？你看上去还不错，好吧，我想你得去找布奇谈，他就在我后面的门里。 , status=linked
+00002470  C001  push_int 0
+00002476  800D  d_to_a
+00002478  8019  swapa
+0000247A  802A  pop_to_base
+0000247C  8029  pop_base
+0000247E  800C  a_to_d
+00002480  801C  pop_return
+00002482  802A  pop_to_base
+00002484  8029  pop_base
+00002486  801C  pop_return
+
+.procedure 29 Rutger17 offset=0x00002488 size=170 args=0 flags=0x00000000
+00002488  802B  push_base
+0000248A  C001  push_int 401
+00002490  C001  push_int 149
+00002496  811E  gsay_reply
+          ; reply: list=401, message=149 | 我想你不是来找工作的。你想干吗？ , status=linked
+00002498  C001  push_int 4
+0000249E  C001  push_int 401
+000024A4  C001  push_int 150
+000024AA  C001  push_int 98
+000024B0  C001  push_int 50
+000024B6  8121  giq_option
+          ; intelligence_option: list=401, message=150 | 我不知道，我只想再多看看你们那丑得如此有个性的脸。, status=linked
+000024B8  C001  push_int 4
+000024BE  C001  push_int 401
+000024C4  C001  push_int 151
+000024CA  C001  push_int 30
+000024D0  C001  push_int 50
+000024D6  8121  giq_option
+          ; intelligence_option: list=401, message=151 | 抱歉。我真的非常需要这份工作。能招我吗？, status=linked
+000024D8  C001  push_int 4
+000024DE  C001  push_int 401
+000024E4  C001  push_int 152
+000024EA  C001  push_int 97
+000024F0  C001  push_int 50
+000024F6  8121  giq_option
+          ; intelligence_option: list=401, message=152 | 没什么。, status=linked
+000024F8  C001  push_int 3
+000024FE  8046  negate
+00002500  C001  push_int 401
+00002506  C001  push_int 153
+0000250C  C001  push_int 31
+00002512  C001  push_int 50
+00002518  8121  giq_option
+          ; intelligence_option: list=401, message=153 | 啊哈！, status=linked
+0000251A  C001  push_int 0
+00002520  800D  d_to_a
+00002522  8019  swapa
+00002524  802A  pop_to_base
+00002526  8029  pop_base
+00002528  800C  a_to_d
+0000252A  801C  pop_return
+0000252C  802A  pop_to_base
+0000252E  8029  pop_base
+00002530  801C  pop_return
+
+.procedure 30 Rutger17a offset=0x00002532 size=108 args=0 flags=0x00000000
+00002532  802B  push_base
+00002534  C001  push_int 9582
+0000253A  80BF  dude_obj
+0000253C  C001  push_int 3
+00002542  C001  push_int 1
+00002548  80AE  op_80ae
+0000254A  80AF  op_80af
+0000254C  802F  if
+0000254E  C001  push_int 9572
+00002554  800D  d_to_a
+00002556  C001  push_int 0
+0000255C  C001  push_int 32
+00002562  8005  call
+00002564  801A  pop
+00002566  C001  push_int 9606
+0000256C  8004  jump
+0000256E  C001  push_int 9604
+00002574  800D  d_to_a
+00002576  C001  push_int 0
+0000257C  C001  push_int 33
+00002582  8005  call
+00002584  801A  pop
+00002586  C001  push_int 0
+0000258C  800D  d_to_a
+0000258E  8019  swapa
+00002590  802A  pop_to_base
+00002592  8029  pop_base
+00002594  800C  a_to_d
+00002596  801C  pop_return
+00002598  802A  pop_to_base
+0000259A  8029  pop_base
+0000259C  801C  pop_return
+
+.procedure 31 Rutger18 offset=0x0000259E size=46 args=0 flags=0x00000000
+0000259E  802B  push_base
+000025A0  C001  push_int 401
+000025A6  C001  push_int 154
+000025AC  C001  push_int 51
+000025B2  8120  gsay_message
+          ; message: list=401, message=154 | 滚出这儿，你这个白痴！, status=linked
+000025B4  C001  push_int 0
+000025BA  800D  d_to_a
+000025BC  8019  swapa
+000025BE  802A  pop_to_base
+000025C0  8029  pop_base
+000025C2  800C  a_to_d
+000025C4  801C  pop_return
+000025C6  802A  pop_to_base
+000025C8  8029  pop_base
+000025CA  801C  pop_return
+
+.procedure 32 Rutger19 offset=0x000025CC size=126 args=0 flags=0x00000000
+000025CC  802B  push_base
+000025CE  C001  push_int 41
+000025D4  C001  push_int 1
+000025DA  80C4  op_80c4
+000025DC  C001  push_int 106
+000025E2  C001  push_int 1
+000025E8  80C6  set_global_var
+000025EA  C001  push_int 10
+000025F0  C001  push_int 1
+000025F6  80C4  op_80c4
+000025F8  C001  push_int 56
+000025FE  C001  push_int 1
+00002604  80C4  op_80c4
+00002606  C001  push_int 401
+0000260C  C001  push_int 155
+00002612  C001  push_int 50
+00002618  8120  gsay_message
+          ; message: list=401, message=155 | 好的，我希望你能记住，我很忙的……我们来谈谈细节吧。 , status=linked
+0000261A  C001  push_int 9776
+00002620  800D  d_to_a
+00002622  C001  push_int 0
+00002628  C001  push_int 39
+0000262E  8005  call
+00002630  801A  pop
+00002632  C001  push_int 0
+00002638  800D  d_to_a
+0000263A  8019  swapa
+0000263C  802A  pop_to_base
+0000263E  8029  pop_base
+00002640  800C  a_to_d
+00002642  801C  pop_return
+00002644  802A  pop_to_base
+00002646  8029  pop_base
+00002648  801C  pop_return
+
+.procedure 33 Rutger20 offset=0x0000264A size=112 args=0 flags=0x00000000
+0000264A  802B  push_base
+0000264C  C001  push_int 35
+00002652  C001  push_int 1
+00002658  80C4  op_80c4
+0000265A  C001  push_int 40
+00002660  C001  push_int 1
+00002666  80C4  op_80c4
+00002668  C001  push_int 10
+0000266E  C001  push_int 0
+00002674  80C4  op_80c4
+00002676  C001  push_int 9868
+0000267C  800D  d_to_a
+0000267E  C001  push_int 0
+00002684  C001  push_int 104
+0000268A  8005  call
+0000268C  801A  pop
+0000268E  C001  push_int 401
+00002694  C001  push_int 156
+0000269A  C001  push_int 51
+000026A0  8120  gsay_message
+          ; message: list=401, message=156 | 你简直就是个废物。快他妈的滚蛋。, status=linked
+000026A2  C001  push_int 0
+000026A8  800D  d_to_a
+000026AA  8019  swapa
+000026AC  802A  pop_to_base
+000026AE  8029  pop_base
+000026B0  800C  a_to_d
+000026B2  801C  pop_return
+000026B4  802A  pop_to_base
+000026B6  8029  pop_base
+000026B8  801C  pop_return
+
+.procedure 34 Rutger21 offset=0x000026BA size=50 args=0 flags=0x00000000
+000026BA  802B  push_base
+000026BC  80BC  self_obj
+000026BE  C001  push_int 401
+000026C4  C001  push_int 157
+000026CA  8105  message_str
+          ; message_lookup: list=401, message=157 | 你还在这干吗？我说了去和布奇谈。如果他喜欢你，我就告诉你细节。 , status=linked
+000026CC  C001  push_int 2
+000026D2  810A  op_810a
+000026D4  C001  push_int 0
+000026DA  800D  d_to_a
+000026DC  8019  swapa
+000026DE  802A  pop_to_base
+000026E0  8029  pop_base
+000026E2  800C  a_to_d
+000026E4  801C  pop_return
+000026E6  802A  pop_to_base
+000026E8  8029  pop_base
+000026EA  801C  pop_return
+
+.procedure 35 Rutger22 offset=0x000026EC size=310 args=0 flags=0x00000000
+000026EC  802B  push_base
+000026EE  C001  push_int 401
+000026F4  C001  push_int 159
+000026FA  811E  gsay_reply
+          ; reply: list=401, message=159 | 搜寻结果如何？, status=linked
+000026FC  C001  push_int 10064
+00002702  C001  push_int 78
+00002708  80C5  global_var
+0000270A  C001  push_int 2
+00002710  8033  equal
+00002712  80BF  dude_obj
+00002714  C001  push_int 196
+0000271A  80BA  op_80ba
+0000271C  C001  push_int 1
+00002722  8036  greater_equal
+00002724  803F  or
+00002726  802F  if
+00002728  C001  push_int 4
+0000272E  C001  push_int 401
+00002734  C001  push_int 312
+0000273A  C001  push_int 96
+00002740  C001  push_int 50
+00002746  8121  giq_option
+          ; intelligence_option: list=401, message=312 | 我认为我可能已经知道商队失踪是因为什么了。, status=linked
+00002748  C001  push_int 10096
+0000274E  8004  jump
+00002750  C001  push_int 4
+00002756  C001  push_int 401
+0000275C  C001  push_int 160
+00002762  C001  push_int 37
+00002768  C001  push_int 50
+0000276E  8121  giq_option
+          ; intelligence_option: list=401, message=160 | 似乎我什么也找不到。, status=linked
+00002770  C001  push_int 4
+00002776  C001  push_int 401
+0000277C  C001  push_int 161
+00002782  C001  push_int 40
+00002788  C001  push_int 50
+0000278E  8121  giq_option
+          ; intelligence_option: list=401, message=161 | 你可以重复一下这份工作的具体情况吗？, status=linked
+00002790  C001  push_int 10184
+00002796  C001  push_int 35
+0000279C  80C3  op_80c3
+0000279E  C001  push_int 0
+000027A4  8033  equal
+000027A6  802F  if
+000027A8  C001  push_int 4
+000027AE  C001  push_int 401
+000027B4  C001  push_int 162
+000027BA  C001  push_int 36
+000027C0  C001  push_int 50
+000027C6  8121  giq_option
+          ; intelligence_option: list=401, message=162 | 商队里能有什么活儿干吗？, status=linked
+000027C8  C001  push_int 4
+000027CE  C001  push_int 401
+000027D4  C001  push_int 163
+000027DA  C001  push_int 97
+000027E0  C001  push_int 50
+000027E6  8121  giq_option
+          ; intelligence_option: list=401, message=163 | 抱歉，我要离开了。, status=linked
+000027E8  C001  push_int 3
+000027EE  8046  negate
+000027F0  C001  push_int 401
+000027F6  C001  push_int 164
+000027FC  C001  push_int 38
+00002802  C001  push_int 50
+00002808  8121  giq_option
+          ; intelligence_option: list=401, message=164 | 嗯？, status=linked
+0000280A  C001  push_int 0
+00002810  800D  d_to_a
+00002812  8019  swapa
+00002814  802A  pop_to_base
+00002816  8029  pop_base
+00002818  800C  a_to_d
+0000281A  801C  pop_return
+0000281C  802A  pop_to_base
+0000281E  8029  pop_base
+00002820  801C  pop_return
+
+.procedure 36 Rutger22a offset=0x00002822 size=148 args=0 flags=0x00000000
+00002822  802B  push_base
+00002824  C001  push_int 10350
+0000282A  C001  push_int 41
+00002830  80C3  op_80c3
+00002832  C001  push_int 3
+00002838  8034  not_equal
+0000283A  C001  push_int 41
+00002840  80C3  op_80c3
+00002842  C001  push_int 4
+00002848  8034  not_equal
+0000284A  803E  and
+0000284C  802F  if
+0000284E  C001  push_int 10340
+00002854  800D  d_to_a
+00002856  C001  push_int 0
+0000285C  C001  push_int 84
+00002862  8005  call
+00002864  801A  pop
+00002866  C001  push_int 10398
+0000286C  8004  jump
+0000286E  C001  push_int 10398
+00002874  C001  push_int 36
+0000287A  80C3  op_80c3
+0000287C  C001  push_int 1
+00002882  8033  equal
+00002884  802F  if
+00002886  C001  push_int 10396
+0000288C  800D  d_to_a
+0000288E  C001  push_int 0
+00002894  C001  push_int 91
+0000289A  8005  call
+0000289C  801A  pop
+0000289E  C001  push_int 0
+000028A4  800D  d_to_a
+000028A6  8019  swapa
+000028A8  802A  pop_to_base
+000028AA  8029  pop_base
+000028AC  800C  a_to_d
+000028AE  801C  pop_return
+000028B0  802A  pop_to_base
+000028B2  8029  pop_base
+000028B4  801C  pop_return
+
+.procedure 37 Rutger23 offset=0x000028B6 size=46 args=0 flags=0x00000000
+000028B6  802B  push_base
+000028B8  C001  push_int 401
+000028BE  C001  push_int 165
+000028C4  C001  push_int 50
+000028CA  8120  gsay_message
+          ; message: list=401, message=165 | 好吧，我并没有说这会很容易，换句话来说，我们为这个问题头疼已经不是一天两天了，去周围调查一下，有必要的话可以动粗，但决不要杀人，至少，不要被人发现。 , status=linked
+000028CC  C001  push_int 0
+000028D2  800D  d_to_a
+000028D4  8019  swapa
+000028D6  802A  pop_to_base
+000028D8  8029  pop_base
+000028DA  800C  a_to_d
+000028DC  801C  pop_return
+000028DE  802A  pop_to_base
+000028E0  8029  pop_base
+000028E2  801C  pop_return
+
+.procedure 38 Rutger24 offset=0x000028E4 size=46 args=0 flags=0x00000000
+000028E4  802B  push_base
+000028E6  C001  push_int 401
+000028EC  C001  push_int 166
+000028F2  C001  push_int 51
+000028F8  8120  gsay_message
+          ; message: list=401, message=166 | 我劝你离毒品远点，它们最后会要了你的命。, status=linked
+000028FA  C001  push_int 0
+00002900  800D  d_to_a
+00002902  8019  swapa
+00002904  802A  pop_to_base
+00002906  8029  pop_base
+00002908  800C  a_to_d
+0000290A  801C  pop_return
+0000290C  802A  pop_to_base
+0000290E  8029  pop_base
+00002910  801C  pop_return
+
+.procedure 39 Rutger25 offset=0x00002912 size=106 args=0 flags=0x00000000
+00002912  802B  push_base
+00002914  C001  push_int 6
+0000291A  C001  push_int 1
+00002920  80C2  set_local_var
+00002922  C001  push_int 226
+00002928  C001  push_int 1
+0000292E  80C6  set_global_var
+00002930  C001  push_int 33
+00002936  C001  push_int 1
+0000293C  80C4  op_80c4
+0000293E  C001  push_int 401
+00002944  C001  push_int 167
+0000294A  811E  gsay_reply
+          ; reply: list=401, message=167 | 如果你能把失踪的商队的情况调查清楚并且告诉布奇的话，我付你500哈勃币。去吧，找到你能找到的证据。我个人认为这是那些水商或者那些兄弟会的军火贩子做的。布奇则认为是死亡爪那一类的东西弄的。你可以去和贝斯谈谈，她知道更多。 , status=linked
+0000294C  C001  push_int 10594
+00002952  800D  d_to_a
+00002954  C001  push_int 0
+0000295A  C001  push_int 43
+00002960  8005  call
+00002962  801A  pop
+00002964  C001  push_int 0
+0000296A  800D  d_to_a
+0000296C  8019  swapa
+0000296E  802A  pop_to_base
+00002970  8029  pop_base
+00002972  800C  a_to_d
+00002974  801C  pop_return
+00002976  802A  pop_to_base
+00002978  8029  pop_base
+0000297A  801C  pop_return
+
+.procedure 40 Rutger26 offset=0x0000297C size=70 args=0 flags=0x00000000
+0000297C  802B  push_base
+0000297E  C001  push_int 401
+00002984  C001  push_int 168
+0000298A  C001  push_int 50
+00002990  8120  gsay_message
+          ; message: list=401, message=168 | 好吧，但是我不知道你到底在找什么，你给的信息太少。, status=linked
+00002992  C001  push_int 10664
+00002998  800D  d_to_a
+0000299A  C001  push_int 0
+000029A0  C001  push_int 39
+000029A6  8005  call
+000029A8  801A  pop
+000029AA  C001  push_int 0
+000029B0  800D  d_to_a
+000029B2  8019  swapa
+000029B4  802A  pop_to_base
+000029B6  8029  pop_base
+000029B8  800C  a_to_d
+000029BA  801C  pop_return
+000029BC  802A  pop_to_base
+000029BE  8029  pop_base
+000029C0  801C  pop_return
+
+.procedure 41 Rutger27 offset=0x000029C2 size=104 args=0 flags=0x00000000
+000029C2  802B  push_base
+000029C4  C001  push_int 401
+000029CA  C001  push_int 169
+000029D0  811E  gsay_reply
+          ; reply: list=401, message=169 | 我想你肯定是从那儿来的。如果你不是，你他妈怎么穿着和他们一样的装甲？ , status=linked
+000029D2  C001  push_int 4
+000029D8  C001  push_int 401
+000029DE  C001  push_int 170
+000029E4  C001  push_int 42
+000029EA  C001  push_int 50
+000029F0  8121  giq_option
+          ; intelligence_option: list=401, message=170 | 哦，这个啊，我“拣”来的啊。 , status=linked
+000029F2  C001  push_int 4
+000029F8  C001  push_int 401
+000029FE  C001  push_int 171
+00002A04  C001  push_int 46
+00002A0A  C001  push_int 50
+00002A10  8121  giq_option
+          ; intelligence_option: list=401, message=171 | 我没有义务告诉你。 , status=linked
+00002A12  C001  push_int 0
+00002A18  800D  d_to_a
+00002A1A  8019  swapa
+00002A1C  802A  pop_to_base
+00002A1E  8029  pop_base
+00002A20  800C  a_to_d
+00002A22  801C  pop_return
+00002A24  802A  pop_to_base
+00002A26  8029  pop_base
+00002A28  801C  pop_return
+
+.procedure 42 Rutger28 offset=0x00002A2A size=64 args=0 flags=0x00000000
+00002A2A  802B  push_base
+00002A2C  C001  push_int 401
+00002A32  C001  push_int 172
+00002A38  811E  gsay_reply
+          ; reply: list=401, message=172 | 太好了，我很高兴你站在我们这边，我不知道你怎么会没听说过他们，兄弟会是一群很奇怪的技术狂。据说在目前这里的一小部分是从北方过来的。 , status=linked
+00002A3A  C001  push_int 10832
+00002A40  800D  d_to_a
+00002A42  C001  push_int 0
+00002A48  C001  push_int 43
+00002A4E  8005  call
+00002A50  801A  pop
+00002A52  C001  push_int 0
+00002A58  800D  d_to_a
+00002A5A  8019  swapa
+00002A5C  802A  pop_to_base
+00002A5E  8029  pop_base
+00002A60  800C  a_to_d
+00002A62  801C  pop_return
+00002A64  802A  pop_to_base
+00002A66  8029  pop_base
+00002A68  801C  pop_return
+
+.procedure 43 Rutger29 offset=0x00002A6A size=242 args=0 flags=0x00000000
+00002A6A  802B  push_base
+00002A6C  C001  push_int 10924
+00002A72  C001  push_int 108
+00002A78  80C5  global_var
+00002A7A  C001  push_int 2
+00002A80  8034  not_equal
+00002A82  802F  if
+00002A84  C001  push_int 4
+00002A8A  C001  push_int 401
+00002A90  C001  push_int 173
+00002A96  C001  push_int 44
+00002A9C  C001  push_int 50
+00002AA2  8121  giq_option
+          ; intelligence_option: list=401, message=173 | 钢铁兄弟会是什么？, status=linked
+00002AA4  C001  push_int 10956
+00002AAA  8004  jump
+00002AAC  C001  push_int 4
+00002AB2  C001  push_int 401
+00002AB8  C001  push_int 174
+00002ABE  C001  push_int 45
+00002AC4  C001  push_int 50
+00002ACA  8121  giq_option
+          ; intelligence_option: list=401, message=174 | 我可以向你保证那不是兄弟会。, status=linked
+00002ACC  C001  push_int 11012
+00002AD2  C001  push_int 8
+00002AD8  80C3  op_80c3
+00002ADA  C001  push_int 1
+00002AE0  8033  equal
+00002AE2  802F  if
+00002AE4  C001  push_int 4
+00002AEA  C001  push_int 401
+00002AF0  C001  push_int 175
+00002AF6  C001  push_int 54
+00002AFC  C001  push_int 50
+00002B02  8121  giq_option
+          ; intelligence_option: list=401, message=175 | 你知道死亡爪的情况吗？, status=linked
+00002B04  C001  push_int 4
+00002B0A  C001  push_int 401
+00002B10  C001  push_int 176
+00002B16  C001  push_int 53
+00002B1C  C001  push_int 50
+00002B22  8121  giq_option
+          ; intelligence_option: list=401, message=176 | 贝斯在哪？ , status=linked
+00002B24  C001  push_int 4
+00002B2A  C001  push_int 401
+00002B30  C001  push_int 177
+00002B36  C001  push_int 97
+00002B3C  C001  push_int 50
+00002B42  8121  giq_option
+          ; intelligence_option: list=401, message=177 | 谢谢，再见。, status=linked
+00002B44  C001  push_int 0
+00002B4A  800D  d_to_a
+00002B4C  8019  swapa
+00002B4E  802A  pop_to_base
+00002B50  8029  pop_base
+00002B52  800C  a_to_d
+00002B54  801C  pop_return
+00002B56  802A  pop_to_base
+00002B58  8029  pop_base
+00002B5A  801C  pop_return
+
+.procedure 44 Rutger29a offset=0x00002B5C size=110 args=0 flags=0x00000000
+00002B5C  802B  push_base
+00002B5E  C001  push_int 11162
+00002B64  80BF  dude_obj
+00002B66  C001  push_int 0
+00002B6C  8106  op_8106
+00002B6E  8100  op_8100
+00002B70  C001  push_int 3
+00002B76  8033  equal
+00002B78  802F  if
+00002B7A  C001  push_int 11152
+00002B80  800D  d_to_a
+00002B82  C001  push_int 0
+00002B88  C001  push_int 41
+00002B8E  8005  call
+00002B90  801A  pop
+00002B92  C001  push_int 11186
+00002B98  8004  jump
+00002B9A  C001  push_int 11184
+00002BA0  800D  d_to_a
+00002BA2  C001  push_int 0
+00002BA8  C001  push_int 47
+00002BAE  8005  call
+00002BB0  801A  pop
+00002BB2  C001  push_int 0
+00002BB8  800D  d_to_a
+00002BBA  8019  swapa
+00002BBC  802A  pop_to_base
+00002BBE  8029  pop_base
+00002BC0  800C  a_to_d
+00002BC2  801C  pop_return
+00002BC4  802A  pop_to_base
+00002BC6  8029  pop_base
+00002BC8  801C  pop_return
+
+.procedure 45 Rutger29b offset=0x00002BCA size=110 args=0 flags=0x00000000
+00002BCA  802B  push_base
+00002BCC  C001  push_int 11272
+00002BD2  80BF  dude_obj
+00002BD4  C001  push_int 0
+00002BDA  8106  op_8106
+00002BDC  8100  op_8100
+00002BDE  C001  push_int 3
+00002BE4  8033  equal
+00002BE6  802F  if
+00002BE8  C001  push_int 11262
+00002BEE  800D  d_to_a
+00002BF0  C001  push_int 0
+00002BF6  C001  push_int 48
+00002BFC  8005  call
+00002BFE  801A  pop
+00002C00  C001  push_int 11296
+00002C06  8004  jump
+00002C08  C001  push_int 11294
+00002C0E  800D  d_to_a
+00002C10  C001  push_int 0
+00002C16  C001  push_int 49
+00002C1C  8005  call
+00002C1E  801A  pop
+00002C20  C001  push_int 0
+00002C26  800D  d_to_a
+00002C28  8019  swapa
+00002C2A  802A  pop_to_base
+00002C2C  8029  pop_base
+00002C2E  800C  a_to_d
+00002C30  801C  pop_return
+00002C32  802A  pop_to_base
+00002C34  8029  pop_base
+00002C36  801C  pop_return
+
+.procedure 46 Rutger30 offset=0x00002C38 size=64 args=0 flags=0x00000000
+00002C38  802B  push_base
+00002C3A  C001  push_int 401
+00002C40  C001  push_int 178
+00002C46  811E  gsay_reply
+          ; reply: list=401, message=178 | 好吧，随你怎么说，我肯定你见过他们，他们是是一群很怪的技术狂，他们从北方来。, status=linked
+00002C48  C001  push_int 11358
+00002C4E  800D  d_to_a
+00002C50  C001  push_int 0
+00002C56  C001  push_int 43
+00002C5C  8005  call
+00002C5E  801A  pop
+00002C60  C001  push_int 0
+00002C66  800D  d_to_a
+00002C68  8019  swapa
+00002C6A  802A  pop_to_base
+00002C6C  8029  pop_base
+00002C6E  800C  a_to_d
+00002C70  801C  pop_return
+00002C72  802A  pop_to_base
+00002C74  8029  pop_base
+00002C76  801C  pop_return
+
+.procedure 47 Rutger31 offset=0x00002C78 size=64 args=0 flags=0x00000000
+00002C78  802B  push_base
+00002C7A  C001  push_int 401
+00002C80  C001  push_int 179
+00002C86  811E  gsay_reply
+          ; reply: list=401, message=179 | 他们真的很奇怪，他们崇尚和技术有关的一切，他们有很多的高科技武器，他们可以很容易的除掉旅行商队，他们就在东北一带。, status=linked
+00002C88  C001  push_int 11422
+00002C8E  800D  d_to_a
+00002C90  C001  push_int 0
+00002C96  C001  push_int 43
+00002C9C  8005  call
+00002C9E  801A  pop
+00002CA0  C001  push_int 0
+00002CA6  800D  d_to_a
+00002CA8  8019  swapa
+00002CAA  802A  pop_to_base
+00002CAC  8029  pop_base
+00002CAE  800C  a_to_d
+00002CB0  801C  pop_return
+00002CB2  802A  pop_to_base
+00002CB4  8029  pop_base
+00002CB6  801C  pop_return
+
+.procedure 48 Rutger32 offset=0x00002CB8 size=64 args=0 flags=0x00000000
+00002CB8  802B  push_base
+00002CBA  C001  push_int 401
+00002CC0  C001  push_int 180
+00002CC6  811E  gsay_reply
+          ; reply: list=401, message=180 | 我知道你已经成了他们之中的一员，你已经穿上了他们的铁装甲，我希望你是对的，同时我希望开除你是个明智的决定。, status=linked
+00002CC8  C001  push_int 11486
+00002CCE  800D  d_to_a
+00002CD0  C001  push_int 0
+00002CD6  C001  push_int 43
+00002CDC  8005  call
+00002CDE  801A  pop
+00002CE0  C001  push_int 0
+00002CE6  800D  d_to_a
+00002CE8  8019  swapa
+00002CEA  802A  pop_to_base
+00002CEC  8029  pop_base
+00002CEE  800C  a_to_d
+00002CF0  801C  pop_return
+00002CF2  802A  pop_to_base
+00002CF4  8029  pop_base
+00002CF6  801C  pop_return
+
+.procedure 49 Rutger33 offset=0x00002CF8 size=136 args=0 flags=0x00000000
+00002CF8  802B  push_base
+00002CFA  C001  push_int 401
+00002D00  C001  push_int 181
+00002D06  811E  gsay_reply
+          ; reply: list=401, message=181 | 你为什么这么说？ , status=linked
+00002D08  C001  push_int 4
+00002D0E  C001  push_int 401
+00002D14  C001  push_int 182
+00002D1A  C001  push_int 50
+00002D20  C001  push_int 50
+00002D26  8121  giq_option
+          ; intelligence_option: list=401, message=182 | 因为我加入了他们，并且仔细的调查了整个兄弟会，他们是很平和并且很有克制力的一群人，没有必要去害怕他们。, status=linked
+00002D28  C001  push_int 4
+00002D2E  C001  push_int 401
+00002D34  C001  push_int 183
+00002D3A  C001  push_int 51
+00002D40  C001  push_int 50
+00002D46  8121  giq_option
+          ; intelligence_option: list=401, message=183 | 我进了他们的掩体内，他们并不是你们所想的那样。 , status=linked
+00002D48  C001  push_int 4
+00002D4E  C001  push_int 401
+00002D54  C001  push_int 184
+00002D5A  C001  push_int 52
+00002D60  C001  push_int 50
+00002D66  8121  giq_option
+          ; intelligence_option: list=401, message=184 | 只是我的猜想而已。, status=linked
+00002D68  C001  push_int 0
+00002D6E  800D  d_to_a
+00002D70  8019  swapa
+00002D72  802A  pop_to_base
+00002D74  8029  pop_base
+00002D76  800C  a_to_d
+00002D78  801C  pop_return
+00002D7A  802A  pop_to_base
+00002D7C  8029  pop_base
+00002D7E  801C  pop_return
+
+.procedure 50 Rutger34 offset=0x00002D80 size=64 args=0 flags=0x00000000
+00002D80  802B  push_base
+00002D82  C001  push_int 401
+00002D88  C001  push_int 185
+00002D8E  811E  gsay_reply
+          ; reply: list=401, message=185 | 好吧，我想我能放心了。, status=linked
+00002D90  C001  push_int 11686
+00002D96  800D  d_to_a
+00002D98  C001  push_int 0
+00002D9E  C001  push_int 43
+00002DA4  8005  call
+00002DA6  801A  pop
+00002DA8  C001  push_int 0
+00002DAE  800D  d_to_a
+00002DB0  8019  swapa
+00002DB2  802A  pop_to_base
+00002DB4  8029  pop_base
+00002DB6  800C  a_to_d
+00002DB8  801C  pop_return
+00002DBA  802A  pop_to_base
+00002DBC  8029  pop_base
+00002DBE  801C  pop_return
+
+.procedure 51 Rutger35 offset=0x00002DC0 size=64 args=0 flags=0x00000000
+00002DC0  802B  push_base
+00002DC2  C001  push_int 401
+00002DC8  C001  push_int 186
+00002DCE  811E  gsay_reply
+          ; reply: list=401, message=186 | 我希望你是对的。, status=linked
+00002DD0  C001  push_int 11750
+00002DD6  800D  d_to_a
+00002DD8  C001  push_int 0
+00002DDE  C001  push_int 43
+00002DE4  8005  call
+00002DE6  801A  pop
+00002DE8  C001  push_int 0
+00002DEE  800D  d_to_a
+00002DF0  8019  swapa
+00002DF2  802A  pop_to_base
+00002DF4  8029  pop_base
+00002DF6  800C  a_to_d
+00002DF8  801C  pop_return
+00002DFA  802A  pop_to_base
+00002DFC  8029  pop_base
+00002DFE  801C  pop_return
+
+.procedure 52 Rutger36 offset=0x00002E00 size=64 args=0 flags=0x00000000
+00002E00  802B  push_base
+00002E02  C001  push_int 401
+00002E08  C001  push_int 187
+00002E0E  811E  gsay_reply
+          ; reply: list=401, message=187 | 猜想是不够的，我们需要证明。 , status=linked
+00002E10  C001  push_int 11814
+00002E16  800D  d_to_a
+00002E18  C001  push_int 0
+00002E1E  C001  push_int 43
+00002E24  8005  call
+00002E26  801A  pop
+00002E28  C001  push_int 0
+00002E2E  800D  d_to_a
+00002E30  8019  swapa
+00002E32  802A  pop_to_base
+00002E34  8029  pop_base
+00002E36  800C  a_to_d
+00002E38  801C  pop_return
+00002E3A  802A  pop_to_base
+00002E3C  8029  pop_base
+00002E3E  801C  pop_return
+
+.procedure 53 Rutger37 offset=0x00002E40 size=78 args=0 flags=0x00000000
+00002E40  802B  push_base
+00002E42  C001  push_int 10
+00002E48  C001  push_int 1
+00002E4E  80C4  op_80c4
+00002E50  C001  push_int 401
+00002E56  C001  push_int 188
+00002E5C  811E  gsay_reply
+          ; reply: list=401, message=188 | 贝斯就在外面右边的门里，她经营着我们的武器店，告诉她你为我们工作，你可以得到15%的折扣。 , status=linked
+00002E5E  C001  push_int 11892
+00002E64  800D  d_to_a
+00002E66  C001  push_int 0
+00002E6C  C001  push_int 43
+00002E72  8005  call
+00002E74  801A  pop
+00002E76  C001  push_int 0
+00002E7C  800D  d_to_a
+00002E7E  8019  swapa
+00002E80  802A  pop_to_base
+00002E82  8029  pop_base
+00002E84  800C  a_to_d
+00002E86  801C  pop_return
+00002E88  802A  pop_to_base
+00002E8A  8029  pop_base
+00002E8C  801C  pop_return
+
+.procedure 54 Rutger38 offset=0x00002E8E size=64 args=0 flags=0x00000000
+00002E8E  802B  push_base
+00002E90  C001  push_int 401
+00002E96  C001  push_int 189
+00002E9C  811E  gsay_reply
+          ; reply: list=401, message=189 | 哦，你说死亡爪？呵呵，我想他们都疯了。那只是他们臆想出来的东西。这没什么鬼啊，怪啊乱七八糟的传说的东西。回到现实来吧。我想你的疯病会好起来的。 , status=linked
+00002E9E  C001  push_int 11956
+00002EA4  800D  d_to_a
+00002EA6  C001  push_int 0
+00002EAC  C001  push_int 43
+00002EB2  8005  call
+00002EB4  801A  pop
+00002EB6  C001  push_int 0
+00002EBC  800D  d_to_a
+00002EBE  8019  swapa
+00002EC0  802A  pop_to_base
+00002EC2  8029  pop_base
+00002EC4  800C  a_to_d
+00002EC6  801C  pop_return
+00002EC8  802A  pop_to_base
+00002ECA  8029  pop_base
+00002ECC  801C  pop_return
+
+.procedure 55 Rutger39 offset=0x00002ECE size=172 args=0 flags=0x00000000
+00002ECE  802B  push_base
+00002ED0  C001  push_int 401
+00002ED6  C001  push_int 190
+00002EDC  811E  gsay_reply
+          ; reply: list=401, message=190 | 你好，需要帮助吗？, status=linked
+00002EDE  C001  push_int 4
+00002EE4  C001  push_int 401
+00002EEA  C001  push_int 191
+00002EF0  C001  push_int 56
+00002EF6  C001  push_int 50
+00002EFC  8121  giq_option
+          ; intelligence_option: list=401, message=191 | 我知道你的商队到底发生什么事了。 , status=linked
+00002EFE  C001  push_int 4
+00002F04  C001  push_int 401
+00002F0A  C001  push_int 192
+00002F10  C001  push_int 97
+00002F16  C001  push_int 50
+00002F1C  8121  giq_option
+          ; intelligence_option: list=401, message=192 | 没什么。, status=linked
+00002F1E  C001  push_int 3
+00002F24  8046  negate
+00002F26  C001  push_int 401
+00002F2C  C001  push_int 193
+00002F32  C001  push_int 38
+00002F38  C001  push_int 50
+00002F3E  8121  giq_option
+          ; intelligence_option: list=401, message=193 | 唔。 , status=linked
+00002F40  C001  push_int 3
+00002F46  8046  negate
+00002F48  C001  push_int 401
+00002F4E  C001  push_int 194
+00002F54  C001  push_int 38
+00002F5A  C001  push_int 50
+00002F60  8121  giq_option
+          ; intelligence_option: list=401, message=194 | 哼。, status=linked
+00002F62  C001  push_int 0
+00002F68  800D  d_to_a
+00002F6A  8019  swapa
+00002F6C  802A  pop_to_base
+00002F6E  8029  pop_base
+00002F70  800C  a_to_d
+00002F72  801C  pop_return
+00002F74  802A  pop_to_base
+00002F76  8029  pop_base
+00002F78  801C  pop_return
+
+.procedure 56 Rutger39a offset=0x00002F7A size=218 args=0 flags=0x00000000
+00002F7A  802B  push_base
+00002F7C  C001  push_int 12212
+00002F82  C001  push_int 42
+00002F88  80C3  op_80c3
+00002F8A  C001  push_int 16777267
+00002F90  8033  equal
+00002F92  802F  if
+00002F94  C001  push_int 12202
+00002F9A  800D  d_to_a
+00002F9C  C001  push_int 0
+00002FA2  C001  push_int 68
+00002FA8  8005  call
+00002FAA  801A  pop
+00002FAC  C001  push_int 12348
+00002FB2  8004  jump
+00002FB4  C001  push_int 12268
+00002FBA  C001  push_int 42
+00002FC0  80C3  op_80c3
+00002FC2  C001  push_int 1
+00002FC8  8033  equal
+00002FCA  802F  if
+00002FCC  C001  push_int 12258
+00002FD2  800D  d_to_a
+00002FD4  C001  push_int 0
+00002FDA  C001  push_int 69
+00002FE0  8005  call
+00002FE2  801A  pop
+00002FE4  C001  push_int 12348
+00002FEA  8004  jump
+00002FEC  C001  push_int 12324
+00002FF2  C001  push_int 42
+00002FF8  80C3  op_80c3
+00002FFA  C001  push_int 2
+00003000  8033  equal
+00003002  802F  if
+00003004  C001  push_int 12314
+0000300A  800D  d_to_a
+0000300C  C001  push_int 0
+00003012  C001  push_int 70
+00003018  8005  call
+0000301A  801A  pop
+0000301C  C001  push_int 12348
+00003022  8004  jump
+00003024  C001  push_int 12346
+0000302A  800D  d_to_a
+0000302C  C001  push_int 0
+00003032  C001  push_int 57
+00003038  8005  call
+0000303A  801A  pop
+0000303C  C001  push_int 0
+00003042  800D  d_to_a
+00003044  8019  swapa
+00003046  802A  pop_to_base
+00003048  8029  pop_base
+0000304A  800C  a_to_d
+0000304C  801C  pop_return
+0000304E  802A  pop_to_base
+00003050  8029  pop_base
+00003052  801C  pop_return
+
+.procedure 57 Rutger40 offset=0x00003054 size=168 args=0 flags=0x00000000
+00003054  802B  push_base
+00003056  C001  push_int 401
+0000305C  C001  push_int 195
+00003062  811E  gsay_reply
+          ; reply: list=401, message=195 | 真的吗？好吧，告诉我那些混蛋是谁？纯水商队？ , status=linked
+00003064  C001  push_int 4
+0000306A  C001  push_int 401
+00003070  C001  push_int 196
+00003076  C001  push_int 58
+0000307C  C001  push_int 50
+00003082  8121  giq_option
+          ; intelligence_option: list=401, message=196 | 是的，就是他们！他们要搞你，他们在惦记你的……双头牛。, status=linked
+00003084  C001  push_int 4
+0000308A  C001  push_int 401
+00003090  C001  push_int 197
+00003096  C001  push_int 66
+0000309C  C001  push_int 50
+000030A2  8121  giq_option
+          ; intelligence_option: list=401, message=197 | 实际上，凶手是一群变种人。 , status=linked
+000030A4  C001  push_int 4
+000030AA  C001  push_int 401
+000030B0  C001  push_int 198
+000030B6  C001  push_int 59
+000030BC  C001  push_int 50
+000030C2  8121  giq_option
+          ; intelligence_option: list=401, message=198 | 是死亡爪干的，我看到他们吃掉了整个商队。, status=linked
+000030C4  C001  push_int 4
+000030CA  C001  push_int 401
+000030D0  C001  push_int 199
+000030D6  C001  push_int 60
+000030DC  C001  push_int 50
+000030E2  8121  giq_option
+          ; intelligence_option: list=401, message=199 | 我忘记了。, status=linked
+000030E4  C001  push_int 0
+000030EA  800D  d_to_a
+000030EC  8019  swapa
+000030EE  802A  pop_to_base
+000030F0  8029  pop_base
+000030F2  800C  a_to_d
+000030F4  801C  pop_return
+000030F6  802A  pop_to_base
+000030F8  8029  pop_base
+000030FA  801C  pop_return
+
+.procedure 58 Rutger40a offset=0x000030FC size=108 args=0 flags=0x00000000
+000030FC  802B  push_base
+000030FE  C001  push_int 12600
+00003104  80BF  dude_obj
+00003106  C001  push_int 3
+0000310C  C001  push_int 1
+00003112  80AE  op_80ae
+00003114  80AF  op_80af
+00003116  802F  if
+00003118  C001  push_int 12590
+0000311E  800D  d_to_a
+00003120  C001  push_int 0
+00003126  C001  push_int 61
+0000312C  8005  call
+0000312E  801A  pop
+00003130  C001  push_int 12624
+00003136  8004  jump
+00003138  C001  push_int 12622
+0000313E  800D  d_to_a
+00003140  C001  push_int 0
+00003146  C001  push_int 63
+0000314C  8005  call
+0000314E  801A  pop
+00003150  C001  push_int 0
+00003156  800D  d_to_a
+00003158  8019  swapa
+0000315A  802A  pop_to_base
+0000315C  8029  pop_base
+0000315E  800C  a_to_d
+00003160  801C  pop_return
+00003162  802A  pop_to_base
+00003164  8029  pop_base
+00003166  801C  pop_return
+
+.procedure 59 Rutger40b offset=0x00003168 size=110 args=0 flags=0x00000000
+00003168  802B  push_base
+0000316A  C001  push_int 12710
+00003170  80BF  dude_obj
+00003172  C001  push_int 3
+00003178  C001  push_int 2
+0000317E  8046  negate
+00003180  80AE  op_80ae
+00003182  80AF  op_80af
+00003184  802F  if
+00003186  C001  push_int 12700
+0000318C  800D  d_to_a
+0000318E  C001  push_int 0
+00003194  C001  push_int 64
+0000319A  8005  call
+0000319C  801A  pop
+0000319E  C001  push_int 12734
+000031A4  8004  jump
+000031A6  C001  push_int 12732
+000031AC  800D  d_to_a
+000031AE  C001  push_int 0
+000031B4  C001  push_int 65
+000031BA  8005  call
+000031BC  801A  pop
+000031BE  C001  push_int 0
+000031C4  800D  d_to_a
+000031C6  8019  swapa
+000031C8  802A  pop_to_base
+000031CA  8029  pop_base
+000031CC  800C  a_to_d
+000031CE  801C  pop_return
+000031D0  802A  pop_to_base
+000031D2  8029  pop_base
+000031D4  801C  pop_return
+
+.procedure 60 Rutger41 offset=0x000031D6 size=100 args=0 flags=0x00000000
+000031D6  802B  push_base
+000031D8  C001  push_int 12814
+000031DE  80BF  dude_obj
+000031E0  C001  push_int 34
+000031E6  80CA  get_critter_stat
+000031E8  C001  push_int 0
+000031EE  8033  equal
+000031F0  802F  if
+000031F2  C001  push_int 401
+000031F8  C001  push_int 200
+000031FE  C001  push_int 51
+00003204  8120  gsay_message
+          ; message: list=401, message=200 | 你忘了？真是有趣啊，伙计，现在，在我面前消失。, status=linked
+00003206  C001  push_int 12834
+0000320C  8004  jump
+0000320E  C001  push_int 401
+00003214  C001  push_int 201
+0000321A  C001  push_int 51
+00003220  8120  gsay_message
+          ; message: list=401, message=201 | 你忘了？真是有趣啊，女士，现在，在我面前消失。, status=linked
+00003222  C001  push_int 0
+00003228  800D  d_to_a
+0000322A  8019  swapa
+0000322C  802A  pop_to_base
+0000322E  8029  pop_base
+00003230  800C  a_to_d
+00003232  801C  pop_return
+00003234  802A  pop_to_base
+00003236  8029  pop_base
+00003238  801C  pop_return
+
+.procedure 61 Rutger42 offset=0x0000323A size=136 args=0 flags=0x00000000
+0000323A  802B  push_base
+0000323C  C001  push_int 401
+00003242  C001  push_int 202
+00003248  811E  gsay_reply
+          ; reply: list=401, message=202 | 我知道是他们，你有证据吗？我要让那些混蛋血债血还。, status=linked
+0000324A  C001  push_int 4
+00003250  C001  push_int 401
+00003256  C001  push_int 203
+0000325C  C001  push_int 62
+00003262  C001  push_int 50
+00003268  8121  giq_option
+          ; intelligence_option: list=401, message=203 | 呃。没有。我把他们弄丢了。但是，你可以带上我的证词。, status=linked
+0000326A  C001  push_int 4
+00003270  C001  push_int 401
+00003276  C001  push_int 204
+0000327C  C001  push_int 66
+00003282  C001  push_int 50
+00003288  8121  giq_option
+          ; intelligence_option: list=401, message=204 | 实际上，凶手是一群变种人。, status=linked
+0000328A  C001  push_int 4
+00003290  C001  push_int 401
+00003296  C001  push_int 205
+0000329C  C001  push_int 97
+000032A2  C001  push_int 50
+000032A8  8121  giq_option
+          ; intelligence_option: list=401, message=205 | 对不起，我得走了。, status=linked
+000032AA  C001  push_int 0
+000032B0  800D  d_to_a
+000032B2  8019  swapa
+000032B4  802A  pop_to_base
+000032B6  8029  pop_base
+000032B8  800C  a_to_d
+000032BA  801C  pop_return
+000032BC  802A  pop_to_base
+000032BE  8029  pop_base
+000032C0  801C  pop_return
+
+.procedure 62 Rutger43 offset=0x000032C2 size=46 args=0 flags=0x00000000
+000032C2  802B  push_base
+000032C4  C001  push_int 401
+000032CA  C001  push_int 206
+000032D0  C001  push_int 50
+000032D6  8120  gsay_message
+          ; message: list=401, message=206 | 如果我没有证据，我不能做任何事。我不想导致再导致商人之间的战争，如果你能给我证据。我就可以根据法律，扫除掉他们。 , status=linked
+000032D8  C001  push_int 0
+000032DE  800D  d_to_a
+000032E0  8019  swapa
+000032E2  802A  pop_to_base
+000032E4  8029  pop_base
+000032E6  800C  a_to_d
+000032E8  801C  pop_return
+000032EA  802A  pop_to_base
+000032EC  8029  pop_base
+000032EE  801C  pop_return
+
+.procedure 63 Rutger44 offset=0x000032F0 size=46 args=0 flags=0x00000000
+000032F0  802B  push_base
+000032F2  C001  push_int 401
+000032F8  C001  push_int 207
+000032FE  C001  push_int 51
+00003304  8120  gsay_message
+          ; message: list=401, message=207 | 你真你妈全是废话，给我滚出去。, status=linked
+00003306  C001  push_int 0
+0000330C  800D  d_to_a
+0000330E  8019  swapa
+00003310  802A  pop_to_base
+00003312  8029  pop_base
+00003314  800C  a_to_d
+00003316  801C  pop_return
+00003318  802A  pop_to_base
+0000331A  8029  pop_base
+0000331C  801C  pop_return
+
+.procedure 64 Rutger45 offset=0x0000331E size=104 args=0 flags=0x00000000
+0000331E  802B  push_base
+00003320  C001  push_int 401
+00003326  C001  push_int 208
+0000332C  811E  gsay_reply
+          ; reply: list=401, message=208 | 什么？不可能吧。 你在开玩笑吗？我想你是在开玩笑吧？, status=linked
+0000332E  C001  push_int 4
+00003334  C001  push_int 401
+0000333A  C001  push_int 209
+00003340  C001  push_int 66
+00003346  C001  push_int 50
+0000334C  8121  giq_option
+          ; intelligence_option: list=401, message=209 | 是的，很抱歉，随便你信不信，就是一群高大的变种人干的。, status=linked
+0000334E  C001  push_int 4
+00003354  C001  push_int 401
+0000335A  C001  push_int 210
+00003360  C001  push_int 63
+00003366  C001  push_int 50
+0000336C  8121  giq_option
+          ; intelligence_option: list=401, message=210 | 太恐怖了。他们有着大而锋利的牙齿。, status=linked
+0000336E  C001  push_int 0
+00003374  800D  d_to_a
+00003376  8019  swapa
+00003378  802A  pop_to_base
+0000337A  8029  pop_base
+0000337C  800C  a_to_d
+0000337E  801C  pop_return
+00003380  802A  pop_to_base
+00003382  8029  pop_base
+00003384  801C  pop_return
+
+.procedure 65 Rutger46 offset=0x00003386 size=46 args=0 flags=0x00000000
+00003386  802B  push_base
+00003388  C001  push_int 401
+0000338E  C001  push_int 211
+00003394  C001  push_int 51
+0000339A  8120  gsay_message
+          ; message: list=401, message=211 | 一整个的商队？你是认真的？我像是一个容易被骗的傻瓜吗？滚出这里给我找出真正的原因。 , status=linked
+0000339C  C001  push_int 0
+000033A2  800D  d_to_a
+000033A4  8019  swapa
+000033A6  802A  pop_to_base
+000033A8  8029  pop_base
+000033AA  800C  a_to_d
+000033AC  801C  pop_return
+000033AE  802A  pop_to_base
+000033B0  8029  pop_base
+000033B2  801C  pop_return
+
+.procedure 66 Rutger47 offset=0x000033B4 size=266 args=0 flags=0x00000000
+000033B4  802B  push_base
+000033B6  C001  push_int 401
+000033BC  C001  push_int 212
+000033C2  811E  gsay_reply
+          ; reply: list=401, message=212 | 一些变种人干掉了我的商队？真是个和死亡爪一样的好故事。, status=linked
+000033C4  C001  push_int 13382
+000033CA  80BF  dude_obj
+000033CC  C001  push_int 196
+000033D2  80BA  op_80ba
+000033D4  C001  push_int 1
+000033DA  8036  greater_equal
+000033DC  802F  if
+000033DE  C001  push_int 13342
+000033E4  C001  push_int 100
+000033EA  80C5  global_var
+000033EC  C001  push_int 2
+000033F2  8033  equal
+000033F4  802F  if
+000033F6  C001  push_int 4
+000033FC  C001  push_int 401
+00003402  C001  push_int 213
+00003408  C001  push_int 67
+0000340E  C001  push_int 50
+00003414  8121  giq_option
+          ; intelligence_option: list=401, message=213 | 我没有在开玩笑。我发现了他们并且杀了他们，并且我在其中一个身上发现了这个磁盘……超级变种生物。, status=linked
+00003416  C001  push_int 13374
+0000341C  8004  jump
+0000341E  C001  push_int 4
+00003424  C001  push_int 401
+0000342A  C001  push_int 214
+00003430  C001  push_int 67
+00003436  C001  push_int 50
+0000343C  8121  giq_option
+          ; intelligence_option: list=401, message=214 | 看看这个磁盘上的东西。我从一个变异生物身上得到的。, status=linked
+0000343E  C001  push_int 13414
+00003444  8004  jump
+00003446  C001  push_int 4
+0000344C  C001  push_int 401
+00003452  C001  push_int 215
+00003458  C001  push_int 97
+0000345E  C001  push_int 50
+00003464  8121  giq_option
+          ; intelligence_option: list=401, message=215 | 那是真的，我亲眼看见了。我还带回了证据。 , status=linked
+00003466  C001  push_int 4
+0000346C  C001  push_int 401
+00003472  C001  push_int 216
+00003478  C001  push_int 97
+0000347E  C001  push_int 50
+00003484  8121  giq_option
+          ; intelligence_option: list=401, message=216 | 好吧。不要相信我。, status=linked
+00003486  C001  push_int 4
+0000348C  C001  push_int 401
+00003492  C001  push_int 217
+00003498  C001  push_int 97
+0000349E  C001  push_int 50
+000034A4  8121  giq_option
+          ; intelligence_option: list=401, message=217 | 我得走了。 , status=linked
+000034A6  C001  push_int 0
+000034AC  800D  d_to_a
+000034AE  8019  swapa
+000034B0  802A  pop_to_base
+000034B2  8029  pop_base
+000034B4  800C  a_to_d
+000034B6  801C  pop_return
+000034B8  802A  pop_to_base
+000034BA  8029  pop_base
+000034BC  801C  pop_return
+
+.procedure 67 Rutger48 offset=0x000034BE size=250 args=0 flags=0x00000000
+000034BE  802B  push_base
+000034C0  C001  push_int 0
+000034C6  C001  push_int 13532
+000034CC  800D  d_to_a
+000034CE  C001  push_int 0
+000034D4  C001  push_int 105
+000034DA  8005  call
+000034DC  801A  pop
+000034DE  80BF  dude_obj
+000034E0  C001  push_int 800
+000034E6  8139  item_caps_adjust
+000034E8  C001  push_int 0
+000034EE  8031  store
+000034F0  C001  push_int 42
+000034F6  C001  push_int 2
+000034FC  80C4  op_80c4
+000034FE  C001  push_int 36
+00003504  C001  push_int 1
+0000350A  80C4  op_80c4
+0000350C  C001  push_int 35
+00003512  C001  push_int 0
+00003518  80C4  op_80c4
+0000351A  C001  push_int 40
+00003520  C001  push_int 0
+00003526  80C4  op_80c4
+00003528  C001  push_int 10
+0000352E  C001  push_int 1
+00003534  80C4  op_80c4
+00003536  C001  push_int 41
+0000353C  C001  push_int 4
+00003542  80C4  op_80c4
+00003544  C001  push_int 1000
+0000354A  80A1  op_80a1
+0000354C  C001  push_int 766
+00003552  C001  push_int 103
+00003558  8105  message_str
+          ; message_lookup: list=766, message=103, status=different-message-list
+0000355A  C001  push_int 1000
+00003560  8039  add
+00003562  C001  push_int 766
+00003568  C001  push_int 104
+0000356E  8105  message_str
+          ; message_lookup: list=766, message=104, status=different-message-list
+00003570  8039  add
+00003572  80B8  display_msg
+00003574  C001  push_int 155
+0000357A  C001  push_int 155
+00003580  80C5  global_var
+00003582  C001  push_int 5
+00003588  8039  add
+0000358A  80C6  set_global_var
+0000358C  C001  push_int 401
+00003592  C001  push_int 218
+00003598  C001  push_int 49
+0000359E  8120  gsay_message
+          ; message: list=401, message=218 | 嘿，我知道该如何使用这个。布奇很久以前从钢铁兄弟会搞到一些小玩意能读这些东西。让我们看看。真对不起，我不相信你。不会是不好的征兆吧。好吧，这里是你的500哈勃币。靠，加到800吧，感谢你的消息！如果你需要别的工作，欢迎你再来。, status=linked
+000035A0  C001  push_int 0
+000035A6  800D  d_to_a
+000035A8  8019  swapa
+000035AA  802A  pop_to_base
+000035AC  8029  pop_base
+000035AE  800C  a_to_d
+000035B0  801C  pop_return
+000035B2  802A  pop_to_base
+000035B4  8029  pop_base
+000035B6  801C  pop_return
+
+.procedure 68 Rutger49 offset=0x000035B8 size=168 args=0 flags=0x00000000
+000035B8  802B  push_base
+000035BA  C001  push_int 401
+000035C0  C001  push_int 219
+000035C6  811E  gsay_reply
+          ; reply: list=401, message=219 | 请不要加重布奇的妄想症。他对死亡爪有点敏感。现在告诉我，你发现了什么？是纯水商队干的吗？, status=linked
+000035C8  C001  push_int 4
+000035CE  C001  push_int 401
+000035D4  C001  push_int 220
+000035DA  C001  push_int 58
+000035E0  C001  push_int 50
+000035E6  8121  giq_option
+          ; intelligence_option: list=401, message=220 | 是的，是他们！他们在搞你。他们…想要你的…双头牛。, status=linked
+000035E8  C001  push_int 4
+000035EE  C001  push_int 401
+000035F4  C001  push_int 221
+000035FA  C001  push_int 66
+00003600  C001  push_int 50
+00003606  8121  giq_option
+          ; intelligence_option: list=401, message=221 | 实际上，那是一群超级巨大的变种人干的。, status=linked
+00003608  C001  push_int 4
+0000360E  C001  push_int 401
+00003614  C001  push_int 222
+0000361A  C001  push_int 59
+00003620  C001  push_int 50
+00003626  8121  giq_option
+          ; intelligence_option: list=401, message=222 | 不，真的是死亡爪。我见到它吃掉了一整个的商队。, status=linked
+00003628  C001  push_int 4
+0000362E  C001  push_int 401
+00003634  C001  push_int 223
+0000363A  C001  push_int 60
+00003640  C001  push_int 50
+00003646  8121  giq_option
+          ; intelligence_option: list=401, message=223 | 我忘了。, status=linked
+00003648  C001  push_int 0
+0000364E  800D  d_to_a
+00003650  8019  swapa
+00003652  802A  pop_to_base
+00003654  8029  pop_base
+00003656  800C  a_to_d
+00003658  801C  pop_return
+0000365A  802A  pop_to_base
+0000365C  8029  pop_base
+0000365E  801C  pop_return
+
+.procedure 69 Rutger50 offset=0x00003660 size=168 args=0 flags=0x00000000
+00003660  802B  push_base
+00003662  C001  push_int 401
+00003668  C001  push_int 224
+0000366E  811E  gsay_reply
+          ; reply: list=401, message=224 | 你别扯淡了！你到底找到了什么？其实我知道是那些该死的纯水商队干的！, status=linked
+00003670  C001  push_int 4
+00003676  C001  push_int 401
+0000367C  C001  push_int 225
+00003682  C001  push_int 58
+00003688  C001  push_int 50
+0000368E  8121  giq_option
+          ; intelligence_option: list=401, message=225 | 是的，是他们！他们在搞你。他们…想要你的…双头牛。, status=linked
+00003690  C001  push_int 4
+00003696  C001  push_int 401
+0000369C  C001  push_int 226
+000036A2  C001  push_int 66
+000036A8  C001  push_int 50
+000036AE  8121  giq_option
+          ; intelligence_option: list=401, message=226 | 实际上，那是一群超级巨大的变种人干的。, status=linked
+000036B0  C001  push_int 4
+000036B6  C001  push_int 401
+000036BC  C001  push_int 227
+000036C2  C001  push_int 59
+000036C8  C001  push_int 50
+000036CE  8121  giq_option
+          ; intelligence_option: list=401, message=227 | 是死亡爪。我见到它吃掉了一整个的商队。, status=linked
+000036D0  C001  push_int 4
+000036D6  C001  push_int 401
+000036DC  C001  push_int 228
+000036E2  C001  push_int 60
+000036E8  C001  push_int 50
+000036EE  8121  giq_option
+          ; intelligence_option: list=401, message=228 | 我忘了。, status=linked
+000036F0  C001  push_int 0
+000036F6  800D  d_to_a
+000036F8  8019  swapa
+000036FA  802A  pop_to_base
+000036FC  8029  pop_base
+000036FE  800C  a_to_d
+00003700  801C  pop_return
+00003702  802A  pop_to_base
+00003704  8029  pop_base
+00003706  801C  pop_return
+
+.procedure 70 Rutger51 offset=0x00003708 size=234 args=0 flags=0x00000000
+00003708  802B  push_base
+0000370A  C001  push_int 401
+00003710  C001  push_int 229
+00003716  811E  gsay_reply
+          ; reply: list=401, message=229 | 变种人破坏了我们的商队？那和你刚才说的死亡爪不是一样的情节？你在说故事吧。, status=linked
+00003718  C001  push_int 14234
+0000371E  80BF  dude_obj
+00003720  C001  push_int 196
+00003726  80BA  op_80ba
+00003728  C001  push_int 1
+0000372E  8036  greater_equal
+00003730  802F  if
+00003732  C001  push_int 14194
+00003738  C001  push_int 100
+0000373E  80C5  global_var
+00003740  C001  push_int 2
+00003746  8033  equal
+00003748  802F  if
+0000374A  C001  push_int 4
+00003750  C001  push_int 401
+00003756  C001  push_int 230
+0000375C  C001  push_int 67
+00003762  C001  push_int 50
+00003768  8121  giq_option
+          ; intelligence_option: list=401, message=230 | 我没有在开玩笑。我确实发现了死亡爪并且杀了它。但是，我也在那些超级变种人身上找到了这磁盘。, status=linked
+0000376A  C001  push_int 14226
+00003770  8004  jump
+00003772  C001  push_int 4
+00003778  C001  push_int 401
+0000377E  C001  push_int 231
+00003784  C001  push_int 67
+0000378A  C001  push_int 50
+00003790  8121  giq_option
+          ; intelligence_option: list=401, message=231 | 好的，让我们来看看这张磁盘。我是从变种人身上拿来的。, status=linked
+00003792  C001  push_int 14266
+00003798  8004  jump
+0000379A  C001  push_int 4
+000037A0  C001  push_int 401
+000037A6  C001  push_int 232
+000037AC  C001  push_int 97
+000037B2  C001  push_int 50
+000037B8  8121  giq_option
+          ; intelligence_option: list=401, message=232 | 那是事实，我在那里见到了。我以后会拿来证据的。, status=linked
+000037BA  C001  push_int 4
+000037C0  C001  push_int 401
+000037C6  C001  push_int 233
+000037CC  C001  push_int 97
+000037D2  C001  push_int 50
+000037D8  8121  giq_option
+          ; intelligence_option: list=401, message=233 | 我必须要走了。, status=linked
+000037DA  C001  push_int 0
+000037E0  800D  d_to_a
+000037E2  8019  swapa
+000037E4  802A  pop_to_base
+000037E6  8029  pop_base
+000037E8  800C  a_to_d
+000037EA  801C  pop_return
+000037EC  802A  pop_to_base
+000037EE  8029  pop_base
+000037F0  801C  pop_return
+
+.procedure 71 Rutger52 offset=0x000037F2 size=228 args=0 flags=0x00000000
+000037F2  802B  push_base
+000037F4  C001  push_int 401
+000037FA  C001  push_int 234
+00003800  811E  gsay_reply
+          ; reply: list=401, message=234 | 那么，你有关于是谁在和我捣蛋的任何证据吗？我的意思是，我们，我们的商队。, status=linked
+00003802  C001  push_int 14404
+00003808  80BF  dude_obj
+0000380A  C001  push_int 196
+00003810  80BA  op_80ba
+00003812  C001  push_int 1
+00003818  8036  greater_equal
+0000381A  802F  if
+0000381C  C001  push_int 4
+00003822  C001  push_int 401
+00003828  C001  push_int 235
+0000382E  C001  push_int 67
+00003834  C001  push_int 50
+0000383A  8121  giq_option
+          ; intelligence_option: list=401, message=235 | 千真万确。这里是我在那些变种人身上发现的磁盘……大批的变种人。, status=linked
+0000383C  C001  push_int 14460
+00003842  8004  jump
+00003844  C001  push_int 14460
+0000384A  C001  push_int 100
+00003850  80C5  global_var
+00003852  C001  push_int 2
+00003858  8033  equal
+0000385A  802F  if
+0000385C  C001  push_int 4
+00003862  C001  push_int 401
+00003868  C001  push_int 236
+0000386E  C001  push_int 72
+00003874  C001  push_int 50
+0000387A  8121  giq_option
+          ; intelligence_option: list=401, message=236 | 不，还在找。你有什么好的建议吗？, status=linked
+0000387C  C001  push_int 4
+00003882  C001  push_int 401
+00003888  C001  push_int 237
+0000388E  C001  push_int 97
+00003894  C001  push_int 50
+0000389A  8121  giq_option
+          ; intelligence_option: list=401, message=237 | 不，我会让你知道的。, status=linked
+0000389C  C001  push_int 3
+000038A2  8046  negate
+000038A4  C001  push_int 401
+000038AA  C001  push_int 238
+000038B0  C001  push_int 38
+000038B6  C001  push_int 50
+000038BC  8121  giq_option
+          ; intelligence_option: list=401, message=238 | 快！, status=linked
+000038BE  C001  push_int 0
+000038C4  800D  d_to_a
+000038C6  8019  swapa
+000038C8  802A  pop_to_base
+000038CA  8029  pop_base
+000038CC  800C  a_to_d
+000038CE  801C  pop_return
+000038D0  802A  pop_to_base
+000038D2  8029  pop_base
+000038D4  801C  pop_return
+
+.procedure 72 Rutger53 offset=0x000038D6 size=46 args=0 flags=0x00000000
+000038D6  802B  push_base
+000038D8  C001  push_int 401
+000038DE  C001  push_int 239
+000038E4  C001  push_int 50
+000038EA  8120  gsay_message
+          ; message: list=401, message=239 | 好的，如果这个死亡爪真的存在，你可以去调查一下它的兽窝。或许能找到些线索。, status=linked
+000038EC  C001  push_int 0
+000038F2  800D  d_to_a
+000038F4  8019  swapa
+000038F6  802A  pop_to_base
+000038F8  8029  pop_base
+000038FA  800C  a_to_d
+000038FC  801C  pop_return
+000038FE  802A  pop_to_base
+00003900  8029  pop_base
+00003902  801C  pop_return
+
+.procedure 73 Rutger54 offset=0x00003904 size=104 args=0 flags=0x00000000
+00003904  802B  push_base
+00003906  C001  push_int 401
+0000390C  C001  push_int 240
+00003912  811E  gsay_reply
+          ; reply: list=401, message=240 | 嗨。我怎么才能帮助你？, status=linked
+00003914  C001  push_int 4
+0000391A  C001  push_int 401
+00003920  C001  push_int 241
+00003926  C001  push_int 56
+0000392C  C001  push_int 50
+00003932  8121  giq_option
+          ; intelligence_option: list=401, message=241 | 我知道失踪的商队发生了什么事了。, status=linked
+00003934  C001  push_int 4
+0000393A  C001  push_int 401
+00003940  C001  push_int 242
+00003946  C001  push_int 97
+0000394C  C001  push_int 50
+00003952  8121  giq_option
+          ; intelligence_option: list=401, message=242 | 哦，没事。, status=linked
+00003954  C001  push_int 0
+0000395A  800D  d_to_a
+0000395C  8019  swapa
+0000395E  802A  pop_to_base
+00003960  8029  pop_base
+00003962  800C  a_to_d
+00003964  801C  pop_return
+00003966  802A  pop_to_base
+00003968  8029  pop_base
+0000396A  801C  pop_return
+
+.procedure 74 Rutger55 offset=0x0000396C size=410 args=0 flags=0x00000000
+0000396C  802B  push_base
+0000396E  C001  push_int 401
+00003974  C001  push_int 243
+0000397A  811E  gsay_reply
+          ; reply: list=401, message=243 | 嗨！我听说那狗娘养的变种人主管被你给杀了。干的好。你或许拯救了哈勃城中每个人的生命；但是我很奇怪他们那么多是从哪来的。, status=linked
+0000397C  C001  push_int 14836
+00003982  C001  push_int 160
+00003988  80C5  global_var
+0000398A  C001  push_int 159
+00003990  80C5  global_var
+00003992  8039  add
+00003994  C001  push_int 25
+0000399A  8036  greater_equal
+0000399C  C001  push_int 159
+000039A2  80C5  global_var
+000039A4  C001  push_int 2
+000039AA  C001  push_int 160
+000039B0  80C5  global_var
+000039B2  803B  mul
+000039B4  8038  greater
+000039B6  C001  push_int 156
+000039BC  80C5  global_var
+000039BE  C001  push_int 1
+000039C4  8033  equal
+000039C6  803F  or
+000039C8  803E  and
+000039CA  802F  if
+000039CC  C001  push_int 4
+000039D2  C001  push_int 401
+000039D8  C001  push_int 244
+000039DE  C001  push_int 80
+000039E4  C001  push_int 50
+000039EA  8121  giq_option
+          ; intelligence_option: list=401, message=244 | 是的！我还要杀更多！我很奇怪他们都藏到哪儿去了。, status=linked
+000039EC  C001  push_int 14988
+000039F2  8004  jump
+000039F4  C001  push_int 14956
+000039FA  C001  push_int 160
+00003A00  80C5  global_var
+00003A02  C001  push_int 159
+00003A08  80C5  global_var
+00003A0A  8039  add
+00003A0C  C001  push_int 25
+00003A12  8036  greater_equal
+00003A14  C001  push_int 160
+00003A1A  80C5  global_var
+00003A1C  C001  push_int 3
+00003A22  C001  push_int 159
+00003A28  80C5  global_var
+00003A2A  803B  mul
+00003A2C  8038  greater
+00003A2E  C001  push_int 157
+00003A34  80C5  global_var
+00003A36  C001  push_int 1
+00003A3C  8033  equal
+00003A3E  803F  or
+00003A40  803E  and
+00003A42  802F  if
+00003A44  C001  push_int 4
+00003A4A  C001  push_int 401
+00003A50  C001  push_int 245
+00003A56  C001  push_int 80
+00003A5C  C001  push_int 50
+00003A62  8121  giq_option
+          ; intelligence_option: list=401, message=245 | 是的，我一定要把从事邪恶工作的主教从这个世界清除出去。我很奇怪他们都藏到哪儿去了。, status=linked
+00003A64  C001  push_int 14988
+00003A6A  8004  jump
+00003A6C  C001  push_int 4
+00003A72  C001  push_int 401
+00003A78  C001  push_int 246
+00003A7E  C001  push_int 80
+00003A84  C001  push_int 50
+00003A8A  8121  giq_option
+          ; intelligence_option: list=401, message=246 | 你说的对！我很奇怪他们都藏到哪儿去了。, status=linked
+00003A8C  C001  push_int 4
+00003A92  C001  push_int 401
+00003A98  C001  push_int 247
+00003A9E  C001  push_int 75
+00003AA4  C001  push_int 50
+00003AAA  8121  giq_option
+          ; intelligence_option: list=401, message=247 | 我需要一些现金。有没有什么工作我可以干的？, status=linked
+00003AAC  C001  push_int 4
+00003AB2  C001  push_int 401
+00003AB8  C001  push_int 248
+00003ABE  C001  push_int 97
+00003AC4  C001  push_int 50
+00003ACA  8121  giq_option
+          ; intelligence_option: list=401, message=248 | 我看你整天在工作！, status=linked
+00003ACC  C001  push_int 3
+00003AD2  8046  negate
+00003AD4  C001  push_int 401
+00003ADA  C001  push_int 249
+00003AE0  C001  push_int 97
+00003AE6  C001  push_int 50
+00003AEC  8121  giq_option
+          ; intelligence_option: list=401, message=249 | 耶，打你屁屁。哇…哇！, status=linked
+00003AEE  C001  push_int 0
+00003AF4  800D  d_to_a
+00003AF6  8019  swapa
+00003AF8  802A  pop_to_base
+00003AFA  8029  pop_base
+00003AFC  800C  a_to_d
+00003AFE  801C  pop_return
+00003B00  802A  pop_to_base
+00003B02  8029  pop_base
+00003B04  801C  pop_return
+
+.procedure 75 Rutger55a offset=0x00003B06 size=180 args=0 flags=0x00000000
+00003B06  802B  push_base
+00003B08  C001  push_int 15186
+00003B0E  C001  push_int 40
+00003B14  80C3  op_80c3
+00003B16  C001  push_int 1
+00003B1C  8033  equal
+00003B1E  C001  push_int 35
+00003B24  80C3  op_80c3
+00003B26  C001  push_int 1
+00003B2C  8033  equal
+00003B2E  803F  or
+00003B30  802F  if
+00003B32  C001  push_int 15176
+00003B38  800D  d_to_a
+00003B3A  C001  push_int 0
+00003B40  C001  push_int 87
+00003B46  8005  call
+00003B48  801A  pop
+00003B4A  C001  push_int 15266
+00003B50  8004  jump
+00003B52  C001  push_int 15242
+00003B58  C001  push_int 36
+00003B5E  80C3  op_80c3
+00003B60  C001  push_int 1
+00003B66  8033  equal
+00003B68  802F  if
+00003B6A  C001  push_int 15232
+00003B70  800D  d_to_a
+00003B72  C001  push_int 0
+00003B78  C001  push_int 91
+00003B7E  8005  call
+00003B80  801A  pop
+00003B82  C001  push_int 15266
+00003B88  8004  jump
+00003B8A  C001  push_int 15264
+00003B90  800D  d_to_a
+00003B92  C001  push_int 0
+00003B98  C001  push_int 83
+00003B9E  8005  call
+00003BA0  801A  pop
+00003BA2  C001  push_int 0
+00003BA8  800D  d_to_a
+00003BAA  8019  swapa
+00003BAC  802A  pop_to_base
+00003BAE  8029  pop_base
+00003BB0  800C  a_to_d
+00003BB2  801C  pop_return
+00003BB4  802A  pop_to_base
+00003BB6  8029  pop_base
+00003BB8  801C  pop_return
+
+.procedure 76 Rutger56 offset=0x00003BBA size=234 args=0 flags=0x00000000
+00003BBA  802B  push_base
+00003BBC  C001  push_int 15340
+00003BC2  80BF  dude_obj
+00003BC4  C001  push_int 34
+00003BCA  80CA  get_critter_stat
+00003BCC  C001  push_int 0
+00003BD2  8033  equal
+00003BD4  802F  if
+00003BD6  C001  push_int 401
+00003BDC  C001  push_int 250
+00003BE2  811E  gsay_reply
+          ; reply: list=401, message=250 | 嗨，伙计。你在那里作什么？, status=linked
+00003BE4  C001  push_int 15402
+00003BEA  8004  jump
+00003BEC  C001  push_int 15388
+00003BF2  80BF  dude_obj
+00003BF4  C001  push_int 3
+00003BFA  80CA  get_critter_stat
+00003BFC  C001  push_int 7
+00003C02  8036  greater_equal
+00003C04  802F  if
+00003C06  C001  push_int 401
+00003C0C  C001  push_int 252
+00003C12  811E  gsay_reply
+          ; reply: list=401, message=252 | 嗨，美女。你在那里作什么？, status=linked
+00003C14  C001  push_int 15402
+00003C1A  8004  jump
+00003C1C  C001  push_int 401
+00003C22  C001  push_int 253
+00003C28  811E  gsay_reply
+          ; reply: list=401, message=253 | 你很喜欢美女吗？, status=linked
+00003C2A  C001  push_int 4
+00003C30  C001  push_int 401
+00003C36  C001  push_int 254
+00003C3C  C001  push_int 75
+00003C42  C001  push_int 50
+00003C48  8121  giq_option
+          ; intelligence_option: list=401, message=254 | 很好，谢谢。你这有什么工作可作吗？, status=linked
+00003C4A  C001  push_int 4
+00003C50  C001  push_int 401
+00003C56  C001  push_int 255
+00003C5C  C001  push_int 77
+00003C62  C001  push_int 50
+00003C68  8121  giq_option
+          ; intelligence_option: list=401, message=255 | 太棒了！我只是顺便看看有什么事可作。, status=linked
+00003C6A  C001  push_int 3
+00003C70  8046  negate
+00003C72  C001  push_int 401
+00003C78  C001  push_int 256
+00003C7E  C001  push_int 38
+00003C84  C001  push_int 50
+00003C8A  8121  giq_option
+          ; intelligence_option: list=401, message=256 | 啥？, status=linked
+00003C8C  C001  push_int 0
+00003C92  800D  d_to_a
+00003C94  8019  swapa
+00003C96  802A  pop_to_base
+00003C98  8029  pop_base
+00003C9A  800C  a_to_d
+00003C9C  801C  pop_return
+00003C9E  802A  pop_to_base
+00003CA0  8029  pop_base
+00003CA2  801C  pop_return
+
+.procedure 77 Rutger56a offset=0x00003CA4 size=124 args=0 flags=0x00000000
+00003CA4  802B  push_base
+00003CA6  C001  push_int 15600
+00003CAC  C001  push_int 18
+00003CB2  80C5  global_var
+00003CB4  C001  push_int 1
+00003CBA  8033  equal
+00003CBC  C001  push_int 17
+00003CC2  80C5  global_var
+00003CC4  C001  push_int 1
+00003CCA  8033  equal
+00003CCC  803F  or
+00003CCE  802F  if
+00003CD0  C001  push_int 15590
+00003CD6  800D  d_to_a
+00003CD8  C001  push_int 0
+00003CDE  C001  push_int 78
+00003CE4  8005  call
+00003CE6  801A  pop
+00003CE8  C001  push_int 15624
+00003CEE  8004  jump
+00003CF0  C001  push_int 15622
+00003CF6  800D  d_to_a
+00003CF8  C001  push_int 0
+00003CFE  C001  push_int 82
+00003D04  8005  call
+00003D06  801A  pop
+00003D08  C001  push_int 0
+00003D0E  800D  d_to_a
+00003D10  8019  swapa
+00003D12  802A  pop_to_base
+00003D14  8029  pop_base
+00003D16  800C  a_to_d
+00003D18  801C  pop_return
+00003D1A  802A  pop_to_base
+00003D1C  8029  pop_base
+00003D1E  801C  pop_return
+
+.procedure 78 Rutger57 offset=0x00003D20 size=46 args=0 flags=0x00000000
+00003D20  802B  push_base
+00003D22  C001  push_int 401
+00003D28  C001  push_int 257
+00003D2E  C001  push_int 49
+00003D34  8120  gsay_message
+          ; message: list=401, message=257 | 太棒啦！那些变种人没有再来骚扰了，我们的贸易回到了原状。实际上，比以前更好了。谢谢你。, status=linked
+00003D36  C001  push_int 0
+00003D3C  800D  d_to_a
+00003D3E  8019  swapa
+00003D40  802A  pop_to_base
+00003D42  8029  pop_base
+00003D44  800C  a_to_d
+00003D46  801C  pop_return
+00003D48  802A  pop_to_base
+00003D4A  8029  pop_base
+00003D4C  801C  pop_return
+
+.procedure 79 Rutger58 offset=0x00003D4E size=442 args=0 flags=0x00000000
+00003D4E  802B  push_base
+00003D50  C001  push_int 401
+00003D56  C001  push_int 258
+00003D5C  811E  gsay_reply
+          ; reply: list=401, message=258 | 嗨，我听说你破坏了那些变种人的基地！好样的！可惜你没有逮到他们的头。, status=linked
+00003D5E  C001  push_int 15830
+00003D64  C001  push_int 160
+00003D6A  80C5  global_var
+00003D6C  C001  push_int 159
+00003D72  80C5  global_var
+00003D74  8039  add
+00003D76  C001  push_int 25
+00003D7C  8036  greater_equal
+00003D7E  C001  push_int 159
+00003D84  80C5  global_var
+00003D86  C001  push_int 2
+00003D8C  C001  push_int 160
+00003D92  80C5  global_var
+00003D94  803B  mul
+00003D96  8038  greater
+00003D98  C001  push_int 156
+00003D9E  80C5  global_var
+00003DA0  C001  push_int 1
+00003DA6  8033  equal
+00003DA8  803F  or
+00003DAA  803E  and
+00003DAC  802F  if
+00003DAE  C001  push_int 4
+00003DB4  C001  push_int 401
+00003DBA  C001  push_int 259
+00003DC0  C001  push_int 81
+00003DC6  C001  push_int 50
+00003DCC  8121  giq_option
+          ; intelligence_option: list=401, message=259 | 是的！要把剩下的杀干净。我真奇怪主教到底藏在哪里了。, status=linked
+00003DCE  C001  push_int 16014
+00003DD4  8004  jump
+00003DD6  C001  push_int 15982
+00003DDC  C001  push_int 160
+00003DE2  80C5  global_var
+00003DE4  C001  push_int 159
+00003DEA  80C5  global_var
+00003DEC  8039  add
+00003DEE  C001  push_int 25
+00003DF4  8036  greater_equal
+00003DF6  C001  push_int 160
+00003DFC  80C5  global_var
+00003DFE  C001  push_int 3
+00003E04  C001  push_int 159
+00003E0A  80C5  global_var
+00003E0C  803B  mul
+00003E0E  8038  greater
+00003E10  C001  push_int 157
+00003E16  80C5  global_var
+00003E18  C001  push_int 1
+00003E1E  8033  equal
+00003E20  803F  or
+00003E22  803E  and
+00003E24  802F  if
+00003E26  C001  push_int 4
+00003E2C  C001  push_int 401
+00003E32  C001  push_int 260
+00003E38  C001  push_int 81
+00003E3E  C001  push_int 50
+00003E44  8121  giq_option
+          ; intelligence_option: list=401, message=260 | 是的，我一定要杀了主教。我不能让邪恶有散布的机会。我真奇怪主教到底藏在哪里了。, status=linked
+00003E46  C001  push_int 4
+00003E4C  C001  push_int 401
+00003E52  C001  push_int 261
+00003E58  C001  push_int 81
+00003E5E  C001  push_int 50
+00003E64  8121  giq_option
+          ; intelligence_option: list=401, message=261 | 主教正要去见他的上帝。, status=linked
+00003E66  C001  push_int 16014
+00003E6C  8004  jump
+00003E6E  C001  push_int 4
+00003E74  C001  push_int 401
+00003E7A  C001  push_int 262
+00003E80  C001  push_int 82
+00003E86  C001  push_int 50
+00003E8C  8121  giq_option
+          ; intelligence_option: list=401, message=262 | 你是对的！我真奇怪主教到底藏在哪里了。, status=linked
+00003E8E  C001  push_int 4
+00003E94  C001  push_int 401
+00003E9A  C001  push_int 263
+00003EA0  C001  push_int 75
+00003EA6  C001  push_int 50
+00003EAC  8121  giq_option
+          ; intelligence_option: list=401, message=263 | 我最近缺钱。你这有什么工作吗？, status=linked
+00003EAE  C001  push_int 4
+00003EB4  C001  push_int 401
+00003EBA  C001  push_int 248
+00003EC0  C001  push_int 97
+00003EC6  C001  push_int 50
+00003ECC  8121  giq_option
+          ; intelligence_option: list=401, message=248 | 我看你整天在工作！, status=linked
+00003ECE  C001  push_int 3
+00003ED4  8046  negate
+00003ED6  C001  push_int 401
+00003EDC  C001  push_int 264
+00003EE2  C001  push_int 97
+00003EE8  C001  push_int 50
+00003EEE  8121  giq_option
+          ; intelligence_option: list=401, message=264 | 耶，打你屁屁。哇…哇！, status=linked
+00003EF0  C001  push_int 0
+00003EF6  800D  d_to_a
+00003EF8  8019  swapa
+00003EFA  802A  pop_to_base
+00003EFC  8029  pop_base
+00003EFE  800C  a_to_d
+00003F00  801C  pop_return
+00003F02  802A  pop_to_base
+00003F04  8029  pop_base
+00003F06  801C  pop_return
+
+.procedure 80 Rutger59 offset=0x00003F08 size=46 args=0 flags=0x00000000
+00003F08  802B  push_base
+00003F0A  C001  push_int 401
+00003F10  C001  push_int 265
+00003F16  C001  push_int 50
+00003F1C  8120  gsay_message
+          ; message: list=401, message=265 | 哦，我听说有人在西北见过一些变种人。他们通过钢铁兄弟会那条路。, status=linked
+00003F1E  C001  push_int 0
+00003F24  800D  d_to_a
+00003F26  8019  swapa
+00003F28  802A  pop_to_base
+00003F2A  8029  pop_base
+00003F2C  800C  a_to_d
+00003F2E  801C  pop_return
+00003F30  802A  pop_to_base
+00003F32  8029  pop_base
+00003F34  801C  pop_return
+
+.procedure 81 Rutger60 offset=0x00003F36 size=46 args=0 flags=0x00000000
+00003F36  802B  push_base
+00003F38  C001  push_int 401
+00003F3E  C001  push_int 266
+00003F44  C001  push_int 50
+00003F4A  8120  gsay_message
+          ; message: list=401, message=266 | 你知道吗？因为变种人被你消灭了，大教堂最近的行动“非常”的奇怪。 我无意中听到他们谈起你。他们看起来正在拼命的找你。, status=linked
+00003F4C  C001  push_int 0
+00003F52  800D  d_to_a
+00003F54  8019  swapa
+00003F56  802A  pop_to_base
+00003F58  8029  pop_base
+00003F5A  800C  a_to_d
+00003F5C  801C  pop_return
+00003F5E  802A  pop_to_base
+00003F60  8029  pop_base
+00003F62  801C  pop_return
+
+.procedure 82 Rutger61 offset=0x00003F64 size=46 args=0 flags=0x00000000
+00003F64  802B  push_base
+00003F66  C001  push_int 401
+00003F6C  C001  push_int 267
+00003F72  C001  push_int 50
+00003F78  8120  gsay_message
+          ; message: list=401, message=267 | 实际上，事情并没有太大的改善。那些变种人还在为我们带来麻烦。我们所有的商队都几乎不能正常经营了。, status=linked
+00003F7A  C001  push_int 0
+00003F80  800D  d_to_a
+00003F82  8019  swapa
+00003F84  802A  pop_to_base
+00003F86  8029  pop_base
+00003F88  800C  a_to_d
+00003F8A  801C  pop_return
+00003F8C  802A  pop_to_base
+00003F8E  8029  pop_base
+00003F90  801C  pop_return
+
+.procedure 83 Rutger62 offset=0x00003F92 size=104 args=0 flags=0x00000000
+00003F92  802B  push_base
+00003F94  C001  push_int 401
+00003F9A  C001  push_int 268
+00003FA0  811E  gsay_reply
+          ; reply: list=401, message=268 | 当然，我们可以用你。你想做警卫工作吗？标准薪水，400哈勃币。有兴趣吗?, status=linked
+00003FA2  C001  push_int 4
+00003FA8  C001  push_int 401
+00003FAE  C001  push_int 269
+00003FB4  C001  push_int 86
+00003FBA  C001  push_int 50
+00003FC0  8121  giq_option
+          ; intelligence_option: list=401, message=269 | 当然, status=linked
+00003FC2  C001  push_int 4
+00003FC8  C001  push_int 401
+00003FCE  C001  push_int 270
+00003FD4  C001  push_int 85
+00003FDA  C001  push_int 50
+00003FE0  8121  giq_option
+          ; intelligence_option: list=401, message=270 | 不。, status=linked
+00003FE2  C001  push_int 0
+00003FE8  800D  d_to_a
+00003FEA  8019  swapa
+00003FEC  802A  pop_to_base
+00003FEE  8029  pop_base
+00003FF0  800C  a_to_d
+00003FF2  801C  pop_return
+00003FF4  802A  pop_to_base
+00003FF6  8029  pop_base
+00003FF8  801C  pop_return
+
+.procedure 84 Rutger63 offset=0x00003FFA size=136 args=0 flags=0x00000000
+00003FFA  802B  push_base
+00003FFC  C001  push_int 401
+00004002  C001  push_int 271
+00004008  811E  gsay_reply
+          ; reply: list=401, message=271 | 什么？失踪的商队？, status=linked
+0000400A  C001  push_int 4
+00004010  C001  push_int 401
+00004016  C001  push_int 272
+0000401C  C001  push_int 88
+00004022  C001  push_int 50
+00004028  8121  giq_option
+          ; intelligence_option: list=401, message=272 | 还有什么方法能比参加一个商队更容易抓到小偷的呢？, status=linked
+0000402A  C001  push_int 4
+00004030  C001  push_int 401
+00004036  C001  push_int 273
+0000403C  C001  push_int 90
+00004042  C001  push_int 50
+00004048  8121  giq_option
+          ; intelligence_option: list=401, message=273 | 我会去看看的，但是我需要一些钱。, status=linked
+0000404A  C001  push_int 4
+00004050  C001  push_int 401
+00004056  C001  push_int 274
+0000405C  C001  push_int 97
+00004062  C001  push_int 50
+00004068  8121  giq_option
+          ; intelligence_option: list=401, message=274 | 没什么。, status=linked
+0000406A  C001  push_int 0
+00004070  800D  d_to_a
+00004072  8019  swapa
+00004074  802A  pop_to_base
+00004076  8029  pop_base
+00004078  800C  a_to_d
+0000407A  801C  pop_return
+0000407C  802A  pop_to_base
+0000407E  8029  pop_base
+00004080  801C  pop_return
+
+.procedure 85 Rutger64 offset=0x00004082 size=46 args=0 flags=0x00000000
+00004082  802B  push_base
+00004084  C001  push_int 401
+0000408A  C001  push_int 275
+00004090  C001  push_int 50
+00004096  8120  gsay_message
+          ; message: list=401, message=275 | 好，如果你变卦了可一定要让我知道。我不喜欢有人浪费我的时间。, status=linked
+00004098  C001  push_int 0
+0000409E  800D  d_to_a
+000040A0  8019  swapa
+000040A2  802A  pop_to_base
+000040A4  8029  pop_base
+000040A6  800C  a_to_d
+000040A8  801C  pop_return
+000040AA  802A  pop_to_base
+000040AC  8029  pop_base
+000040AE  801C  pop_return
+
+.procedure 86 Rutger65 offset=0x000040B0 size=60 args=0 flags=0x00000000
+000040B0  802B  push_base
+000040B2  C001  push_int 36
+000040B8  C001  push_int 1
+000040BE  80C4  op_80c4
+000040C0  C001  push_int 401
+000040C6  C001  push_int 276
+000040CC  C001  push_int 50
+000040D2  8120  gsay_message
+          ; message: list=401, message=276 | 当下次商队准备离开的时候，你只要和前门我们商队的领队说就可以了。只要你完成的好，我们的领队会给你付薪水的。, status=linked
+000040D4  C001  push_int 0
+000040DA  800D  d_to_a
+000040DC  8019  swapa
+000040DE  802A  pop_to_base
+000040E0  8029  pop_base
+000040E2  800C  a_to_d
+000040E4  801C  pop_return
+000040E6  802A  pop_to_base
+000040E8  8029  pop_base
+000040EA  801C  pop_return
+
+.procedure 87 Rutger67 offset=0x000040EC size=104 args=0 flags=0x00000000
+000040EC  802B  push_base
+000040EE  C001  push_int 16680
+000040F4  C001  push_int 7
+000040FA  80C1  local_var
+000040FC  C001  push_int 0
+00004102  8033  equal
+00004104  802F  if
+00004106  C001  push_int 7
+0000410C  C001  push_int 1
+00004112  80C2  set_local_var
+00004114  C001  push_int 401
+0000411A  C001  push_int 279
+00004120  C001  push_int 50
+00004126  8120  gsay_message
+          ; message: list=401, message=279 | 你不是在开玩笑？我可以感谢你什么都没干，但是我恐怕这改变不了什么。我认为你应该离开。, status=linked
+00004128  C001  push_int 401
+0000412E  C001  push_int 280
+00004134  C001  push_int 50
+0000413A  8120  gsay_message
+          ; message: list=401, message=280 | 你没长耳朵吗？我们不能雇你！请你离开。, status=linked
+0000413C  C001  push_int 0
+00004142  800D  d_to_a
+00004144  8019  swapa
+00004146  802A  pop_to_base
+00004148  8029  pop_base
+0000414A  800C  a_to_d
+0000414C  801C  pop_return
+0000414E  802A  pop_to_base
+00004150  8029  pop_base
+00004152  801C  pop_return
+
+.procedure 88 Rutger68 offset=0x00004154 size=136 args=0 flags=0x00000000
+00004154  802B  push_base
+00004156  C001  push_int 401
+0000415C  C001  push_int 281
+00004162  811E  gsay_reply
+          ; reply: list=401, message=281 | 我不认为我们感情有多好，但是你可以为我们工作。, status=linked
+00004164  C001  push_int 4
+0000416A  C001  push_int 401
+00004170  C001  push_int 282
+00004176  C001  push_int 92
+0000417C  C001  push_int 50
+00004182  8121  giq_option
+          ; intelligence_option: list=401, message=282 | 你为什么这么说？, status=linked
+00004184  C001  push_int 4
+0000418A  C001  push_int 401
+00004190  C001  push_int 283
+00004196  C001  push_int 89
+0000419C  C001  push_int 50
+000041A2  8121  giq_option
+          ; intelligence_option: list=401, message=283 | 你是对的，我在去别处碰碰运气吧。, status=linked
+000041A4  C001  push_int 4
+000041AA  C001  push_int 401
+000041B0  C001  push_int 284
+000041B6  C001  push_int 90
+000041BC  C001  push_int 50
+000041C2  8121  giq_option
+          ; intelligence_option: list=401, message=284 | 那好，我接受这份工作。, status=linked
+000041C4  C001  push_int 0
+000041CA  800D  d_to_a
+000041CC  8019  swapa
+000041CE  802A  pop_to_base
+000041D0  8029  pop_base
+000041D2  800C  a_to_d
+000041D4  801C  pop_return
+000041D6  802A  pop_to_base
+000041D8  8029  pop_base
+000041DA  801C  pop_return
+
+.procedure 89 Rutger69 offset=0x000041DC size=46 args=0 flags=0x00000000
+000041DC  802B  push_base
+000041DE  C001  push_int 401
+000041E4  C001  push_int 285
+000041EA  C001  push_int 50
+000041F0  8120  gsay_message
+          ; message: list=401, message=285 | 呵呵，确实要到处问问。, status=linked
+000041F2  C001  push_int 0
+000041F8  800D  d_to_a
+000041FA  8019  swapa
+000041FC  802A  pop_to_base
+000041FE  8029  pop_base
+00004200  800C  a_to_d
+00004202  801C  pop_return
+00004204  802A  pop_to_base
+00004206  8029  pop_base
+00004208  801C  pop_return
+
+.procedure 90 Rutger70 offset=0x0000420A size=60 args=0 flags=0x00000000
+0000420A  802B  push_base
+0000420C  C001  push_int 36
+00004212  C001  push_int 1
+00004218  80C4  op_80c4
+0000421A  C001  push_int 401
+00004220  C001  push_int 286
+00004226  C001  push_int 50
+0000422C  8120  gsay_message
+          ; message: list=401, message=286 | 好吧。当你准备好了，只要去和前门领队说就可以了。只要你干的不错，领队会发给你薪水的。, status=linked
+0000422E  C001  push_int 0
+00004234  800D  d_to_a
+00004236  8019  swapa
+00004238  802A  pop_to_base
+0000423A  8029  pop_base
+0000423C  800C  a_to_d
+0000423E  801C  pop_return
+00004240  802A  pop_to_base
+00004242  8029  pop_base
+00004244  801C  pop_return
+
+.procedure 91 Rutger71 offset=0x00004246 size=60 args=0 flags=0x00000000
+00004246  802B  push_base
+00004248  C001  push_int 36
+0000424E  C001  push_int 1
+00004254  80C4  op_80c4
+00004256  C001  push_int 401
+0000425C  C001  push_int 287
+00004262  C001  push_int 50
+00004268  8120  gsay_message
+          ; message: list=401, message=287 | 当然！你不需要再来问我。你只要去和前门我们的领队说就行。, status=linked
+0000426A  C001  push_int 0
+00004270  800D  d_to_a
+00004272  8019  swapa
+00004274  802A  pop_to_base
+00004276  8029  pop_base
+00004278  800C  a_to_d
+0000427A  801C  pop_return
+0000427C  802A  pop_to_base
+0000427E  8029  pop_base
+00004280  801C  pop_return
+
+.procedure 92 Rutger72 offset=0x00004282 size=104 args=0 flags=0x00000000
+00004282  802B  push_base
+00004284  C001  push_int 401
+0000428A  C001  push_int 289
+00004290  811E  gsay_reply
+          ; reply: list=401, message=289 | 我很确信，我们可能损失很多商队，但是这对我们的生意总体来说影响不大。你要找机会发现是什么攻击了我们的商队，绑架或破坏我们的商队是不太可能的。不管谁要这么做都必须要有相当强大的力量。, status=linked
+00004292  C001  push_int 4
+00004298  C001  push_int 401
+0000429E  C001  push_int 290
+000042A4  C001  push_int 97
+000042AA  C001  push_int 50
+000042B0  8121  giq_option
+          ; intelligence_option: list=401, message=290 | 哦，好啊。我认为我应该去附近在打听打听。, status=linked
+000042B2  C001  push_int 4
+000042B8  C001  push_int 401
+000042BE  C001  push_int 291
+000042C4  C001  push_int 90
+000042CA  C001  push_int 50
+000042D0  8121  giq_option
+          ; intelligence_option: list=401, message=291 | 很好，我需要钱。, status=linked
+000042D2  C001  push_int 0
+000042D8  800D  d_to_a
+000042DA  8019  swapa
+000042DC  802A  pop_to_base
+000042DE  8029  pop_base
+000042E0  800C  a_to_d
+000042E2  801C  pop_return
+000042E4  802A  pop_to_base
+000042E6  8029  pop_base
+000042E8  801C  pop_return
+
+.procedure 93 Rutger73 offset=0x000042EA size=290 args=0 flags=0x00000000
+000042EA  802B  push_base
+000042EC  C001  push_int 401
+000042F2  C001  push_int 292
+000042F8  811E  gsay_reply
+          ; reply: list=401, message=292 | 又见面了。我能为你做些什么吗？, status=linked
+000042FA  C001  push_int 17202
+00004300  C001  push_int 101
+00004306  80C5  global_var
+00004308  C001  push_int 2
+0000430E  8034  not_equal
+00004310  802F  if
+00004312  C001  push_int 4
+00004318  C001  push_int 401
+0000431E  C001  push_int 294
+00004324  C001  push_int 14
+0000432A  C001  push_int 50
+00004330  8121  giq_option
+          ; intelligence_option: list=401, message=294 | 你能运输水吗？, status=linked
+00004332  C001  push_int 17266
+00004338  C001  push_int 43
+0000433E  80C3  op_80c3
+00004340  C001  push_int 1
+00004346  8033  equal
+00004348  802F  if
+0000434A  C001  push_int 4
+00004350  C001  push_int 401
+00004356  C001  push_int 295
+0000435C  C001  push_int 10
+00004362  C001  push_int 50
+00004368  8121  giq_option
+          ; intelligence_option: list=401, message=295 | 我在这里是因为告示的那份工作。, status=linked
+0000436A  C001  push_int 17298
+00004370  8004  jump
+00004372  C001  push_int 4
+00004378  C001  push_int 401
+0000437E  C001  push_int 296
+00004384  C001  push_int 10
+0000438A  C001  push_int 50
+00004390  8121  giq_option
+          ; intelligence_option: list=401, message=296 | 我在找工作。, status=linked
+00004392  C001  push_int 4
+00004398  C001  push_int 401
+0000439E  C001  push_int 297
+000043A4  C001  push_int 18
+000043AA  C001  push_int 50
+000043B0  8121  giq_option
+          ; intelligence_option: list=401, message=297 | 你做什么工作？, status=linked
+000043B2  C001  push_int 4
+000043B8  C001  push_int 401
+000043BE  C001  push_int 298
+000043C4  C001  push_int 97
+000043CA  C001  push_int 50
+000043D0  8121  giq_option
+          ; intelligence_option: list=401, message=298 | 对不起，我要走了。, status=linked
+000043D2  C001  push_int 3
+000043D8  8046  negate
+000043DA  C001  push_int 401
+000043E0  C001  push_int 299
+000043E6  C001  push_int 11
+000043EC  C001  push_int 50
+000043F2  8121  giq_option
+          ; intelligence_option: list=401, message=299 | 啊。, status=linked
+000043F4  C001  push_int 0
+000043FA  800D  d_to_a
+000043FC  8019  swapa
+000043FE  802A  pop_to_base
+00004400  8029  pop_base
+00004402  800C  a_to_d
+00004404  801C  pop_return
+00004406  802A  pop_to_base
+00004408  8029  pop_base
+0000440A  801C  pop_return
+
+.procedure 94 Rutger74 offset=0x0000440C size=298 args=0 flags=0x00000000
+0000440C  802B  push_base
+0000440E  C001  push_int 401
+00004414  C001  push_int 300
+0000441A  C001  push_int 303
+00004420  80B4  random
+00004422  811E  gsay_reply
+          ; reply: list=401, message=random(300, 303), status=dynamic-number
+00004424  C001  push_int 17500
+0000442A  C001  push_int 101
+00004430  80C5  global_var
+00004432  C001  push_int 2
+00004438  8034  not_equal
+0000443A  802F  if
+0000443C  C001  push_int 4
+00004442  C001  push_int 401
+00004448  C001  push_int 305
+0000444E  C001  push_int 14
+00004454  C001  push_int 50
+0000445A  8121  giq_option
+          ; intelligence_option: list=401, message=305 | 我想知道，你负责送水吗？, status=linked
+0000445C  C001  push_int 17564
+00004462  C001  push_int 43
+00004468  80C3  op_80c3
+0000446A  C001  push_int 1
+00004470  8033  equal
+00004472  802F  if
+00004474  C001  push_int 4
+0000447A  C001  push_int 401
+00004480  C001  push_int 306
+00004486  C001  push_int 10
+0000448C  C001  push_int 50
+00004492  8121  giq_option
+          ; intelligence_option: list=401, message=306 | 我这里有份工作要人作。, status=linked
+00004494  C001  push_int 17596
+0000449A  8004  jump
+0000449C  C001  push_int 4
+000044A2  C001  push_int 401
+000044A8  C001  push_int 307
+000044AE  C001  push_int 10
+000044B4  C001  push_int 50
+000044BA  8121  giq_option
+          ; intelligence_option: list=401, message=307 | 我在找工作。, status=linked
+000044BC  C001  push_int 4
+000044C2  C001  push_int 401
+000044C8  C001  push_int 308
+000044CE  C001  push_int 18
+000044D4  C001  push_int 50
+000044DA  8121  giq_option
+          ; intelligence_option: list=401, message=308 | 你想做什么？, status=linked
+000044DC  C001  push_int 4
+000044E2  C001  push_int 401
+000044E8  C001  push_int 309
+000044EE  C001  push_int 97
+000044F4  C001  push_int 50
+000044FA  8121  giq_option
+          ; intelligence_option: list=401, message=309 | 抱歉，我要走了。, status=linked
+000044FC  C001  push_int 3
+00004502  8046  negate
+00004504  C001  push_int 401
+0000450A  C001  push_int 310
+00004510  C001  push_int 11
+00004516  C001  push_int 50
+0000451C  8121  giq_option
+          ; intelligence_option: list=401, message=310 | 啥？, status=linked
+0000451E  C001  push_int 0
+00004524  800D  d_to_a
+00004526  8019  swapa
+00004528  802A  pop_to_base
+0000452A  8029  pop_base
+0000452C  800C  a_to_d
+0000452E  801C  pop_return
+00004530  802A  pop_to_base
+00004532  8029  pop_base
+00004534  801C  pop_return
+
+.procedure 95 Rutger75 offset=0x00004536 size=46 args=0 flags=0x00000000
+00004536  802B  push_base
+00004538  C001  push_int 401
+0000453E  C001  push_int 311
+00004544  C001  push_int 50
+0000454A  8120  gsay_message
+          ; message: list=401, message=311 | 你快给我滚蛋。把这该死的赶出这里！, status=linked
+0000454C  C001  push_int 0
+00004552  800D  d_to_a
+00004554  8019  swapa
+00004556  802A  pop_to_base
+00004558  8029  pop_base
+0000455A  800C  a_to_d
+0000455C  801C  pop_return
+0000455E  802A  pop_to_base
+00004560  8029  pop_base
+00004562  801C  pop_return
+
+.procedure 96 Rutger76 offset=0x00004564 size=46 args=0 flags=0x00000000
+00004564  802B  push_base
+00004566  C001  push_int 401
+0000456C  C001  push_int 313
+00004572  C001  push_int 50
+00004578  8120  gsay_message
+          ; message: list=401, message=313 | 太棒了！去告诉布奇你的发现，他会通知我是否应该给你酬谢。, status=linked
+0000457A  C001  push_int 0
+00004580  800D  d_to_a
+00004582  8019  swapa
+00004584  802A  pop_to_base
+00004586  8029  pop_base
+00004588  800C  a_to_d
+0000458A  801C  pop_return
+0000458C  802A  pop_to_base
+0000458E  8029  pop_base
+00004590  801C  pop_return
+
+.procedure 97 RutgerEnd offset=0x00004592 size=26 args=0 flags=0x00000000
+00004592  802B  push_base
+00004594  C001  push_int 0
+0000459A  800D  d_to_a
+0000459C  8019  swapa
+0000459E  802A  pop_to_base
+000045A0  8029  pop_base
+000045A2  800C  a_to_d
+000045A4  801C  pop_return
+000045A6  802A  pop_to_base
+000045A8  8029  pop_base
+000045AA  801C  pop_return
+
+.procedure 98 RutgerEndBad offset=0x000045AC size=50 args=0 flags=0x00000000
+000045AC  802B  push_base
+000045AE  C001  push_int 17860
+000045B4  800D  d_to_a
+000045B6  C001  push_int 0
+000045BC  C001  push_int 109
+000045C2  8005  call
+000045C4  801A  pop
+000045C6  C001  push_int 0
+000045CC  800D  d_to_a
+000045CE  8019  swapa
+000045D0  802A  pop_to_base
+000045D2  8029  pop_base
+000045D4  800C  a_to_d
+000045D6  801C  pop_return
+000045D8  802A  pop_to_base
+000045DA  8029  pop_base
+000045DC  801C  pop_return
+
+.procedure 99 get_reaction offset=0x000045DE size=658 args=0 flags=0x00000000
+000045DE  802B  push_base
+000045E0  C001  push_int 18520
+000045E6  C001  push_int 2
+000045EC  80C1  local_var
+000045EE  C001  push_int 0
+000045F4  8033  equal
+000045F6  802F  if
+000045F8  C001  push_int 0
+000045FE  C001  push_int 50
+00004604  80C2  set_local_var
+00004606  C001  push_int 1
+0000460C  C001  push_int 2
+00004612  80C2  set_local_var
+00004614  C001  push_int 2
+0000461A  C001  push_int 1
+00004620  80C2  set_local_var
+00004622  C001  push_int 0
+00004628  C001  push_int 0
+0000462E  80C1  local_var
+00004630  C001  push_int 5
+00004636  80BF  dude_obj
+00004638  C001  push_int 3
+0000463E  80CA  get_critter_stat
+00004640  803B  mul
+00004642  8039  add
+00004644  C001  push_int 25
+0000464A  803A  sub
+0000464C  80C2  set_local_var
+0000464E  C001  push_int 0
+00004654  C001  push_int 0
+0000465A  80C1  local_var
+0000465C  C001  push_int 10
+00004662  C001  push_int 0
+00004668  80BF  dude_obj
+0000466A  C001  push_int 10
+00004670  80F3  has_trait
+00004672  803B  mul
+00004674  8039  add
+00004676  80C2  set_local_var
+00004678  C001  push_int 18156
+0000467E  C001  push_int 0
+00004684  80BF  dude_obj
+00004686  C001  push_int 39
+0000468C  80F3  has_trait
+0000468E  802F  if
+00004690  C001  push_int 18122
+00004696  C001  push_int 155
+0000469C  80C5  global_var
+0000469E  C001  push_int 0
+000046A4  8038  greater
+000046A6  802F  if
+000046A8  C001  push_int 0
+000046AE  C001  push_int 0
+000046B4  80C1  local_var
+000046B6  C001  push_int 155
+000046BC  80C5  global_var
+000046BE  8039  add
+000046C0  80C2  set_local_var
+000046C2  C001  push_int 18148
+000046C8  8004  jump
+000046CA  C001  push_int 0
+000046D0  C001  push_int 0
+000046D6  80C1  local_var
+000046D8  C001  push_int 155
+000046DE  80C5  global_var
+000046E0  803A  sub
+000046E2  80C2  set_local_var
+000046E4  C001  push_int 18240
+000046EA  8004  jump
+000046EC  C001  push_int 18214
+000046F2  C001  push_int 3
+000046F8  80C1  local_var
+000046FA  C001  push_int 1
+00004700  8033  equal
+00004702  802F  if
+00004704  C001  push_int 0
+0000470A  C001  push_int 0
+00004710  80C1  local_var
+00004712  C001  push_int 155
+00004718  80C5  global_var
+0000471A  803A  sub
+0000471C  80C2  set_local_var
+0000471E  C001  push_int 18240
+00004724  8004  jump
+00004726  C001  push_int 0
+0000472C  C001  push_int 0
+00004732  80C1  local_var
+00004734  C001  push_int 155
+0000473A  80C5  global_var
+0000473C  8039  add
+0000473E  80C2  set_local_var
+00004740  C001  push_int 18288
+00004746  C001  push_int 158
+0000474C  80C5  global_var
+0000474E  C001  push_int 2
+00004754  8038  greater
+00004756  802F  if
+00004758  C001  push_int 0
+0000475E  C001  push_int 0
+00004764  80C1  local_var
+00004766  C001  push_int 30
+0000476C  803A  sub
+0000476E  80C2  set_local_var
+00004770  C001  push_int 18392
+00004776  C001  push_int 160
+0000477C  80C5  global_var
+0000477E  C001  push_int 159
+00004784  80C5  global_var
+00004786  8039  add
+00004788  C001  push_int 25
+0000478E  8036  greater_equal
+00004790  C001  push_int 160
+00004796  80C5  global_var
+00004798  C001  push_int 3
+0000479E  C001  push_int 159
+000047A4  80C5  global_var
+000047A6  803B  mul
+000047A8  8038  greater
+000047AA  C001  push_int 157
+000047B0  80C5  global_var
+000047B2  C001  push_int 1
+000047B8  8033  equal
+000047BA  803F  or
+000047BC  803E  and
+000047BE  802F  if
+000047C0  C001  push_int 0
+000047C6  C001  push_int 0
+000047CC  80C1  local_var
+000047CE  C001  push_int 20
+000047D4  8039  add
+000047D6  80C2  set_local_var
+000047D8  C001  push_int 18496
+000047DE  C001  push_int 160
+000047E4  80C5  global_var
+000047E6  C001  push_int 159
+000047EC  80C5  global_var
+000047EE  8039  add
+000047F0  C001  push_int 25
+000047F6  8036  greater_equal
+000047F8  C001  push_int 159
+000047FE  80C5  global_var
+00004800  C001  push_int 2
+00004806  C001  push_int 160
+0000480C  80C5  global_var
+0000480E  803B  mul
+00004810  8038  greater
+00004812  C001  push_int 156
+00004818  80C5  global_var
+0000481A  C001  push_int 1
+00004820  8033  equal
+00004822  803F  or
+00004824  803E  and
+00004826  802F  if
+00004828  C001  push_int 0
+0000482E  C001  push_int 0
+00004834  80C1  local_var
+00004836  C001  push_int 20
+0000483C  803A  sub
+0000483E  80C2  set_local_var
+00004840  C001  push_int 18518
+00004846  800D  d_to_a
+00004848  C001  push_int 0
+0000484E  C001  push_int 100
+00004854  8005  call
+00004856  801A  pop
+00004858  C001  push_int 0
+0000485E  800D  d_to_a
+00004860  8019  swapa
+00004862  802A  pop_to_base
+00004864  8029  pop_base
+00004866  800C  a_to_d
+00004868  801C  pop_return
+0000486A  802A  pop_to_base
+0000486C  8029  pop_base
+0000486E  801C  pop_return
+
+.procedure 100 ReactToLevel offset=0x00004870 size=132 args=0 flags=0x00000000
+00004870  802B  push_base
+00004872  C001  push_int 18592
+00004878  C001  push_int 0
+0000487E  80C1  local_var
+00004880  C001  push_int 25
+00004886  8035  less_equal
+00004888  802F  if
+0000488A  C001  push_int 1
+00004890  C001  push_int 1
+00004896  80C2  set_local_var
+00004898  C001  push_int 18652
+0000489E  8004  jump
+000048A0  C001  push_int 18638
+000048A6  C001  push_int 0
+000048AC  80C1  local_var
+000048AE  C001  push_int 75
+000048B4  8035  less_equal
+000048B6  802F  if
+000048B8  C001  push_int 1
+000048BE  C001  push_int 2
+000048C4  80C2  set_local_var
+000048C6  C001  push_int 18652
+000048CC  8004  jump
+000048CE  C001  push_int 1
+000048D4  C001  push_int 3
+000048DA  80C2  set_local_var
+000048DC  C001  push_int 0
+000048E2  800D  d_to_a
+000048E4  8019  swapa
+000048E6  802A  pop_to_base
+000048E8  8029  pop_base
+000048EA  800C  a_to_d
+000048EC  801C  pop_return
+000048EE  802A  pop_to_base
+000048F0  8029  pop_base
+000048F2  801C  pop_return
+
+.procedure 101 LevelToReact offset=0x000048F4 size=156 args=0 flags=0x00000000
+000048F4  802B  push_base
+000048F6  C001  push_int 18732
+000048FC  C001  push_int 1
+00004902  80C1  local_var
+00004904  C001  push_int 1
+0000490A  8033  equal
+0000490C  802F  if
+0000490E  C001  push_int 0
+00004914  C001  push_int 1
+0000491A  C001  push_int 25
+00004920  80B4  random
+00004922  80C2  set_local_var
+00004924  C001  push_int 18808
+0000492A  8004  jump
+0000492C  C001  push_int 18786
+00004932  C001  push_int 1
+00004938  80C1  local_var
+0000493A  C001  push_int 2
+00004940  8033  equal
+00004942  802F  if
+00004944  C001  push_int 0
+0000494A  C001  push_int 26
+00004950  C001  push_int 75
+00004956  80B4  random
+00004958  80C2  set_local_var
+0000495A  C001  push_int 18808
+00004960  8004  jump
+00004962  C001  push_int 0
+00004968  C001  push_int 76
+0000496E  C001  push_int 100
+00004974  80B4  random
+00004976  80C2  set_local_var
+00004978  C001  push_int 0
+0000497E  800D  d_to_a
+00004980  8019  swapa
+00004982  802A  pop_to_base
+00004984  8029  pop_base
+00004986  800C  a_to_d
+00004988  801C  pop_return
+0000498A  802A  pop_to_base
+0000498C  8029  pop_base
+0000498E  801C  pop_return
+
+.procedure 102 UpReact offset=0x00004990 size=74 args=0 flags=0x00000000
+00004990  802B  push_base
+00004992  C001  push_int 0
+00004998  C001  push_int 0
+0000499E  80C1  local_var
+000049A0  C001  push_int 10
+000049A6  8039  add
+000049A8  80C2  set_local_var
+000049AA  C001  push_int 18880
+000049B0  800D  d_to_a
+000049B2  C001  push_int 0
+000049B8  C001  push_int 100
+000049BE  8005  call
+000049C0  801A  pop
+000049C2  C001  push_int 0
+000049C8  800D  d_to_a
+000049CA  8019  swapa
+000049CC  802A  pop_to_base
+000049CE  8029  pop_base
+000049D0  800C  a_to_d
+000049D2  801C  pop_return
+000049D4  802A  pop_to_base
+000049D6  8029  pop_base
+000049D8  801C  pop_return
+
+.procedure 103 DownReact offset=0x000049DA size=74 args=0 flags=0x00000000
+000049DA  802B  push_base
+000049DC  C001  push_int 0
+000049E2  C001  push_int 0
+000049E8  80C1  local_var
+000049EA  C001  push_int 10
+000049F0  803A  sub
+000049F2  80C2  set_local_var
+000049F4  C001  push_int 18954
+000049FA  800D  d_to_a
+000049FC  C001  push_int 0
+00004A02  C001  push_int 100
+00004A08  8005  call
+00004A0A  801A  pop
+00004A0C  C001  push_int 0
+00004A12  800D  d_to_a
+00004A14  8019  swapa
+00004A16  802A  pop_to_base
+00004A18  8029  pop_base
+00004A1A  800C  a_to_d
+00004A1C  801C  pop_return
+00004A1E  802A  pop_to_base
+00004A20  8029  pop_base
+00004A22  801C  pop_return
+
+.procedure 104 BottomReact offset=0x00004A24 size=54 args=0 flags=0x00000000
+00004A24  802B  push_base
+00004A26  C001  push_int 1
+00004A2C  C001  push_int 1
+00004A32  80C2  set_local_var
+00004A34  C001  push_int 0
+00004A3A  C001  push_int 1
+00004A40  80C2  set_local_var
+00004A42  C001  push_int 0
+00004A48  800D  d_to_a
+00004A4A  8019  swapa
+00004A4C  802A  pop_to_base
+00004A4E  8029  pop_base
+00004A50  800C  a_to_d
+00004A52  801C  pop_return
+00004A54  802A  pop_to_base
+00004A56  8029  pop_base
+00004A58  801C  pop_return
+
+.procedure 105 TopReact offset=0x00004A5A size=54 args=0 flags=0x00000000
+00004A5A  802B  push_base
+00004A5C  C001  push_int 0
+00004A62  C001  push_int 100
+00004A68  80C2  set_local_var
+00004A6A  C001  push_int 1
+00004A70  C001  push_int 3
+00004A76  80C2  set_local_var
+00004A78  C001  push_int 0
+00004A7E  800D  d_to_a
+00004A80  8019  swapa
+00004A82  802A  pop_to_base
+00004A84  8029  pop_base
+00004A86  800C  a_to_d
+00004A88  801C  pop_return
+00004A8A  802A  pop_to_base
+00004A8C  8029  pop_base
+00004A8E  801C  pop_return
+
+.procedure 106 BigUpReact offset=0x00004A90 size=74 args=0 flags=0x00000000
+00004A90  802B  push_base
+00004A92  C001  push_int 0
+00004A98  C001  push_int 0
+00004A9E  80C1  local_var
+00004AA0  C001  push_int 25
+00004AA6  8039  add
+00004AA8  80C2  set_local_var
+00004AAA  C001  push_int 19136
+00004AB0  800D  d_to_a
+00004AB2  C001  push_int 0
+00004AB8  C001  push_int 100
+00004ABE  8005  call
+00004AC0  801A  pop
+00004AC2  C001  push_int 0
+00004AC8  800D  d_to_a
+00004ACA  8019  swapa
+00004ACC  802A  pop_to_base
+00004ACE  8029  pop_base
+00004AD0  800C  a_to_d
+00004AD2  801C  pop_return
+00004AD4  802A  pop_to_base
+00004AD6  8029  pop_base
+00004AD8  801C  pop_return
+
+.procedure 107 BigDownReact offset=0x00004ADA size=74 args=0 flags=0x00000000
+00004ADA  802B  push_base
+00004ADC  C001  push_int 0
+00004AE2  C001  push_int 0
+00004AE8  80C1  local_var
+00004AEA  C001  push_int 25
+00004AF0  803A  sub
+00004AF2  80C2  set_local_var
+00004AF4  C001  push_int 19210
+00004AFA  800D  d_to_a
+00004AFC  C001  push_int 0
+00004B02  C001  push_int 100
+00004B08  8005  call
+00004B0A  801A  pop
+00004B0C  C001  push_int 0
+00004B12  800D  d_to_a
+00004B14  8019  swapa
+00004B16  802A  pop_to_base
+00004B18  8029  pop_base
+00004B1A  800C  a_to_d
+00004B1C  801C  pop_return
+00004B1E  802A  pop_to_base
+00004B20  8029  pop_base
+00004B22  801C  pop_return
+
+.procedure 108 UpReactLevel offset=0x00004B24 size=112 args=0 flags=0x00000000
+00004B24  802B  push_base
+00004B26  C001  push_int 1
+00004B2C  C001  push_int 1
+00004B32  80C1  local_var
+00004B34  C001  push_int 1
+00004B3A  8039  add
+00004B3C  80C2  set_local_var
+00004B3E  C001  push_int 19300
+00004B44  C001  push_int 1
+00004B4A  80C1  local_var
+00004B4C  C001  push_int 3
+00004B52  8038  greater
+00004B54  802F  if
+00004B56  C001  push_int 1
+00004B5C  C001  push_int 3
+00004B62  80C2  set_local_var
+00004B64  C001  push_int 19322
+00004B6A  800D  d_to_a
+00004B6C  C001  push_int 0
+00004B72  C001  push_int 101
+00004B78  8005  call
+00004B7A  801A  pop
+00004B7C  C001  push_int 0
+00004B82  800D  d_to_a
+00004B84  8019  swapa
+00004B86  802A  pop_to_base
+00004B88  8029  pop_base
+00004B8A  800C  a_to_d
+00004B8C  801C  pop_return
+00004B8E  802A  pop_to_base
+00004B90  8029  pop_base
+00004B92  801C  pop_return
+
+.procedure 109 DownReactLevel offset=0x00004B94 size=112 args=0 flags=0x00000000
+00004B94  802B  push_base
+00004B96  C001  push_int 1
+00004B9C  C001  push_int 1
+00004BA2  80C1  local_var
+00004BA4  C001  push_int 1
+00004BAA  803A  sub
+00004BAC  80C2  set_local_var
+00004BAE  C001  push_int 19412
+00004BB4  C001  push_int 1
+00004BBA  80C1  local_var
+00004BBC  C001  push_int 1
+00004BC2  8037  less
+00004BC4  802F  if
+00004BC6  C001  push_int 1
+00004BCC  C001  push_int 1
+00004BD2  80C2  set_local_var
+00004BD4  C001  push_int 19434
+00004BDA  800D  d_to_a
+00004BDC  C001  push_int 0
+00004BE2  C001  push_int 101
+00004BE8  8005  call
+00004BEA  801A  pop
+00004BEC  C001  push_int 0
+00004BF2  800D  d_to_a
+00004BF4  8019  swapa
+00004BF6  802A  pop_to_base
+00004BF8  8029  pop_base
+00004BFA  800C  a_to_d
+00004BFC  801C  pop_return
+00004BFE  802A  pop_to_base
+00004C00  8029  pop_base
+00004C02  801C  pop_return
+
+.procedure 110 Goodbyes offset=0x00004C04 size=56 args=0 flags=0x00000000
+00004C04  802B  push_base
+00004C06  C001  push_int 634
+00004C0C  C001  push_int 100
+00004C12  C001  push_int 105
+00004C18  80B4  random
+00004C1A  8105  message_str
+          ; message_lookup: list=634, message=random(100, 105), status=dynamic-number
+00004C1C  C001  push_int 2
+00004C22  8013  store_global
+00004C24  C001  push_int 0
+00004C2A  800D  d_to_a
+00004C2C  8019  swapa
+00004C2E  802A  pop_to_base
+00004C30  8029  pop_base
+00004C32  800C  a_to_d
+00004C34  801C  pop_return
+00004C36  802A  pop_to_base
+00004C38  8029  pop_base
+00004C3A  801C  pop_return

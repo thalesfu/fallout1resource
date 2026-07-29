@@ -1,0 +1,300 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\LOWCRAPS.INT
+; sha256: 0082E39FD526BAF016849358D6B9896EB3F851AF3B3D06173CA99E580D57268B
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 176
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000000B0  802C  set_global
+000000B2  C001  push_int 0
+000000B8  C001  push_int 0
+000000BE  8003  critical_done
+000000C0  C001  push_int 200
+000000C6  8004  jump
+
+.procedure 0 .............. offset=0x000000C8 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000C8 size=176 args=0 flags=0x00000000
+000000C8  802B  push_base
+000000CA  C001  push_int 258
+000000D0  80C7  script_action
+000000D2  C001  push_int 21
+000000D8  8033  equal
+000000DA  80C7  script_action
+000000DC  C001  push_int 3
+000000E2  8033  equal
+000000E4  803F  or
+000000E6  802F  if
+000000E8  80B9  script_overrides
+000000EA  C001  push_int 0
+000000F0  C001  push_int 100
+000000F6  8105  message_str
+          ; message_lookup: list=0, message=100 | 你看到一张低赌注的双骰子赌桌。这里每盘最低下注20元。, status=linked
+000000F8  80B8  display_msg
+000000FA  C001  push_int 352
+00000100  8004  jump
+00000102  C001  push_int 308
+00000108  80C7  script_action
+0000010A  C001  push_int 6
+00000110  8033  equal
+00000112  802F  if
+00000114  C001  push_int 298
+0000011A  800D  d_to_a
+0000011C  C001  push_int 0
+00000122  C001  push_int 2
+00000128  8005  call
+0000012A  801A  pop
+0000012C  C001  push_int 352
+00000132  8004  jump
+00000134  C001  push_int 352
+0000013A  80C7  script_action
+0000013C  C001  push_int 11
+00000142  8033  equal
+00000144  802F  if
+00000146  80B9  script_overrides
+00000148  C001  push_int 350
+0000014E  800D  d_to_a
+00000150  C001  push_int 0
+00000156  C001  push_int 2
+0000015C  8005  call
+0000015E  801A  pop
+00000160  C001  push_int 0
+00000166  800D  d_to_a
+00000168  8019  swapa
+0000016A  802A  pop_to_base
+0000016C  8029  pop_base
+0000016E  800C  a_to_d
+00000170  801C  pop_return
+00000172  802A  pop_to_base
+00000174  8029  pop_base
+00000176  801C  pop_return
+
+.procedure 2 point_run offset=0x00000178 size=780 args=0 flags=0x00000000
+00000178  802B  push_base
+0000017A  C001  push_int 0
+00000180  C001  push_int 0
+00000186  C001  push_int 0
+0000018C  C001  push_int 0
+00000192  C001  push_int 0
+00000198  C001  push_int 0
+0000019E  C001  push_int 1
+000001A4  C001  push_int 20
+000001AA  80B4  random
+000001AC  C001  push_int 5
+000001B2  C001  push_int 15
+000001B8  80B4  random
+000001BA  803A  sub
+000001BC  C001  push_int 5
+000001C2  8031  store
+000001C4  80BF  dude_obj
+000001C6  C001  push_int 16
+000001CC  C001  push_int 5
+000001D2  8032  fetch
+000001D4  80AC  op_80ac
+000001D6  C001  push_int 4
+000001DC  8031  store
+000001DE  C001  push_int 1
+000001E4  C001  push_int 6
+000001EA  80B4  random
+000001EC  C001  push_int 1
+000001F2  C001  push_int 6
+000001F8  80B4  random
+000001FA  8039  add
+000001FC  C001  push_int 0
+00000202  8031  store
+00000204  C001  push_int 600
+0000020A  C001  push_int 4
+00000210  8032  fetch
+00000212  80B0  op_80b0
+00000214  802F  if
+00000216  C001  push_int 576
+0000021C  C001  push_int 4
+00000222  8032  fetch
+00000224  80AF  op_80af
+00000226  802F  if
+00000228  C001  push_int 0
+0000022E  C001  push_int 101
+00000234  8105  message_str
+          ; message_lookup: list=0, message=101 | 你掷出7，你赢啦！, status=linked
+00000236  80B8  display_msg
+00000238  C001  push_int 592
+0000023E  8004  jump
+00000240  C001  push_int 0
+00000246  C001  push_int 102
+0000024C  8105  message_str
+          ; message_lookup: list=0, message=102 | 你掷出两点，你输了。, status=linked
+0000024E  80B8  display_msg
+00000250  C001  push_int 1132
+00000256  8004  jump
+00000258  C001  push_int 692
+0000025E  C001  push_int 0
+00000264  8032  fetch
+00000266  C001  push_int 7
+0000026C  8033  equal
+0000026E  C001  push_int 0
+00000274  8032  fetch
+00000276  C001  push_int 11
+0000027C  8033  equal
+0000027E  803F  or
+00000280  802F  if
+00000282  C001  push_int 0
+00000288  C001  push_int 103
+0000028E  8105  message_str
+          ; message_lookup: list=0, message=103 | 你掷出, status=linked
+00000290  C001  push_int 0
+00000296  8032  fetch
+00000298  8039  add
+0000029A  C001  push_int 0
+000002A0  C001  push_int 104
+000002A6  8105  message_str
+          ; message_lookup: list=0, message=104 | ！你赢啦！, status=linked
+000002A8  8039  add
+000002AA  80B8  display_msg
+000002AC  C001  push_int 1132
+000002B2  8004  jump
+000002B4  C001  push_int 802
+000002BA  C001  push_int 0
+000002C0  8032  fetch
+000002C2  C001  push_int 2
+000002C8  8033  equal
+000002CA  C001  push_int 0
+000002D0  8032  fetch
+000002D2  C001  push_int 3
+000002D8  8033  equal
+000002DA  803F  or
+000002DC  C001  push_int 0
+000002E2  8032  fetch
+000002E4  C001  push_int 12
+000002EA  8033  equal
+000002EC  803F  or
+000002EE  802F  if
+000002F0  C001  push_int 0
+000002F6  C001  push_int 105
+000002FC  8105  message_str
+          ; message_lookup: list=0, message=105 | 你掷出, status=linked
+000002FE  C001  push_int 0
+00000304  8032  fetch
+00000306  8039  add
+00000308  C001  push_int 0
+0000030E  C001  push_int 106
+00000314  8105  message_str
+          ; message_lookup: list=0, message=106 | 。你输了。, status=linked
+00000316  8039  add
+00000318  80B8  display_msg
+0000031A  C001  push_int 1132
+00000320  8004  jump
+00000322  C001  push_int 1132
+00000328  C001  push_int 3
+0000032E  8032  fetch
+00000330  8045  not
+00000332  8030  while
+00000334  C001  push_int 1052
+0000033A  C001  push_int 2
+00000340  8032  fetch
+00000342  802F  if
+00000344  C001  push_int 942
+0000034A  C001  push_int 0
+00000350  8032  fetch
+00000352  C001  push_int 7
+00000358  8033  equal
+0000035A  C001  push_int 0
+00000360  8032  fetch
+00000362  C001  push_int 11
+00000368  8033  equal
+0000036A  803F  or
+0000036C  802F  if
+0000036E  C001  push_int 1
+00000374  C001  push_int 3
+0000037A  8031  store
+0000037C  C001  push_int 0
+00000382  C001  push_int 107
+00000388  8105  message_str
+          ; message_lookup: list=0, message=107 | 你掷出骰子, status=linked
+0000038A  C001  push_int 0
+00000390  8032  fetch
+00000392  8039  add
+00000394  C001  push_int 0
+0000039A  C001  push_int 108
+000003A0  8105  message_str
+          ; message_lookup: list=0, message=108 | ，不是你压的点数。你输了。, status=linked
+000003A2  8039  add
+000003A4  80B8  display_msg
+000003A6  C001  push_int 1044
+000003AC  8004  jump
+000003AE  C001  push_int 1006
+000003B4  C001  push_int 0
+000003BA  8032  fetch
+000003BC  C001  push_int 1
+000003C2  8032  fetch
+000003C4  8033  equal
+000003C6  802F  if
+000003C8  C001  push_int 1
+000003CE  C001  push_int 3
+000003D4  8031  store
+000003D6  C001  push_int 0
+000003DC  C001  push_int 109
+000003E2  8105  message_str
+          ; message_lookup: list=0, message=109 | ，正好是你压的点数！你赢了！, status=linked
+000003E4  80B8  display_msg
+000003E6  C001  push_int 1044
+000003EC  8004  jump
+000003EE  C001  push_int 1
+000003F4  C001  push_int 6
+000003FA  80B4  random
+000003FC  C001  push_int 1
+00000402  C001  push_int 6
+00000408  80B4  random
+0000040A  8039  add
+0000040C  C001  push_int 0
+00000412  8031  store
+00000414  C001  push_int 1124
+0000041A  8004  jump
+0000041C  C001  push_int 1
+00000422  C001  push_int 2
+00000428  8031  store
+0000042A  C001  push_int 0
+00000430  8032  fetch
+00000432  C001  push_int 1
+00000438  8031  store
+0000043A  C001  push_int 0
+00000440  C001  push_int 110
+00000446  8105  message_str
+          ; message_lookup: list=0, message=110 | 你掷出骰子, status=linked
+00000448  C001  push_int 0
+0000044E  8032  fetch
+00000450  8039  add
+00000452  C001  push_int 0
+00000458  C001  push_int 111
+0000045E  8105  message_str
+          ; message_lookup: list=0, message=111 | ，闲家再掷骰子！【再掷一次骰子】, status=linked
+00000460  8039  add
+00000462  80B8  display_msg
+00000464  C001  push_int 808
+0000046A  8004  jump
+0000046C  C001  push_int 0
+00000472  800D  d_to_a
+00000474  8019  swapa
+00000476  802A  pop_to_base
+00000478  8029  pop_base
+0000047A  800C  a_to_d
+0000047C  801C  pop_return
+0000047E  802A  pop_to_base
+00000480  8029  pop_base
+00000482  801C  pop_return

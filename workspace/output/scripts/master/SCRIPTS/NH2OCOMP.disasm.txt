@@ -1,0 +1,467 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\NH2OCOMP.INT
+; sha256: 190CD597688D649298C8F36D78A74FF96188728848447C049B6D111DA66D5248
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 312
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000138  802C  set_global
+0000013A  C001  push_int 0
+00000140  C001  push_int 0
+00000146  C001  push_int 0
+0000014C  C001  push_int 0
+00000152  C001  push_int 0
+00000158  C001  push_int 0
+0000015E  C001  push_int 20
+00000164  C001  push_int 0
+0000016A  C001  push_int 0
+00000170  8003  critical_done
+00000172  C001  push_int 378
+00000178  8004  jump
+
+.procedure 0 .............. offset=0x0000017A size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x0000017A size=450 args=0 flags=0x00000000
+0000017A  802B  push_base
+0000017C  C001  push_int 416
+00000182  80C7  script_action
+00000184  C001  push_int 21
+0000018A  8033  equal
+0000018C  802F  if
+0000018E  80B9  script_overrides
+00000190  C001  push_int 86
+00000196  C001  push_int 112
+0000019C  8105  message_str
+          ; message_lookup: list=86, message=112 | 你看见一个水控制计算机，它运转的很正常。, status=linked
+0000019E  80B8  display_msg
+000001A0  C001  push_int 514
+000001A6  80C7  script_action
+000001A8  C001  push_int 3
+000001AE  8033  equal
+000001B0  802F  if
+000001B2  80B9  script_overrides
+000001B4  C001  push_int 490
+000001BA  80BC  self_obj
+000001BC  80BF  dude_obj
+000001BE  80D3  op_80d3
+000001C0  C001  push_int 2
+000001C6  8037  less
+000001C8  802F  if
+000001CA  C001  push_int 480
+000001D0  800D  d_to_a
+000001D2  C001  push_int 0
+000001D8  C001  push_int 2
+000001DE  8005  call
+000001E0  801A  pop
+000001E2  C001  push_int 506
+000001E8  8004  jump
+000001EA  C001  push_int 86
+000001F0  C001  push_int 107
+000001F6  8105  message_str
+          ; message_lookup: list=86, message=107 | 你观察水控制计算机时离的太远了，没能看仔细。, status=linked
+000001F8  80B8  display_msg
+000001FA  C001  push_int 804
+00000200  8004  jump
+00000202  C001  push_int 566
+00000208  80C7  script_action
+0000020A  C001  push_int 6
+00000210  8033  equal
+00000212  802F  if
+00000214  80B9  script_overrides
+00000216  C001  push_int 556
+0000021C  800D  d_to_a
+0000021E  C001  push_int 0
+00000224  C001  push_int 3
+0000022A  8005  call
+0000022C  801A  pop
+0000022E  C001  push_int 804
+00000234  8004  jump
+00000236  C001  push_int 684
+0000023C  80C7  script_action
+0000023E  C001  push_int 8
+00000244  8033  equal
+00000246  802F  if
+00000248  80FA  op_80fa
+0000024A  C001  push_int 5
+00000250  8013  store_global
+00000252  80B9  script_overrides
+00000254  C001  push_int 652
+0000025A  C001  push_int 5
+00000260  8012  fetch_global
+00000262  C001  push_int 13
+00000268  8033  equal
+0000026A  802F  if
+0000026C  C001  push_int 642
+00000272  800D  d_to_a
+00000274  C001  push_int 0
+0000027A  C001  push_int 3
+00000280  8005  call
+00000282  801A  pop
+00000284  C001  push_int 676
+0000028A  8004  jump
+0000028C  C001  push_int 674
+00000292  800D  d_to_a
+00000294  C001  push_int 0
+0000029A  C001  push_int 4
+000002A0  8005  call
+000002A2  801A  pop
+000002A4  C001  push_int 804
+000002AA  8004  jump
+000002AC  C001  push_int 804
+000002B2  80C7  script_action
+000002B4  C001  push_int 7
+000002BA  8033  equal
+000002BC  802F  if
+000002BE  C001  push_int 788
+000002C4  80C0  op_80c0
+000002C6  8100  op_8100
+000002C8  C001  push_int 55
+000002CE  8033  equal
+000002D0  802F  if
+000002D2  80B9  script_overrides
+000002D4  C001  push_int 86
+000002DA  C001  push_int 110
+000002E0  8105  message_str
+          ; message_lookup: list=86, message=110 | 你把净水芯片重新安装在计算机上。过了一会计算机重新启动完毕，开始正常运转了。, status=linked
+000002E2  80B8  display_msg
+000002E4  80BF  dude_obj
+000002E6  80C0  op_80c0
+000002E8  80D9  op_80d9
+000002EA  80BC  self_obj
+000002EC  80C0  op_80c0
+000002EE  80D8  op_80d8
+000002F0  C001  push_int 30
+000002F6  C001  push_int 0
+000002FC  80C6  set_global_var
+000002FE  C001  push_int 101
+00000304  C001  push_int 0
+0000030A  80C6  set_global_var
+0000030C  C001  push_int 804
+00000312  8004  jump
+00000314  C001  push_int 86
+0000031A  C001  push_int 111
+00000320  8105  message_str
+          ; message_lookup: list=86, message=111 | 这个物品不能使用在计算机上面。, status=linked
+00000322  80B8  display_msg
+00000324  C001  push_int 0
+0000032A  800D  d_to_a
+0000032C  8019  swapa
+0000032E  802A  pop_to_base
+00000330  8029  pop_base
+00000332  800C  a_to_d
+00000334  801C  pop_return
+00000336  802A  pop_to_base
+00000338  8029  pop_base
+0000033A  801C  pop_return
+
+.procedure 2 search offset=0x0000033C size=186 args=0 flags=0x00000000
+0000033C  802B  push_base
+0000033E  80BF  dude_obj
+00000340  C001  push_int 1
+00000346  C001  push_int 0
+0000034C  80AE  op_80ae
+0000034E  C001  push_int 0
+00000354  8013  store_global
+00000356  C001  push_int 894
+0000035C  C001  push_int 30
+00000362  80C5  global_var
+00000364  802F  if
+00000366  C001  push_int 86
+0000036C  C001  push_int 100
+00000372  8105  message_str
+          ; message_lookup: list=86, message=100 | 你看到一个控水计算机。它因为一个主要硬件被取出而产了生故障。, status=linked
+00000374  80B8  display_msg
+00000376  C001  push_int 990
+0000037C  8004  jump
+0000037E  C001  push_int 950
+00000384  C001  push_int 0
+0000038A  8012  fetch_global
+0000038C  80AF  op_80af
+0000038E  802F  if
+00000390  C001  push_int 86
+00000396  C001  push_int 101
+0000039C  8105  message_str
+          ; message_lookup: list=86, message=101 | 你成功的搜索了控水计算机，顺利地找到了净水芯片。, status=linked
+0000039E  80B8  display_msg
+000003A0  C001  push_int 1
+000003A6  C001  push_int 1
+000003AC  80C2  set_local_var
+000003AE  C001  push_int 990
+000003B4  8004  jump
+000003B6  C001  push_int 1200
+000003BC  80F2  op_80f2
+000003BE  80FC  op_80fc
+000003C0  C001  push_int 86
+000003C6  C001  push_int 102
+000003CC  8105  message_str
+          ; message_lookup: list=86, message=102 | 虽然花了不少时间，但你还是找到了净水芯片。, status=linked
+000003CE  80B8  display_msg
+000003D0  C001  push_int 1
+000003D6  C001  push_int 1
+000003DC  80C2  set_local_var
+000003DE  C001  push_int 0
+000003E4  800D  d_to_a
+000003E6  8019  swapa
+000003E8  802A  pop_to_base
+000003EA  8029  pop_base
+000003EC  800C  a_to_d
+000003EE  801C  pop_return
+000003F0  802A  pop_to_base
+000003F2  8029  pop_base
+000003F4  801C  pop_return
+
+.procedure 3 removal offset=0x000003F6 size=622 args=0 flags=0x00000000
+000003F6  802B  push_base
+000003F8  80BF  dude_obj
+000003FA  C001  push_int 4
+00000400  C001  push_int 0
+00000406  80AE  op_80ae
+00000408  C001  push_int 0
+0000040E  8013  store_global
+00000410  80BF  dude_obj
+00000412  C001  push_int 5
+00000418  C001  push_int 0
+0000041E  80AE  op_80ae
+00000420  C001  push_int 1
+00000426  8013  store_global
+00000428  80BF  dude_obj
+0000042A  C001  push_int 13
+00000430  C001  push_int 6
+00000436  8012  fetch_global
+00000438  80AC  op_80ac
+0000043A  C001  push_int 2
+00000440  8013  store_global
+00000442  C001  push_int 1138
+00000448  C001  push_int 30
+0000044E  80C5  global_var
+00000450  C001  push_int 1
+00000456  8033  equal
+00000458  802F  if
+0000045A  C001  push_int 86
+00000460  C001  push_int 103
+00000466  8105  message_str
+          ; message_lookup: list=86, message=103 | 没有净水芯片所以不能修理计算机。, status=linked
+00000468  80B8  display_msg
+0000046A  C001  push_int 1612
+00000470  8004  jump
+00000472  C001  push_int 1510
+00000478  C001  push_int 0
+0000047E  8012  fetch_global
+00000480  80AF  op_80af
+00000482  C001  push_int 1
+00000488  8012  fetch_global
+0000048A  80AF  op_80af
+0000048C  803F  or
+0000048E  C001  push_int 2
+00000494  8012  fetch_global
+00000496  80AF  op_80af
+00000498  803F  or
+0000049A  802F  if
+0000049C  C001  push_int 1228
+000004A2  C001  push_int 31
+000004A8  80C5  global_var
+000004AA  C001  push_int 2
+000004B0  8033  equal
+000004B2  802F  if
+000004B4  C001  push_int 86
+000004BA  C001  push_int 117
+000004C0  8105  message_str
+          ; message_lookup: list=86, message=117 | 关闭控水计算机后，你能听见修复后的水泵在很远的地方运转，水从大墓地以下很深的井里涌了出来。, status=linked
+000004C2  80B8  display_msg
+000004C4  C001  push_int 1244
+000004CA  8004  jump
+000004CC  C001  push_int 86
+000004D2  C001  push_int 104
+000004D8  8105  message_str
+          ; message_lookup: list=86, message=104 | 你轻易的从电脑上拔下了净水芯片。城市的供水似乎停止了。, status=linked
+000004DA  80B8  display_msg
+000004DC  80BF  dude_obj
+000004DE  C001  push_int 55
+000004E4  C001  push_int 0
+000004EA  C001  push_int 0
+000004F0  C001  push_int 1
+000004F6  8046  negate
+000004F8  80B7  op_80b7
+000004FA  80D8  op_80d8
+000004FC  C001  push_int 30
+00000502  C001  push_int 1
+00000508  80C6  set_global_var
+0000050A  C001  push_int 552
+00000510  80EA  game_time
+00000512  C001  push_int 10
+00000518  C001  push_int 60
+0000051E  803B  mul
+00000520  C001  push_int 60
+00000526  803B  mul
+00000528  C001  push_int 24
+0000052E  803B  mul
+00000530  803C  div
+00000532  80C6  set_global_var
+00000534  C001  push_int 1478
+0000053A  C001  push_int 2
+00000540  80C1  local_var
+00000542  C001  push_int 1
+00000548  8037  less
+0000054A  802F  if
+0000054C  C001  push_int 2
+00000552  C001  push_int 1
+00000558  80C2  set_local_var
+0000055A  C001  push_int 2500
+00000560  C001  push_int 35
+00000566  80C5  global_var
+00000568  C001  push_int 250
+0000056E  803B  mul
+00000570  803A  sub
+00000572  C001  push_int 4
+00000578  8013  store_global
+0000057A  C001  push_int 155
+00000580  C001  push_int 155
+00000586  80C5  global_var
+00000588  C001  push_int 3
+0000058E  8039  add
+00000590  80C6  set_global_var
+00000592  C001  push_int 4
+00000598  8012  fetch_global
+0000059A  80A1  op_80a1
+0000059C  C001  push_int 86
+000005A2  C001  push_int 113
+000005A8  8105  message_str
+          ; message_lookup: list=86, message=113 | 因为你搞到了净水芯片，你获得了, status=linked
+000005AA  C001  push_int 4
+000005B0  8012  fetch_global
+000005B2  8039  add
+000005B4  C001  push_int 86
+000005BA  C001  push_int 114
+000005C0  8105  message_str
+          ; message_lookup: list=86, message=114 | 点经验值。, status=linked
+000005C2  8039  add
+000005C4  80B8  display_msg
+000005C6  C001  push_int 7
+000005CC  8012  fetch_global
+000005CE  C001  push_int 1
+000005D4  8039  add
+000005D6  C001  push_int 7
+000005DC  8013  store_global
+000005DE  C001  push_int 1612
+000005E4  8004  jump
+000005E6  C001  push_int 1586
+000005EC  C001  push_int 0
+000005F2  8012  fetch_global
+000005F4  80B0  op_80b0
+000005F6  C001  push_int 1
+000005FC  8012  fetch_global
+000005FE  80B0  op_80b0
+00000600  803F  or
+00000602  C001  push_int 2
+00000608  8012  fetch_global
+0000060A  80B0  op_80b0
+0000060C  803F  or
+0000060E  802F  if
+00000610  C001  push_int 3600
+00000616  80F2  op_80f2
+00000618  80FC  op_80fc
+0000061A  C001  push_int 86
+00000620  C001  push_int 105
+00000626  8105  message_str
+          ; message_lookup: list=86, message=105 | 你费了好大劲摆弄计算机，但是仍没有取下净水芯片。过了一会，你才发现你没有把芯片边上固定用的卡子掰开。, status=linked
+00000628  80B8  display_msg
+0000062A  C001  push_int 1612
+00000630  8004  jump
+00000632  C001  push_int 86
+00000638  C001  push_int 106
+0000063E  8105  message_str
+          ; message_lookup: list=86, message=106 | 你没能取下净水芯片，或许你应该再更小心的试试。, status=linked
+00000640  80B8  display_msg
+00000642  C001  push_int 1800
+00000648  80F2  op_80f2
+0000064A  80FC  op_80fc
+0000064C  C001  push_int 0
+00000652  800D  d_to_a
+00000654  8019  swapa
+00000656  802A  pop_to_base
+00000658  8029  pop_base
+0000065A  800C  a_to_d
+0000065C  801C  pop_return
+0000065E  802A  pop_to_base
+00000660  8029  pop_base
+00000662  801C  pop_return
+
+.procedure 4 skills offset=0x00000664 size=210 args=0 flags=0x00000000
+00000664  802B  push_base
+00000666  C001  push_int 1806
+0000066C  C001  push_int 5
+00000672  8012  fetch_global
+00000674  C001  push_int 12
+0000067A  8033  equal
+0000067C  802F  if
+0000067E  C001  push_int 1702
+00000684  C001  push_int 30
+0000068A  80C5  global_var
+0000068C  802F  if
+0000068E  C001  push_int 86
+00000694  C001  push_int 116
+0000069A  8105  message_str
+          ; message_lookup: list=86, message=116 | 你意识到没有净水芯片就永远无法修理控水计算机。, status=linked
+0000069C  80B8  display_msg
+0000069E  C001  push_int 1798
+000006A4  8004  jump
+000006A6  80BF  dude_obj
+000006A8  C001  push_int 12
+000006AE  C001  push_int 20
+000006B4  80AC  op_80ac
+000006B6  C001  push_int 0
+000006BC  8013  store_global
+000006BE  C001  push_int 1782
+000006C4  C001  push_int 0
+000006CA  8012  fetch_global
+000006CC  80AF  op_80af
+000006CE  802F  if
+000006D0  C001  push_int 40
+000006D6  C001  push_int 6
+000006DC  8013  store_global
+000006DE  C001  push_int 86
+000006E4  C001  push_int 115
+000006EA  8105  message_str
+          ; message_lookup: list=86, message=115 | 你仔细观察计算机。发现可以用两个办法轻易的取下净水芯片。, status=linked
+000006EC  80B8  display_msg
+000006EE  C001  push_int 1798
+000006F4  8004  jump
+000006F6  C001  push_int 86
+000006FC  C001  push_int 109
+00000702  8105  message_str
+          ; message_lookup: list=86, message=109 | 在控水计算机上你学不到任何特别的知识。, status=linked
+00000704  80B8  display_msg
+00000706  C001  push_int 1822
+0000070C  8004  jump
+0000070E  C001  push_int 86
+00000714  C001  push_int 109
+0000071A  8105  message_str
+          ; message_lookup: list=86, message=109 | 在控水计算机上你学不到任何特别的知识。, status=linked
+0000071C  80B8  display_msg
+0000071E  C001  push_int 0
+00000724  800D  d_to_a
+00000726  8019  swapa
+00000728  802A  pop_to_base
+0000072A  8029  pop_base
+0000072C  800C  a_to_d
+0000072E  801C  pop_return
+00000730  802A  pop_to_base
+00000732  8029  pop_base
+00000734  801C  pop_return

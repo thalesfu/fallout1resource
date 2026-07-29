@@ -1,0 +1,1072 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\AMBER.INT
+; sha256: 175477C293A3B36E2CEEAC5B9F39A559CCE55D206B7493E934BE7E0294252679
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 1026
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000402  802C  set_global
+00000404  C001  push_int 0
+0000040A  C001  push_int 0
+00000410  8003  critical_done
+00000412  C001  push_int 1050
+00000418  8004  jump
+
+.procedure 0 .............. offset=0x0000041A size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x0000041A size=280 args=0 flags=0x00000000
+0000041A  802B  push_base
+0000041C  C001  push_int 1114
+00000422  C001  push_int 0
+00000428  8012  fetch_global
+0000042A  8045  not
+0000042C  802F  if
+0000042E  80BC  self_obj
+00000430  C001  push_int 1
+00000436  C001  push_int 6
+0000043C  C001  push_int 46
+00000442  8102  critter_add_trait
+00000444  C001  push_int 1
+0000044A  C001  push_int 0
+00000450  8013  store_global
+00000452  C001  push_int 1306
+00000458  8004  jump
+0000045A  C001  push_int 1164
+00000460  80C7  script_action
+00000462  C001  push_int 12
+00000468  8033  equal
+0000046A  802F  if
+0000046C  C001  push_int 1154
+00000472  800D  d_to_a
+00000474  C001  push_int 0
+0000047A  C001  push_int 2
+00000480  8005  call
+00000482  801A  pop
+00000484  C001  push_int 1306
+0000048A  8004  jump
+0000048C  C001  push_int 1214
+00000492  80C7  script_action
+00000494  C001  push_int 18
+0000049A  8033  equal
+0000049C  802F  if
+0000049E  C001  push_int 1204
+000004A4  800D  d_to_a
+000004A6  C001  push_int 0
+000004AC  C001  push_int 3
+000004B2  8005  call
+000004B4  801A  pop
+000004B6  C001  push_int 1306
+000004BC  8004  jump
+000004BE  C001  push_int 1264
+000004C4  80C7  script_action
+000004C6  C001  push_int 21
+000004CC  8033  equal
+000004CE  802F  if
+000004D0  C001  push_int 1254
+000004D6  800D  d_to_a
+000004D8  C001  push_int 0
+000004DE  C001  push_int 4
+000004E4  8005  call
+000004E6  801A  pop
+000004E8  C001  push_int 1306
+000004EE  8004  jump
+000004F0  C001  push_int 1306
+000004F6  80C7  script_action
+000004F8  C001  push_int 11
+000004FE  8033  equal
+00000500  802F  if
+00000502  C001  push_int 1304
+00000508  800D  d_to_a
+0000050A  C001  push_int 0
+00000510  C001  push_int 5
+00000516  8005  call
+00000518  801A  pop
+0000051A  C001  push_int 0
+00000520  800D  d_to_a
+00000522  8019  swapa
+00000524  802A  pop_to_base
+00000526  8029  pop_base
+00000528  800C  a_to_d
+0000052A  801C  pop_return
+0000052C  802A  pop_to_base
+0000052E  8029  pop_base
+00000530  801C  pop_return
+
+.procedure 2 critter_p_proc offset=0x00000532 size=60 args=0 flags=0x00000000
+00000532  802B  push_base
+00000534  C001  push_int 1366
+0000053A  C001  push_int 129
+00000540  80C5  global_var
+00000542  C001  push_int 2
+00000548  8033  equal
+0000054A  802F  if
+0000054C  80BC  self_obj
+0000054E  C001  push_int 59
+00000554  80ED  op_80ed
+00000556  C001  push_int 0
+0000055C  800D  d_to_a
+0000055E  8019  swapa
+00000560  802A  pop_to_base
+00000562  8029  pop_base
+00000564  800C  a_to_d
+00000566  801C  pop_return
+00000568  802A  pop_to_base
+0000056A  8029  pop_base
+0000056C  801C  pop_return
+
+.procedure 3 destroy_p_proc offset=0x0000056E size=336 args=0 flags=0x00000000
+0000056E  802B  push_base
+00000570  C001  push_int 1702
+00000576  80BD  source_obj
+00000578  80BF  dude_obj
+0000057A  8033  equal
+0000057C  802F  if
+0000057E  C001  push_int 1514
+00000584  C001  push_int 160
+0000058A  80C5  global_var
+0000058C  C001  push_int 159
+00000592  80C5  global_var
+00000594  8039  add
+00000596  C001  push_int 25
+0000059C  8036  greater_equal
+0000059E  C001  push_int 159
+000005A4  80C5  global_var
+000005A6  C001  push_int 2
+000005AC  C001  push_int 160
+000005B2  80C5  global_var
+000005B4  803B  mul
+000005B6  8038  greater
+000005B8  C001  push_int 156
+000005BE  80C5  global_var
+000005C0  C001  push_int 1
+000005C6  8033  equal
+000005C8  803F  or
+000005CA  803E  and
+000005CC  802F  if
+000005CE  C001  push_int 156
+000005D4  C001  push_int 1
+000005DA  80C6  set_global_var
+000005DC  C001  push_int 157
+000005E2  C001  push_int 0
+000005E8  80C6  set_global_var
+000005EA  C001  push_int 1622
+000005F0  C001  push_int 160
+000005F6  80C5  global_var
+000005F8  C001  push_int 159
+000005FE  80C5  global_var
+00000600  8039  add
+00000602  C001  push_int 25
+00000608  8036  greater_equal
+0000060A  C001  push_int 160
+00000610  80C5  global_var
+00000612  C001  push_int 3
+00000618  C001  push_int 159
+0000061E  80C5  global_var
+00000620  803B  mul
+00000622  8038  greater
+00000624  C001  push_int 157
+0000062A  80C5  global_var
+0000062C  C001  push_int 1
+00000632  8033  equal
+00000634  803F  or
+00000636  803E  and
+00000638  802F  if
+0000063A  C001  push_int 157
+00000640  C001  push_int 1
+00000646  80C6  set_global_var
+00000648  C001  push_int 156
+0000064E  C001  push_int 0
+00000654  80C6  set_global_var
+00000656  C001  push_int 159
+0000065C  C001  push_int 159
+00000662  80C5  global_var
+00000664  C001  push_int 1
+0000066A  8039  add
+0000066C  80C6  set_global_var
+0000066E  C001  push_int 1702
+00000674  C001  push_int 159
+0000067A  80C5  global_var
+0000067C  C001  push_int 2
+00000682  803D  mod
+00000684  C001  push_int 0
+0000068A  8033  equal
+0000068C  802F  if
+0000068E  C001  push_int 155
+00000694  C001  push_int 155
+0000069A  80C5  global_var
+0000069C  C001  push_int 1
+000006A2  803A  sub
+000006A4  80C6  set_global_var
+000006A6  C001  push_int 0
+000006AC  800D  d_to_a
+000006AE  8019  swapa
+000006B0  802A  pop_to_base
+000006B2  8029  pop_base
+000006B4  800C  a_to_d
+000006B6  801C  pop_return
+000006B8  802A  pop_to_base
+000006BA  8029  pop_base
+000006BC  801C  pop_return
+
+.procedure 4 look_at_p_proc offset=0x000006BE size=44 args=0 flags=0x00000000
+000006BE  802B  push_base
+000006C0  80B9  script_overrides
+000006C2  C001  push_int 272
+000006C8  C001  push_int 100
+000006CE  8105  message_str
+          ; message_lookup: list=272, message=100 | You see 安柏尔, a teacher for the 末世论者., status=linked
+000006D0  80B8  display_msg
+000006D2  C001  push_int 0
+000006D8  800D  d_to_a
+000006DA  8019  swapa
+000006DC  802A  pop_to_base
+000006DE  8029  pop_base
+000006E0  800C  a_to_d
+000006E2  801C  pop_return
+000006E4  802A  pop_to_base
+000006E6  8029  pop_base
+000006E8  801C  pop_return
+
+.procedure 5 talk_p_proc offset=0x000006EA size=232 args=0 flags=0x00000000
+000006EA  802B  push_base
+000006EC  80B9  script_overrides
+000006EE  C001  push_int 1830
+000006F4  C001  push_int 132
+000006FA  80C5  global_var
+000006FC  C001  push_int 1
+00000702  8033  equal
+00000704  802F  if
+00000706  C001  push_int 1820
+0000070C  800D  d_to_a
+0000070E  C001  push_int 0
+00000714  C001  push_int 25
+0000071A  8005  call
+0000071C  801A  pop
+0000071E  C001  push_int 1978
+00000724  8004  jump
+00000726  C001  push_int 1892
+0000072C  80F6  op_80f6
+0000072E  C001  push_int 700
+00000734  8036  greater_equal
+00000736  80F6  op_80f6
+00000738  C001  push_int 1800
+0000073E  8037  less
+00000740  803E  and
+00000742  802F  if
+00000744  C001  push_int 1882
+0000074A  800D  d_to_a
+0000074C  C001  push_int 0
+00000752  C001  push_int 6
+00000758  8005  call
+0000075A  801A  pop
+0000075C  C001  push_int 1978
+00000762  8004  jump
+00000764  C001  push_int 0
+0000076A  C001  push_int 0
+00000770  80C1  local_var
+00000772  C001  push_int 1
+00000778  8039  add
+0000077A  80C2  set_local_var
+0000077C  C001  push_int 272
+00000782  80BC  self_obj
+00000784  C001  push_int 4
+0000078A  C001  push_int 1
+00000790  8046  negate
+00000792  C001  push_int 1
+00000798  8046  negate
+0000079A  80DE  start_gdialog
+0000079C  811C  gsay_start
+0000079E  C001  push_int 1972
+000007A4  800D  d_to_a
+000007A6  C001  push_int 0
+000007AC  C001  push_int 7
+000007B2  8005  call
+000007B4  801A  pop
+000007B6  811D  gsay_end
+000007B8  80DF  end_dialogue
+000007BA  C001  push_int 0
+000007C0  800D  d_to_a
+000007C2  8019  swapa
+000007C4  802A  pop_to_base
+000007C6  8029  pop_base
+000007C8  800C  a_to_d
+000007CA  801C  pop_return
+000007CC  802A  pop_to_base
+000007CE  8029  pop_base
+000007D0  801C  pop_return
+
+.procedure 6 Amber0 offset=0x000007D2 size=50 args=0 flags=0x00000000
+000007D2  802B  push_base
+000007D4  80BC  self_obj
+000007D6  C001  push_int 272
+000007DC  C001  push_int 101
+000007E2  8105  message_str
+          ; message_lookup: list=272, message=101 | Now is when I rest. Please, come back during the evening., status=linked
+000007E4  C001  push_int 0
+000007EA  810A  op_810a
+000007EC  C001  push_int 0
+000007F2  800D  d_to_a
+000007F4  8019  swapa
+000007F6  802A  pop_to_base
+000007F8  8029  pop_base
+000007FA  800C  a_to_d
+000007FC  801C  pop_return
+000007FE  802A  pop_to_base
+00000800  8029  pop_base
+00000802  801C  pop_return
+
+.procedure 7 Amber1 offset=0x00000804 size=136 args=0 flags=0x00000000
+00000804  802B  push_base
+00000806  C001  push_int 272
+0000080C  C001  push_int 102
+00000812  811E  gsay_reply
+          ; reply: list=272, message=102 | Welcome noble traveler. Have you come here to study?, status=linked
+00000814  C001  push_int 4
+0000081A  C001  push_int 272
+00000820  C001  push_int 103
+00000826  C001  push_int 8
+0000082C  C001  push_int 50
+00000832  8121  giq_option
+          ; intelligence_option: list=272, message=103 | No. I really came here just to kill things., status=linked
+00000834  C001  push_int 4
+0000083A  C001  push_int 272
+00000840  C001  push_int 104
+00000846  C001  push_int 9
+0000084C  C001  push_int 50
+00000852  8121  giq_option
+          ; intelligence_option: list=272, message=104 | Depends on what you want to teach me., status=linked
+00000854  C001  push_int 7
+0000085A  C001  push_int 272
+00000860  C001  push_int 105
+00000866  C001  push_int 24
+0000086C  C001  push_int 50
+00000872  8121  giq_option
+          ; intelligence_option: list=272, message=105 | Yes, I am willing to learn., status=linked
+00000874  C001  push_int 0
+0000087A  800D  d_to_a
+0000087C  8019  swapa
+0000087E  802A  pop_to_base
+00000880  8029  pop_base
+00000882  800C  a_to_d
+00000884  801C  pop_return
+00000886  802A  pop_to_base
+00000888  8029  pop_base
+0000088A  801C  pop_return
+
+.procedure 8 Amber2 offset=0x0000088C size=46 args=0 flags=0x00000000
+0000088C  802B  push_base
+0000088E  C001  push_int 272
+00000894  C001  push_int 106
+0000089A  C001  push_int 50
+000008A0  8120  gsay_message
+          ; message: list=272, message=106 | I am truly sorry to hear that. The 末世论者 believe in peace at all costs. For that reason, I have renounced violence. Good evening., status=linked
+000008A2  C001  push_int 0
+000008A8  800D  d_to_a
+000008AA  8019  swapa
+000008AC  802A  pop_to_base
+000008AE  8029  pop_base
+000008B0  800C  a_to_d
+000008B2  801C  pop_return
+000008B4  802A  pop_to_base
+000008B6  8029  pop_base
+000008B8  801C  pop_return
+
+.procedure 9 Amber3 offset=0x000008BA size=210 args=0 flags=0x00000000
+000008BA  802B  push_base
+000008BC  C001  push_int 272
+000008C2  C001  push_int 107
+000008C8  811E  gsay_reply
+          ; reply: list=272, message=107 | I am skilled in many of the languages and arts. Perhaps you would like to learn one of those?, status=linked
+000008CA  C001  push_int 2300
+000008D0  C001  push_int 1
+000008D6  80C1  local_var
+000008D8  8045  not
+000008DA  802F  if
+000008DC  C001  push_int 4
+000008E2  C001  push_int 272
+000008E8  C001  push_int 108
+000008EE  C001  push_int 11
+000008F4  C001  push_int 50
+000008FA  8121  giq_option
+          ; intelligence_option: list=272, message=108 | I'm sorry, but I need to know things which will help me survive., status=linked
+000008FC  C001  push_int 4
+00000902  C001  push_int 272
+00000908  C001  push_int 109
+0000090E  C001  push_int 26
+00000914  C001  push_int 50
+0000091A  8121  giq_option
+          ; intelligence_option: list=272, message=109 | I have no time for that type of stuff. I'm gone., status=linked
+0000091C  C001  push_int 2388
+00000922  C001  push_int 2
+00000928  80C1  local_var
+0000092A  C001  push_int 0
+00000930  8033  equal
+00000932  802F  if
+00000934  C001  push_int 4
+0000093A  C001  push_int 272
+00000940  C001  push_int 110
+00000946  C001  push_int 10
+0000094C  C001  push_int 50
+00000952  8121  giq_option
+          ; intelligence_option: list=272, message=110 | Perhaps I can listen to a song or two., status=linked
+00000954  C001  push_int 5
+0000095A  C001  push_int 272
+00000960  C001  push_int 111
+00000966  C001  push_int 23
+0000096C  C001  push_int 50
+00000972  8121  giq_option
+          ; intelligence_option: list=272, message=111 | Can you teach me anything else?, status=linked
+00000974  C001  push_int 0
+0000097A  800D  d_to_a
+0000097C  8019  swapa
+0000097E  802A  pop_to_base
+00000980  8029  pop_base
+00000982  800C  a_to_d
+00000984  801C  pop_return
+00000986  802A  pop_to_base
+00000988  8029  pop_base
+0000098A  801C  pop_return
+
+.procedure 10 Amber3a offset=0x0000098C size=162 args=0 flags=0x00000000
+0000098C  802B  push_base
+0000098E  C001  push_int 2502
+00000994  C001  push_int 0
+0000099A  80C1  local_var
+0000099C  C001  push_int 6
+000009A2  8037  less
+000009A4  802F  if
+000009A6  C001  push_int 2492
+000009AC  800D  d_to_a
+000009AE  C001  push_int 0
+000009B4  C001  push_int 16
+000009BA  8005  call
+000009BC  801A  pop
+000009BE  C001  push_int 2582
+000009C4  8004  jump
+000009C6  C001  push_int 2558
+000009CC  C001  push_int 0
+000009D2  80C1  local_var
+000009D4  C001  push_int 6
+000009DA  8033  equal
+000009DC  802F  if
+000009DE  C001  push_int 2548
+000009E4  800D  d_to_a
+000009E6  C001  push_int 0
+000009EC  C001  push_int 17
+000009F2  8005  call
+000009F4  801A  pop
+000009F6  C001  push_int 2582
+000009FC  8004  jump
+000009FE  C001  push_int 2580
+00000A04  800D  d_to_a
+00000A06  C001  push_int 0
+00000A0C  C001  push_int 22
+00000A12  8005  call
+00000A14  801A  pop
+00000A16  C001  push_int 0
+00000A1C  800D  d_to_a
+00000A1E  8019  swapa
+00000A20  802A  pop_to_base
+00000A22  8029  pop_base
+00000A24  800C  a_to_d
+00000A26  801C  pop_return
+00000A28  802A  pop_to_base
+00000A2A  8029  pop_base
+00000A2C  801C  pop_return
+
+.procedure 11 Amber4 offset=0x00000A2E size=136 args=0 flags=0x00000000
+00000A2E  802B  push_base
+00000A30  C001  push_int 272
+00000A36  C001  push_int 112
+00000A3C  811E  gsay_reply
+          ; reply: list=272, message=112 | Ah, we have here a student of life. In a case like this, I can teach you some herbalism, but training takes a while for little result., status=linked
+00000A3E  C001  push_int 4
+00000A44  C001  push_int 272
+00000A4A  C001  push_int 113
+00000A50  C001  push_int 12
+00000A56  C001  push_int 50
+00000A5C  8121  giq_option
+          ; intelligence_option: list=272, message=113 | Fine, just teach me., status=linked
+00000A5E  C001  push_int 4
+00000A64  C001  push_int 272
+00000A6A  C001  push_int 114
+00000A70  C001  push_int 15
+00000A76  C001  push_int 50
+00000A7C  8121  giq_option
+          ; intelligence_option: list=272, message=114 | Please, teach me what you can., status=linked
+00000A7E  C001  push_int 5
+00000A84  C001  push_int 272
+00000A8A  C001  push_int 115
+00000A90  C001  push_int 26
+00000A96  C001  push_int 50
+00000A9C  8121  giq_option
+          ; intelligence_option: list=272, message=115 | Sorry, I really don't have time for plants. Goodbye., status=linked
+00000A9E  C001  push_int 0
+00000AA4  800D  d_to_a
+00000AA6  8019  swapa
+00000AA8  802A  pop_to_base
+00000AAA  8029  pop_base
+00000AAC  800C  a_to_d
+00000AAE  801C  pop_return
+00000AB0  802A  pop_to_base
+00000AB2  8029  pop_base
+00000AB4  801C  pop_return
+
+.procedure 12 Amber5 offset=0x00000AB6 size=104 args=0 flags=0x00000000
+00000AB6  802B  push_base
+00000AB8  C001  push_int 272
+00000ABE  C001  push_int 116
+00000AC4  811E  gsay_reply
+          ; reply: list=272, message=116 | You need not be rude. Apologize now, or I won't teach you., status=linked
+00000AC6  C001  push_int 4
+00000ACC  C001  push_int 272
+00000AD2  C001  push_int 117
+00000AD8  C001  push_int 13
+00000ADE  C001  push_int 50
+00000AE4  8121  giq_option
+          ; intelligence_option: list=272, message=117 | I am sorry. Will you please teach me?, status=linked
+00000AE6  C001  push_int 4
+00000AEC  C001  push_int 272
+00000AF2  C001  push_int 118
+00000AF8  C001  push_int 14
+00000AFE  C001  push_int 50
+00000B04  8121  giq_option
+          ; intelligence_option: list=272, message=118 | Forget it., status=linked
+00000B06  C001  push_int 0
+00000B0C  800D  d_to_a
+00000B0E  8019  swapa
+00000B10  802A  pop_to_base
+00000B12  8029  pop_base
+00000B14  800C  a_to_d
+00000B16  801C  pop_return
+00000B18  802A  pop_to_base
+00000B1A  8029  pop_base
+00000B1C  801C  pop_return
+
+.procedure 13 Amber6 offset=0x00000B1E size=162 args=0 flags=0x00000000
+00000B1E  802B  push_base
+00000B20  C001  push_int 0
+00000B26  C001  push_int 1
+00000B2C  C001  push_int 1
+00000B32  80C1  local_var
+00000B34  C001  push_int 1
+00000B3A  8039  add
+00000B3C  80C2  set_local_var
+00000B3E  C001  push_int 272
+00000B44  C001  push_int 119
+00000B4A  C001  push_int 50
+00000B50  8120  gsay_message
+          ; message: list=272, message=119 | That is better now. We will begin your studies., status=linked
+00000B52  C001  push_int 800
+00000B58  8136  op_8136
+00000B5A  C001  push_int 800
+00000B60  8137  op_8137
+00000B62  C001  push_int 3600
+00000B68  C001  push_int 9
+00000B6E  803B  mul
+00000B70  C001  push_int 0
+00000B76  8031  store
+00000B78  C001  push_int 0
+00000B7E  8032  fetch
+00000B80  80F2  op_80f2
+00000B82  80FC  op_80fc
+00000B84  80BF  dude_obj
+00000B86  C001  push_int 17
+00000B8C  C001  push_int 15
+00000B92  813C  op_813c
+00000B94  C001  push_int 272
+00000B9A  C001  push_int 120
+00000BA0  C001  push_int 50
+00000BA6  8120  gsay_message
+          ; message: list=272, message=120 | You are an apt learner. May your trials be light. Go in peace., status=linked
+00000BA8  C001  push_int 0
+00000BAE  800D  d_to_a
+00000BB0  8019  swapa
+00000BB2  802A  pop_to_base
+00000BB4  8029  pop_base
+00000BB6  800C  a_to_d
+00000BB8  801C  pop_return
+00000BBA  802A  pop_to_base
+00000BBC  8029  pop_base
+00000BBE  801C  pop_return
+
+.procedure 14 Amber7 offset=0x00000BC0 size=46 args=0 flags=0x00000000
+00000BC0  802B  push_base
+00000BC2  C001  push_int 272
+00000BC8  C001  push_int 121
+00000BCE  C001  push_int 50
+00000BD4  8120  gsay_message
+          ; message: list=272, message=121 | As you see fit. May the future soften your heart and broaden your mind., status=linked
+00000BD6  C001  push_int 0
+00000BDC  800D  d_to_a
+00000BDE  8019  swapa
+00000BE0  802A  pop_to_base
+00000BE2  8029  pop_base
+00000BE4  800C  a_to_d
+00000BE6  801C  pop_return
+00000BE8  802A  pop_to_base
+00000BEA  8029  pop_base
+00000BEC  801C  pop_return
+
+.procedure 15 Amber8 offset=0x00000BEE size=162 args=0 flags=0x00000000
+00000BEE  802B  push_base
+00000BF0  C001  push_int 0
+00000BF6  C001  push_int 1
+00000BFC  C001  push_int 1
+00000C02  80C1  local_var
+00000C04  C001  push_int 1
+00000C0A  8039  add
+00000C0C  80C2  set_local_var
+00000C0E  C001  push_int 272
+00000C14  C001  push_int 122
+00000C1A  C001  push_int 50
+00000C20  8120  gsay_message
+          ; message: list=272, message=122 | Very well, I will teach you the ways to survive., status=linked
+00000C22  C001  push_int 800
+00000C28  8136  op_8136
+00000C2A  C001  push_int 800
+00000C30  8137  op_8137
+00000C32  C001  push_int 3600
+00000C38  C001  push_int 7
+00000C3E  803B  mul
+00000C40  C001  push_int 0
+00000C46  8031  store
+00000C48  C001  push_int 0
+00000C4E  8032  fetch
+00000C50  80F2  op_80f2
+00000C52  80FC  op_80fc
+00000C54  80BF  dude_obj
+00000C56  C001  push_int 17
+00000C5C  C001  push_int 15
+00000C62  813C  op_813c
+00000C64  C001  push_int 272
+00000C6A  C001  push_int 123
+00000C70  C001  push_int 50
+00000C76  8120  gsay_message
+          ; message: list=272, message=123 | You are an apt learner. May your trials be light. Go in peace., status=linked
+00000C78  C001  push_int 0
+00000C7E  800D  d_to_a
+00000C80  8019  swapa
+00000C82  802A  pop_to_base
+00000C84  8029  pop_base
+00000C86  800C  a_to_d
+00000C88  801C  pop_return
+00000C8A  802A  pop_to_base
+00000C8C  8029  pop_base
+00000C8E  801C  pop_return
+
+.procedure 16 Amber9 offset=0x00000C90 size=46 args=0 flags=0x00000000
+00000C90  802B  push_base
+00000C92  C001  push_int 272
+00000C98  C001  push_int 124
+00000C9E  C001  push_int 50
+00000CA4  8120  gsay_message
+          ; message: list=272, message=124 | You do not convince me. I think you seek to use my gifts for ill. Good evening., status=linked
+00000CA6  C001  push_int 0
+00000CAC  800D  d_to_a
+00000CAE  8019  swapa
+00000CB0  802A  pop_to_base
+00000CB2  8029  pop_base
+00000CB4  800C  a_to_d
+00000CB6  801C  pop_return
+00000CB8  802A  pop_to_base
+00000CBA  8029  pop_base
+00000CBC  801C  pop_return
+
+.procedure 17 Amber10 offset=0x00000CBE size=192 args=0 flags=0x00000000
+00000CBE  802B  push_base
+00000CC0  C001  push_int 2
+00000CC6  C001  push_int 2
+00000CCC  80C1  local_var
+00000CCE  C001  push_int 1
+00000CD4  8039  add
+00000CD6  80C2  set_local_var
+00000CD8  C001  push_int 272
+00000CDE  C001  push_int 125
+00000CE4  811E  gsay_reply
+          ; reply: list=272, message=125 | Ah, a student of the arts is a rare thing in this world. Perhaps there is hope for you yet. Each song is long in time. Which would you like to hear?, status=linked
+00000CE6  C001  push_int 4
+00000CEC  C001  push_int 272
+00000CF2  C001  push_int 126
+00000CF8  C001  push_int 18
+00000CFE  C001  push_int 50
+00000D04  8121  giq_option
+          ; intelligence_option: list=272, message=126 | In the Wake of the Shadow., status=linked
+00000D06  C001  push_int 4
+00000D0C  C001  push_int 272
+00000D12  C001  push_int 127
+00000D18  C001  push_int 19
+00000D1E  C001  push_int 50
+00000D24  8121  giq_option
+          ; intelligence_option: list=272, message=127 | The Ballad of Aires., status=linked
+00000D26  C001  push_int 4
+00000D2C  C001  push_int 272
+00000D32  C001  push_int 128
+00000D38  C001  push_int 20
+00000D3E  C001  push_int 50
+00000D44  8121  giq_option
+          ; intelligence_option: list=272, message=128 | In Remembrance of Artemis., status=linked
+00000D46  C001  push_int 4
+00000D4C  C001  push_int 272
+00000D52  C001  push_int 129
+00000D58  C001  push_int 21
+00000D5E  C001  push_int 50
+00000D64  8121  giq_option
+          ; intelligence_option: list=272, message=129 | The Rising of Dawn's Chariot., status=linked
+00000D66  C001  push_int 0
+00000D6C  800D  d_to_a
+00000D6E  8019  swapa
+00000D70  802A  pop_to_base
+00000D72  8029  pop_base
+00000D74  800C  a_to_d
+00000D76  801C  pop_return
+00000D78  802A  pop_to_base
+00000D7A  8029  pop_base
+00000D7C  801C  pop_return
+
+.procedure 18 Amber11 offset=0x00000D7E size=186 args=0 flags=0x00000000
+00000D7E  802B  push_base
+00000D80  C001  push_int 0
+00000D86  C001  push_int 272
+00000D8C  C001  push_int 130
+00000D92  C001  push_int 50
+00000D98  8120  gsay_message
+          ; message: list=272, message=130 | An astonishing piece of work. I shall grant you an audience., status=linked
+00000D9A  C001  push_int 3600
+00000DA0  C001  push_int 10
+00000DA6  803B  mul
+00000DA8  C001  push_int 0
+00000DAE  8031  store
+00000DB0  C001  push_int 800
+00000DB6  8136  op_8136
+00000DB8  C001  push_int 800
+00000DBE  8137  op_8137
+00000DC0  C001  push_int 0
+00000DC6  8032  fetch
+00000DC8  80F2  op_80f2
+00000DCA  80FC  op_80fc
+00000DCC  80BF  dude_obj
+00000DCE  C001  push_int 8
+00000DD4  C001  push_int 12
+00000DDA  813C  op_813c
+00000DDC  80BF  dude_obj
+00000DDE  C001  push_int 9
+00000DE4  C001  push_int 10
+00000DEA  813C  op_813c
+00000DEC  80BF  dude_obj
+00000DEE  C001  push_int 10
+00000DF4  C001  push_int 8
+00000DFA  813C  op_813c
+00000DFC  80BF  dude_obj
+00000DFE  C001  push_int 11
+00000E04  C001  push_int 8
+00000E0A  813C  op_813c
+00000E0C  C001  push_int 272
+00000E12  C001  push_int 131
+00000E18  C001  push_int 50
+00000E1E  8120  gsay_message
+          ; message: list=272, message=131 | I must rest. This teaching drains much from me. Good luck to you., status=linked
+00000E20  C001  push_int 0
+00000E26  800D  d_to_a
+00000E28  8019  swapa
+00000E2A  802A  pop_to_base
+00000E2C  8029  pop_base
+00000E2E  800C  a_to_d
+00000E30  801C  pop_return
+00000E32  802A  pop_to_base
+00000E34  8029  pop_base
+00000E36  801C  pop_return
+
+.procedure 19 Amber12 offset=0x00000E38 size=186 args=0 flags=0x00000000
+00000E38  802B  push_base
+00000E3A  C001  push_int 0
+00000E40  C001  push_int 272
+00000E46  C001  push_int 132
+00000E4C  C001  push_int 50
+00000E52  8120  gsay_message
+          ; message: list=272, message=132 | An astonishing piece of work. I shall grant you an audience., status=linked
+00000E54  C001  push_int 3600
+00000E5A  C001  push_int 10
+00000E60  803B  mul
+00000E62  C001  push_int 0
+00000E68  8031  store
+00000E6A  C001  push_int 800
+00000E70  8136  op_8136
+00000E72  C001  push_int 800
+00000E78  8137  op_8137
+00000E7A  C001  push_int 0
+00000E80  8032  fetch
+00000E82  80F2  op_80f2
+00000E84  80FC  op_80fc
+00000E86  80BF  dude_obj
+00000E88  C001  push_int 3
+00000E8E  C001  push_int 10
+00000E94  813C  op_813c
+00000E96  80BF  dude_obj
+00000E98  C001  push_int 0
+00000E9E  C001  push_int 8
+00000EA4  813C  op_813c
+00000EA6  80BF  dude_obj
+00000EA8  C001  push_int 5
+00000EAE  C001  push_int 8
+00000EB4  813C  op_813c
+00000EB6  80BF  dude_obj
+00000EB8  C001  push_int 4
+00000EBE  C001  push_int 6
+00000EC4  813C  op_813c
+00000EC6  C001  push_int 272
+00000ECC  C001  push_int 133
+00000ED2  C001  push_int 50
+00000ED8  8120  gsay_message
+          ; message: list=272, message=133 | I must rest. This teaching drains much from me. Good luck to you., status=linked
+00000EDA  C001  push_int 0
+00000EE0  800D  d_to_a
+00000EE2  8019  swapa
+00000EE4  802A  pop_to_base
+00000EE6  8029  pop_base
+00000EE8  800C  a_to_d
+00000EEA  801C  pop_return
+00000EEC  802A  pop_to_base
+00000EEE  8029  pop_base
+00000EF0  801C  pop_return
+
+.procedure 20 Amber13 offset=0x00000EF2 size=186 args=0 flags=0x00000000
+00000EF2  802B  push_base
+00000EF4  C001  push_int 0
+00000EFA  C001  push_int 272
+00000F00  C001  push_int 134
+00000F06  C001  push_int 50
+00000F0C  8120  gsay_message
+          ; message: list=272, message=134 | An astonishing piece of work. I shall grant you an audience., status=linked
+00000F0E  C001  push_int 3600
+00000F14  C001  push_int 10
+00000F1A  803B  mul
+00000F1C  C001  push_int 0
+00000F22  8031  store
+00000F24  C001  push_int 800
+00000F2A  8136  op_8136
+00000F2C  C001  push_int 800
+00000F32  8137  op_8137
+00000F34  C001  push_int 0
+00000F3A  8032  fetch
+00000F3C  80F2  op_80f2
+00000F3E  80FC  op_80fc
+00000F40  80BF  dude_obj
+00000F42  C001  push_int 17
+00000F48  C001  push_int 10
+00000F4E  813C  op_813c
+00000F50  80BF  dude_obj
+00000F52  C001  push_int 8
+00000F58  C001  push_int 8
+00000F5E  813C  op_813c
+00000F60  80BF  dude_obj
+00000F62  C001  push_int 5
+00000F68  C001  push_int 8
+00000F6E  813C  op_813c
+00000F70  80BF  dude_obj
+00000F72  C001  push_int 11
+00000F78  C001  push_int 6
+00000F7E  813C  op_813c
+00000F80  C001  push_int 272
+00000F86  C001  push_int 135
+00000F8C  C001  push_int 50
+00000F92  8120  gsay_message
+          ; message: list=272, message=135 | I must rest. This teaching drains much from me. Good luck to you., status=linked
+00000F94  C001  push_int 0
+00000F9A  800D  d_to_a
+00000F9C  8019  swapa
+00000F9E  802A  pop_to_base
+00000FA0  8029  pop_base
+00000FA2  800C  a_to_d
+00000FA4  801C  pop_return
+00000FA6  802A  pop_to_base
+00000FA8  8029  pop_base
+00000FAA  801C  pop_return
+
+.procedure 21 Amber14 offset=0x00000FAC size=186 args=0 flags=0x00000000
+00000FAC  802B  push_base
+00000FAE  C001  push_int 0
+00000FB4  C001  push_int 272
+00000FBA  C001  push_int 136
+00000FC0  C001  push_int 50
+00000FC6  8120  gsay_message
+          ; message: list=272, message=136 | An astonishing piece of work. I shall grant you an audience., status=linked
+00000FC8  C001  push_int 3600
+00000FCE  C001  push_int 10
+00000FD4  803B  mul
+00000FD6  C001  push_int 0
+00000FDC  8031  store
+00000FDE  C001  push_int 800
+00000FE4  8136  op_8136
+00000FE6  C001  push_int 800
+00000FEC  8137  op_8137
+00000FEE  C001  push_int 0
+00000FF4  8032  fetch
+00000FF6  80F2  op_80f2
+00000FF8  80FC  op_80fc
+00000FFA  80BF  dude_obj
+00000FFC  C001  push_int 15
+00001002  C001  push_int 10
+00001008  813C  op_813c
+0000100A  80BF  dude_obj
+0000100C  C001  push_int 14
+00001012  C001  push_int 8
+00001018  813C  op_813c
+0000101A  80BF  dude_obj
+0000101C  C001  push_int 16
+00001022  C001  push_int 8
+00001028  813C  op_813c
+0000102A  80BF  dude_obj
+0000102C  C001  push_int 4
+00001032  C001  push_int 6
+00001038  813C  op_813c
+0000103A  C001  push_int 272
+00001040  C001  push_int 137
+00001046  C001  push_int 50
+0000104C  8120  gsay_message
+          ; message: list=272, message=137 | I must rest. This teaching drains much from me. Good luck to you., status=linked
+0000104E  C001  push_int 0
+00001054  800D  d_to_a
+00001056  8019  swapa
+00001058  802A  pop_to_base
+0000105A  8029  pop_base
+0000105C  800C  a_to_d
+0000105E  801C  pop_return
+00001060  802A  pop_to_base
+00001062  8029  pop_base
+00001064  801C  pop_return
+
+.procedure 22 Amber15 offset=0x00001066 size=46 args=0 flags=0x00000000
+00001066  802B  push_base
+00001068  C001  push_int 272
+0000106E  C001  push_int 138
+00001074  C001  push_int 50
+0000107A  8120  gsay_message
+          ; message: list=272, message=138 | I fear I have spent myself far too much. I am sorry., status=linked
+0000107C  C001  push_int 0
+00001082  800D  d_to_a
+00001084  8019  swapa
+00001086  802A  pop_to_base
+00001088  8029  pop_base
+0000108A  800C  a_to_d
+0000108C  801C  pop_return
+0000108E  802A  pop_to_base
+00001090  8029  pop_base
+00001092  801C  pop_return
+
+.procedure 23 Amber16 offset=0x00001094 size=46 args=0 flags=0x00000000
+00001094  802B  push_base
+00001096  C001  push_int 272
+0000109C  C001  push_int 139
+000010A2  C001  push_int 50
+000010A8  8120  gsay_message
+          ; message: list=272, message=139 | Peace and Beauty are all I can teach. I am sorry that those are not appealing to you. Good day., status=linked
+000010AA  C001  push_int 0
+000010B0  800D  d_to_a
+000010B2  8019  swapa
+000010B4  802A  pop_to_base
+000010B6  8029  pop_base
+000010B8  800C  a_to_d
+000010BA  801C  pop_return
+000010BC  802A  pop_to_base
+000010BE  8029  pop_base
+000010C0  801C  pop_return
+
+.procedure 24 Amber17 offset=0x000010C2 size=178 args=0 flags=0x00000000
+000010C2  802B  push_base
+000010C4  C001  push_int 272
+000010CA  C001  push_int 140
+000010D0  811E  gsay_reply
+          ; reply: list=272, message=140 | I can teach you the ways of the old bards and minstrels., status=linked
+000010D2  C001  push_int 4362
+000010D8  C001  push_int 2
+000010DE  80C1  local_var
+000010E0  C001  push_int 0
+000010E6  8033  equal
+000010E8  802F  if
+000010EA  C001  push_int 7
+000010F0  C001  push_int 272
+000010F6  C001  push_int 141
+000010FC  C001  push_int 17
+00001102  C001  push_int 50
+00001108  8121  giq_option
+          ; intelligence_option: list=272, message=141 | I would be honored to hear a song., status=linked
+0000110A  C001  push_int 7
+00001110  C001  push_int 272
+00001116  C001  push_int 142
+0000111C  C001  push_int 26
+00001122  C001  push_int 50
+00001128  8121  giq_option
+          ; intelligence_option: list=272, message=142 | Perhaps another time. Thank you., status=linked
+0000112A  C001  push_int 4444
+00001130  C001  push_int 1
+00001136  80C1  local_var
+00001138  8045  not
+0000113A  802F  if
+0000113C  C001  push_int 6
+00001142  C001  push_int 272
+00001148  C001  push_int 143
+0000114E  C001  push_int 11
+00001154  C001  push_int 50
+0000115A  8121  giq_option
+          ; intelligence_option: list=272, message=143 | I was hoping to learn something that may help me more., status=linked
+0000115C  C001  push_int 0
+00001162  800D  d_to_a
+00001164  8019  swapa
+00001166  802A  pop_to_base
+00001168  8029  pop_base
+0000116A  800C  a_to_d
+0000116C  801C  pop_return
+0000116E  802A  pop_to_base
+00001170  8029  pop_base
+00001172  801C  pop_return
+
+.procedure 25 Amber18 offset=0x00001174 size=50 args=0 flags=0x00000000
+00001174  802B  push_base
+00001176  80BC  self_obj
+00001178  C001  push_int 272
+0000117E  C001  push_int 144
+00001184  8105  message_str
+          ; message_lookup: list=272, message=144 | You have no need of my talents. You have taught peaceful people the ways of war. I mourn for them now., status=linked
+00001186  C001  push_int 0
+0000118C  810A  op_810a
+0000118E  C001  push_int 0
+00001194  800D  d_to_a
+00001196  8019  swapa
+00001198  802A  pop_to_base
+0000119A  8029  pop_base
+0000119C  800C  a_to_d
+0000119E  801C  pop_return
+000011A0  802A  pop_to_base
+000011A2  8029  pop_base
+000011A4  801C  pop_return
+
+.procedure 26 AmberEnd offset=0x000011A6 size=26 args=0 flags=0x00000000
+000011A6  802B  push_base
+000011A8  C001  push_int 0
+000011AE  800D  d_to_a
+000011B0  8019  swapa
+000011B2  802A  pop_to_base
+000011B4  8029  pop_base
+000011B6  800C  a_to_d
+000011B8  801C  pop_return
+000011BA  802A  pop_to_base
+000011BC  8029  pop_base
+000011BE  801C  pop_return

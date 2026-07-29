@@ -1,0 +1,97 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\BVLIVE.INT
+; sha256: 02B8B8D7F04A24A7C8BF77EDBC2AD2063E351956899320CB05F99BEE88EC94AB
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 140
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+0000008C  802C  set_global
+0000008E  C001  push_int 0
+00000094  C001  push_int 0
+0000009A  8003  critical_done
+0000009C  C001  push_int 164
+000000A2  8004  jump
+
+.procedure 0 .............. offset=0x000000A4 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000A4 size=214 args=0 flags=0x00000000
+000000A4  802B  push_base
+000000A6  C001  push_int 354
+000000AC  80C7  script_action
+000000AE  C001  push_int 2
+000000B4  8033  equal
+000000B6  802F  if
+000000B8  C001  push_int 354
+000000BE  80BD  source_obj
+000000C0  80BF  dude_obj
+000000C2  8033  equal
+000000C4  802F  if
+000000C6  C001  push_int 354
+000000CC  C001  push_int 0
+000000D2  80C1  local_var
+000000D4  C001  push_int 0
+000000DA  8033  equal
+000000DC  802F  if
+000000DE  C001  push_int 0
+000000E4  C001  push_int 1
+000000EA  80C2  set_local_var
+000000EC  80BF  dude_obj
+000000EE  C001  push_int 1
+000000F4  C001  push_int 0
+000000FA  80BF  dude_obj
+000000FC  C001  push_int 0
+00000102  80F3  has_trait
+00000104  C001  push_int 2
+0000010A  803A  sub
+0000010C  80AE  op_80ae
+0000010E  C001  push_int 0
+00000114  8013  store_global
+00000116  C001  push_int 354
+0000011C  C001  push_int 0
+00000122  8012  fetch_global
+00000124  80AF  op_80af
+00000126  802F  if
+00000128  C001  push_int 338
+0000012E  C001  push_int 0
+00000134  8012  fetch_global
+00000136  80B0  op_80b0
+00000138  802F  if
+0000013A  C001  push_int 150
+00000140  C001  push_int 100
+00000146  8105  message_str
+          ; message_lookup: list=150, message=100 | 你看见椅子的缝里有个钥匙的尖。, status=linked
+00000148  80B8  display_msg
+0000014A  C001  push_int 354
+00000150  8004  jump
+00000152  C001  push_int 150
+00000158  C001  push_int 101
+0000015E  8105  message_str
+          ; message_lookup: list=150, message=101 | 当你看着椅子的时候，你被什么东西吸引住了。, status=linked
+00000160  80B8  display_msg
+00000162  C001  push_int 0
+00000168  800D  d_to_a
+0000016A  8019  swapa
+0000016C  802A  pop_to_base
+0000016E  8029  pop_base
+00000170  800C  a_to_d
+00000172  801C  pop_return
+00000174  802A  pop_to_base
+00000176  8029  pop_base
+00000178  801C  pop_return

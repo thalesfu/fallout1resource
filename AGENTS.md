@@ -2,7 +2,7 @@
 
 ## Project Structure
 
-Python package code lives in `src/fallout1resource/`; tests are under `tests/`. Format research and tool reviews belong in `docs/`, while reusable, machine-independent examples belong in `config/`. `workspace/` is strictly local and ignored by Git except for its README. Never commit DAT archives, extracted assets, generated manifests, logs, or third-party executables.
+Python package code lives in `src/fallout1resource/`; tests are under `tests/`. Format research and tool reviews belong in `docs/`, while reusable, machine-independent examples belong in `config/`. `workspace/` contains the versioned extraction snapshot: source resources under `raw/`, conversions under `output/`, run records under `manifests/`, and the unified catalog under `index/`. Do not add original DAT archives or write into the game installation.
 
 ## Development Commands
 
@@ -22,9 +22,8 @@ Use four-space indentation, UTF-8, type hints, and small functions with explicit
 
 ## Testing
 
-Use `unittest`. Test files follow `test_*.py`; test methods describe behavior, such as `test_rejects_truncated_header`. Build synthetic fixtures in temporary directories instead of storing copyrighted game bytes. Every path-writing feature needs tests for absolute paths, `..`, symlink escape, duplicate names, and overwrite refusal.
+Use `unittest`. Test files follow `test_*.py`; test methods describe behavior, such as `test_rejects_truncated_header`. Build unit-test fixtures in temporary directories instead of duplicating snapshot bytes under `tests/`. Every path-writing feature needs tests for absolute paths, `..`, symlink escape, duplicate names, and overwrite refusal.
 
 ## Commits and Pull Requests
 
-Use short scoped commits, for example `feat(inventory): list DAT1 entries` or `test(safety): reject traversal paths`. Pull requests should explain the resource formats affected, list validation commands, and state whether any real game installation was read. Never include proprietary assets in screenshots, fixtures, or attachments.
-
+Use short scoped commits, for example `feat(inventory): list DAT1 entries` or `test(safety): reject traversal paths`. Pull requests should explain the resource formats affected, list validation commands, and state whether any real game installation was read. Changes to `workspace/` must identify the generating command, expected file-count or size change, and relevant manifest; do not commit unrelated saves or installation files.

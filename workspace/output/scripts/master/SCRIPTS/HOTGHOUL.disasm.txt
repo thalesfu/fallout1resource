@@ -1,0 +1,535 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\HOTGHOUL.INT
+; sha256: DBDB9E8A934A8E20EAB2A66C24D4E5EC7CA31A28D873C8BCC4E0EED7B4E96E05
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 384
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000180  802C  set_global
+00000182  C001  push_int 0
+00000188  C001  push_int 0
+0000018E  C001  push_int 0
+00000194  C001  push_int 0
+0000019A  8003  critical_done
+0000019C  C001  push_int 420
+000001A2  8004  jump
+
+.procedure 0 .............. offset=0x000001A4 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000001A4 size=648 args=0 flags=0x00000000
+000001A4  802B  push_base
+000001A6  C001  push_int 506
+000001AC  C001  push_int 1
+000001B2  8012  fetch_global
+000001B4  8045  not
+000001B6  802F  if
+000001B8  80BC  self_obj
+000001BA  C001  push_int 1
+000001C0  C001  push_int 6
+000001C6  C001  push_int 30
+000001CC  8102  critter_add_trait
+000001CE  80BC  self_obj
+000001D0  C001  push_int 1
+000001D6  C001  push_int 5
+000001DC  C001  push_int 41
+000001E2  8102  critter_add_trait
+000001E4  C001  push_int 1
+000001EA  C001  push_int 1
+000001F0  8013  store_global
+000001F2  C001  push_int 1044
+000001F8  8004  jump
+000001FA  C001  push_int 626
+00000200  80C7  script_action
+00000202  C001  push_int 11
+00000208  8033  equal
+0000020A  802F  if
+0000020C  C001  push_int 594
+00000212  C001  push_int 249
+00000218  80C5  global_var
+0000021A  802F  if
+0000021C  80BF  dude_obj
+0000021E  C001  push_int 0
+00000224  C001  push_int 1
+0000022A  C001  push_int 0
+00000230  C001  push_int 0
+00000236  C001  push_int 30000
+0000023C  C001  push_int 0
+00000242  C001  push_int 0
+00000248  80D0  attack
+0000024A  C001  push_int 618
+00000250  8004  jump
+00000252  C001  push_int 616
+00000258  800D  d_to_a
+0000025A  C001  push_int 0
+00000260  C001  push_int 2
+00000266  8005  call
+00000268  801A  pop
+0000026A  C001  push_int 1044
+00000270  8004  jump
+00000272  C001  push_int 666
+00000278  80C7  script_action
+0000027A  C001  push_int 4
+00000280  8033  equal
+00000282  802F  if
+00000284  C001  push_int 1
+0000028A  C001  push_int 0
+00000290  8013  store_global
+00000292  C001  push_int 1044
+00000298  8004  jump
+0000029A  C001  push_int 716
+000002A0  80C7  script_action
+000002A2  C001  push_int 12
+000002A8  8033  equal
+000002AA  802F  if
+000002AC  C001  push_int 706
+000002B2  800D  d_to_a
+000002B4  C001  push_int 0
+000002BA  C001  push_int 7
+000002C0  8005  call
+000002C2  801A  pop
+000002C4  C001  push_int 1044
+000002CA  8004  jump
+000002CC  C001  push_int 1044
+000002D2  80C7  script_action
+000002D4  C001  push_int 18
+000002DA  8033  equal
+000002DC  802F  if
+000002DE  C001  push_int 1044
+000002E4  80BD  source_obj
+000002E6  80BF  dude_obj
+000002E8  8033  equal
+000002EA  802F  if
+000002EC  C001  push_int 856
+000002F2  C001  push_int 160
+000002F8  80C5  global_var
+000002FA  C001  push_int 159
+00000300  80C5  global_var
+00000302  8039  add
+00000304  C001  push_int 25
+0000030A  8036  greater_equal
+0000030C  C001  push_int 159
+00000312  80C5  global_var
+00000314  C001  push_int 2
+0000031A  C001  push_int 160
+00000320  80C5  global_var
+00000322  803B  mul
+00000324  8038  greater
+00000326  C001  push_int 156
+0000032C  80C5  global_var
+0000032E  C001  push_int 1
+00000334  8033  equal
+00000336  803F  or
+00000338  803E  and
+0000033A  802F  if
+0000033C  C001  push_int 156
+00000342  C001  push_int 1
+00000348  80C6  set_global_var
+0000034A  C001  push_int 157
+00000350  C001  push_int 0
+00000356  80C6  set_global_var
+00000358  C001  push_int 964
+0000035E  C001  push_int 160
+00000364  80C5  global_var
+00000366  C001  push_int 159
+0000036C  80C5  global_var
+0000036E  8039  add
+00000370  C001  push_int 25
+00000376  8036  greater_equal
+00000378  C001  push_int 160
+0000037E  80C5  global_var
+00000380  C001  push_int 3
+00000386  C001  push_int 159
+0000038C  80C5  global_var
+0000038E  803B  mul
+00000390  8038  greater
+00000392  C001  push_int 157
+00000398  80C5  global_var
+0000039A  C001  push_int 1
+000003A0  8033  equal
+000003A2  803F  or
+000003A4  803E  and
+000003A6  802F  if
+000003A8  C001  push_int 157
+000003AE  C001  push_int 1
+000003B4  80C6  set_global_var
+000003B6  C001  push_int 156
+000003BC  C001  push_int 0
+000003C2  80C6  set_global_var
+000003C4  C001  push_int 160
+000003CA  C001  push_int 160
+000003D0  80C5  global_var
+000003D2  C001  push_int 1
+000003D8  8039  add
+000003DA  80C6  set_global_var
+000003DC  C001  push_int 1044
+000003E2  C001  push_int 160
+000003E8  80C5  global_var
+000003EA  C001  push_int 6
+000003F0  803D  mod
+000003F2  C001  push_int 0
+000003F8  8033  equal
+000003FA  802F  if
+000003FC  C001  push_int 155
+00000402  C001  push_int 155
+00000408  80C5  global_var
+0000040A  C001  push_int 1
+00000410  8039  add
+00000412  80C6  set_global_var
+00000414  C001  push_int 0
+0000041A  800D  d_to_a
+0000041C  8019  swapa
+0000041E  802A  pop_to_base
+00000420  8029  pop_base
+00000422  800C  a_to_d
+00000424  801C  pop_return
+00000426  802A  pop_to_base
+00000428  8029  pop_base
+0000042A  801C  pop_return
+
+.procedure 2 do_dialogue offset=0x0000042C size=50 args=0 flags=0x00000000
+0000042C  802B  push_base
+0000042E  C001  push_int 1092
+00000434  800D  d_to_a
+00000436  C001  push_int 0
+0000043C  C001  push_int 4
+00000442  8005  call
+00000444  801A  pop
+00000446  C001  push_int 0
+0000044C  800D  d_to_a
+0000044E  8019  swapa
+00000450  802A  pop_to_base
+00000452  8029  pop_base
+00000454  800C  a_to_d
+00000456  801C  pop_return
+00000458  802A  pop_to_base
+0000045A  8029  pop_base
+0000045C  801C  pop_return
+
+.procedure 3 genericcbt offset=0x0000045E size=26 args=0 flags=0x00000000
+0000045E  802B  push_base
+00000460  C001  push_int 0
+00000466  800D  d_to_a
+00000468  8019  swapa
+0000046A  802A  pop_to_base
+0000046C  8029  pop_base
+0000046E  800C  a_to_d
+00000470  801C  pop_return
+00000472  802A  pop_to_base
+00000474  8029  pop_base
+00000476  801C  pop_return
+
+.procedure 4 generic00 offset=0x00000478 size=384 args=0 flags=0x00000000
+00000478  802B  push_base
+0000047A  C001  push_int 1
+00000480  C001  push_int 7
+00000486  80B4  random
+00000488  C001  push_int 2
+0000048E  8013  store_global
+00000490  C001  push_int 1216
+00000496  C001  push_int 2
+0000049C  8012  fetch_global
+0000049E  C001  push_int 1
+000004A4  8033  equal
+000004A6  802F  if
+000004A8  80BC  self_obj
+000004AA  C001  push_int 66
+000004B0  C001  push_int 100
+000004B6  8105  message_str
+          ; message_lookup: list=66, message=100, status=no-msg
+000004B8  C001  push_int 7
+000004BE  810A  op_810a
+000004C0  C001  push_int 1264
+000004C6  C001  push_int 2
+000004CC  8012  fetch_global
+000004CE  C001  push_int 2
+000004D4  8033  equal
+000004D6  802F  if
+000004D8  80BC  self_obj
+000004DA  C001  push_int 66
+000004E0  C001  push_int 101
+000004E6  8105  message_str
+          ; message_lookup: list=66, message=101, status=no-msg
+000004E8  C001  push_int 7
+000004EE  810A  op_810a
+000004F0  C001  push_int 1312
+000004F6  C001  push_int 2
+000004FC  8012  fetch_global
+000004FE  C001  push_int 3
+00000504  8033  equal
+00000506  802F  if
+00000508  80BC  self_obj
+0000050A  C001  push_int 66
+00000510  C001  push_int 102
+00000516  8105  message_str
+          ; message_lookup: list=66, message=102, status=no-msg
+00000518  C001  push_int 7
+0000051E  810A  op_810a
+00000520  C001  push_int 1360
+00000526  C001  push_int 2
+0000052C  8012  fetch_global
+0000052E  C001  push_int 4
+00000534  8033  equal
+00000536  802F  if
+00000538  80BC  self_obj
+0000053A  C001  push_int 66
+00000540  C001  push_int 103
+00000546  8105  message_str
+          ; message_lookup: list=66, message=103, status=no-msg
+00000548  C001  push_int 7
+0000054E  810A  op_810a
+00000550  C001  push_int 1408
+00000556  C001  push_int 2
+0000055C  8012  fetch_global
+0000055E  C001  push_int 5
+00000564  8033  equal
+00000566  802F  if
+00000568  80BC  self_obj
+0000056A  C001  push_int 66
+00000570  C001  push_int 104
+00000576  8105  message_str
+          ; message_lookup: list=66, message=104, status=no-msg
+00000578  C001  push_int 7
+0000057E  810A  op_810a
+00000580  C001  push_int 1456
+00000586  C001  push_int 2
+0000058C  8012  fetch_global
+0000058E  C001  push_int 6
+00000594  8033  equal
+00000596  802F  if
+00000598  C001  push_int 1454
+0000059E  800D  d_to_a
+000005A0  C001  push_int 0
+000005A6  C001  push_int 5
+000005AC  8005  call
+000005AE  801A  pop
+000005B0  C001  push_int 1504
+000005B6  C001  push_int 2
+000005BC  8012  fetch_global
+000005BE  C001  push_int 7
+000005C4  8033  equal
+000005C6  802F  if
+000005C8  C001  push_int 1502
+000005CE  800D  d_to_a
+000005D0  C001  push_int 0
+000005D6  C001  push_int 6
+000005DC  8005  call
+000005DE  801A  pop
+000005E0  C001  push_int 0
+000005E6  800D  d_to_a
+000005E8  8019  swapa
+000005EA  802A  pop_to_base
+000005EC  8029  pop_base
+000005EE  800C  a_to_d
+000005F0  801C  pop_return
+000005F2  802A  pop_to_base
+000005F4  8029  pop_base
+000005F6  801C  pop_return
+
+.procedure 5 generic02 offset=0x000005F8 size=192 args=0 flags=0x00000000
+000005F8  802B  push_base
+000005FA  C001  push_int 1672
+00000600  C001  push_int 553
+00000606  80C5  global_var
+00000608  802F  if
+0000060A  C001  push_int 1
+00000610  C001  push_int 2
+00000616  80B4  random
+00000618  C001  push_int 2
+0000061E  8013  store_global
+00000620  C001  push_int 1616
+00000626  C001  push_int 2
+0000062C  8012  fetch_global
+0000062E  C001  push_int 1
+00000634  8033  equal
+00000636  802F  if
+00000638  80BC  self_obj
+0000063A  C001  push_int 66
+00000640  C001  push_int 109
+00000646  8105  message_str
+          ; message_lookup: list=66, message=109, status=no-msg
+00000648  C001  push_int 7
+0000064E  810A  op_810a
+00000650  C001  push_int 1664
+00000656  C001  push_int 2
+0000065C  8012  fetch_global
+0000065E  C001  push_int 2
+00000664  8033  equal
+00000666  802F  if
+00000668  80BC  self_obj
+0000066A  C001  push_int 66
+00000670  C001  push_int 110
+00000676  8105  message_str
+          ; message_lookup: list=66, message=110, status=no-msg
+00000678  C001  push_int 7
+0000067E  810A  op_810a
+00000680  C001  push_int 1696
+00000686  8004  jump
+00000688  80BC  self_obj
+0000068A  C001  push_int 66
+00000690  C001  push_int 111
+00000696  8105  message_str
+          ; message_lookup: list=66, message=111, status=no-msg
+00000698  C001  push_int 7
+0000069E  810A  op_810a
+000006A0  C001  push_int 0
+000006A6  800D  d_to_a
+000006A8  8019  swapa
+000006AA  802A  pop_to_base
+000006AC  8029  pop_base
+000006AE  800C  a_to_d
+000006B0  801C  pop_return
+000006B2  802A  pop_to_base
+000006B4  8029  pop_base
+000006B6  801C  pop_return
+
+.procedure 6 generic03 offset=0x000006B8 size=200 args=0 flags=0x00000000
+000006B8  802B  push_base
+000006BA  C001  push_int 1872
+000006C0  C001  push_int 29
+000006C6  80C5  global_var
+000006C8  C001  push_int 2
+000006CE  8033  equal
+000006D0  802F  if
+000006D2  C001  push_int 1
+000006D8  C001  push_int 2
+000006DE  80B4  random
+000006E0  C001  push_int 2
+000006E6  8013  store_global
+000006E8  C001  push_int 1816
+000006EE  C001  push_int 2
+000006F4  8012  fetch_global
+000006F6  C001  push_int 1
+000006FC  8033  equal
+000006FE  802F  if
+00000700  80BC  self_obj
+00000702  C001  push_int 66
+00000708  C001  push_int 112
+0000070E  8105  message_str
+          ; message_lookup: list=66, message=112, status=no-msg
+00000710  C001  push_int 7
+00000716  810A  op_810a
+00000718  C001  push_int 1864
+0000071E  C001  push_int 2
+00000724  8012  fetch_global
+00000726  C001  push_int 2
+0000072C  8033  equal
+0000072E  802F  if
+00000730  80BC  self_obj
+00000732  C001  push_int 66
+00000738  C001  push_int 113
+0000073E  8105  message_str
+          ; message_lookup: list=66, message=113, status=no-msg
+00000740  C001  push_int 7
+00000746  810A  op_810a
+00000748  C001  push_int 1896
+0000074E  8004  jump
+00000750  80BC  self_obj
+00000752  C001  push_int 66
+00000758  C001  push_int 114
+0000075E  8105  message_str
+          ; message_lookup: list=66, message=114, status=no-msg
+00000760  C001  push_int 7
+00000766  810A  op_810a
+00000768  C001  push_int 0
+0000076E  800D  d_to_a
+00000770  8019  swapa
+00000772  802A  pop_to_base
+00000774  8029  pop_base
+00000776  800C  a_to_d
+00000778  801C  pop_return
+0000077A  802A  pop_to_base
+0000077C  8029  pop_base
+0000077E  801C  pop_return
+
+.procedure 7 Critter_Action offset=0x00000780 size=302 args=0 flags=0x00000000
+00000780  802B  push_base
+00000782  C001  push_int 2198
+00000788  80BC  self_obj
+0000078A  80BF  dude_obj
+0000078C  80DC  op_80dc
+0000078E  802F  if
+00000790  C001  push_int 2020
+00000796  C001  push_int 249
+0000079C  80C5  global_var
+0000079E  802F  if
+000007A0  C001  push_int 0
+000007A6  C001  push_int 1
+000007AC  80C2  set_local_var
+000007AE  80BF  dude_obj
+000007B0  C001  push_int 0
+000007B6  C001  push_int 1
+000007BC  C001  push_int 0
+000007C2  C001  push_int 0
+000007C8  C001  push_int 30000
+000007CE  C001  push_int 0
+000007D4  C001  push_int 0
+000007DA  80D0  attack
+000007DC  C001  push_int 2198
+000007E2  8004  jump
+000007E4  C001  push_int 2128
+000007EA  C001  push_int 5
+000007F0  80C3  op_80c3
+000007F2  802F  if
+000007F4  80BC  self_obj
+000007F6  C001  push_int 66
+000007FC  C001  push_int 103
+00000802  8105  message_str
+          ; message_lookup: list=66, message=103, status=no-msg
+00000804  C001  push_int 7
+0000080A  810A  op_810a
+0000080C  C001  push_int 0
+00000812  C001  push_int 1
+00000818  80C2  set_local_var
+0000081A  80BF  dude_obj
+0000081C  C001  push_int 0
+00000822  C001  push_int 1
+00000828  C001  push_int 0
+0000082E  C001  push_int 0
+00000834  C001  push_int 30000
+0000083A  C001  push_int 0
+00000840  C001  push_int 0
+00000846  80D0  attack
+00000848  C001  push_int 2198
+0000084E  8004  jump
+00000850  C001  push_int 2198
+00000856  C001  push_int 0
+0000085C  80C1  local_var
+0000085E  C001  push_int 0
+00000864  8038  greater
+00000866  802F  if
+00000868  80BF  dude_obj
+0000086A  C001  push_int 0
+00000870  C001  push_int 1
+00000876  C001  push_int 0
+0000087C  C001  push_int 0
+00000882  C001  push_int 30000
+00000888  C001  push_int 0
+0000088E  C001  push_int 0
+00000894  80D0  attack
+00000896  C001  push_int 0
+0000089C  800D  d_to_a
+0000089E  8019  swapa
+000008A0  802A  pop_to_base
+000008A2  8029  pop_base
+000008A4  800C  a_to_d
+000008A6  801C  pop_return
+000008A8  802A  pop_to_base
+000008AA  8029  pop_base
+000008AC  801C  pop_return

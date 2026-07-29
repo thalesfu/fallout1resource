@@ -1,0 +1,248 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\VATALERT.INT
+; sha256: C9A5F6AB697C84BD4EA57A9285396E4E0E8D216165D0F47D4C8F3AA1191E3ACE
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 294
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000126  802C  set_global
+00000128  C001  push_int 0
+0000012E  C001  push_int 0
+00000134  8003  critical_done
+00000136  C001  push_int 318
+0000013C  8004  jump
+
+.procedure 0 .............. offset=0x0000013E size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x0000013E size=208 args=0 flags=0x00000000
+0000013E  802B  push_base
+00000140  C001  push_int 360
+00000146  C001  push_int 0
+0000014C  8012  fetch_global
+0000014E  8045  not
+00000150  802F  if
+00000152  C001  push_int 1
+00000158  C001  push_int 0
+0000015E  8013  store_global
+00000160  C001  push_int 502
+00000166  8004  jump
+00000168  C001  push_int 410
+0000016E  80C7  script_action
+00000170  C001  push_int 3
+00000176  8033  equal
+00000178  802F  if
+0000017A  C001  push_int 400
+00000180  800D  d_to_a
+00000182  C001  push_int 0
+00000188  C001  push_int 2
+0000018E  8005  call
+00000190  801A  pop
+00000192  C001  push_int 502
+00000198  8004  jump
+0000019A  C001  push_int 460
+000001A0  80C7  script_action
+000001A2  C001  push_int 2
+000001A8  8033  equal
+000001AA  802F  if
+000001AC  C001  push_int 450
+000001B2  800D  d_to_a
+000001B4  C001  push_int 0
+000001BA  C001  push_int 3
+000001C0  8005  call
+000001C2  801A  pop
+000001C4  C001  push_int 502
+000001CA  8004  jump
+000001CC  C001  push_int 502
+000001D2  80C7  script_action
+000001D4  C001  push_int 8
+000001DA  8033  equal
+000001DC  802F  if
+000001DE  C001  push_int 500
+000001E4  800D  d_to_a
+000001E6  C001  push_int 0
+000001EC  C001  push_int 4
+000001F2  8005  call
+000001F4  801A  pop
+000001F6  C001  push_int 0
+000001FC  800D  d_to_a
+000001FE  8019  swapa
+00000200  802A  pop_to_base
+00000202  8029  pop_base
+00000204  800C  a_to_d
+00000206  801C  pop_return
+00000208  802A  pop_to_base
+0000020A  8029  pop_base
+0000020C  801C  pop_return
+
+.procedure 2 description_p_proc offset=0x0000020E size=164 args=0 flags=0x00000000
+0000020E  802B  push_base
+00000210  C001  push_int 0
+00000216  C001  push_int 611
+0000021C  C001  push_int 100
+00000222  8105  message_str
+          ; message_lookup: list=611, message=100 | 这地板有部分很奇怪。, status=linked
+00000224  C001  push_int 0
+0000022A  8031  store
+0000022C  C001  push_int 656
+00000232  C001  push_int 0
+00000238  80C1  local_var
+0000023A  8045  not
+0000023C  802F  if
+0000023E  C001  push_int 642
+00000244  80BF  dude_obj
+00000246  C001  push_int 1
+0000024C  C001  push_int 0
+00000252  80BF  dude_obj
+00000254  C001  push_int 0
+0000025A  80F3  has_trait
+0000025C  80AE  op_80ae
+0000025E  80AF  op_80af
+00000260  8045  not
+00000262  802F  if
+00000264  C001  push_int 611
+0000026A  C001  push_int 101
+00000270  8105  message_str
+          ; message_lookup: list=611, message=101 | 你发现那没什么特别的。, status=linked
+00000272  C001  push_int 0
+00000278  8031  store
+0000027A  C001  push_int 656
+00000280  8004  jump
+00000282  C001  push_int 0
+00000288  C001  push_int 1
+0000028E  80C2  set_local_var
+00000290  C001  push_int 0
+00000296  8032  fetch
+00000298  80B8  display_msg
+0000029A  C001  push_int 0
+000002A0  800D  d_to_a
+000002A2  8019  swapa
+000002A4  802A  pop_to_base
+000002A6  8029  pop_base
+000002A8  800C  a_to_d
+000002AA  801C  pop_return
+000002AC  802A  pop_to_base
+000002AE  8029  pop_base
+000002B0  801C  pop_return
+
+.procedure 3 spatial_p_proc offset=0x000002B2 size=174 args=0 flags=0x00000000
+000002B2  802B  push_base
+000002B4  C001  push_int 824
+000002BA  C001  push_int 7
+000002C0  80C3  op_80c3
+000002C2  C001  push_int 0
+000002C8  8033  equal
+000002CA  802F  if
+000002CC  C001  push_int 816
+000002D2  80BF  dude_obj
+000002D4  C001  push_int 6
+000002DA  C001  push_int 0
+000002E0  80AE  op_80ae
+000002E2  80AF  op_80af
+000002E4  8045  not
+000002E6  802F  if
+000002E8  C001  push_int 146
+000002EE  C001  push_int 1
+000002F4  80C6  set_global_var
+000002F6  C001  push_int 7
+000002FC  C001  push_int 1
+00000302  80C4  op_80c4
+00000304  C001  push_int 611
+0000030A  C001  push_int 102
+00000310  8105  message_str
+          ; message_lookup: list=611, message=102 | 警报声在远处响起。, status=linked
+00000312  80B8  display_msg
+00000314  80BC  self_obj
+00000316  C001  push_int 7000
+0000031C  C001  push_int 0
+00000322  80B6  op_80b6
+00000324  801A  pop
+00000326  80BC  self_obj
+00000328  9001  push_string "<unresolved-string:0x6C>"
+0000032E  8015  store_external
+00000330  C001  push_int 840
+00000336  8004  jump
+00000338  C001  push_int 611
+0000033E  C001  push_int 103
+00000344  8105  message_str
+          ; message_lookup: list=611, message=103 | 一些感应器在你的脚下。, status=linked
+00000346  80B8  display_msg
+00000348  C001  push_int 0
+0000034E  800D  d_to_a
+00000350  8019  swapa
+00000352  802A  pop_to_base
+00000354  8029  pop_base
+00000356  800C  a_to_d
+00000358  801C  pop_return
+0000035A  802A  pop_to_base
+0000035C  8029  pop_base
+0000035E  801C  pop_return
+
+.procedure 4 use_skill_on_p_proc offset=0x00000360 size=170 args=0 flags=0x00000000
+00000360  802B  push_base
+00000362  C001  push_int 1010
+00000368  80FA  op_80fa
+0000036A  C001  push_int 11
+00000370  8033  equal
+00000372  802F  if
+00000374  C001  push_int 1010
+0000037A  C001  push_int 0
+00000380  80C1  local_var
+00000382  802F  if
+00000384  80B9  script_overrides
+00000386  C001  push_int 994
+0000038C  80BF  dude_obj
+0000038E  C001  push_int 11
+00000394  C001  push_int 0
+0000039A  80AC  op_80ac
+0000039C  80AF  op_80af
+0000039E  802F  if
+000003A0  C001  push_int 611
+000003A6  C001  push_int 104
+000003AC  8105  message_str
+          ; message_lookup: list=611, message=104 | 你使感应器失灵了。, status=linked
+000003AE  80B8  display_msg
+000003B0  80BC  self_obj
+000003B2  C001  push_int 7000
+000003B8  C001  push_int 0
+000003BE  80B6  op_80b6
+000003C0  801A  pop
+000003C2  80BC  self_obj
+000003C4  9001  push_string "<unresolved-string:0x6C>"
+000003CA  8015  store_external
+000003CC  C001  push_int 12
+000003D2  C001  push_int 1
+000003D8  80C4  op_80c4
+000003DA  C001  push_int 1010
+000003E0  8004  jump
+000003E2  C001  push_int 611
+000003E8  C001  push_int 105
+000003EE  8105  message_str
+          ; message_lookup: list=611, message=105 | 你没有解除感应器。, status=linked
+000003F0  80B8  display_msg
+000003F2  C001  push_int 0
+000003F8  800D  d_to_a
+000003FA  8019  swapa
+000003FC  802A  pop_to_base
+000003FE  8029  pop_base
+00000400  800C  a_to_d
+00000402  801C  pop_return
+00000404  802A  pop_to_base
+00000406  8029  pop_base
+00000408  801C  pop_return

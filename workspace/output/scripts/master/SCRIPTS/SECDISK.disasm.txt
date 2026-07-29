@@ -1,0 +1,108 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\SECDISK.INT
+; sha256: 364E365F83C527805285789E92C0F7D9612F11D82F6989A2221AF80543FA5AC4
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 142
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+0000008E  802C  set_global
+00000090  C001  push_int 0
+00000096  8003  critical_done
+00000098  C001  push_int 160
+0000009E  8004  jump
+
+.procedure 0 .............. offset=0x000000A0 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000A0 size=248 args=0 flags=0x00000000
+000000A0  802B  push_base
+000000A2  C001  push_int 218
+000000A8  80C7  script_action
+000000AA  C001  push_int 21
+000000B0  8033  equal
+000000B2  80C7  script_action
+000000B4  C001  push_int 3
+000000BA  8033  equal
+000000BC  803F  or
+000000BE  802F  if
+000000C0  80B9  script_overrides
+000000C2  C001  push_int 349
+000000C8  C001  push_int 100
+000000CE  8105  message_str
+          ; message_lookup: list=349, message=100 | 这看上去很奇怪。貌似它能在你的哔哔小子上使用。, status=linked
+000000D0  80B8  display_msg
+000000D2  C001  push_int 384
+000000D8  8004  jump
+000000DA  C001  push_int 384
+000000E0  80C7  script_action
+000000E2  C001  push_int 6
+000000E8  8033  equal
+000000EA  802F  if
+000000EC  80B9  script_overrides
+000000EE  C001  push_int 286
+000000F4  C001  push_int 0
+000000FA  80C1  local_var
+000000FC  C001  push_int 1
+00000102  8033  equal
+00000104  802F  if
+00000106  C001  push_int 349
+0000010C  C001  push_int 101
+00000112  8105  message_str
+          ; message_lookup: list=349, message=101 | 哔哔小子显示：系统中找到文件。正在中断下载。, status=linked
+00000114  80B8  display_msg
+00000116  C001  push_int 384
+0000011C  8004  jump
+0000011E  C001  push_int 349
+00000124  C001  push_int 102
+0000012A  8105  message_str
+          ; message_lookup: list=349, message=102 | 哔哔小子显示：正在从磁碟中下载数据。, status=linked
+0000012C  80B8  display_msg
+0000012E  C001  push_int 163
+00000134  C001  push_int 1
+0000013A  80C6  set_global_var
+0000013C  C001  push_int 0
+00000142  C001  push_int 1
+00000148  80C2  set_local_var
+0000014A  80BF  dude_obj
+0000014C  80BC  self_obj
+0000014E  80D9  op_80d9
+00000150  C001  push_int 766
+00000156  C001  push_int 103
+0000015C  8105  message_str
+          ; message_lookup: list=766, message=103, status=different-message-list
+0000015E  9001  push_string "100"
+00000164  8039  add
+00000166  C001  push_int 766
+0000016C  C001  push_int 104
+00000172  8105  message_str
+          ; message_lookup: list=766, message=104, status=different-message-list
+00000174  8039  add
+00000176  80B8  display_msg
+00000178  C001  push_int 100
+0000017E  80A1  op_80a1
+00000180  C001  push_int 0
+00000186  800D  d_to_a
+00000188  8019  swapa
+0000018A  802A  pop_to_base
+0000018C  8029  pop_base
+0000018E  800C  a_to_d
+00000190  801C  pop_return
+00000192  802A  pop_to_base
+00000194  8029  pop_base
+00000196  801C  pop_return

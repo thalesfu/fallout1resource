@@ -1,0 +1,126 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\POWERMUT.INT
+; sha256: 3B742A632374C37BFEB53980F4567AC28058FA168CFCC8A2F512458BFE9AADF7
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 226
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000000E2  802C  set_global
+000000E4  C001  push_int 0
+000000EA  C001  push_int 0
+000000F0  8003  critical_done
+000000F2  C001  push_int 250
+000000F8  8004  jump
+
+.procedure 0 .............. offset=0x000000FA size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000FA size=194 args=0 flags=0x00000000
+000000FA  802B  push_base
+000000FC  C001  push_int 328
+00000102  C001  push_int 0
+00000108  8012  fetch_global
+0000010A  8045  not
+0000010C  802F  if
+0000010E  C001  push_int 1
+00000114  C001  push_int 0
+0000011A  8013  store_global
+0000011C  80BC  self_obj
+0000011E  C001  push_int 1
+00000124  C001  push_int 6
+0000012A  C001  push_int 34
+00000130  8102  critter_add_trait
+00000132  80BC  self_obj
+00000134  C001  push_int 1
+0000013A  C001  push_int 5
+00000140  C001  push_int 48
+00000146  8102  critter_add_trait
+00000148  C001  push_int 378
+0000014E  80C7  script_action
+00000150  C001  push_int 21
+00000156  8033  equal
+00000158  802F  if
+0000015A  C001  push_int 368
+00000160  800D  d_to_a
+00000162  C001  push_int 0
+00000168  C001  push_int 2
+0000016E  8005  call
+00000170  801A  pop
+00000172  C001  push_int 420
+00000178  8004  jump
+0000017A  C001  push_int 420
+00000180  80C7  script_action
+00000182  C001  push_int 11
+00000188  8033  equal
+0000018A  802F  if
+0000018C  C001  push_int 418
+00000192  800D  d_to_a
+00000194  C001  push_int 0
+0000019A  C001  push_int 3
+000001A0  8005  call
+000001A2  801A  pop
+000001A4  C001  push_int 0
+000001AA  800D  d_to_a
+000001AC  8019  swapa
+000001AE  802A  pop_to_base
+000001B0  8029  pop_base
+000001B2  800C  a_to_d
+000001B4  801C  pop_return
+000001B6  802A  pop_to_base
+000001B8  8029  pop_base
+000001BA  801C  pop_return
+
+.procedure 2 look_at_p_proc offset=0x000001BC size=44 args=0 flags=0x00000000
+000001BC  802B  push_base
+000001BE  80B9  script_overrides
+000001C0  C001  push_int 838
+000001C6  C001  push_int 101
+000001CC  8105  message_str
+          ; message_lookup: list=838, message=101 | 你看到一个脑袋很小的变种人。, status=linked
+000001CE  80B8  display_msg
+000001D0  C001  push_int 0
+000001D6  800D  d_to_a
+000001D8  8019  swapa
+000001DA  802A  pop_to_base
+000001DC  8029  pop_base
+000001DE  800C  a_to_d
+000001E0  801C  pop_return
+000001E2  802A  pop_to_base
+000001E4  8029  pop_base
+000001E6  801C  pop_return
+
+.procedure 3 talk_p_proc offset=0x000001E8 size=50 args=0 flags=0x00000000
+000001E8  802B  push_base
+000001EA  80BC  self_obj
+000001EC  C001  push_int 838
+000001F2  C001  push_int 100
+000001F8  8105  message_str
+          ; message_lookup: list=838, message=100 | 没人进入这房间。, status=linked
+000001FA  C001  push_int 2
+00000200  810A  op_810a
+00000202  C001  push_int 0
+00000208  800D  d_to_a
+0000020A  8019  swapa
+0000020C  802A  pop_to_base
+0000020E  8029  pop_base
+00000210  800C  a_to_d
+00000212  801C  pop_return
+00000214  802A  pop_to_base
+00000216  8029  pop_base
+00000218  801C  pop_return

@@ -1,0 +1,92 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\FARMPART.INT
+; sha256: A553CA1418BCB160BA7FAD27F254137D404AB6193F9FEE3298C7242D5158DC02
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 178
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000000B2  802C  set_global
+000000B4  C001  push_int 0
+000000BA  8003  critical_done
+000000BC  C001  push_int 196
+000000C2  8004  jump
+
+.procedure 0 .............. offset=0x000000C4 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000C4 size=68 args=0 flags=0x00000000
+000000C4  802B  push_base
+000000C6  C001  push_int 240
+000000CC  80C7  script_action
+000000CE  C001  push_int 3
+000000D4  8033  equal
+000000D6  802F  if
+000000D8  C001  push_int 238
+000000DE  800D  d_to_a
+000000E0  C001  push_int 0
+000000E6  C001  push_int 2
+000000EC  8005  call
+000000EE  801A  pop
+000000F0  C001  push_int 0
+000000F6  800D  d_to_a
+000000F8  8019  swapa
+000000FA  802A  pop_to_base
+000000FC  8029  pop_base
+000000FE  800C  a_to_d
+00000100  801C  pop_return
+00000102  802A  pop_to_base
+00000104  8029  pop_base
+00000106  801C  pop_return
+
+.procedure 2 description_p_proc offset=0x00000108 size=110 args=0 flags=0x00000000
+00000108  802B  push_base
+0000010A  80B9  script_overrides
+0000010C  C001  push_int 681
+00000112  C001  push_int 100
+00000118  8105  message_str
+          ; message_lookup: list=681, message=100 | 水门多管抽水机组装需要：电镀的-细电线线圈，磁性真空密封装置，动力卸载装置，三针对三针的适配器……收集这些组装零件。, status=linked
+0000011A  80B8  display_msg
+0000011C  C001  push_int 350
+00000122  C001  push_int 138
+00000128  80C5  global_var
+0000012A  C001  push_int 1
+00000130  8033  equal
+00000132  802F  if
+00000134  C001  push_int 350
+0000013A  80BF  dude_obj
+0000013C  C001  push_int 12
+00000142  C001  push_int 0
+00000148  80AC  op_80ac
+0000014A  80AF  op_80af
+0000014C  802F  if
+0000014E  C001  push_int 681
+00000154  C001  push_int 101
+0000015A  8105  message_str
+          ; message_lookup: list=681, message=101 | 这些组装零件或许能给麦尔斯去维修水栽培农场。, status=linked
+0000015C  80B8  display_msg
+0000015E  C001  push_int 0
+00000164  800D  d_to_a
+00000166  8019  swapa
+00000168  802A  pop_to_base
+0000016A  8029  pop_base
+0000016C  800C  a_to_d
+0000016E  801C  pop_return
+00000170  802A  pop_to_base
+00000172  8029  pop_base
+00000174  801C  pop_return

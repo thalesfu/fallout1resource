@@ -1,0 +1,90 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\SETDESK.INT
+; sha256: F9C6E5CB5F1B693A91D409C5260C9BAA53691A4D6E1E9513FD296A8F55DCEBA1
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 168
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000000A8  802C  set_global
+000000AA  C001  push_int 0
+000000B0  8003  critical_done
+000000B2  C001  push_int 186
+000000B8  8004  jump
+
+.procedure 0 .............. offset=0x000000BA size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000BA size=74 args=0 flags=0x00000000
+000000BA  802B  push_base
+000000BC  C001  push_int 0
+000000C2  C001  push_int 236
+000000C8  80C7  script_action
+000000CA  C001  push_int 6
+000000D0  8033  equal
+000000D2  802F  if
+000000D4  C001  push_int 234
+000000DA  800D  d_to_a
+000000DC  C001  push_int 0
+000000E2  C001  push_int 2
+000000E8  8005  call
+000000EA  801A  pop
+000000EC  C001  push_int 0
+000000F2  800D  d_to_a
+000000F4  8019  swapa
+000000F6  802A  pop_to_base
+000000F8  8029  pop_base
+000000FA  800C  a_to_d
+000000FC  801C  pop_return
+000000FE  802A  pop_to_base
+00000100  8029  pop_base
+00000102  801C  pop_return
+
+.procedure 2 do_stuff offset=0x00000104 size=104 args=0 flags=0x00000000
+00000104  802B  push_base
+00000106  C001  push_int 310
+0000010C  C001  push_int 0
+00000112  80C1  local_var
+00000114  C001  push_int 1
+0000011A  8033  equal
+0000011C  802F  if
+0000011E  C001  push_int 93
+00000124  C001  push_int 100
+0000012A  8105  message_str
+          ; message_lookup: list=93, message=100 | 你没有找到什么重要的东西。, status=linked
+0000012C  80B8  display_msg
+0000012E  C001  push_int 340
+00000134  8004  jump
+00000136  C001  push_int 93
+0000013C  C001  push_int 101
+00000142  8105  message_str
+          ; message_lookup: list=93, message=101 | 你找到了一张叫做副官的家伙给赛特的条子。那上面命令他搜罗纯种人类。, status=linked
+00000144  80B8  display_msg
+00000146  C001  push_int 0
+0000014C  C001  push_int 1
+00000152  80C2  set_local_var
+00000154  C001  push_int 0
+0000015A  800D  d_to_a
+0000015C  8019  swapa
+0000015E  802A  pop_to_base
+00000160  8029  pop_base
+00000162  800C  a_to_d
+00000164  801C  pop_return
+00000166  802A  pop_to_base
+00000168  8029  pop_base
+0000016A  801C  pop_return

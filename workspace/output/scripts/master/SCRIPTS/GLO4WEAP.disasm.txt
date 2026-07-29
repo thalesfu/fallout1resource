@@ -1,0 +1,593 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\GLO4WEAP.INT
+; sha256: EADD8D230F6D77CB51CDCE6E2A104A46E8901A6ABAF24AA211BAA1166863FB51
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 284
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+0000011C  802C  set_global
+0000011E  C001  push_int 0
+00000124  C001  push_int 0
+0000012A  8003  critical_done
+0000012C  C001  push_int 308
+00000132  8004  jump
+
+.procedure 0 .............. offset=0x00000134 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00000134 size=734 args=0 flags=0x00000000
+00000134  802B  push_base
+00000136  C001  push_int 348
+0000013C  C001  push_int 142
+00000142  80C5  global_var
+00000144  C001  push_int 2
+0000014A  8033  equal
+0000014C  802F  if
+0000014E  C001  push_int 1
+00000154  C001  push_int 1
+0000015A  80C2  set_local_var
+0000015C  C001  push_int 404
+00000162  80C7  script_action
+00000164  C001  push_int 21
+0000016A  8033  equal
+0000016C  80C7  script_action
+0000016E  C001  push_int 3
+00000174  8033  equal
+00000176  803F  or
+00000178  802F  if
+0000017A  80B9  script_overrides
+0000017C  C001  push_int 321
+00000182  C001  push_int 100
+00000188  8105  message_str
+          ; message_lookup: list=321, message=100 | 你见到了一扇看起来十分坚固的安全门。, status=linked
+0000018A  80B8  display_msg
+0000018C  C001  push_int 1018
+00000192  8004  jump
+00000194  C001  push_int 492
+0000019A  80C7  script_action
+0000019C  C001  push_int 6
+000001A2  8033  equal
+000001A4  802F  if
+000001A6  C001  push_int 460
+000001AC  C001  push_int 142
+000001B2  80C5  global_var
+000001B4  C001  push_int 2
+000001BA  8034  not_equal
+000001BC  802F  if
+000001BE  C001  push_int 142
+000001C4  C001  push_int 1
+000001CA  80C6  set_global_var
+000001CC  C001  push_int 482
+000001D2  800D  d_to_a
+000001D4  C001  push_int 0
+000001DA  C001  push_int 5
+000001E0  8005  call
+000001E2  801A  pop
+000001E4  C001  push_int 1018
+000001EA  8004  jump
+000001EC  C001  push_int 722
+000001F2  80C7  script_action
+000001F4  C001  push_int 8
+000001FA  8033  equal
+000001FC  802F  if
+000001FE  C001  push_int 548
+00000204  C001  push_int 142
+0000020A  80C5  global_var
+0000020C  C001  push_int 2
+00000212  8034  not_equal
+00000214  802F  if
+00000216  C001  push_int 142
+0000021C  C001  push_int 1
+00000222  80C6  set_global_var
+00000224  C001  push_int 598
+0000022A  80FA  op_80fa
+0000022C  C001  push_int 9
+00000232  8033  equal
+00000234  802F  if
+00000236  C001  push_int 588
+0000023C  800D  d_to_a
+0000023E  C001  push_int 0
+00000244  C001  push_int 4
+0000024A  8005  call
+0000024C  801A  pop
+0000024E  C001  push_int 714
+00000254  8004  jump
+00000256  C001  push_int 648
+0000025C  80FA  op_80fa
+0000025E  C001  push_int 11
+00000264  8033  equal
+00000266  802F  if
+00000268  C001  push_int 638
+0000026E  800D  d_to_a
+00000270  C001  push_int 0
+00000276  C001  push_int 2
+0000027C  8005  call
+0000027E  801A  pop
+00000280  C001  push_int 714
+00000286  8004  jump
+00000288  C001  push_int 698
+0000028E  80FA  op_80fa
+00000290  C001  push_int 12
+00000296  8033  equal
+00000298  802F  if
+0000029A  C001  push_int 688
+000002A0  800D  d_to_a
+000002A2  C001  push_int 0
+000002A8  C001  push_int 3
+000002AE  8005  call
+000002B0  801A  pop
+000002B2  C001  push_int 714
+000002B8  8004  jump
+000002BA  C001  push_int 321
+000002C0  C001  push_int 101
+000002C6  8105  message_str
+          ; message_lookup: list=321, message=101 | 门不受该技能影响。, status=linked
+000002C8  80B8  display_msg
+000002CA  C001  push_int 1018
+000002D0  8004  jump
+000002D2  C001  push_int 1018
+000002D8  80C7  script_action
+000002DA  C001  push_int 7
+000002E0  8033  equal
+000002E2  802F  if
+000002E4  C001  push_int 778
+000002EA  C001  push_int 142
+000002F0  80C5  global_var
+000002F2  C001  push_int 2
+000002F8  8034  not_equal
+000002FA  802F  if
+000002FC  C001  push_int 142
+00000302  C001  push_int 1
+00000308  80C6  set_global_var
+0000030A  C001  push_int 1002
+00000310  80C0  op_80c0
+00000312  8100  op_8100
+00000314  C001  push_int 96
+0000031A  8033  equal
+0000031C  802F  if
+0000031E  C001  push_int 938
+00000324  C001  push_int 1
+0000032A  80C1  local_var
+0000032C  C001  push_int 0
+00000332  8033  equal
+00000334  802F  if
+00000336  80B9  script_overrides
+00000338  C001  push_int 3
+0000033E  C001  push_int 7
+00000344  80B4  random
+00000346  C001  push_int 0
+0000034C  8013  store_global
+0000034E  80BF  dude_obj
+00000350  C001  push_int 0
+00000356  8012  fetch_global
+00000358  C001  push_int 0
+0000035E  80EF  op_80ef
+00000360  C001  push_int 321
+00000366  C001  push_int 102
+0000036C  8105  message_str
+          ; message_lookup: list=321, message=102 | 安保系统的电击震荡对你造成, status=linked
+0000036E  C001  push_int 0
+00000374  8012  fetch_global
+00000376  8039  add
+00000378  C001  push_int 321
+0000037E  C001  push_int 103
+00000384  8105  message_str
+          ; message_lookup: list=321, message=103 | 点伤害。, status=linked
+00000386  8039  add
+00000388  80B8  display_msg
+0000038A  C001  push_int 0
+00000390  C001  push_int 0
+00000396  80C1  local_var
+00000398  C001  push_int 1
+0000039E  8039  add
+000003A0  80C2  set_local_var
+000003A2  C001  push_int 994
+000003A8  8004  jump
+000003AA  C001  push_int 994
+000003B0  C001  push_int 2
+000003B6  80C1  local_var
+000003B8  C001  push_int 0
+000003BE  8033  equal
+000003C0  802F  if
+000003C2  80B9  script_overrides
+000003C4  C001  push_int 2
+000003CA  C001  push_int 1
+000003D0  80C2  set_local_var
+000003D2  C001  push_int 321
+000003D8  C001  push_int 104
+000003DE  8105  message_str
+          ; message_lookup: list=321, message=104 | 你用红色通行钥匙打开了门。, status=linked
+000003E0  80B8  display_msg
+000003E2  C001  push_int 1018
+000003E8  8004  jump
+000003EA  C001  push_int 321
+000003F0  C001  push_int 105
+000003F6  8105  message_str
+          ; message_lookup: list=321, message=105 | 这件道具对门无能为力。或许有什么其他更有用的东西。, status=linked
+000003F8  80B8  display_msg
+000003FA  C001  push_int 0
+00000400  800D  d_to_a
+00000402  8019  swapa
+00000404  802A  pop_to_base
+00000406  8029  pop_base
+00000408  800C  a_to_d
+0000040A  801C  pop_return
+0000040C  802A  pop_to_base
+0000040E  8029  pop_base
+00000410  801C  pop_return
+
+.procedure 2 Traps offset=0x00000412 size=260 args=0 flags=0x00000000
+00000412  802B  push_base
+00000414  C001  push_int 1262
+0000041A  C001  push_int 1
+00000420  80C1  local_var
+00000422  C001  push_int 0
+00000428  8033  equal
+0000042A  802F  if
+0000042C  C001  push_int 1132
+00000432  80BF  dude_obj
+00000434  C001  push_int 11
+0000043A  C001  push_int 0
+00000440  80AC  op_80ac
+00000442  80AF  op_80af
+00000444  802F  if
+00000446  C001  push_int 1
+0000044C  C001  push_int 1
+00000452  80C2  set_local_var
+00000454  C001  push_int 321
+0000045A  C001  push_int 113
+00000460  8105  message_str
+          ; message_lookup: list=321, message=113 | 你成功的绕过了安保系统。, status=linked
+00000462  80B8  display_msg
+00000464  C001  push_int 1254
+0000046A  8004  jump
+0000046C  C001  push_int 0
+00000472  C001  push_int 5
+00000478  80C2  set_local_var
+0000047A  C001  push_int 2
+00000480  C001  push_int 0
+00000486  80C1  local_var
+00000488  80B4  random
+0000048A  C001  push_int 0
+00000490  8013  store_global
+00000492  80BF  dude_obj
+00000494  C001  push_int 0
+0000049A  8012  fetch_global
+0000049C  C001  push_int 0
+000004A2  80EF  op_80ef
+000004A4  C001  push_int 321
+000004AA  C001  push_int 114
+000004B0  8105  message_str
+          ; message_lookup: list=321, message=114 | 安保系统被触发，它的电击震荡对你造成, status=linked
+000004B2  C001  push_int 0
+000004B8  8012  fetch_global
+000004BA  8039  add
+000004BC  C001  push_int 321
+000004C2  C001  push_int 115
+000004C8  8105  message_str
+          ; message_lookup: list=321, message=115 | 点伤害。, status=linked
+000004CA  8039  add
+000004CC  80B8  display_msg
+000004CE  C001  push_int 0
+000004D4  C001  push_int 0
+000004DA  80C1  local_var
+000004DC  C001  push_int 1
+000004E2  8039  add
+000004E4  80C2  set_local_var
+000004E6  C001  push_int 1278
+000004EC  8004  jump
+000004EE  C001  push_int 321
+000004F4  C001  push_int 116
+000004FA  8105  message_str
+          ; message_lookup: list=321, message=116 | 你没有在门上发现任何陷阱。, status=linked
+000004FC  80B8  display_msg
+000004FE  C001  push_int 0
+00000504  800D  d_to_a
+00000506  8019  swapa
+00000508  802A  pop_to_base
+0000050A  8029  pop_base
+0000050C  800C  a_to_d
+0000050E  801C  pop_return
+00000510  802A  pop_to_base
+00000512  8029  pop_base
+00000514  801C  pop_return
+
+.procedure 3 Sciences offset=0x00000516 size=260 args=0 flags=0x00000000
+00000516  802B  push_base
+00000518  C001  push_int 1522
+0000051E  C001  push_int 1
+00000524  80C1  local_var
+00000526  C001  push_int 0
+0000052C  8033  equal
+0000052E  802F  if
+00000530  C001  push_int 1392
+00000536  80BF  dude_obj
+00000538  C001  push_int 12
+0000053E  C001  push_int 0
+00000544  80AC  op_80ac
+00000546  80AF  op_80af
+00000548  802F  if
+0000054A  C001  push_int 1
+00000550  C001  push_int 1
+00000556  80C2  set_local_var
+00000558  C001  push_int 321
+0000055E  C001  push_int 117
+00000564  8105  message_str
+          ; message_lookup: list=321, message=117 | 你成功的绕过了安保系统。, status=linked
+00000566  80B8  display_msg
+00000568  C001  push_int 1514
+0000056E  8004  jump
+00000570  C001  push_int 0
+00000576  C001  push_int 5
+0000057C  80C2  set_local_var
+0000057E  C001  push_int 2
+00000584  C001  push_int 0
+0000058A  80C1  local_var
+0000058C  80B4  random
+0000058E  C001  push_int 0
+00000594  8013  store_global
+00000596  80BF  dude_obj
+00000598  C001  push_int 0
+0000059E  8012  fetch_global
+000005A0  C001  push_int 0
+000005A6  80EF  op_80ef
+000005A8  C001  push_int 321
+000005AE  C001  push_int 118
+000005B4  8105  message_str
+          ; message_lookup: list=321, message=118 | 安保系统被触发，它的电击震荡对你造成, status=linked
+000005B6  C001  push_int 0
+000005BC  8012  fetch_global
+000005BE  8039  add
+000005C0  C001  push_int 321
+000005C6  C001  push_int 119
+000005CC  8105  message_str
+          ; message_lookup: list=321, message=119 | 点伤害。, status=linked
+000005CE  8039  add
+000005D0  80B8  display_msg
+000005D2  C001  push_int 0
+000005D8  C001  push_int 0
+000005DE  80C1  local_var
+000005E0  C001  push_int 1
+000005E6  8039  add
+000005E8  80C2  set_local_var
+000005EA  C001  push_int 1538
+000005F0  8004  jump
+000005F2  C001  push_int 321
+000005F8  C001  push_int 120
+000005FE  8105  message_str
+          ; message_lookup: list=321, message=120 | 你没有在门上发现任何陷阱。, status=linked
+00000600  80B8  display_msg
+00000602  C001  push_int 0
+00000608  800D  d_to_a
+0000060A  8019  swapa
+0000060C  802A  pop_to_base
+0000060E  8029  pop_base
+00000610  800C  a_to_d
+00000612  801C  pop_return
+00000614  802A  pop_to_base
+00000616  8029  pop_base
+00000618  801C  pop_return
+
+.procedure 4 Picklocks offset=0x0000061A size=318 args=0 flags=0x00000000
+0000061A  802B  push_base
+0000061C  C001  push_int 1776
+00000622  C001  push_int 1
+00000628  80C1  local_var
+0000062A  C001  push_int 0
+00000630  8033  equal
+00000632  802F  if
+00000634  C001  push_int 1728
+0000063A  C001  push_int 0
+00000640  80C1  local_var
+00000642  C001  push_int 2
+00000648  8038  greater
+0000064A  802F  if
+0000064C  C001  push_int 2
+00000652  C001  push_int 0
+00000658  80C1  local_var
+0000065A  80B4  random
+0000065C  C001  push_int 0
+00000662  8013  store_global
+00000664  80BF  dude_obj
+00000666  C001  push_int 0
+0000066C  8012  fetch_global
+0000066E  C001  push_int 0
+00000674  80EF  op_80ef
+00000676  C001  push_int 321
+0000067C  C001  push_int 121
+00000682  8105  message_str
+          ; message_lookup: list=321, message=121 | 安保系统的电击震荡对你造成, status=linked
+00000684  C001  push_int 0
+0000068A  8012  fetch_global
+0000068C  8039  add
+0000068E  C001  push_int 321
+00000694  C001  push_int 122
+0000069A  8105  message_str
+          ; message_lookup: list=321, message=122 | 点伤害。, status=linked
+0000069C  8039  add
+0000069E  80B8  display_msg
+000006A0  C001  push_int 0
+000006A6  C001  push_int 0
+000006AC  80C1  local_var
+000006AE  C001  push_int 1
+000006B4  8039  add
+000006B6  80C2  set_local_var
+000006B8  C001  push_int 1768
+000006BE  8004  jump
+000006C0  C001  push_int 0
+000006C6  C001  push_int 0
+000006CC  80C1  local_var
+000006CE  C001  push_int 1
+000006D4  8039  add
+000006D6  80C2  set_local_var
+000006D8  C001  push_int 321
+000006DE  C001  push_int 123
+000006E4  8105  message_str
+          ; message_lookup: list=321, message=123 | 这扇门看起来被一个能量场保护着。或许你能用什么方法把它解除。, status=linked
+000006E6  80B8  display_msg
+000006E8  C001  push_int 1856
+000006EE  8004  jump
+000006F0  C001  push_int 1840
+000006F6  80BF  dude_obj
+000006F8  C001  push_int 9
+000006FE  C001  push_int 0
+00000704  80AC  op_80ac
+00000706  80AF  op_80af
+00000708  802F  if
+0000070A  C001  push_int 2
+00000710  C001  push_int 1
+00000716  80C2  set_local_var
+00000718  C001  push_int 321
+0000071E  C001  push_int 124
+00000724  8105  message_str
+          ; message_lookup: list=321, message=124 | 你成功打开安全门的锁。, status=linked
+00000726  80B8  display_msg
+00000728  C001  push_int 1856
+0000072E  8004  jump
+00000730  C001  push_int 321
+00000736  C001  push_int 125
+0000073C  8105  message_str
+          ; message_lookup: list=321, message=125 | 你没能撬开门上的锁。, status=linked
+0000073E  80B8  display_msg
+00000740  C001  push_int 0
+00000746  800D  d_to_a
+00000748  8019  swapa
+0000074A  802A  pop_to_base
+0000074C  8029  pop_base
+0000074E  800C  a_to_d
+00000750  801C  pop_return
+00000752  802A  pop_to_base
+00000754  8029  pop_base
+00000756  801C  pop_return
+
+.procedure 5 Using_Door offset=0x00000758 size=398 args=0 flags=0x00000000
+00000758  802B  push_base
+0000075A  C001  push_int 2096
+00000760  C001  push_int 1
+00000766  80C1  local_var
+00000768  C001  push_int 0
+0000076E  8033  equal
+00000770  802F  if
+00000772  80B9  script_overrides
+00000774  C001  push_int 2048
+0000077A  C001  push_int 0
+00000780  80C1  local_var
+00000782  C001  push_int 2
+00000788  8038  greater
+0000078A  802F  if
+0000078C  C001  push_int 2
+00000792  C001  push_int 0
+00000798  80C1  local_var
+0000079A  80B4  random
+0000079C  C001  push_int 0
+000007A2  8013  store_global
+000007A4  80BF  dude_obj
+000007A6  C001  push_int 0
+000007AC  8012  fetch_global
+000007AE  C001  push_int 0
+000007B4  80EF  op_80ef
+000007B6  C001  push_int 321
+000007BC  C001  push_int 106
+000007C2  8105  message_str
+          ; message_lookup: list=321, message=106 | 安保系统的电击震荡对你造成, status=linked
+000007C4  C001  push_int 0
+000007CA  8012  fetch_global
+000007CC  8039  add
+000007CE  C001  push_int 321
+000007D4  C001  push_int 107
+000007DA  8105  message_str
+          ; message_lookup: list=321, message=107 | 点伤害。, status=linked
+000007DC  8039  add
+000007DE  80B8  display_msg
+000007E0  C001  push_int 0
+000007E6  C001  push_int 0
+000007EC  80C1  local_var
+000007EE  C001  push_int 1
+000007F4  8039  add
+000007F6  80C2  set_local_var
+000007F8  C001  push_int 2088
+000007FE  8004  jump
+00000800  C001  push_int 0
+00000806  C001  push_int 0
+0000080C  80C1  local_var
+0000080E  C001  push_int 1
+00000814  8039  add
+00000816  80C2  set_local_var
+00000818  C001  push_int 321
+0000081E  C001  push_int 108
+00000824  8105  message_str
+          ; message_lookup: list=321, message=108 | 这扇门门看起来被一个能量场保护着。或许你能用什么方法把它解除。, status=linked
+00000826  80B8  display_msg
+00000828  C001  push_int 2254
+0000082E  8004  jump
+00000830  C001  push_int 2254
+00000836  C001  push_int 2
+0000083C  80C1  local_var
+0000083E  C001  push_int 0
+00000844  8033  equal
+00000846  802F  if
+00000848  80B9  script_overrides
+0000084A  C001  push_int 321
+00000850  C001  push_int 109
+00000856  8105  message_str
+          ; message_lookup: list=321, message=109 | 这扇门看来有备用锁。, status=linked
+00000858  80B8  display_msg
+0000085A  C001  push_int 2188
+00000860  80BF  dude_obj
+00000862  C001  push_int 1
+00000868  C001  push_int 0
+0000086E  80AE  op_80ae
+00000870  80AF  op_80af
+00000872  802F  if
+00000874  C001  push_int 321
+0000087A  C001  push_int 110
+00000880  8105  message_str
+          ; message_lookup: list=321, message=110 | 你注意到在门上有几个红色标志。, status=linked
+00000882  80B8  display_msg
+00000884  C001  push_int 2254
+0000088A  8004  jump
+0000088C  C001  push_int 2238
+00000892  80BF  dude_obj
+00000894  C001  push_int 11
+0000089A  C001  push_int 0
+000008A0  80AC  op_80ac
+000008A2  80AF  op_80af
+000008A4  802F  if
+000008A6  C001  push_int 321
+000008AC  C001  push_int 111
+000008B2  8105  message_str
+          ; message_lookup: list=321, message=111 | 你注意到在门上有几个红色标志。, status=linked
+000008B4  80B8  display_msg
+000008B6  C001  push_int 2254
+000008BC  8004  jump
+000008BE  C001  push_int 321
+000008C4  C001  push_int 112
+000008CA  8105  message_str
+          ; message_lookup: list=321, message=112 | 你想知道什么能够打开这扇门。, status=linked
+000008CC  80B8  display_msg
+000008CE  C001  push_int 0
+000008D4  800D  d_to_a
+000008D6  8019  swapa
+000008D8  802A  pop_to_base
+000008DA  8029  pop_base
+000008DC  800C  a_to_d
+000008DE  801C  pop_return
+000008E0  802A  pop_to_base
+000008E2  8029  pop_base
+000008E4  801C  pop_return

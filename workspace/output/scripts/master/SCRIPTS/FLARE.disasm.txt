@@ -1,0 +1,188 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\FLARE.INT
+; sha256: 28AFAF84CA155C72B019A6B9F38A925B4E08D5FED8420CFC03163566DE934A96
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 138
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+0000008A  802C  set_global
+0000008C  C001  push_int 0
+00000092  C001  push_int 0
+00000098  8003  critical_done
+0000009A  C001  push_int 162
+000000A0  8004  jump
+
+.procedure 0 .............. offset=0x000000A2 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000000A2 size=556 args=0 flags=0x00000000
+000000A2  802B  push_base
+000000A4  C001  push_int 336
+000000AA  80C7  script_action
+000000AC  C001  push_int 7
+000000B2  8033  equal
+000000B4  802F  if
+000000B6  C001  push_int 0
+000000BC  80A2  op_80a2
+000000BE  C001  push_int 312
+000000C4  C001  push_int 0
+000000CA  8012  fetch_global
+000000CC  C001  push_int 1
+000000D2  8034  not_equal
+000000D4  C001  push_int 0
+000000DA  8012  fetch_global
+000000DC  C001  push_int 2
+000000E2  8034  not_equal
+000000E4  803E  and
+000000E6  802F  if
+000000E8  80BC  self_obj
+000000EA  C001  push_int 100
+000000F0  C001  push_int 7
+000000F6  8107  op_8107
+000000F8  C001  push_int 223
+000000FE  C001  push_int 100
+00000104  8105  message_str
+          ; message_lookup: list=223, message=100 | 你点燃了闪光弹。, status=linked
+00000106  80B8  display_msg
+00000108  C001  push_int 1
+0000010E  C001  push_int 0
+00000114  8013  store_global
+00000116  80BC  self_obj
+00000118  C001  push_int 1800
+0000011E  C001  push_int 3
+00000124  803B  mul
+00000126  80F2  op_80f2
+00000128  C001  push_int 1
+0000012E  80F0  op_80f0
+00000130  C001  push_int 328
+00000136  8004  jump
+00000138  C001  push_int 223
+0000013E  C001  push_int 101
+00000144  8105  message_str
+          ; message_lookup: list=223, message=101 | 这个闪光弹用过了。, status=linked
+00000146  80B8  display_msg
+00000148  C001  push_int 694
+0000014E  8004  jump
+00000150  C001  push_int 562
+00000156  80C7  script_action
+00000158  C001  push_int 22
+0000015E  8033  equal
+00000160  802F  if
+00000162  C001  push_int 422
+00000168  80F7  op_80f7
+0000016A  C001  push_int 1
+00000170  8033  equal
+00000172  802F  if
+00000174  80BC  self_obj
+00000176  C001  push_int 80
+0000017C  C001  push_int 7
+00000182  8107  op_8107
+00000184  80BC  self_obj
+00000186  C001  push_int 900
+0000018C  C001  push_int 3
+00000192  803B  mul
+00000194  80F2  op_80f2
+00000196  C001  push_int 2
+0000019C  80F0  op_80f0
+0000019E  C001  push_int 554
+000001A4  8004  jump
+000001A6  C001  push_int 490
+000001AC  80F7  op_80f7
+000001AE  C001  push_int 2
+000001B4  8033  equal
+000001B6  802F  if
+000001B8  80BC  self_obj
+000001BA  C001  push_int 60
+000001C0  C001  push_int 7
+000001C6  8107  op_8107
+000001C8  80BC  self_obj
+000001CA  C001  push_int 450
+000001D0  C001  push_int 3
+000001D6  803B  mul
+000001D8  80F2  op_80f2
+000001DA  C001  push_int 3
+000001E0  80F0  op_80f0
+000001E2  C001  push_int 554
+000001E8  8004  jump
+000001EA  C001  push_int 554
+000001F0  80F7  op_80f7
+000001F2  C001  push_int 3
+000001F8  8033  equal
+000001FA  802F  if
+000001FC  80BC  self_obj
+000001FE  C001  push_int 0
+00000204  C001  push_int 1
+0000020A  8107  op_8107
+0000020C  C001  push_int 2
+00000212  C001  push_int 0
+00000218  8013  store_global
+0000021A  C001  push_int 223
+00000220  C001  push_int 102
+00000226  8105  message_str
+          ; message_lookup: list=223, message=102 | 闪光弹耗尽了燃料熄灭了。, status=linked
+00000228  80B8  display_msg
+0000022A  C001  push_int 694
+00000230  8004  jump
+00000232  C001  push_int 694
+00000238  80C7  script_action
+0000023A  C001  push_int 21
+00000240  8033  equal
+00000242  802F  if
+00000244  80B9  script_overrides
+00000246  C001  push_int 630
+0000024C  C001  push_int 0
+00000252  8012  fetch_global
+00000254  C001  push_int 1
+0000025A  8033  equal
+0000025C  802F  if
+0000025E  C001  push_int 223
+00000264  C001  push_int 103
+0000026A  8105  message_str
+          ; message_lookup: list=223, message=103 | 你看到一个发光的闪光弹。, status=linked
+0000026C  80B8  display_msg
+0000026E  C001  push_int 694
+00000274  8004  jump
+00000276  C001  push_int 678
+0000027C  C001  push_int 0
+00000282  8012  fetch_global
+00000284  C001  push_int 2
+0000028A  8033  equal
+0000028C  802F  if
+0000028E  C001  push_int 223
+00000294  C001  push_int 104
+0000029A  8105  message_str
+          ; message_lookup: list=223, message=104 | 你看到一个用过的闪光弹。, status=linked
+0000029C  80B8  display_msg
+0000029E  C001  push_int 694
+000002A4  8004  jump
+000002A6  C001  push_int 223
+000002AC  C001  push_int 105
+000002B2  8105  message_str
+          ; message_lookup: list=223, message=105 | 你看到一个闪光弹。, status=linked
+000002B4  80B8  display_msg
+000002B6  C001  push_int 0
+000002BC  800D  d_to_a
+000002BE  8019  swapa
+000002C0  802A  pop_to_base
+000002C2  8029  pop_base
+000002C4  800C  a_to_d
+000002C6  801C  pop_return
+000002C8  802A  pop_to_base
+000002CA  8029  pop_base
+000002CC  801C  pop_return

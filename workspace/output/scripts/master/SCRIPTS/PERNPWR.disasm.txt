@@ -1,0 +1,117 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\PERNPWR.INT
+; sha256: FFE9FE7C2B8DB4D306516DF10CA6BD0A2A7B5666104B1134CEDEE478E943F4A2
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 132
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+00000084  802C  set_global
+00000086  C001  push_int 0
+0000008C  8003  critical_done
+0000008E  C001  push_int 150
+00000094  8004  jump
+
+.procedure 0 .............. offset=0x00000096 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x00000096 size=278 args=0 flags=0x00000000
+00000096  802B  push_base
+00000098  C001  push_int 276
+0000009E  80C7  script_action
+000000A0  C001  push_int 21
+000000A6  8033  equal
+000000A8  80C7  script_action
+000000AA  C001  push_int 3
+000000B0  8033  equal
+000000B2  803F  or
+000000B4  802F  if
+000000B6  80B9  script_overrides
+000000B8  C001  push_int 252
+000000BE  C001  push_int 74
+000000C4  80C5  global_var
+000000C6  C001  push_int 2
+000000CC  8033  equal
+000000CE  80BF  dude_obj
+000000D0  C001  push_int 1
+000000D6  C001  push_int 0
+000000DC  80AE  op_80ae
+000000DE  80AF  op_80af
+000000E0  803E  and
+000000E2  802F  if
+000000E4  C001  push_int 297
+000000EA  C001  push_int 100
+000000F0  8105  message_str
+          ; message_lookup: list=297, message=100 | 这个人看起来是钢铁兄弟会的。, status=linked
+000000F2  80B8  display_msg
+000000F4  C001  push_int 268
+000000FA  8004  jump
+000000FC  C001  push_int 297
+00000102  C001  push_int 101
+00000108  8105  message_str
+          ; message_lookup: list=297, message=101 | 这个铁皮人怎么会在这里？, status=linked
+0000010A  80B8  display_msg
+0000010C  C001  push_int 404
+00000112  8004  jump
+00000114  C001  push_int 404
+0000011A  80C7  script_action
+0000011C  C001  push_int 8
+00000122  8033  equal
+00000124  802F  if
+00000126  80B9  script_overrides
+00000128  C001  push_int 388
+0000012E  80FA  op_80fa
+00000130  C001  push_int 7
+00000136  8033  equal
+00000138  802F  if
+0000013A  C001  push_int 364
+00000140  80BF  dude_obj
+00000142  C001  push_int 7
+00000148  C001  push_int 0
+0000014E  80AC  op_80ac
+00000150  80AF  op_80af
+00000152  802F  if
+00000154  C001  push_int 297
+0000015A  C001  push_int 102
+00000160  8105  message_str
+          ; message_lookup: list=297, message=102 | 这个人好像死于很高的辐射伤害。, status=linked
+00000162  80B8  display_msg
+00000164  C001  push_int 380
+0000016A  8004  jump
+0000016C  C001  push_int 297
+00000172  C001  push_int 103
+00000178  8105  message_str
+          ; message_lookup: list=297, message=103 | 你无法确定这个人是怎么死的。, status=linked
+0000017A  80B8  display_msg
+0000017C  C001  push_int 404
+00000182  8004  jump
+00000184  C001  push_int 297
+0000018A  C001  push_int 104
+00000190  8105  message_str
+          ; message_lookup: list=297, message=104 | 你的野外技术无法得到关于他的更多信息。, status=linked
+00000192  80B8  display_msg
+00000194  C001  push_int 0
+0000019A  800D  d_to_a
+0000019C  8019  swapa
+0000019E  802A  pop_to_base
+000001A0  8029  pop_base
+000001A2  800C  a_to_d
+000001A4  801C  pop_return
+000001A6  802A  pop_to_base
+000001A8  8029  pop_base
+000001AA  801C  pop_return

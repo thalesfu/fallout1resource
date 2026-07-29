@@ -1,0 +1,1502 @@
+; Fallout INT disassembly (analysis only; not recompilable source)
+; source: C:\Users\Thales\codes\github.com\thalesfu\fallout1resource\workspace\raw\master\SCRIPTS\ROBCTRL.INT
+; sha256: 551638FC6D1990702276EF91E0EC997C2433175A9BDC550B23552D6FA8C20CA6
+
+.startup
+00000000  8002  critical_start
+00000002  C001  push_int 18
+00000008  800D  d_to_a
+0000000A  C001  push_int 1754
+00000010  8004  jump
+00000012  8010  exit_program
+00000014  801A  pop
+00000016  8020  pop_flags_return
+00000018  801A  pop
+0000001A  8021  pop_flags_exit
+0000001C  801A  pop
+0000001E  8022  pop_flags_return_extern
+00000020  801A  pop
+00000022  8023  pop_flags_exit_extern
+00000024  8024  pop_flags_return_val_extern
+00000026  8025  pop_flags_return_val_exit
+00000028  8026  pop_flags_return_val_exit_extern
+
+.startup_tail
+000006DA  802C  set_global
+000006DC  C001  push_int 0
+000006E2  C001  push_int 0
+000006E8  C001  push_int 0
+000006EE  8003  critical_done
+000006F0  C001  push_int 1784
+000006F6  8004  jump
+
+.procedure 0 .............. offset=0x000006F8 size=0 args=0 flags=0x00000000
+
+.procedure 1 start offset=0x000006F8 size=268 args=0 flags=0x00000000
+000006F8  802B  push_base
+000006FA  C001  push_int 1836
+00000700  80C7  script_action
+00000702  C001  push_int 3
+00000708  8033  equal
+0000070A  802F  if
+0000070C  C001  push_int 1826
+00000712  800D  d_to_a
+00000714  C001  push_int 0
+0000071A  C001  push_int 2
+00000720  8005  call
+00000722  801A  pop
+00000724  C001  push_int 2028
+0000072A  8004  jump
+0000072C  C001  push_int 1886
+00000732  80C7  script_action
+00000734  C001  push_int 11
+0000073A  8033  equal
+0000073C  802F  if
+0000073E  C001  push_int 1876
+00000744  800D  d_to_a
+00000746  C001  push_int 0
+0000074C  C001  push_int 3
+00000752  8005  call
+00000754  801A  pop
+00000756  C001  push_int 2028
+0000075C  8004  jump
+0000075E  C001  push_int 1936
+00000764  80C7  script_action
+00000766  C001  push_int 6
+0000076C  8033  equal
+0000076E  802F  if
+00000770  C001  push_int 1926
+00000776  800D  d_to_a
+00000778  C001  push_int 0
+0000077E  C001  push_int 4
+00000784  8005  call
+00000786  801A  pop
+00000788  C001  push_int 2028
+0000078E  8004  jump
+00000790  C001  push_int 1986
+00000796  80C7  script_action
+00000798  C001  push_int 7
+0000079E  8033  equal
+000007A0  802F  if
+000007A2  C001  push_int 1976
+000007A8  800D  d_to_a
+000007AA  C001  push_int 0
+000007B0  C001  push_int 5
+000007B6  8005  call
+000007B8  801A  pop
+000007BA  C001  push_int 2028
+000007C0  8004  jump
+000007C2  C001  push_int 2028
+000007C8  80C7  script_action
+000007CA  C001  push_int 8
+000007D0  8033  equal
+000007D2  802F  if
+000007D4  C001  push_int 2026
+000007DA  800D  d_to_a
+000007DC  C001  push_int 0
+000007E2  C001  push_int 6
+000007E8  8005  call
+000007EA  801A  pop
+000007EC  C001  push_int 0
+000007F2  800D  d_to_a
+000007F4  8019  swapa
+000007F6  802A  pop_to_base
+000007F8  8029  pop_base
+000007FA  800C  a_to_d
+000007FC  801C  pop_return
+000007FE  802A  pop_to_base
+00000800  8029  pop_base
+00000802  801C  pop_return
+
+.procedure 2 description_p_proc offset=0x00000804 size=44 args=0 flags=0x00000000
+00000804  802B  push_base
+00000806  80B9  script_overrides
+00000808  C001  push_int 368
+0000080E  C001  push_int 100
+00000814  8105  message_str
+          ; message_lookup: list=368, message=100 | 这东西看上去像个机器人控制终端。, status=linked
+00000816  80B8  display_msg
+00000818  C001  push_int 0
+0000081E  800D  d_to_a
+00000820  8019  swapa
+00000822  802A  pop_to_base
+00000824  8029  pop_base
+00000826  800C  a_to_d
+00000828  801C  pop_return
+0000082A  802A  pop_to_base
+0000082C  8029  pop_base
+0000082E  801C  pop_return
+
+.procedure 3 talk_p_proc offset=0x00000830 size=196 args=0 flags=0x00000000
+00000830  802B  push_base
+00000832  C001  push_int 368
+00000838  80BC  self_obj
+0000083A  C001  push_int 4
+00000840  C001  push_int 1
+00000846  8046  negate
+00000848  C001  push_int 1
+0000084E  8046  negate
+00000850  80DE  start_gdialog
+00000852  811C  gsay_start
+00000854  C001  push_int 2184
+0000085A  C001  push_int 0
+00000860  80C1  local_var
+00000862  C001  push_int 1
+00000868  8033  equal
+0000086A  802F  if
+0000086C  C001  push_int 368
+00000872  C001  push_int 101
+00000878  C001  push_int 50
+0000087E  8120  gsay_message
+          ; message: list=368, message=101 | 它没有反应。, status=linked
+00000880  C001  push_int 2264
+00000886  8004  jump
+00000888  C001  push_int 2240
+0000088E  C001  push_int 1
+00000894  80C1  local_var
+00000896  C001  push_int 1
+0000089C  8033  equal
+0000089E  802F  if
+000008A0  C001  push_int 2230
+000008A6  800D  d_to_a
+000008A8  C001  push_int 0
+000008AE  C001  push_int 31
+000008B4  8005  call
+000008B6  801A  pop
+000008B8  C001  push_int 2264
+000008BE  8004  jump
+000008C0  C001  push_int 2262
+000008C6  800D  d_to_a
+000008C8  C001  push_int 0
+000008CE  C001  push_int 7
+000008D4  8005  call
+000008D6  801A  pop
+000008D8  811D  gsay_end
+000008DA  80DF  end_dialogue
+000008DC  C001  push_int 0
+000008E2  800D  d_to_a
+000008E4  8019  swapa
+000008E6  802A  pop_to_base
+000008E8  8029  pop_base
+000008EA  800C  a_to_d
+000008EC  801C  pop_return
+000008EE  802A  pop_to_base
+000008F0  8029  pop_base
+000008F2  801C  pop_return
+
+.procedure 4 use_p_proc offset=0x000008F4 size=44 args=0 flags=0x00000000
+000008F4  802B  push_base
+000008F6  80B9  script_overrides
+000008F8  C001  push_int 368
+000008FE  C001  push_int 196
+00000904  8105  message_str
+          ; message_lookup: list=368, message=196 | 你按了几个按钮却没反应，计算机看上去已经坏掉了。它需要调理一下才能再操作。, status=linked
+00000906  80B8  display_msg
+00000908  C001  push_int 0
+0000090E  800D  d_to_a
+00000910  8019  swapa
+00000912  802A  pop_to_base
+00000914  8029  pop_base
+00000916  800C  a_to_d
+00000918  801C  pop_return
+0000091A  802A  pop_to_base
+0000091C  8029  pop_base
+0000091E  801C  pop_return
+
+.procedure 5 use_obj_on_p_proc offset=0x00000920 size=62 args=0 flags=0x00000000
+00000920  802B  push_base
+00000922  C001  push_int 2374
+00000928  80C0  op_80c0
+0000092A  8100  op_8100
+0000092C  C001  push_int 100
+00000932  8033  equal
+00000934  802F  if
+00000936  C001  push_int 368
+0000093C  C001  push_int 195
+00000942  8105  message_str
+          ; message_lookup: list=368, message=195 | 这个计算机不能与你的无线电兼容。它使用的是机器人专用的一个特别频率波段。, status=linked
+00000944  80B8  display_msg
+00000946  C001  push_int 0
+0000094C  800D  d_to_a
+0000094E  8019  swapa
+00000950  802A  pop_to_base
+00000952  8029  pop_base
+00000954  800C  a_to_d
+00000956  801C  pop_return
+00000958  802A  pop_to_base
+0000095A  8029  pop_base
+0000095C  801C  pop_return
+
+.procedure 6 use_skill_on_p_proc offset=0x0000095E size=92 args=0 flags=0x00000000
+0000095E  802B  push_base
+00000960  C001  push_int 2444
+00000966  80FA  op_80fa
+00000968  C001  push_int 13
+0000096E  8033  equal
+00000970  802F  if
+00000972  80B9  script_overrides
+00000974  C001  push_int 368
+0000097A  C001  push_int 197
+00000980  8105  message_str
+          ; message_lookup: list=368, message=197 | 计算机的本身没有损坏，但是里边的数据已经被破坏了。, status=linked
+00000982  80B8  display_msg
+00000984  C001  push_int 2466
+0000098A  8004  jump
+0000098C  C001  push_int 2466
+00000992  80FA  op_80fa
+00000994  C001  push_int 12
+0000099A  8033  equal
+0000099C  802F  if
+0000099E  80B9  script_overrides
+000009A0  80F9  op_80f9
+000009A2  C001  push_int 0
+000009A8  800D  d_to_a
+000009AA  8019  swapa
+000009AC  802A  pop_to_base
+000009AE  8029  pop_base
+000009B0  800C  a_to_d
+000009B2  801C  pop_return
+000009B4  802A  pop_to_base
+000009B6  8029  pop_base
+000009B8  801C  pop_return
+
+.procedure 7 Control00 offset=0x000009BA size=184 args=0 flags=0x00000000
+000009BA  802B  push_base
+000009BC  C001  push_int 1
+000009C2  C001  push_int 1
+000009C8  80C2  set_local_var
+000009CA  C001  push_int 368
+000009D0  C001  push_int 102
+000009D6  811E  gsay_reply
+          ; reply: list=368, message=102 | 程序调整完毕。初始化音频通讯子系统。初始化仿生子系统。【叮叮】你需要什么帮助？, status=linked
+000009D8  C001  push_int 3
+000009DE  8046  negate
+000009E0  C001  push_int 368
+000009E6  C001  push_int 103
+000009EC  C001  push_int 8
+000009F2  C001  push_int 50
+000009F8  8121  giq_option
+          ; intelligence_option: list=368, message=103 | 呼。, status=linked
+000009FA  C001  push_int 4
+00000A00  C001  push_int 368
+00000A06  C001  push_int 104
+00000A0C  C001  push_int 10
+00000A12  C001  push_int 50
+00000A18  8121  giq_option
+          ; intelligence_option: list=368, message=104 | 你是谁？或者是什么东西？, status=linked
+00000A1A  C001  push_int 6
+00000A20  C001  push_int 368
+00000A26  C001  push_int 105
+00000A2C  C001  push_int 10
+00000A32  C001  push_int 50
+00000A38  8121  giq_option
+          ; intelligence_option: list=368, message=105 | 你有什么功能？, status=linked
+00000A3A  C001  push_int 8
+00000A40  C001  push_int 368
+00000A46  C001  push_int 106
+00000A4C  C001  push_int 13
+00000A52  C001  push_int 50
+00000A58  8121  giq_option
+          ; intelligence_option: list=368, message=106 | 显示程序列表。, status=linked
+00000A5A  C001  push_int 0
+00000A60  800D  d_to_a
+00000A62  8019  swapa
+00000A64  802A  pop_to_base
+00000A66  8029  pop_base
+00000A68  800C  a_to_d
+00000A6A  801C  pop_return
+00000A6C  802A  pop_to_base
+00000A6E  8029  pop_base
+00000A70  801C  pop_return
+
+.procedure 8 Control01 offset=0x00000A72 size=176 args=0 flags=0x00000000
+00000A72  802B  push_base
+00000A74  C001  push_int 368
+00000A7A  C001  push_int 107
+00000A80  811E  gsay_reply
+          ; reply: list=368, message=107 | 输入错误。没有这项指令。请重新输入。, status=linked
+00000A82  C001  push_int 3
+00000A88  8046  negate
+00000A8A  C001  push_int 368
+00000A90  C001  push_int 108
+00000A96  C001  push_int 8
+00000A9C  C001  push_int 50
+00000AA2  8121  giq_option
+          ; intelligence_option: list=368, message=108 | 喔。, status=linked
+00000AA4  C001  push_int 3
+00000AAA  8046  negate
+00000AAC  C001  push_int 368
+00000AB2  C001  push_int 109
+00000AB8  C001  push_int 8
+00000ABE  C001  push_int 50
+00000AC4  8121  giq_option
+          ; intelligence_option: list=368, message=109 | 啦－啦。, status=linked
+00000AC6  C001  push_int 3
+00000ACC  8046  negate
+00000ACE  C001  push_int 368
+00000AD4  C001  push_int 110
+00000ADA  C001  push_int 9
+00000AE0  C001  push_int 50
+00000AE6  8121  giq_option
+          ; intelligence_option: list=368, message=110 | 卟啦！, status=linked
+00000AE8  C001  push_int 3
+00000AEE  8046  negate
+00000AF0  C001  push_int 368
+00000AF6  C001  push_int 111
+00000AFC  C001  push_int 8
+00000B02  C001  push_int 50
+00000B08  8121  giq_option
+          ; intelligence_option: list=368, message=111 | 小气！, status=linked
+00000B0A  C001  push_int 0
+00000B10  800D  d_to_a
+00000B12  8019  swapa
+00000B14  802A  pop_to_base
+00000B16  8029  pop_base
+00000B18  800C  a_to_d
+00000B1A  801C  pop_return
+00000B1C  802A  pop_to_base
+00000B1E  8029  pop_base
+00000B20  801C  pop_return
+
+.procedure 9 Control02 offset=0x00000B22 size=46 args=0 flags=0x00000000
+00000B22  802B  push_base
+00000B24  C001  push_int 368
+00000B2A  C001  push_int 112
+00000B30  C001  push_int 50
+00000B36  8120  gsay_message
+          ; message: list=368, message=112 | 结束信息子系统。处理结束。, status=linked
+00000B38  C001  push_int 0
+00000B3E  800D  d_to_a
+00000B40  8019  swapa
+00000B42  802A  pop_to_base
+00000B44  8029  pop_base
+00000B46  800C  a_to_d
+00000B48  801C  pop_return
+00000B4A  802A  pop_to_base
+00000B4C  8029  pop_base
+00000B4E  801C  pop_return
+
+.procedure 10 Control03 offset=0x00000B50 size=136 args=0 flags=0x00000000
+00000B50  802B  push_base
+00000B52  C001  push_int 368
+00000B58  C001  push_int 113
+00000B5E  811E  gsay_reply
+          ; reply: list=368, message=113 | 这个终端机是智能化的。这个终端机是WLAN矩阵网络的一部分，可以优化控制细微的单元。, status=linked
+00000B60  C001  push_int 6
+00000B66  C001  push_int 368
+00000B6C  C001  push_int 114
+00000B72  C001  push_int 44
+00000B78  C001  push_int 50
+00000B7E  8121  giq_option
+          ; intelligence_option: list=368, message=114 | 谢谢。呃，结束操作。, status=linked
+00000B80  C001  push_int 6
+00000B86  C001  push_int 368
+00000B8C  C001  push_int 115
+00000B92  C001  push_int 11
+00000B98  C001  push_int 50
+00000B9E  8121  giq_option
+          ; intelligence_option: list=368, message=115 | 你能控制的细微单元是什么？, status=linked
+00000BA0  C001  push_int 6
+00000BA6  C001  push_int 368
+00000BAC  C001  push_int 116
+00000BB2  C001  push_int 13
+00000BB8  C001  push_int 50
+00000BBE  8121  giq_option
+          ; intelligence_option: list=368, message=116 | 正在运行什么程序？, status=linked
+00000BC0  C001  push_int 0
+00000BC6  800D  d_to_a
+00000BC8  8019  swapa
+00000BCA  802A  pop_to_base
+00000BCC  8029  pop_base
+00000BCE  800C  a_to_d
+00000BD0  801C  pop_return
+00000BD2  802A  pop_to_base
+00000BD4  8029  pop_base
+00000BD6  801C  pop_return
+
+.procedure 11 Control04 offset=0x00000BD8 size=104 args=0 flags=0x00000000
+00000BD8  802B  push_base
+00000BDA  C001  push_int 368
+00000BE0  C001  push_int 117
+00000BE6  811E  gsay_reply
+          ; reply: list=368, message=117 | 这个终端内嵌有国际原子能机构的控制技术。, status=linked
+00000BE8  C001  push_int 6
+00000BEE  C001  push_int 368
+00000BF4  C001  push_int 118
+00000BFA  C001  push_int 12
+00000C00  C001  push_int 50
+00000C06  8121  giq_option
+          ; intelligence_option: list=368, message=118 | 告诉我更多的细节。, status=linked
+00000C08  C001  push_int 6
+00000C0E  C001  push_int 368
+00000C14  C001  push_int 119
+00000C1A  C001  push_int 13
+00000C20  C001  push_int 50
+00000C26  8121  giq_option
+          ; intelligence_option: list=368, message=119 | 正在运行什么程序？, status=linked
+00000C28  C001  push_int 0
+00000C2E  800D  d_to_a
+00000C30  8019  swapa
+00000C32  802A  pop_to_base
+00000C34  8029  pop_base
+00000C36  800C  a_to_d
+00000C38  801C  pop_return
+00000C3A  802A  pop_to_base
+00000C3C  8029  pop_base
+00000C3E  801C  pop_return
+
+.procedure 12 Control05 offset=0x00000C40 size=72 args=0 flags=0x00000000
+00000C40  802B  push_base
+00000C42  C001  push_int 368
+00000C48  C001  push_int 120
+00000C4E  811E  gsay_reply
+          ; reply: list=368, message=120 | 通用工业机器人一般被称为“智能机器人”。【叮叮！】本产品被国际原子能机构评为世界上最好的机器人。购买两台以上价格优惠！还附赠一个“省钱先生”的玩具模型！【叮叮！】广告程序结束。, status=linked
+00000C50  C001  push_int 6
+00000C56  C001  push_int 368
+00000C5C  C001  push_int 121
+00000C62  C001  push_int 13
+00000C68  C001  push_int 50
+00000C6E  8121  giq_option
+          ; intelligence_option: list=368, message=121 | 正在运行什么程序？, status=linked
+00000C70  C001  push_int 0
+00000C76  800D  d_to_a
+00000C78  8019  swapa
+00000C7A  802A  pop_to_base
+00000C7C  8029  pop_base
+00000C7E  800C  a_to_d
+00000C80  801C  pop_return
+00000C82  802A  pop_to_base
+00000C84  8029  pop_base
+00000C86  801C  pop_return
+
+.procedure 13 Control06 offset=0x00000C88 size=200 args=0 flags=0x00000000
+00000C88  802B  push_base
+00000C8A  C001  push_int 368
+00000C90  C001  push_int 122
+00000C96  811E  gsay_reply
+          ; reply: list=368, message=122 | 当前软件是：设备维护v2．1，运转系统v4．8b，修理系统v0．8，病毒控制系统v1．4，红心大战v1．0，传感器＇76。, status=linked
+00000C98  C001  push_int 6
+00000C9E  C001  push_int 368
+00000CA4  C001  push_int 123
+00000CAA  C001  push_int 14
+00000CB0  C001  push_int 50
+00000CB6  8121  giq_option
+          ; intelligence_option: list=368, message=123 | 终止运转。, status=linked
+00000CB8  C001  push_int 6
+00000CBE  C001  push_int 368
+00000CC4  C001  push_int 124
+00000CCA  C001  push_int 14
+00000CD0  C001  push_int 50
+00000CD6  8121  giq_option
+          ; intelligence_option: list=368, message=124 | 终止传感器。, status=linked
+00000CD8  C001  push_int 6
+00000CDE  C001  push_int 368
+00000CE4  C001  push_int 125
+00000CEA  C001  push_int 14
+00000CF0  C001  push_int 50
+00000CF6  8121  giq_option
+          ; intelligence_option: list=368, message=125 | 终止病毒控制。, status=linked
+00000CF8  C001  push_int 6
+00000CFE  C001  push_int 368
+00000D04  C001  push_int 126
+00000D0A  C001  push_int 14
+00000D10  C001  push_int 50
+00000D16  8121  giq_option
+          ; intelligence_option: list=368, message=126 | 终止红心大战。, status=linked
+00000D18  C001  push_int 6
+00000D1E  C001  push_int 368
+00000D24  C001  push_int 127
+00000D2A  C001  push_int 44
+00000D30  C001  push_int 50
+00000D36  8121  giq_option
+          ; intelligence_option: list=368, message=127 | 谢谢。结束。, status=linked
+00000D38  C001  push_int 0
+00000D3E  800D  d_to_a
+00000D40  8019  swapa
+00000D42  802A  pop_to_base
+00000D44  8029  pop_base
+00000D46  800C  a_to_d
+00000D48  801C  pop_return
+00000D4A  802A  pop_to_base
+00000D4C  8029  pop_base
+00000D4E  801C  pop_return
+
+.procedure 14 Control07 offset=0x00000D50 size=200 args=0 flags=0x00000000
+00000D50  802B  push_base
+00000D52  C001  push_int 368
+00000D58  C001  push_int 128
+00000D5E  811E  gsay_reply
+          ; reply: list=368, message=128 | 尝试终止。【叮叮！】系统错误。终止请求失败。删除无效请求。, status=linked
+00000D60  C001  push_int 6
+00000D66  C001  push_int 368
+00000D6C  C001  push_int 129
+00000D72  C001  push_int 15
+00000D78  C001  push_int 50
+00000D7E  8121  giq_option
+          ; intelligence_option: list=368, message=129 | 呵呵，调整运转系统。, status=linked
+00000D80  C001  push_int 6
+00000D86  C001  push_int 368
+00000D8C  C001  push_int 130
+00000D92  C001  push_int 19
+00000D98  C001  push_int 50
+00000D9E  8121  giq_option
+          ; intelligence_option: list=368, message=130 | 调整传感器参数。, status=linked
+00000DA0  C001  push_int 6
+00000DA6  C001  push_int 368
+00000DAC  C001  push_int 131
+00000DB2  C001  push_int 22
+00000DB8  C001  push_int 50
+00000DBE  8121  giq_option
+          ; intelligence_option: list=368, message=131 | 修改病毒活体控制。, status=linked
+00000DC0  C001  push_int 6
+00000DC6  C001  push_int 368
+00000DCC  C001  push_int 132
+00000DD2  C001  push_int 28
+00000DD8  C001  push_int 50
+00000DDE  8121  giq_option
+          ; intelligence_option: list=368, message=132 | 启动红心大战。, status=linked
+00000DE0  C001  push_int 6
+00000DE6  C001  push_int 368
+00000DEC  C001  push_int 133
+00000DF2  C001  push_int 44
+00000DF8  C001  push_int 50
+00000DFE  8121  giq_option
+          ; intelligence_option: list=368, message=133 | 谢谢。结束操作。, status=linked
+00000E00  C001  push_int 0
+00000E06  800D  d_to_a
+00000E08  8019  swapa
+00000E0A  802A  pop_to_base
+00000E0C  8029  pop_base
+00000E0E  800C  a_to_d
+00000E10  801C  pop_return
+00000E12  802A  pop_to_base
+00000E14  8029  pop_base
+00000E16  801C  pop_return
+
+.procedure 15 Control08 offset=0x00000E18 size=136 args=0 flags=0x00000000
+00000E18  802B  push_base
+00000E1A  C001  push_int 368
+00000E20  C001  push_int 134
+00000E26  811E  gsay_reply
+          ; reply: list=368, message=134 | 当前请求：运转系统v4·8b。当前设置：【最大的、一半比率的、最小的】。可变成：最大的、一半比率的、最小的。, status=linked
+00000E28  C001  push_int 6
+00000E2E  C001  push_int 368
+00000E34  C001  push_int 135
+00000E3A  C001  push_int 16
+00000E40  C001  push_int 50
+00000E46  8121  giq_option
+          ; intelligence_option: list=368, message=135 | 最大运转。, status=linked
+00000E48  C001  push_int 6
+00000E4E  C001  push_int 368
+00000E54  C001  push_int 136
+00000E5A  C001  push_int 17
+00000E60  C001  push_int 50
+00000E66  8121  giq_option
+          ; intelligence_option: list=368, message=136 | 一半比率运转。, status=linked
+00000E68  C001  push_int 6
+00000E6E  C001  push_int 368
+00000E74  C001  push_int 137
+00000E7A  C001  push_int 18
+00000E80  C001  push_int 50
+00000E86  8121  giq_option
+          ; intelligence_option: list=368, message=137 | 最小运转。, status=linked
+00000E88  C001  push_int 0
+00000E8E  800D  d_to_a
+00000E90  8019  swapa
+00000E92  802A  pop_to_base
+00000E94  8029  pop_base
+00000E96  800C  a_to_d
+00000E98  801C  pop_return
+00000E9A  802A  pop_to_base
+00000E9C  8029  pop_base
+00000E9E  801C  pop_return
+
+.procedure 16 Control08a offset=0x00000EA0 size=64 args=0 flags=0x00000000
+00000EA0  802B  push_base
+00000EA2  C001  push_int 274
+00000EA8  C001  push_int 0
+00000EAE  80C6  set_global_var
+00000EB0  C001  push_int 3782
+00000EB6  800D  d_to_a
+00000EB8  C001  push_int 0
+00000EBE  C001  push_int 29
+00000EC4  8005  call
+00000EC6  801A  pop
+00000EC8  C001  push_int 0
+00000ECE  800D  d_to_a
+00000ED0  8019  swapa
+00000ED2  802A  pop_to_base
+00000ED4  8029  pop_base
+00000ED6  800C  a_to_d
+00000ED8  801C  pop_return
+00000EDA  802A  pop_to_base
+00000EDC  8029  pop_base
+00000EDE  801C  pop_return
+
+.procedure 17 Control08b offset=0x00000EE0 size=64 args=0 flags=0x00000000
+00000EE0  802B  push_base
+00000EE2  C001  push_int 274
+00000EE8  C001  push_int 1
+00000EEE  80C6  set_global_var
+00000EF0  C001  push_int 3846
+00000EF6  800D  d_to_a
+00000EF8  C001  push_int 0
+00000EFE  C001  push_int 29
+00000F04  8005  call
+00000F06  801A  pop
+00000F08  C001  push_int 0
+00000F0E  800D  d_to_a
+00000F10  8019  swapa
+00000F12  802A  pop_to_base
+00000F14  8029  pop_base
+00000F16  800C  a_to_d
+00000F18  801C  pop_return
+00000F1A  802A  pop_to_base
+00000F1C  8029  pop_base
+00000F1E  801C  pop_return
+
+.procedure 18 Control08c offset=0x00000F20 size=64 args=0 flags=0x00000000
+00000F20  802B  push_base
+00000F22  C001  push_int 274
+00000F28  C001  push_int 2
+00000F2E  80C6  set_global_var
+00000F30  C001  push_int 3910
+00000F36  800D  d_to_a
+00000F38  C001  push_int 0
+00000F3E  C001  push_int 29
+00000F44  8005  call
+00000F46  801A  pop
+00000F48  C001  push_int 0
+00000F4E  800D  d_to_a
+00000F50  8019  swapa
+00000F52  802A  pop_to_base
+00000F54  8029  pop_base
+00000F56  800C  a_to_d
+00000F58  801C  pop_return
+00000F5A  802A  pop_to_base
+00000F5C  8029  pop_base
+00000F5E  801C  pop_return
+
+.procedure 19 Control09 offset=0x00000F60 size=104 args=0 flags=0x00000000
+00000F60  802B  push_base
+00000F62  C001  push_int 368
+00000F68  C001  push_int 138
+00000F6E  811E  gsay_reply
+          ; reply: list=368, message=138 | 当前软件：感应器＇76。当前设置：【完整／最小】。可变为；完整或最小。, status=linked
+00000F70  C001  push_int 6
+00000F76  C001  push_int 368
+00000F7C  C001  push_int 139
+00000F82  C001  push_int 20
+00000F88  C001  push_int 50
+00000F8E  8121  giq_option
+          ; intelligence_option: list=368, message=139 | 完整传感器。, status=linked
+00000F90  C001  push_int 6
+00000F96  C001  push_int 368
+00000F9C  C001  push_int 140
+00000FA2  C001  push_int 21
+00000FA8  C001  push_int 50
+00000FAE  8121  giq_option
+          ; intelligence_option: list=368, message=140 | 最小传感器。, status=linked
+00000FB0  C001  push_int 0
+00000FB6  800D  d_to_a
+00000FB8  8019  swapa
+00000FBA  802A  pop_to_base
+00000FBC  8029  pop_base
+00000FBE  800C  a_to_d
+00000FC0  801C  pop_return
+00000FC2  802A  pop_to_base
+00000FC4  8029  pop_base
+00000FC6  801C  pop_return
+
+.procedure 20 Control09a offset=0x00000FC8 size=64 args=0 flags=0x00000000
+00000FC8  802B  push_base
+00000FCA  C001  push_int 275
+00000FD0  C001  push_int 0
+00000FD6  80C6  set_global_var
+00000FD8  C001  push_int 4078
+00000FDE  800D  d_to_a
+00000FE0  C001  push_int 0
+00000FE6  C001  push_int 29
+00000FEC  8005  call
+00000FEE  801A  pop
+00000FF0  C001  push_int 0
+00000FF6  800D  d_to_a
+00000FF8  8019  swapa
+00000FFA  802A  pop_to_base
+00000FFC  8029  pop_base
+00000FFE  800C  a_to_d
+00001000  801C  pop_return
+00001002  802A  pop_to_base
+00001004  8029  pop_base
+00001006  801C  pop_return
+
+.procedure 21 Control09b offset=0x00001008 size=64 args=0 flags=0x00000000
+00001008  802B  push_base
+0000100A  C001  push_int 275
+00001010  C001  push_int 1
+00001016  80C6  set_global_var
+00001018  C001  push_int 4142
+0000101E  800D  d_to_a
+00001020  C001  push_int 0
+00001026  C001  push_int 29
+0000102C  8005  call
+0000102E  801A  pop
+00001030  C001  push_int 0
+00001036  800D  d_to_a
+00001038  8019  swapa
+0000103A  802A  pop_to_base
+0000103C  8029  pop_base
+0000103E  800C  a_to_d
+00001040  801C  pop_return
+00001042  802A  pop_to_base
+00001044  8029  pop_base
+00001046  801C  pop_return
+
+.procedure 22 Control10 offset=0x00001048 size=200 args=0 flags=0x00000000
+00001048  802B  push_base
+0000104A  C001  push_int 368
+00001050  C001  push_int 141
+00001056  811E  gsay_reply
+          ; reply: list=368, message=141 | 当前请求：病毒活体控制系统v1·4。当前设置【叮叮！】未经认可活体。转换为：【叮叮！】所有的、空的、少量的活体、大量的活体、未认可的活体。, status=linked
+00001058  C001  push_int 6
+0000105E  C001  push_int 368
+00001064  C001  push_int 142
+0000106A  C001  push_int 23
+00001070  C001  push_int 50
+00001076  8121  giq_option
+          ; intelligence_option: list=368, message=142 | 全部病毒活体。, status=linked
+00001078  C001  push_int 6
+0000107E  C001  push_int 368
+00001084  C001  push_int 143
+0000108A  C001  push_int 24
+00001090  C001  push_int 50
+00001096  8121  giq_option
+          ; intelligence_option: list=368, message=143 | 没有病毒活体。, status=linked
+00001098  C001  push_int 6
+0000109E  C001  push_int 368
+000010A4  C001  push_int 144
+000010AA  C001  push_int 25
+000010B0  C001  push_int 50
+000010B6  8121  giq_option
+          ; intelligence_option: list=368, message=144 | 少量病毒活体。, status=linked
+000010B8  C001  push_int 6
+000010BE  C001  push_int 368
+000010C4  C001  push_int 145
+000010CA  C001  push_int 26
+000010D0  C001  push_int 50
+000010D6  8121  giq_option
+          ; intelligence_option: list=368, message=145 | 大量病毒活体。, status=linked
+000010D8  C001  push_int 6
+000010DE  C001  push_int 368
+000010E4  C001  push_int 146
+000010EA  C001  push_int 27
+000010F0  C001  push_int 50
+000010F6  8121  giq_option
+          ; intelligence_option: list=368, message=146 | 未经认可的病毒活体。, status=linked
+000010F8  C001  push_int 0
+000010FE  800D  d_to_a
+00001100  8019  swapa
+00001102  802A  pop_to_base
+00001104  8029  pop_base
+00001106  800C  a_to_d
+00001108  801C  pop_return
+0000110A  802A  pop_to_base
+0000110C  8029  pop_base
+0000110E  801C  pop_return
+
+.procedure 23 Control10a offset=0x00001110 size=64 args=0 flags=0x00000000
+00001110  802B  push_base
+00001112  C001  push_int 273
+00001118  C001  push_int 1
+0000111E  80C6  set_global_var
+00001120  C001  push_int 4406
+00001126  800D  d_to_a
+00001128  C001  push_int 0
+0000112E  C001  push_int 29
+00001134  8005  call
+00001136  801A  pop
+00001138  C001  push_int 0
+0000113E  800D  d_to_a
+00001140  8019  swapa
+00001142  802A  pop_to_base
+00001144  8029  pop_base
+00001146  800C  a_to_d
+00001148  801C  pop_return
+0000114A  802A  pop_to_base
+0000114C  8029  pop_base
+0000114E  801C  pop_return
+
+.procedure 24 Control10b offset=0x00001150 size=64 args=0 flags=0x00000000
+00001150  802B  push_base
+00001152  C001  push_int 273
+00001158  C001  push_int 4
+0000115E  80C6  set_global_var
+00001160  C001  push_int 4470
+00001166  800D  d_to_a
+00001168  C001  push_int 0
+0000116E  C001  push_int 29
+00001174  8005  call
+00001176  801A  pop
+00001178  C001  push_int 0
+0000117E  800D  d_to_a
+00001180  8019  swapa
+00001182  802A  pop_to_base
+00001184  8029  pop_base
+00001186  800C  a_to_d
+00001188  801C  pop_return
+0000118A  802A  pop_to_base
+0000118C  8029  pop_base
+0000118E  801C  pop_return
+
+.procedure 25 Control10c offset=0x00001190 size=64 args=0 flags=0x00000000
+00001190  802B  push_base
+00001192  C001  push_int 273
+00001198  C001  push_int 3
+0000119E  80C6  set_global_var
+000011A0  C001  push_int 4534
+000011A6  800D  d_to_a
+000011A8  C001  push_int 0
+000011AE  C001  push_int 29
+000011B4  8005  call
+000011B6  801A  pop
+000011B8  C001  push_int 0
+000011BE  800D  d_to_a
+000011C0  8019  swapa
+000011C2  802A  pop_to_base
+000011C4  8029  pop_base
+000011C6  800C  a_to_d
+000011C8  801C  pop_return
+000011CA  802A  pop_to_base
+000011CC  8029  pop_base
+000011CE  801C  pop_return
+
+.procedure 26 Control10d offset=0x000011D0 size=64 args=0 flags=0x00000000
+000011D0  802B  push_base
+000011D2  C001  push_int 273
+000011D8  C001  push_int 2
+000011DE  80C6  set_global_var
+000011E0  C001  push_int 4598
+000011E6  800D  d_to_a
+000011E8  C001  push_int 0
+000011EE  C001  push_int 29
+000011F4  8005  call
+000011F6  801A  pop
+000011F8  C001  push_int 0
+000011FE  800D  d_to_a
+00001200  8019  swapa
+00001202  802A  pop_to_base
+00001204  8029  pop_base
+00001206  800C  a_to_d
+00001208  801C  pop_return
+0000120A  802A  pop_to_base
+0000120C  8029  pop_base
+0000120E  801C  pop_return
+
+.procedure 27 Control10e offset=0x00001210 size=64 args=0 flags=0x00000000
+00001210  802B  push_base
+00001212  C001  push_int 273
+00001218  C001  push_int 0
+0000121E  80C6  set_global_var
+00001220  C001  push_int 4662
+00001226  800D  d_to_a
+00001228  C001  push_int 0
+0000122E  C001  push_int 29
+00001234  8005  call
+00001236  801A  pop
+00001238  C001  push_int 0
+0000123E  800D  d_to_a
+00001240  8019  swapa
+00001242  802A  pop_to_base
+00001244  8029  pop_base
+00001246  800C  a_to_d
+00001248  801C  pop_return
+0000124A  802A  pop_to_base
+0000124C  8029  pop_base
+0000124E  801C  pop_return
+
+.procedure 28 Control11 offset=0x00001250 size=220 args=0 flags=0x00000000
+00001250  802B  push_base
+00001252  C001  push_int 4
+00001258  C001  push_int 10
+0000125E  803B  mul
+00001260  C001  push_int 1
+00001266  8013  store_global
+00001268  C001  push_int 4750
+0000126E  C001  push_int 1
+00001274  8012  fetch_global
+00001276  C001  push_int 5
+0000127C  8037  less
+0000127E  802F  if
+00001280  C001  push_int 5
+00001286  C001  push_int 1
+0000128C  8013  store_global
+0000128E  C001  push_int 4788
+00001294  C001  push_int 1
+0000129A  8012  fetch_global
+0000129C  C001  push_int 95
+000012A2  8038  greater
+000012A4  802F  if
+000012A6  C001  push_int 95
+000012AC  C001  push_int 1
+000012B2  8013  store_global
+000012B4  C001  push_int 1
+000012BA  C001  push_int 100
+000012C0  80B4  random
+000012C2  C001  push_int 0
+000012C8  8013  store_global
+000012CA  C001  push_int 4864
+000012D0  C001  push_int 0
+000012D6  8012  fetch_global
+000012D8  C001  push_int 1
+000012DE  8012  fetch_global
+000012E0  8037  less
+000012E2  802F  if
+000012E4  C001  push_int 368
+000012EA  C001  push_int 147
+000012F0  C001  push_int 50
+000012F6  8120  gsay_message
+          ; message: list=368, message=147 | 红心大战正在运行。玩家胜利。【叮叮！】感谢您玩本游戏。, status=linked
+000012F8  C001  push_int 4884
+000012FE  8004  jump
+00001300  C001  push_int 368
+00001306  C001  push_int 148
+0000130C  C001  push_int 50
+00001312  8120  gsay_message
+          ; message: list=368, message=148 | 红心大战正在运行。系统胜利。【叮叮！】感谢您玩本游戏。, status=linked
+00001314  C001  push_int 0
+0000131A  800D  d_to_a
+0000131C  8019  swapa
+0000131E  802A  pop_to_base
+00001320  8029  pop_base
+00001322  800C  a_to_d
+00001324  801C  pop_return
+00001326  802A  pop_to_base
+00001328  8029  pop_base
+0000132A  801C  pop_return
+
+.procedure 29 Control12 offset=0x0000132C size=200 args=0 flags=0x00000000
+0000132C  802B  push_base
+0000132E  C001  push_int 368
+00001334  C001  push_int 149
+0000133A  811E  gsay_reply
+          ; reply: list=368, message=149 | 程序参数改变。当前软件是：设备维护v2．1，运转系统v4．8b，修理系统v0．8，病毒控制系统v1．4，红心大战v1．0，传感器＇76, status=linked
+0000133C  C001  push_int 6
+00001342  C001  push_int 368
+00001348  C001  push_int 150
+0000134E  C001  push_int 15
+00001354  C001  push_int 50
+0000135A  8121  giq_option
+          ; intelligence_option: list=368, message=150 | 调整运转系统参数。, status=linked
+0000135C  C001  push_int 6
+00001362  C001  push_int 368
+00001368  C001  push_int 151
+0000136E  C001  push_int 19
+00001374  C001  push_int 50
+0000137A  8121  giq_option
+          ; intelligence_option: list=368, message=151 | 调整传感器参数。, status=linked
+0000137C  C001  push_int 6
+00001382  C001  push_int 368
+00001388  C001  push_int 152
+0000138E  C001  push_int 22
+00001394  C001  push_int 50
+0000139A  8121  giq_option
+          ; intelligence_option: list=368, message=152 | 修改病毒活体控制。, status=linked
+0000139C  C001  push_int 6
+000013A2  C001  push_int 368
+000013A8  C001  push_int 153
+000013AE  C001  push_int 28
+000013B4  C001  push_int 50
+000013BA  8121  giq_option
+          ; intelligence_option: list=368, message=153 | 启动红心大战。, status=linked
+000013BC  C001  push_int 6
+000013C2  C001  push_int 368
+000013C8  C001  push_int 154
+000013CE  C001  push_int 44
+000013D4  C001  push_int 50
+000013DA  8121  giq_option
+          ; intelligence_option: list=368, message=154 | 谢谢。结束输入。, status=linked
+000013DC  C001  push_int 0
+000013E2  800D  d_to_a
+000013E4  8019  swapa
+000013E6  802A  pop_to_base
+000013E8  8029  pop_base
+000013EA  800C  a_to_d
+000013EC  801C  pop_return
+000013EE  802A  pop_to_base
+000013F0  8029  pop_base
+000013F2  801C  pop_return
+
+.procedure 30 Control13 offset=0x000013F4 size=200 args=0 flags=0x00000000
+000013F4  802B  push_base
+000013F6  C001  push_int 368
+000013FC  C001  push_int 155
+00001402  811E  gsay_reply
+          ; reply: list=368, message=155 | 当前软件是：设备维护v2．1，运转系统v4．8b，修理系统v0．8，病毒控制系统v1．4，红心大战v1．0，传感器＇76, status=linked
+00001404  C001  push_int 6
+0000140A  C001  push_int 368
+00001410  C001  push_int 156
+00001416  C001  push_int 15
+0000141C  C001  push_int 50
+00001422  8121  giq_option
+          ; intelligence_option: list=368, message=156 | 调整运转系统参数。, status=linked
+00001424  C001  push_int 6
+0000142A  C001  push_int 368
+00001430  C001  push_int 157
+00001436  C001  push_int 19
+0000143C  C001  push_int 50
+00001442  8121  giq_option
+          ; intelligence_option: list=368, message=157 | 调整传感器参数。, status=linked
+00001444  C001  push_int 6
+0000144A  C001  push_int 368
+00001450  C001  push_int 158
+00001456  C001  push_int 22
+0000145C  C001  push_int 50
+00001462  8121  giq_option
+          ; intelligence_option: list=368, message=158 | 修改病毒控制。, status=linked
+00001464  C001  push_int 6
+0000146A  C001  push_int 368
+00001470  C001  push_int 159
+00001476  C001  push_int 28
+0000147C  C001  push_int 50
+00001482  8121  giq_option
+          ; intelligence_option: list=368, message=159 | 启动红心大战。, status=linked
+00001484  C001  push_int 6
+0000148A  C001  push_int 368
+00001490  C001  push_int 160
+00001496  C001  push_int 44
+0000149C  C001  push_int 50
+000014A2  8121  giq_option
+          ; intelligence_option: list=368, message=160 | 谢谢。结束。, status=linked
+000014A4  C001  push_int 0
+000014AA  800D  d_to_a
+000014AC  8019  swapa
+000014AE  802A  pop_to_base
+000014B0  8029  pop_base
+000014B2  800C  a_to_d
+000014B4  801C  pop_return
+000014B6  802A  pop_to_base
+000014B8  8029  pop_base
+000014BA  801C  pop_return
+
+.procedure 31 Control14 offset=0x000014BC size=266 args=0 flags=0x00000000
+000014BC  802B  push_base
+000014BE  C001  push_int 368
+000014C4  C001  push_int 161
+000014CA  811E  gsay_reply
+          ; reply: list=368, message=161 | 正在初始化声音通讯子系统。正在初始化个体子系统。【叮叮！】你需要什么帮助？, status=linked
+000014CC  C001  push_int 3
+000014D2  8046  negate
+000014D4  C001  push_int 368
+000014DA  C001  push_int 103
+000014E0  C001  push_int 8
+000014E6  C001  push_int 50
+000014EC  8121  giq_option
+          ; intelligence_option: list=368, message=103 | 呼。, status=linked
+000014EE  C001  push_int 4
+000014F4  C001  push_int 368
+000014FA  C001  push_int 162
+00001500  C001  push_int 10
+00001506  C001  push_int 50
+0000150C  8121  giq_option
+          ; intelligence_option: list=368, message=162 | 呼。, status=linked
+0000150E  C001  push_int 6
+00001514  C001  push_int 368
+0000151A  C001  push_int 163
+00001520  C001  push_int 30
+00001526  C001  push_int 50
+0000152C  8121  giq_option
+          ; intelligence_option: list=368, message=163 | 显示你的程序。, status=linked
+0000152E  C001  push_int 6
+00001534  C001  push_int 368
+0000153A  C001  push_int 164
+00001540  C001  push_int 32
+00001546  C001  push_int 50
+0000154C  8121  giq_option
+          ; intelligence_option: list=368, message=164 | 关闭所有力场。, status=linked
+0000154E  C001  push_int 6
+00001554  C001  push_int 368
+0000155A  C001  push_int 165
+00001560  C001  push_int 33
+00001566  C001  push_int 50
+0000156C  8121  giq_option
+          ; intelligence_option: list=368, message=165 | 你知道这是什么地方吗？, status=linked
+0000156E  C001  push_int 6
+00001574  C001  push_int 368
+0000157A  C001  push_int 166
+00001580  C001  push_int 41
+00001586  C001  push_int 50
+0000158C  8121  giq_option
+          ; intelligence_option: list=368, message=166 | 启动紧急关闭程序。, status=linked
+0000158E  C001  push_int 6
+00001594  C001  push_int 368
+0000159A  C001  push_int 167
+000015A0  C001  push_int 44
+000015A6  C001  push_int 50
+000015AC  8121  giq_option
+          ; intelligence_option: list=368, message=167 | 结束。, status=linked
+000015AE  C001  push_int 0
+000015B4  800D  d_to_a
+000015B6  8019  swapa
+000015B8  802A  pop_to_base
+000015BA  8029  pop_base
+000015BC  800C  a_to_d
+000015BE  801C  pop_return
+000015C0  802A  pop_to_base
+000015C2  8029  pop_base
+000015C4  801C  pop_return
+
+.procedure 32 Control15 offset=0x000015C6 size=168 args=0 flags=0x00000000
+000015C6  802B  push_base
+000015C8  C001  push_int 368
+000015CE  C001  push_int 168
+000015D4  811E  gsay_reply
+          ; reply: list=368, message=168 | 这个终端不能执行那个功能。请求被拒绝。, status=linked
+000015D6  C001  push_int 6
+000015DC  C001  push_int 368
+000015E2  C001  push_int 169
+000015E8  C001  push_int 30
+000015EE  C001  push_int 50
+000015F4  8121  giq_option
+          ; intelligence_option: list=368, message=169 | 显示你的程序。, status=linked
+000015F6  C001  push_int 6
+000015FC  C001  push_int 368
+00001602  C001  push_int 170
+00001608  C001  push_int 33
+0000160E  C001  push_int 50
+00001614  8121  giq_option
+          ; intelligence_option: list=368, message=170 | 你知道这是什么地方吗？, status=linked
+00001616  C001  push_int 6
+0000161C  C001  push_int 368
+00001622  C001  push_int 171
+00001628  C001  push_int 41
+0000162E  C001  push_int 50
+00001634  8121  giq_option
+          ; intelligence_option: list=368, message=171 | 启动紧急关闭程序。, status=linked
+00001636  C001  push_int 6
+0000163C  C001  push_int 368
+00001642  C001  push_int 172
+00001648  C001  push_int 44
+0000164E  C001  push_int 50
+00001654  8121  giq_option
+          ; intelligence_option: list=368, message=172 | 结束。, status=linked
+00001656  C001  push_int 0
+0000165C  800D  d_to_a
+0000165E  8019  swapa
+00001660  802A  pop_to_base
+00001662  8029  pop_base
+00001664  800C  a_to_d
+00001666  801C  pop_return
+00001668  802A  pop_to_base
+0000166A  8029  pop_base
+0000166C  801C  pop_return
+
+.procedure 33 Control16 offset=0x0000166E size=104 args=0 flags=0x00000000
+0000166E  802B  push_base
+00001670  C001  push_int 368
+00001676  C001  push_int 173
+0000167C  811E  gsay_reply
+          ; reply: list=368, message=173 | 这是——机密【叮叮！】【叮叮！】, status=linked
+0000167E  C001  push_int 6
+00001684  C001  push_int 368
+0000168A  C001  push_int 174
+00001690  C001  push_int 30
+00001696  C001  push_int 50
+0000169C  8121  giq_option
+          ; intelligence_option: list=368, message=174 | 终止请求，显示程序。, status=linked
+0000169E  C001  push_int 6
+000016A4  C001  push_int 368
+000016AA  C001  push_int 175
+000016B0  C001  push_int 34
+000016B6  C001  push_int 50
+000016BC  8121  giq_option
+          ; intelligence_option: list=368, message=175 | 覆盖，继续请求。, status=linked
+000016BE  C001  push_int 0
+000016C4  800D  d_to_a
+000016C6  8019  swapa
+000016C8  802A  pop_to_base
+000016CA  8029  pop_base
+000016CC  800C  a_to_d
+000016CE  801C  pop_return
+000016D0  802A  pop_to_base
+000016D2  8029  pop_base
+000016D4  801C  pop_return
+
+.procedure 34 Control16a offset=0x000016D6 size=108 args=0 flags=0x00000000
+000016D6  802B  push_base
+000016D8  C001  push_int 5906
+000016DE  80BF  dude_obj
+000016E0  C001  push_int 12
+000016E6  C001  push_int 0
+000016EC  80AC  op_80ac
+000016EE  80AF  op_80af
+000016F0  802F  if
+000016F2  C001  push_int 5896
+000016F8  800D  d_to_a
+000016FA  C001  push_int 0
+00001700  C001  push_int 35
+00001706  8005  call
+00001708  801A  pop
+0000170A  C001  push_int 5930
+00001710  8004  jump
+00001712  C001  push_int 5928
+00001718  800D  d_to_a
+0000171A  C001  push_int 0
+00001720  C001  push_int 40
+00001726  8005  call
+00001728  801A  pop
+0000172A  C001  push_int 0
+00001730  800D  d_to_a
+00001732  8019  swapa
+00001734  802A  pop_to_base
+00001736  8029  pop_base
+00001738  800C  a_to_d
+0000173A  801C  pop_return
+0000173C  802A  pop_to_base
+0000173E  8029  pop_base
+00001740  801C  pop_return
+
+.procedure 35 Control17 offset=0x00001742 size=104 args=0 flags=0x00000000
+00001742  802B  push_base
+00001744  C001  push_int 368
+0000174A  C001  push_int 176
+00001750  811E  gsay_reply
+          ; reply: list=368, message=176 | 【叮叮！】本终端在启动于2074，最近一次试生产于2075，目前正在调试，最终将于2078正式投入生产【叮叮！】, status=linked
+00001752  C001  push_int 6
+00001758  C001  push_int 368
+0000175E  C001  push_int 177
+00001764  C001  push_int 36
+0000176A  C001  push_int 50
+00001770  8121  giq_option
+          ; intelligence_option: list=368, message=177 | 什么是FEV？, status=linked
+00001772  C001  push_int 6
+00001778  C001  push_int 368
+0000177E  C001  push_int 178
+00001784  C001  push_int 37
+0000178A  C001  push_int 50
+00001790  8121  giq_option
+          ; intelligence_option: list=368, message=178 | 你知道日期吗？, status=linked
+00001792  C001  push_int 0
+00001798  800D  d_to_a
+0000179A  8019  swapa
+0000179C  802A  pop_to_base
+0000179E  8029  pop_base
+000017A0  800C  a_to_d
+000017A2  801C  pop_return
+000017A4  802A  pop_to_base
+000017A6  8029  pop_base
+000017A8  801C  pop_return
+
+.procedure 36 Control18 offset=0x000017AA size=104 args=0 flags=0x00000000
+000017AA  802B  push_base
+000017AC  C001  push_int 368
+000017B2  C001  push_int 179
+000017B8  811E  gsay_reply
+          ; reply: list=368, message=179 | FEV是被强行【叮叮！】进化的病毒，产自雷蒙莫／布朗讯实验室。它的功能是短时间迅速改变基因／核糖核酸的排列顺序。, status=linked
+000017BA  C001  push_int 6
+000017C0  C001  push_int 368
+000017C6  C001  push_int 180
+000017CC  C001  push_int 30
+000017D2  C001  push_int 50
+000017D8  8121  giq_option
+          ; intelligence_option: list=368, message=180 | 显示程序。, status=linked
+000017DA  C001  push_int 6
+000017E0  C001  push_int 368
+000017E6  C001  push_int 181
+000017EC  C001  push_int 44
+000017F2  C001  push_int 50
+000017F8  8121  giq_option
+          ; intelligence_option: list=368, message=181 | 结束。, status=linked
+000017FA  C001  push_int 0
+00001800  800D  d_to_a
+00001802  8019  swapa
+00001804  802A  pop_to_base
+00001806  8029  pop_base
+00001808  800C  a_to_d
+0000180A  801C  pop_return
+0000180C  802A  pop_to_base
+0000180E  8029  pop_base
+00001810  801C  pop_return
+
+.procedure 37 Control19 offset=0x00001812 size=136 args=0 flags=0x00000000
+00001812  802B  push_base
+00001814  C001  push_int 368
+0000181A  C001  push_int 182
+00001820  811E  gsay_reply
+          ; reply: list=368, message=182 | 确定。终端的日期是2077年2月2日。, status=linked
+00001822  C001  push_int 6
+00001828  C001  push_int 368
+0000182E  C001  push_int 183
+00001834  C001  push_int 30
+0000183A  C001  push_int 50
+00001840  8121  giq_option
+          ; intelligence_option: list=368, message=183 | 显示程序。, status=linked
+00001842  C001  push_int 6
+00001848  C001  push_int 368
+0000184E  C001  push_int 184
+00001854  C001  push_int 44
+0000185A  C001  push_int 50
+00001860  8121  giq_option
+          ; intelligence_option: list=368, message=184 | 结束。, status=linked
+00001862  C001  push_int 6
+00001868  C001  push_int 368
+0000186E  C001  push_int 185
+00001874  C001  push_int 38
+0000187A  C001  push_int 50
+00001880  8121  giq_option
+          ; intelligence_option: list=368, message=185 | 日期错误。请重新核对。, status=linked
+00001882  C001  push_int 0
+00001888  800D  d_to_a
+0000188A  8019  swapa
+0000188C  802A  pop_to_base
+0000188E  8029  pop_base
+00001890  800C  a_to_d
+00001892  801C  pop_return
+00001894  802A  pop_to_base
+00001896  8029  pop_base
+00001898  801C  pop_return
+
+.procedure 38 Control20 offset=0x0000189A size=72 args=0 flags=0x00000000
+0000189A  802B  push_base
+0000189C  C001  push_int 368
+000018A2  C001  push_int 186
+000018A8  811E  gsay_reply
+          ; reply: list=368, message=186 | 警告。【叮叮！】错误。正在尝试自测试。【叮叮！叮叮！】错误！致命系统错误。系统崩溃，尝试终止。【死机。】, status=linked
+000018AA  C001  push_int 6
+000018B0  C001  push_int 368
+000018B6  C001  push_int 187
+000018BC  C001  push_int 39
+000018C2  C001  push_int 50
+000018C8  8121  giq_option
+          ; intelligence_option: list=368, message=187 | 终端？, status=linked
+000018CA  C001  push_int 0
+000018D0  800D  d_to_a
+000018D2  8019  swapa
+000018D4  802A  pop_to_base
+000018D6  8029  pop_base
+000018D8  800C  a_to_d
+000018DA  801C  pop_return
+000018DC  802A  pop_to_base
+000018DE  8029  pop_base
+000018E0  801C  pop_return
+
+.procedure 39 Control21 offset=0x000018E2 size=60 args=0 flags=0x00000000
+000018E2  802B  push_base
+000018E4  C001  push_int 0
+000018EA  C001  push_int 1
+000018F0  80C2  set_local_var
+000018F2  C001  push_int 368
+000018F8  C001  push_int 188
+000018FE  C001  push_int 50
+00001904  8120  gsay_message
+          ; message: list=368, message=188 | 【叮叮】重新启动错误……【叮叮】, status=linked
+00001906  C001  push_int 0
+0000190C  800D  d_to_a
+0000190E  8019  swapa
+00001910  802A  pop_to_base
+00001912  8029  pop_base
+00001914  800C  a_to_d
+00001916  801C  pop_return
+00001918  802A  pop_to_base
+0000191A  8029  pop_base
+0000191C  801C  pop_return
+
+.procedure 40 Control22 offset=0x0000191E size=46 args=0 flags=0x00000000
+0000191E  802B  push_base
+00001920  C001  push_int 368
+00001926  C001  push_int 189
+0000192C  C001  push_int 50
+00001932  8120  gsay_message
+          ; message: list=368, message=189 | 无法处理请求。结束对话。, status=linked
+00001934  C001  push_int 0
+0000193A  800D  d_to_a
+0000193C  8019  swapa
+0000193E  802A  pop_to_base
+00001940  8029  pop_base
+00001942  800C  a_to_d
+00001944  801C  pop_return
+00001946  802A  pop_to_base
+00001948  8029  pop_base
+0000194A  801C  pop_return
+
+.procedure 41 Control23 offset=0x0000194C size=104 args=0 flags=0x00000000
+0000194C  802B  push_base
+0000194E  C001  push_int 368
+00001954  C001  push_int 190
+0000195A  811E  gsay_reply
+          ; reply: list=368, message=190 | 确认紧急口令。, status=linked
+0000195C  C001  push_int 6
+00001962  C001  push_int 368
+00001968  C001  push_int 191
+0000196E  C001  push_int 42
+00001974  C001  push_int 50
+0000197A  8121  giq_option
+          ; intelligence_option: list=368, message=191 | 确定。, status=linked
+0000197C  C001  push_int 6
+00001982  C001  push_int 368
+00001988  C001  push_int 192
+0000198E  C001  push_int 43
+00001994  C001  push_int 50
+0000199A  8121  giq_option
+          ; intelligence_option: list=368, message=192 | 终止关闭程序。, status=linked
+0000199C  C001  push_int 0
+000019A2  800D  d_to_a
+000019A4  8019  swapa
+000019A6  802A  pop_to_base
+000019A8  8029  pop_base
+000019AA  800C  a_to_d
+000019AC  801C  pop_return
+000019AE  802A  pop_to_base
+000019B0  8029  pop_base
+000019B2  801C  pop_return
+
+.procedure 42 Control24 offset=0x000019B4 size=60 args=0 flags=0x00000000
+000019B4  802B  push_base
+000019B6  C001  push_int 0
+000019BC  C001  push_int 1
+000019C2  80C2  set_local_var
+000019C4  C001  push_int 368
+000019CA  C001  push_int 193
+000019D0  C001  push_int 50
+000019D6  8120  gsay_message
+          ; message: list=368, message=193 | 【叮叮！】, status=linked
+000019D8  C001  push_int 0
+000019DE  800D  d_to_a
+000019E0  8019  swapa
+000019E2  802A  pop_to_base
+000019E4  8029  pop_base
+000019E6  800C  a_to_d
+000019E8  801C  pop_return
+000019EA  802A  pop_to_base
+000019EC  8029  pop_base
+000019EE  801C  pop_return
+
+.procedure 43 Control25 offset=0x000019F0 size=46 args=0 flags=0x00000000
+000019F0  802B  push_base
+000019F2  C001  push_int 368
+000019F8  C001  push_int 194
+000019FE  C001  push_int 50
+00001A04  8120  gsay_message
+          ; message: list=368, message=194 | 正在处理请求。正在访问终端。, status=linked
+00001A06  C001  push_int 0
+00001A0C  800D  d_to_a
+00001A0E  8019  swapa
+00001A10  802A  pop_to_base
+00001A12  8029  pop_base
+00001A14  800C  a_to_d
+00001A16  801C  pop_return
+00001A18  802A  pop_to_base
+00001A1A  8029  pop_base
+00001A1C  801C  pop_return
+
+.procedure 44 Controlend offset=0x00001A1E size=26 args=0 flags=0x00000000
+00001A1E  802B  push_base
+00001A20  C001  push_int 0
+00001A26  800D  d_to_a
+00001A28  8019  swapa
+00001A2A  802A  pop_to_base
+00001A2C  8029  pop_base
+00001A2E  800C  a_to_d
+00001A30  801C  pop_return
+00001A32  802A  pop_to_base
+00001A34  8029  pop_base
+00001A36  801C  pop_return
