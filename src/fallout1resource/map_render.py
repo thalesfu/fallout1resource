@@ -1837,6 +1837,7 @@ def _critter_name_labels(
     ):
         raise MapRenderError("critter script name translations must be non-empty strings")
     script_lookup = {name.casefold(): value for name, value in script_names.items()}
+    bilingual_lookup = {name.casefold(): value for name, value in bilingual_names.items()}
     message_names = {
         entry.number: entry.text
         for entry in names_message.entries
@@ -1904,7 +1905,7 @@ def _critter_name_labels(
                 prototype_list_index=prototype_index,
                 source_name=source_name,
                 chinese_name=translated_name,
-                english_name=bilingual_names.get(source_name),
+                english_name=bilingual_lookup.get(source_name.casefold()),
                 name_source=name_source,
                 script_filename=script_filename,
                 target_x=target_x,

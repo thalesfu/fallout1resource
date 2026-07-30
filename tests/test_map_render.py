@@ -823,7 +823,7 @@ class CritterRenderTests(ItemRenderTests):
                     "schema_version": 1,
                     "locale": "zh-CN",
                     "prototype_names": {"Person": "人物", "Missing": "缺图人物"},
-                    "bilingual_names": {"Person": "Person"},
+                    "bilingual_names": {"person": "Person"},
                     "script_names": {"Person.int": "人物甲"},
                 },
                 ensure_ascii=False,

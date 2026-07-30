@@ -274,6 +274,8 @@ python -m fallout1resource render-map-critters `
 
 名称来源、英文原名、中文译名、对象 ID、地图格位、标签框位置、容器库存明细和字体 SHA-256 均写入元数据。两种轮廓不会覆盖物品或人物自身的原始像素。命令不运行移动、动画或人物脚本，也不添加运行时玩家角色；缺失的原始人物素材会记录在元数据中而不使用其他造型替换。后续计划依次加入可开关屋顶层、阻挡格与出口调试层、环境光及知识库标注。HUBOLDTN 尚有 776 块有效屋顶地砖，以及 739 个不进入正常美术合成的阻挡格或出口控制对象；详细边界与实施顺序见 `docs/map-rendering.md`。
 
+批量处理哈勃城其他区域时，可将上例中的地图名和楼层替换为 `HUBENT/0`、`HUBDWNTN/0`、`HUBDWNTN/1`、`HUBHEIGT/0`、`HUBWATER/0` 或 `HUBMIS1/0`，并把两项译名参数改为共享的 `config/hub-critter-names.zh-CN.json` 与 `config/hub-item-names.zh-CN.json`。共享配置覆盖这些地图的全部人物、脚本专名、物品和容器库存名称；各区域的实测数量、缺图记录和最终哈希见 `docs/map-rendering.md`。
+
 ## ACM 音频转换
 
 `convert-acm` 以只读方式校验并解码 Interplay ACM，输出标准 16 位小端 PCM WAV：
