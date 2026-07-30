@@ -60,14 +60,23 @@ from .map_batch import (
 from .map_file import MapFormatError, load_map, map_output_paths, map_summary, write_map_export
 from .map_render import (
     MapRenderError,
+    build_critter_render_plan,
     build_door_render_plan,
     build_floor_render_plan,
+    build_item_render_plan,
+    build_scenery_render_plan,
     build_wall_render_plan,
+    critter_render_summary,
     door_render_summary,
     floor_render_summary,
+    item_render_summary,
+    scenery_render_summary,
     wall_render_summary,
+    write_critter_render,
     write_door_render,
     write_floor_render,
+    write_item_render,
+    write_scenery_render,
     write_wall_render,
 )
 from .msg import MsgFormatError, load_msg, msg_output_paths, msg_summary, write_msg_export
@@ -393,6 +402,164 @@ def _parser() -> argparse.ArgumentParser:
         "--execute", action="store_true", help="write door PNGs, metadata, and checksum"
     )
     render_map_doors.add_argument(
+        "--overwrite", action="store_true", help="atomically replace existing render outputs"
+    )
+
+    render_map_scenery = subparsers.add_parser(
+        "render-map-scenery",
+        help="compose non-door scenery and game-ordered pre-roof MAP layers",
+    )
+    render_map_scenery.add_argument(
+        "--map-json", type=Path, required=True, help="read-only structured MAP JSON"
+    )
+    render_map_scenery.add_argument(
+        "--tiles-list", type=Path, required=True, help="read-only ART/TILES/TILES.LST"
+    )
+    render_map_scenery.add_argument(
+        "--tiles-dir", type=Path, required=True, help="read-only ART/TILES directory"
+    )
+    render_map_scenery.add_argument(
+        "--walls-list", type=Path, required=True, help="read-only ART/WALLS/WALLS.LST"
+    )
+    render_map_scenery.add_argument(
+        "--walls-dir", type=Path, required=True, help="read-only ART/WALLS directory"
+    )
+    render_map_scenery.add_argument(
+        "--scenery-list", type=Path, required=True, help="read-only ART/SCENERY/SCENERY.LST"
+    )
+    render_map_scenery.add_argument(
+        "--scenery-dir", type=Path, required=True, help="read-only ART/SCENERY directory"
+    )
+    render_map_scenery.add_argument(
+        "--palette", type=Path, required=True, help="read-only Fallout PAL color table"
+    )
+    render_map_scenery.add_argument("--elevation", type=int, default=0, choices=range(3))
+    render_map_scenery.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    render_map_scenery.add_argument("--output", type=Path, help="metadata JSON below workspace")
+    render_map_scenery.add_argument(
+        "--execute", action="store_true", help="write scenery PNGs, metadata, and checksum"
+    )
+    render_map_scenery.add_argument(
+        "--overwrite", action="store_true", help="atomically replace existing render outputs"
+    )
+
+    render_map_items = subparsers.add_parser(
+        "render-map-items",
+        help="compose top-level items and game-ordered pre-roof MAP layers",
+    )
+    render_map_items.add_argument(
+        "--map-json", type=Path, required=True, help="read-only structured MAP JSON"
+    )
+    render_map_items.add_argument(
+        "--tiles-list", type=Path, required=True, help="read-only ART/TILES/TILES.LST"
+    )
+    render_map_items.add_argument(
+        "--tiles-dir", type=Path, required=True, help="read-only ART/TILES directory"
+    )
+    render_map_items.add_argument(
+        "--walls-list", type=Path, required=True, help="read-only ART/WALLS/WALLS.LST"
+    )
+    render_map_items.add_argument(
+        "--walls-dir", type=Path, required=True, help="read-only ART/WALLS directory"
+    )
+    render_map_items.add_argument(
+        "--scenery-list", type=Path, required=True, help="read-only ART/SCENERY/SCENERY.LST"
+    )
+    render_map_items.add_argument(
+        "--scenery-dir", type=Path, required=True, help="read-only ART/SCENERY directory"
+    )
+    render_map_items.add_argument(
+        "--items-list", type=Path, required=True, help="read-only ART/ITEMS/ITEMS.LST"
+    )
+    render_map_items.add_argument(
+        "--items-dir", type=Path, required=True, help="read-only ART/ITEMS directory"
+    )
+    render_map_items.add_argument(
+        "--palette", type=Path, required=True, help="read-only Fallout PAL color table"
+    )
+    render_map_items.add_argument("--elevation", type=int, default=0, choices=range(3))
+    render_map_items.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    render_map_items.add_argument("--output", type=Path, help="metadata JSON below workspace")
+    render_map_items.add_argument(
+        "--execute", action="store_true", help="write item PNGs, metadata, and checksum"
+    )
+    render_map_items.add_argument(
+        "--overwrite", action="store_true", help="atomically replace existing render outputs"
+    )
+
+    render_map_critters = subparsers.add_parser(
+        "render-map-critters",
+        help="compose saved critters and game-ordered static MAP layers",
+    )
+    render_map_critters.add_argument(
+        "--map-json", type=Path, required=True, help="read-only structured MAP JSON"
+    )
+    render_map_critters.add_argument(
+        "--tiles-list", type=Path, required=True, help="read-only ART/TILES/TILES.LST"
+    )
+    render_map_critters.add_argument(
+        "--tiles-dir", type=Path, required=True, help="read-only ART/TILES directory"
+    )
+    render_map_critters.add_argument(
+        "--walls-list", type=Path, required=True, help="read-only ART/WALLS/WALLS.LST"
+    )
+    render_map_critters.add_argument(
+        "--walls-dir", type=Path, required=True, help="read-only ART/WALLS directory"
+    )
+    render_map_critters.add_argument(
+        "--scenery-list", type=Path, required=True, help="read-only ART/SCENERY/SCENERY.LST"
+    )
+    render_map_critters.add_argument(
+        "--scenery-dir", type=Path, required=True, help="read-only ART/SCENERY directory"
+    )
+    render_map_critters.add_argument(
+        "--items-list", type=Path, required=True, help="read-only ART/ITEMS/ITEMS.LST"
+    )
+    render_map_critters.add_argument(
+        "--items-dir", type=Path, required=True, help="read-only ART/ITEMS directory"
+    )
+    render_map_critters.add_argument(
+        "--critters-list", type=Path, required=True, help="read-only ART/CRITTERS/CRITTERS.LST"
+    )
+    render_map_critters.add_argument(
+        "--critters-dir", type=Path, required=True, help="read-only ART/CRITTERS directory"
+    )
+    render_map_critters.add_argument(
+        "--critter-names-msg",
+        type=Path,
+        help="read-only TEXT/ENGLISH/GAME/PRO_CRIT.MSG used to extract display names",
+    )
+    render_map_critters.add_argument(
+        "--critter-name-translations",
+        type=Path,
+        help="read-only JSON mapping extracted critter names to Chinese",
+    )
+    render_map_critters.add_argument(
+        "--item-names-msg",
+        type=Path,
+        help="read-only TEXT/ENGLISH/GAME/PRO_ITEM.MSG used to extract item names",
+    )
+    render_map_critters.add_argument(
+        "--item-name-translations",
+        type=Path,
+        help="read-only JSON mapping extracted item names to Chinese",
+    )
+    render_map_critters.add_argument(
+        "--label-font", type=Path, help="read-only TrueType/OpenType font with Chinese glyphs"
+    )
+    render_map_critters.add_argument(
+        "--label-font-size", type=int, default=28, help="name label size in pixels (8-96)"
+    )
+    render_map_critters.add_argument(
+        "--palette", type=Path, required=True, help="read-only Fallout PAL color table"
+    )
+    render_map_critters.add_argument("--elevation", type=int, default=0, choices=range(3))
+    render_map_critters.add_argument("--workspace", type=Path, default=Path.cwd() / "workspace")
+    render_map_critters.add_argument("--output", type=Path, help="metadata JSON below workspace")
+    render_map_critters.add_argument(
+        "--execute", action="store_true", help="write critter PNGs, metadata, and checksum"
+    )
+    render_map_critters.add_argument(
         "--overwrite", action="store_true", help="atomically replace existing render outputs"
     )
 
@@ -940,6 +1107,125 @@ def main(argv: list[str] | None = None) -> int:
             }
             if args.execute:
                 write_door_render(plan, overwrite=args.overwrite)
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
+        if args.command == "render-map-scenery":
+            if args.overwrite and not args.execute:
+                raise MapRenderError("--overwrite requires --execute")
+            output = args.output or (
+                Path("output/maps-rendered")
+                / args.map_json.stem
+                / f"elevation-{args.elevation}-floor-walls-doors-scenery.json"
+            )
+            plan = build_scenery_render_plan(
+                args.map_json,
+                args.tiles_list,
+                args.tiles_dir,
+                args.walls_list,
+                args.walls_dir,
+                args.scenery_list,
+                args.scenery_dir,
+                args.palette,
+                args.elevation,
+                args.workspace,
+                output,
+            )
+            result = {
+                "mode": "render-map-scenery" if args.execute else "dry-run",
+                **scenery_render_summary(plan),
+                "metadata": str(plan.output_json),
+                "scenery_png": str(plan.output_scenery_png),
+                "floor_walls_doors_scenery_png": str(plan.output_composite_png),
+                "sha256": str(plan.output_hash),
+            }
+            if args.execute:
+                write_scenery_render(plan, overwrite=args.overwrite)
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
+        if args.command == "render-map-items":
+            if args.overwrite and not args.execute:
+                raise MapRenderError("--overwrite requires --execute")
+            output = args.output or (
+                Path("output/maps-rendered")
+                / args.map_json.stem
+                / f"elevation-{args.elevation}-floor-walls-doors-scenery-items.json"
+            )
+            plan = build_item_render_plan(
+                args.map_json,
+                args.tiles_list,
+                args.tiles_dir,
+                args.walls_list,
+                args.walls_dir,
+                args.scenery_list,
+                args.scenery_dir,
+                args.items_list,
+                args.items_dir,
+                args.palette,
+                args.elevation,
+                args.workspace,
+                output,
+            )
+            result = {
+                "mode": "render-map-items" if args.execute else "dry-run",
+                **item_render_summary(plan),
+                "metadata": str(plan.output_json),
+                "item_png": str(plan.output_item_png),
+                "floor_walls_doors_scenery_items_png": str(plan.output_composite_png),
+                "floor_walls_doors_scenery_items_highlighted_png": str(plan.output_highlight_png),
+                "sha256": str(plan.output_hash),
+            }
+            if args.execute:
+                write_item_render(plan, overwrite=args.overwrite)
+            print(json.dumps(result, ensure_ascii=False))
+            return 0
+        if args.command == "render-map-critters":
+            if args.overwrite and not args.execute:
+                raise MapRenderError("--overwrite requires --execute")
+            output = args.output or (
+                Path("output/maps-rendered")
+                / args.map_json.stem
+                / f"elevation-{args.elevation}-floor-walls-doors-scenery-items-critters.json"
+            )
+            plan = build_critter_render_plan(
+                args.map_json,
+                args.tiles_list,
+                args.tiles_dir,
+                args.walls_list,
+                args.walls_dir,
+                args.scenery_list,
+                args.scenery_dir,
+                args.items_list,
+                args.items_dir,
+                args.critters_list,
+                args.critters_dir,
+                args.palette,
+                args.elevation,
+                args.workspace,
+                output,
+                names_message_path=args.critter_names_msg,
+                name_translations_path=args.critter_name_translations,
+                item_names_message_path=args.item_names_msg,
+                item_name_translations_path=args.item_name_translations,
+                label_font_path=args.label_font,
+                label_font_pixels=args.label_font_size,
+            )
+            result = {
+                "mode": "render-map-critters" if args.execute else "dry-run",
+                **critter_render_summary(plan),
+                "metadata": str(plan.output_json),
+                "critter_png": str(plan.output_critter_png),
+                "floor_walls_doors_scenery_items_critters_png": str(plan.output_composite_png),
+                "floor_walls_doors_scenery_items_critters_highlighted_png": str(
+                    plan.output_highlight_png
+                ),
+                "sha256": str(plan.output_hash),
+            }
+            if plan.output_label_png is not None:
+                result["floor_walls_doors_scenery_items_critters_labeled_png"] = str(
+                    plan.output_label_png
+                )
+            if args.execute:
+                write_critter_render(plan, overwrite=args.overwrite)
             print(json.dumps(result, ensure_ascii=False))
             return 0
         if args.command == "convert-acm":

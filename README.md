@@ -150,7 +150,7 @@ python -m fallout1resource convert-map-batch `
 
 复跑会重新解析地图和实际引用的 PRO，并核对六类 LST、脚本列表、对象 CSV 与 JSON 哈希；依赖或派生物变化后需显式 `--overwrite` 才会替换。
 
-## MAP 地面、墙壁与门渲染
+## MAP 地面、墙壁、场景与物品渲染
 
 `render-map-floor` 把结构化 MAP JSON 的一个楼层与 `TILES.LST`、地砖 FRM 和主调色板合成为等距 PNG。默认 dry-run；执行前会验证所有地砖编号和素材，并从实际非透明像素范围计算画布：
 
@@ -201,7 +201,78 @@ python -m fallout1resource render-map-doors `
   --execute
 ```
 
-门严格使用 MAP 保存的方向、动画帧和开关标志；当前不执行地图脚本，也不绘制屋顶、其他场景对象或人物。算法与实践记录见 `docs/map-rendering.md`。
+门严格使用 MAP 保存的方向、动画帧和开关标志；当前不执行地图脚本，也不绘制屋顶或人物。算法与实践记录见 `docs/map-rendering.md`。
+
+`render-map-scenery` 加入全部非门场景对象（楼梯、电梯、梯子和通用场景物件），输出独立场景物件层及地面、墙、门、场景物件的合成图：
+
+```powershell
+python -m fallout1resource render-map-scenery `
+  --map-json "$PWD\workspace\output\maps\master\MAPS\HUBOLDTN\HUBOLDTN.json" `
+  --tiles-list "$PWD\workspace\raw\master\ART\TILES\TILES.LST" `
+  --tiles-dir "$PWD\workspace\raw\master\ART\TILES" `
+  --walls-list "$PWD\workspace\raw\master\ART\WALLS\WALLS.LST" `
+  --walls-dir "$PWD\workspace\raw\master\ART\WALLS" `
+  --scenery-list "$PWD\workspace\raw\master\ART\SCENERY\SCENERY.LST" `
+  --scenery-dir "$PWD\workspace\raw\master\ART\SCENERY" `
+  --palette "$PWD\workspace\raw\master\COLOR.PAL" `
+  --elevation 0 `
+  --workspace "$PWD\workspace" `
+  --execute
+```
+
+门与其他场景物件会一起按 `OBJECT_FLAT`、六角格和 MAP 源顺序绘制。
+
+`render-map-items` 继续加入地图顶层的容器、武器和杂项物品，同时排除容器或人物库存中没有独立地图坐标的嵌套物品：
+
+```powershell
+python -m fallout1resource render-map-items `
+  --map-json "$PWD\workspace\output\maps\master\MAPS\HUBOLDTN\HUBOLDTN.json" `
+  --tiles-list "$PWD\workspace\raw\master\ART\TILES\TILES.LST" `
+  --tiles-dir "$PWD\workspace\raw\master\ART\TILES" `
+  --walls-list "$PWD\workspace\raw\master\ART\WALLS\WALLS.LST" `
+  --walls-dir "$PWD\workspace\raw\master\ART\WALLS" `
+  --scenery-list "$PWD\workspace\raw\master\ART\SCENERY\SCENERY.LST" `
+  --scenery-dir "$PWD\workspace\raw\master\ART\SCENERY" `
+  --items-list "$PWD\workspace\raw\master\ART\ITEMS\ITEMS.LST" `
+  --items-dir "$PWD\workspace\raw\master\ART\ITEMS" `
+  --palette "$PWD\workspace\raw\master\COLOR.PAL" `
+  --elevation 0 `
+  --workspace "$PWD\workspace" `
+  --execute
+```
+
+该命令输出物品透明层、地面/墙/门/场景物件/物品的统一顺序合成图，以及用 2 像素黄色轮廓勾勒所有物品的 `*-items-highlighted.png`。原始合成图不会被描边覆盖。
+
+`render-map-critters` 再加入 MAP 中保存的人物与生物。人物 FID 会解析为基础造型、动作、武器姿态和分方向 FRM；渲染严格使用对象保存的方向与帧：
+
+```powershell
+python -m fallout1resource render-map-critters `
+  --map-json "$PWD\workspace\output\maps\master\MAPS\HUBOLDTN\HUBOLDTN.json" `
+  --tiles-list "$PWD\workspace\raw\master\ART\TILES\TILES.LST" `
+  --tiles-dir "$PWD\workspace\raw\master\ART\TILES" `
+  --walls-list "$PWD\workspace\raw\master\ART\WALLS\WALLS.LST" `
+  --walls-dir "$PWD\workspace\raw\master\ART\WALLS" `
+  --scenery-list "$PWD\workspace\raw\master\ART\SCENERY\SCENERY.LST" `
+  --scenery-dir "$PWD\workspace\raw\master\ART\SCENERY" `
+  --items-list "$PWD\workspace\raw\master\ART\ITEMS\ITEMS.LST" `
+  --items-dir "$PWD\workspace\raw\master\ART\ITEMS" `
+  --critters-list "$PWD\workspace\raw\critter\ART\CRITTERS\CRITTERS.LST" `
+  --critters-dir "$PWD\workspace\raw\critter\ART\CRITTERS" `
+  --critter-names-msg "$PWD\workspace\raw\master\TEXT\ENGLISH\GAME\PRO_CRIT.MSG" `
+  --critter-name-translations "$PWD\config\huboldtn-critter-names.zh-CN.json" `
+  --item-names-msg "$PWD\workspace\raw\master\TEXT\ENGLISH\GAME\PRO_ITEM.MSG" `
+  --item-name-translations "$PWD\config\huboldtn-item-names.zh-CN.json" `
+  --label-font "C:\Windows\Fonts\msyh.ttc" `
+  --label-font-size 28 `
+  --palette "$PWD\workspace\raw\master\COLOR.PAL" `
+  --elevation 0 `
+  --workspace "$PWD\workspace" `
+  --execute
+```
+
+该命令输出人物透明层、完整静态合成图，以及同时用 2 像素黄色轮廓标出物品、用 2 像素亮绿色轮廓标出人物的 `*-critters-highlighted.png`。提供名称消息、中文映射和含中文字形的 TrueType/OpenType 字体后，还会生成 `*-critters-labeled-zh-CN.png`：人物优先用脚本文件名区分万斯、斯来匹等复用通用原型的专名，否则读取 `PRO_CRIT.MSG`；配置中显式声明的专名显示“中文名 / English Name”，通用角色类别保持纯中文。物品读取 `PRO_ITEM.MSG`，容器标题下每件 MAP 直接库存各占一行并缩进显示中文名称与数量，空容器则缩进显示“（空）”。人物和物品标签共享自动避让空间，分别使用绿色与黄色细连接线、边框和深色底框。macOS 可把字体参数换成 `/System/Library/Fonts/Hiragino Sans GB.ttc`。
+
+名称来源、英文原名、中文译名、对象 ID、地图格位、标签框位置、容器库存明细和字体 SHA-256 均写入元数据。两种轮廓不会覆盖物品或人物自身的原始像素。命令不运行移动、动画或人物脚本，也不添加运行时玩家角色；缺失的原始人物素材会记录在元数据中而不使用其他造型替换。后续计划依次加入可开关屋顶层、阻挡格与出口调试层、环境光及知识库标注。HUBOLDTN 尚有 776 块有效屋顶地砖，以及 739 个不进入正常美术合成的阻挡格或出口控制对象；详细边界与实施顺序见 `docs/map-rendering.md`。
 
 ## ACM 音频转换
 
