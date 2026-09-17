@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Obsidian notes for Fallout 1 skills and perks.
+"""Generate Obsidian notes for Fallout 1 skills, perks and traits.
 
 Input: workspace/output/rules/{skills,perks}.json (scripts/extract_skill_perk_rules.py).
 Mechanics text below was verified against fallout1-ce source and INT disassembly;
@@ -164,9 +164,9 @@ tags:
 - **特长技能**（开局选 3 个，[[Tag! 增加特长技能]] 可加第 4 个）：立即 +20%，并且投入的点数再算一遍，也就是每点 +2%。
 - **难度修正**：只影响非战斗技能（急救到野外生存这 12 项），简单 +20%，困难 −10%，普通 0。战斗技能不受影响。
 - **特性修正**：
-  - 天赋异禀（Gifted）：全部技能 −10%。汉化说明写 5%，英文原文和代码都是 10%。
-  - 专家（Skilled）：全部技能 +10%。汉化说明写“每次升级多 5 点”，英文原文和代码都是开局技能 +10%，代价是每 4 级才给一个 Perk。
-  - 烂好人（Good Natured）：6 项战斗技能 −10%；急救、医疗、口才、杀价 +15%。
+  - [[Gifted 天赋异禀]]：全部技能 −10%。汉化说明写 5%，英文原文和代码都是 10%。
+  - [[Skilled 专家]]：全部技能 +10%。汉化说明写“每次升级多 5 点”，英文原文和代码都是开局技能 +10%，代价是每 4 级才给一个 Perk。
+  - [[Good Natured 烂好人]]：6 项战斗技能 −10%；急救、医疗、口才、杀价 +15%。
 - **Perk 修正**：[[Medic 医学常识]]、[[Mr. Fixit 维修大师]]、[[Speaker 发言人]] 各 +20%；[[Master Thief 神偷]] +10%；[[Ghost 神出鬼没]] 暗处潜行 +20%。
 
 ## 升级获得的技能点
@@ -351,7 +351,7 @@ Perk 在汉化版界面里叫“特别技能”，英文 Perks。本页数据来
 
 ## 获得规则
 
-- 每升 **3 级**可选一个 Perk；选了“专家”（Skilled）特性则改为每 **4 级**一个。
+- 每升 **3 级**可选一个 Perk；选了 [[Skilled 专家]] 特性则改为每 **4 级**一个。
 - 角色等级上限 **21**，所以正常最多 7 个，专家最多 5 个。
 - 已拥有的不同 Perk 达到 7 种后不再给新的选择机会（`editor.cc` `PerkCount`）。
 - 选择条件：角色等级、七项基础属性下限、部分还要求某项技能达标。属性按当前值判断，含特性和装备加成。
@@ -386,6 +386,73 @@ Perk 在汉化版界面里叫“特别技能”，英文 Perks。本页数据来
 """
 
 
+# ---------------------------------------------------------------- traits
+TRAIT_EFFECTS: dict[str, dict] = {
+    "FAST_METABOLISM": {"effect": ["治疗速率 +2。", "辐射抗性和毒抗性的**基础值归零**，只剩装备、Perk 等额外加成（`trait_adjust_stat`）。"]},
+    "BRUISER": {"effect": ["力量 +2。", "最大 AP −2。"]},
+    "SMALL_FRAME": {"effect": ["敏捷 +1。", "负重 −10 × 基础力量（负重本身按力量计算，相当于每点力量少带 10 磅）。"]},
+    "ONE_HANDER": {"effect": ["玩家使用单手武器命中率 +20%，双手武器命中率 −40%（`combat.cc` 命中计算）。"]},
+    "FINESSE": {"effect": ["暴击率 +10%。", "玩家造成伤害时，目标伤害抗性（DR）按 +30% 计算（`compute_damage`），即每次命中伤害明显变低。"]},
+    "KAMIKAZE": {"effect": ["护甲等级（AC）的基础值归零（只剩护甲提供的 AC）。", "战斗顺序 +5。"]},
+    "HEAVY_HANDED": {"effect": ["近战伤害属性 +4（徒手和近战武器都生效）。", "暴击效果表掷骰 −30，暴击多落在低档效果。"]},
+    "FAST_SHOT": {"effect": ["所有持武器的攻击 AP −1（`item_w_mp_cost`），包括近战武器，徒手不减。", "**完全不能瞄准部位**（`item_w_called_shot` 直接返回不可瞄准），徒手攻击也一样。"],
+                  "diff": "说明只提到枪和投掷武器；代码对近战武器同样减 AP，而且不能瞄准的限制对所有攻击生效。"},
+    "BLOODY_MESS": {"effect": ["玩家击杀目标时总是播放最血腥的死亡动画（`actions.cc`）。纯演出效果，不影响数值。", "`OBJ_DUDE` 脚本也检查此特性（待挖）。"]},
+    "JINXED": {"effect": ["**任何人**（包括玩家和队友）的攻击判定为普通失败时，有 50% 几率改为大失败（`combat.cc`）。"]},
+    "GOOD_NATURED": {"effect": ["小型枪械、大型枪械、能量型武器、肉搏、近战武器、抛掷力 −10%。", "急救、医疗、口才、杀价 +15%（`trait_adjust_skill`）。", "13 号避难所开场洞穴脚本 `V13CAVE` 检查此特性（待挖）。"]},
+    "CHEM_RELIANT": {"effect": ["药物成瘾几率 ×2。", "戒断症状持续时间减半（默认 10080 分钟，即 7 天，减半为 3.5 天）（`item.cc`）。"]},
+    "CHEM_RESISTANT": {"effect": ["药物成瘾几率减半。", "药效持续时间减半（`item.cc` `insert_drug_effect`）。"]},
+    "NIGHT_PERSON": {"effect": ["游戏时间 **18:00–23:59** 感知、智力各 +1；**0:00–17:59** 各 −1（`trait_adjust_stat`）。"],
+                     "diff": "说明写“太阳下山后提升”，但代码只把 18:00 到午夜算作夜晚，凌晨 0:00–5:59 反而按白天 −1。"},
+    "SKILLED": {"effect": ["全部技能 +10%（`trait_adjust_skill`）。", "Perk 改为每 4 级一个，21 级最多 5 个。"],
+                "diff": "汉化说明写“每次升级多得到五个技能点数”，英文原文和代码都是技能 +10%，升级不多给技能点。"},
+    "GIFTED": {"effect": ["七项基础属性各 +1。", "全部技能 −10%。", "每次升级少 5 技能点。", "13 号避难所开场洞穴脚本 `V13CAVE` 检查此特性（待挖）。"],
+               "diff": "汉化说明写技能 −5%，英文原文和代码都是 −10%。"},
+}
+
+
+def trait_note_name(t: dict) -> str:
+    return f"{t['name_en']} {t['name_zh']}"
+
+
+def render_trait(t: dict) -> str:
+    info = TRAIT_EFFECTS[t["key"]]
+    lines = [
+        "---", "tags:", "  - 辐射1", "  - 特性",
+        f"英文名: \"{t['name_en']}\"", f"中文名: \"{t['name_zh']}\"", f"编号: {t['id']}", "---", "",
+        f"# {trait_note_name(t)}", "", "返回：[[特性 总览]]", "", "## 游戏内说明", "",
+        f"> {t['desc_zh']}", ">", f"> *{t['desc_en']}*", "", "## 实际效果", "",
+    ] + [f"- {x}" for x in info["effect"]]
+    if info.get("diff"):
+        lines += ["", "> [!warning] 与游戏说明不一致", f"> {info['diff']}"]
+    lines += ["", "## 来源", "", "- fallout1-ce `src/game/trait.cc`（`trait_adjust_stat`、`trait_adjust_skill`）及正文标注的源码位置。",
+              "- 文本：`TRAIT.MSG`（英文原版 + 本机汉化覆盖）。", ""]
+    return "\n".join(lines)
+
+
+def render_trait_overview(traits: list[dict]) -> str:
+    rows = "\n".join(
+        f"| [[{trait_note_name(t)}]]{' ⚠️' if TRAIT_EFFECTS[t['key']].get('diff') else ''} | {'；'.join(x.rstrip('。') for x in TRAIT_EFFECTS[t['key']]['effect']).replace('|', chr(92) + '|')} |"
+        for t in traits
+    )
+    return f"""---
+tags:
+  - 辐射1
+  - 特性
+---
+
+# 特性 总览
+
+特性（Traits，汉化界面叫“人物特徵”）在建角色时选择，最多 2 个，有利有弊。之后只有 [[Mutate! 突变！]] 能换掉其中一个。数据来自 fallout1-ce（v1.1 引擎）；标 ⚠️ 的是与游戏说明不一致的特性。
+
+另见：[[技能 总览]] · [[Perk 总览]]
+
+| 特性 | 实际效果 |
+|---|---|
+{rows}
+"""
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--rules-dir", type=Path, required=True)
@@ -395,6 +462,7 @@ def main() -> int:
 
     skills = json.loads((args.rules_dir / "skills.json").read_text())["skills"]
     perks = json.loads((args.rules_dir / "perks.json").read_text())["perks"]
+    traits = json.loads((args.rules_dir / "traits.json").read_text())["traits"]
     by_key = {s["key"]: s for s in skills}
 
     perks_by_skill: dict[str, list[str]] = {}
@@ -416,6 +484,11 @@ def main() -> int:
     for p in perks:
         if p["selectable"]:
             outputs[perk_dir / f"{perk_note_name(p)}.md"] = render_perk(p, by_key)
+
+    trait_dir = args.vault_game_root / "特性"
+    outputs[trait_dir / "特性 总览.md"] = render_trait_overview(traits)
+    for t in traits:
+        outputs[trait_dir / f"{trait_note_name(t)}.md"] = render_trait(t)
 
     existing = [p for p in outputs if p.exists()]
     if existing and not args.overwrite:

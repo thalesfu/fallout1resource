@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract Fallout 1 skill and perk rule tables.
+"""Extract Fallout 1 skill, perk and trait rule tables.
 
 Numbers come from the fallout1-ce reimplementation (`src/game/skill.cc`, `perk.cc`),
 names/descriptions from the extracted MSG conversions (English DAT + loose zh-CN override).
@@ -74,6 +74,7 @@ def main() -> int:
     en = lambda n: msg(args.text_root / f"master/TEXT/ENGLISH/GAME/{n}.csv")  # noqa: E731
     zh = lambda n: msg(args.text_root / f"data/TEXT/ENGLISH/GAME/{n}.csv")  # noqa: E731
     skill_en, skill_zh, perk_en, perk_zh = en("SKILL"), zh("SKILL"), en("PERK"), zh("PERK")
+    trait_en, trait_zh = en("TRAIT"), zh("TRAIT")
 
     skills = []
     for i, row in enumerate(c_table(game / "skill.cc", "skill_data")):
@@ -104,17 +105,24 @@ def main() -> int:
             "primary_stats": {k: v for k, v in zip(PRIMARY, req) if v},
         })
 
+    trait_keys = enum_names(game / "trait.h", "Trait", "TRAIT_")
+    traits = [{
+        "id": i, "key": key,
+        "name_en": trait_en[100 + i], "name_zh": trait_zh[100 + i],
+        "desc_en": trait_en[200 + i], "desc_zh": trait_zh[200 + i],
+    } for i, key in enumerate(trait_keys)]
+
     out = args.output_dir
     out.mkdir(parents=True, exist_ok=True)
     meta = {"source": "alexbatalov/fallout1-ce", "commit": commit, "engine_version": "1.1 (fallout1-re)"}
-    for name, rows in (("skills", skills), ("perks", perks)):
+    for name, rows in (("skills", skills), ("perks", perks), ("traits", traits)):
         (out / f"{name}.json").write_text(json.dumps({"meta": meta, name: rows}, ensure_ascii=False, indent=2) + "\n")
         with (out / f"{name}.csv").open("w", newline="", encoding="utf-8-sig") as fh:
             w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
             w.writeheader()
             for r in rows:
                 w.writerow({k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v for k, v in r.items()})
-    print(f"{len(skills)} skills, {len(perks)} perks -> {out} (ce {commit[:10]})")
+    print(f"{len(skills)} skills, {len(perks)} perks, {len(traits)} traits -> {out} (ce {commit[:10]})")
     return 0
 
 
