@@ -402,6 +402,22 @@ class DoorRenderTests(WallRenderTests):
         with self.assertRaises(FileExistsError):
             write_door_render(plan)
 
+    def test_writes_empty_door_layer_when_map_has_no_doors(self) -> None:
+        self.payload["objects"]["entries"] = [
+            item
+            for item in self.payload["objects"]["entries"]
+            if item.get("prototype", {}).get("subtype_name") != "door"
+        ]
+        self._write_map()
+
+        plan = self._door_plan()
+        self.assertEqual((), plan.placements)
+        self.assertEqual(plan.wall.bounds_left, plan.bounds_left)
+        self.assertEqual(plan.wall.bounds_top, plan.bounds_top)
+        json_path, _, _, _ = write_door_render(plan)
+        metadata = json.loads(json_path.read_text(encoding="utf-8"))
+        self.assertEqual(0, metadata["summary"]["validated_door_objects"])
+
     def test_rejects_door_output_outside_workspace(self) -> None:
         with self.assertRaises(ValueError):
             build_door_render_plan(
@@ -665,6 +681,23 @@ class ItemRenderTests(SceneryRenderTests):
             hashlib.sha256(json_path.read_bytes()).hexdigest().upper(),
             hash_path.read_text(encoding="ascii").split()[0],
         )
+
+    def test_writes_empty_item_layer_when_map_has_no_top_level_items(self) -> None:
+        self.payload["objects"]["entries"] = [
+            item
+            for item in self.payload["objects"]["entries"]
+            if item.get("prototype", {}).get("type") != "item"
+        ]
+        self._write_map()
+
+        plan = self._item_plan()
+        self.assertEqual((), plan.placements)
+        self.assertEqual(plan.scenery.bounds_left, plan.bounds_left)
+        self.assertEqual(plan.scenery.bounds_top, plan.bounds_top)
+        json_path, _, _, _, _ = write_item_render(plan)
+        metadata = json.loads(json_path.read_text(encoding="utf-8"))
+        self.assertEqual(0, metadata["summary"]["validated_item_objects"])
+        self.assertEqual(4, metadata["summary"]["contained_item_objects_not_rendered"])
 
 
 class CritterRenderTests(ItemRenderTests):

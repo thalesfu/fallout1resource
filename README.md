@@ -123,6 +123,12 @@ python -m fallout1resource convert-frm-batch `
 
 再次执行会复核源文件、调色板、元数据和所有 PNG 的大小与 SHA-256，仅跳过完整且属于当前转换器版本的产物。旧产物或被改动的文件必须显式加 `--overwrite` 才会替换。
 
+`WORLDMAP.FRM` 的完整底图、12 个固定地点坐标、中英文标签和可复现标注图见 [`docs/world-map-extraction.md`](docs/world-map-extraction.md)。
+
+`TWNMAP06.FRM` 的哈勃城海报、游戏按钮坐标、双侧引线标注图及复现方法见 [`docs/hub-town-map-hotspots.md`](docs/hub-town-map-hotspots.md)。
+
+`TWNMAP04.FRM` 的歹徒营地海报、唯一城镇入口及双语标注图见 [`docs/raiders-town-map-hotspot.md`](docs/raiders-town-map-hotspot.md)。
+
 ## MAP/PRO/LST 结构化转换
 
 `convert-map` 解析版本 19 MAP 的变量、100×100 地砖层、五类脚本和递归对象树，并通过 PID 的类型字节及低 24 位一基行号连接六类原型 LST 和 PRO：

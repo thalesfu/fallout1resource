@@ -1037,9 +1037,6 @@ def build_door_render_plan(
         ):
             continue
         selected.append((source_index, item))
-    if not selected:
-        raise MapRenderError("map elevation contains no door objects")
-
     documents: dict[int, tuple[str, FrmDocument]] = {}
     for source_index, item in selected:
         fid = item.get("fid")
@@ -1121,14 +1118,18 @@ def build_door_render_plan(
                 frame=frame,
             )
         )
-    if not placements:
-        raise MapRenderError("map elevation contains no visible non-transparent door pixels")
     placements.sort(key=_object_placement_sort_key)
 
-    left = min(wall.bounds_left, *(item.screen_x for item in placements))
-    top = min(wall.bounds_top, *(item.screen_y for item in placements))
-    right = max(wall.bounds_right, *(item.screen_x + item.frame.width for item in placements))
-    bottom = max(wall.bounds_bottom, *(item.screen_y + item.frame.height for item in placements))
+    if placements:
+        left = min(wall.bounds_left, *(item.screen_x for item in placements))
+        top = min(wall.bounds_top, *(item.screen_y for item in placements))
+        right = max(wall.bounds_right, *(item.screen_x + item.frame.width for item in placements))
+        bottom = max(wall.bounds_bottom, *(item.screen_y + item.frame.height for item in placements))
+    else:
+        left = wall.bounds_left
+        top = wall.bounds_top
+        right = wall.bounds_right
+        bottom = wall.bounds_bottom
     sources = {source, scenery.source_path, *files.values()}
     collision = sources.intersection(
         (output_json, output_door_png, output_composite_png, output_hash)
@@ -1511,9 +1512,6 @@ def build_item_render_plan(
         if not isinstance(subtype, int) or not isinstance(subtype_name, str):
             raise MapRenderError(f"item object {source_index} has invalid prototype subtype")
         selected.append((source_index, item, subtype, subtype_name))
-    if not selected:
-        raise MapRenderError("map elevation contains no top-level item objects")
-
     documents: dict[int, tuple[str, FrmDocument]] = {}
     for source_index, item, _, _ in selected:
         fid = item.get("fid")
@@ -1590,14 +1588,18 @@ def build_item_render_plan(
                 frame=frame,
             )
         )
-    if not placements:
-        raise MapRenderError("map elevation contains no visible non-transparent item pixels")
     placements.sort(key=_object_placement_sort_key)
 
-    left = min(scenery.bounds_left, *(item.screen_x for item in placements))
-    top = min(scenery.bounds_top, *(item.screen_y for item in placements))
-    right = max(scenery.bounds_right, *(item.screen_x + item.frame.width for item in placements))
-    bottom = max(scenery.bounds_bottom, *(item.screen_y + item.frame.height for item in placements))
+    if placements:
+        left = min(scenery.bounds_left, *(item.screen_x for item in placements))
+        top = min(scenery.bounds_top, *(item.screen_y for item in placements))
+        right = max(scenery.bounds_right, *(item.screen_x + item.frame.width for item in placements))
+        bottom = max(scenery.bounds_bottom, *(item.screen_y + item.frame.height for item in placements))
+    else:
+        left = scenery.bounds_left
+        top = scenery.bounds_top
+        right = scenery.bounds_right
+        bottom = scenery.bounds_bottom
     sources = {source, item_list.source_path, *files.values()}
     collision = sources.intersection(
         (output_json, output_item_png, output_composite_png, output_highlight_png, output_hash)
