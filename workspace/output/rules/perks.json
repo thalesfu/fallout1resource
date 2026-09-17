@@ -1,0 +1,1093 @@
+{
+  "meta": {
+    "source": "alexbatalov/fallout1-ce",
+    "commit": "0609bcfd0ec40ff0571d0f57fab2821eb461dc8b",
+    "engine_version": "1.1 (fallout1-re)"
+  },
+  "perks": [
+    {
+      "id": 0,
+      "key": "AWARENESS",
+      "name_en": "Awareness",
+      "name_zh": "警觉力",
+      "desc_en": "You are more likely to notice details about people.  Awareness will give more detailed information about them when you perform an Examine.",
+      "desc_zh": "拥有这项能力，当你检查每一个生物时都会得到更多的资料。你可以看到他们的生命点数以及身上配有的武器。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 3,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "PE": 5
+      }
+    },
+    {
+      "id": 1,
+      "key": "BONUS_HTH_ATTACKS",
+      "name_en": "Bonus HtH Attacks",
+      "name_zh": "快速徒手攻击",
+      "desc_en": "You have learned the secret arts of the East, or you just punch faster.  In any case, your Hand-to-Hand attacks cost 1 AP less to perform.",
+      "desc_zh": "你学到了东方的神秘技巧，或者你只是拳出的很快而已。无论如何，你的空手攻击将会少使用1点的动作点数。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "AG": 6
+      }
+    },
+    {
+      "id": 2,
+      "key": "BONUS_HTH_DAMAGE",
+      "name_en": "Bonus HtH Damage",
+      "name_zh": "额外的空手伤害",
+      "desc_en": "Experience in unarmed combat has given you the edge when it comes to damage.  You cause +2 points of damage with hand-to-hand and melee attacks for each level of this Perk.",
+      "desc_zh": "熟悉空手攻击技巧让你有更高的破坏力。你在空手或是武器攻击时每个等级都会造成+2的伤害。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 3,
+      "stat_bonus": {
+        "stat": "MELEE_DAMAGE",
+        "per_rank": 2
+      },
+      "required_skill": null,
+      "primary_stats": {
+        "ST": 6,
+        "AG": 6
+      }
+    },
+    {
+      "id": 3,
+      "key": "BONUS_MOVE",
+      "name_en": "Bonus Move",
+      "name_zh": "额外的出手机会",
+      "desc_en": "For each level of Bonus Move, you get 2 free APs each turn that can only be used for movement.  In other words, you can move 2 free hexes each turn for each level of this Perk.",
+      "desc_zh": "这种能力每提高一级你都会在每一轮得到2点的动作点数。也就是说，每一个等级中，你都可以多移动2格。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "AG": 5
+      }
+    },
+    {
+      "id": 4,
+      "key": "BONUS_RANGED_DAMAGE",
+      "name_en": "Bonus Ranged Damage",
+      "name_zh": "额外的攻击距离",
+      "desc_en": "Your training in firearms and other ranged weapons has made you more deadly in ranged combat.  For each level of this Perk, you do +2 points of damage with ranged weapons.",
+      "desc_zh": "你在长程武器和枪炮方面的训练让你的长程攻击力大增。在每一个等级中若使用长程武器，你都会造成+2的伤害。",
+      "selectable": true,
+      "max_rank": 2,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "AG": 6,
+        "LK": 6
+      }
+    },
+    {
+      "id": 5,
+      "key": "BONUS_RATE_OF_FIRE",
+      "name_en": "Bonus Rate of Fire",
+      "name_zh": "额外的开火速度",
+      "desc_en": "This Perk allows you to pull the trigger a little more faster, and still remain as accurate as before.  Each ranged weapon attack costs 1 AP less to perform.",
+      "desc_zh": "这个能力可以让你更快的开火，同时保有原来的准头。每种长程的武器在使用上都会少用1个动作点数。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 9,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "PE": 6,
+        "IN": 6,
+        "AG": 7
+      }
+    },
+    {
+      "id": 6,
+      "key": "EARLIER_SEQUENCE",
+      "name_en": "Earlier Sequence",
+      "name_zh": "先发制人",
+      "desc_en": "You are more likely to move before your opponents in combat, since your Sequence is +2 for each level of this Perk.",
+      "desc_zh": "在每一个等级中，你的战斗顺序点数都会+2，因此你在一个战斗之中几乎都可以比你的敌人先移动。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 3,
+      "stat_bonus": {
+        "stat": "SEQUENCE",
+        "per_rank": 2
+      },
+      "required_skill": null,
+      "primary_stats": {
+        "PE": 6
+      }
+    },
+    {
+      "id": 7,
+      "key": "FASTER_HEALING",
+      "name_en": "Faster Healing",
+      "name_zh": "快速恢复",
+      "desc_en": "With each level of this Perk, you will get a +1 bonus to your Healing Rate.  Thus you heal faster.",
+      "desc_zh": "在每一个等级中，你都会得到+1的治疗速率。这是在普通速率上面另外加上去的点数，因此，你自我疗伤的速度会更加的快。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 3,
+      "stat_bonus": {
+        "stat": "HEALING_RATE",
+        "per_rank": 1
+      },
+      "required_skill": null,
+      "primary_stats": {
+        "EN": 6
+      }
+    },
+    {
+      "id": 8,
+      "key": "MORE_CRITICALS",
+      "name_en": "More Criticals",
+      "name_zh": "更多的致命一击",
+      "desc_en": "You are more likely to cause Critical Hits in combat if you have this Perk.  Each level of More Criticals will get you a +5% chance to cause a critical hit.  This is a good thing.",
+      "desc_zh": "你在战斗中将可更容易的使出特别攻击。这能力的每一级都会增加5%的特别攻击使出机会。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 6,
+      "stat_bonus": {
+        "stat": "CRITICAL_CHANCE",
+        "per_rank": 5
+      },
+      "required_skill": null,
+      "primary_stats": {
+        "LK": 6
+      }
+    },
+    {
+      "id": 9,
+      "key": "NIGHT_VISION",
+      "name_en": "Night Vision",
+      "name_zh": "夜视能力",
+      "desc_en": "With the Night Vision Perk, you can see in the dark better.  Each level of this Perk will reduce the overall darkness level by 10%.",
+      "desc_zh": "当你拥有这项能力后，在夜晚与地道中你可以看得更清楚。这能力的每一级会将画面的阴暗度减少10%。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 3,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "PE": 6
+      }
+    },
+    {
+      "id": 10,
+      "key": "PRESENCE",
+      "name_en": "Presence",
+      "name_zh": "现身",
+      "desc_en": "You command attention by just walking into a room.  The initial reaction of another person is improved by 10% for each level of this Perk.",
+      "desc_zh": "你只要进入房间内就会特别引人注意。别人对你的第一印象在每个等级都会增加10%。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 3,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "CH": 6
+      }
+    },
+    {
+      "id": 11,
+      "key": "RAD_RESISTANCE",
+      "name_en": "Rad Resistance",
+      "name_zh": "辐射抵抗力",
+      "desc_en": "You are better able to avoid radiation, and the bad effects radiation causes.  Each level of this Perk will improve your Radiation Resistance by 10%.",
+      "desc_zh": "你将会变得较能抵抗放射线伤害。每个等级都会增加10%的放射线免疫力。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 6,
+      "stat_bonus": {
+        "stat": "RADIATION_RESISTANCE",
+        "per_rank": 15
+      },
+      "required_skill": null,
+      "primary_stats": {
+        "EN": 6,
+        "IN": 4
+      }
+    },
+    {
+      "id": 12,
+      "key": "TOUGHNESS",
+      "name_en": "Toughness",
+      "name_zh": "强悍过人",
+      "desc_en": "When you are tough, you take less damage.  Each level of this Perk will add +10% to your general damage resistance.",
+      "desc_zh": "当你有壮大的体格时，就比较不易受到伤害。每个等级都会增加10%的普通攻击免疫力。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 3,
+      "stat_bonus": {
+        "stat": "DR",
+        "per_rank": 10
+      },
+      "required_skill": null,
+      "primary_stats": {
+        "EN": 6,
+        "LK": 6
+      }
+    },
+    {
+      "id": 13,
+      "key": "STRONG_BACK",
+      "name_en": "Strong Back",
+      "name_zh": "善背",
+      "desc_en": "AKA Mule.  You can carry an additional 50 lbs. of equipment for each level of this Perk.",
+      "desc_zh": "每个等级你都可以多背50磅的物品。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 3,
+      "stat_bonus": {
+        "stat": "CARRY_WEIGHT",
+        "per_rank": 50
+      },
+      "required_skill": null,
+      "primary_stats": {
+        "ST": 6,
+        "EN": 6
+      }
+    },
+    {
+      "id": 14,
+      "key": "SHARPSHOOTER",
+      "name_en": "Sharpshooter",
+      "name_zh": "神射手",
+      "desc_en": "The talent of hitting things at longer distances.  You get a +2 bonus, for each level of this Perk, to Perception for the purposes of determining range modifiers.  It's easier than ever to kill at long range!",
+      "desc_zh": "你得到了可在射程之外射中目标的能力。每个等级都会增加2点的观察能力。现在攻击射程之外的敌人就更加容易了！",
+      "selectable": true,
+      "max_rank": 2,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "PE": 7,
+        "IN": 6
+      }
+    },
+    {
+      "id": 15,
+      "key": "SILENT_RUNNING",
+      "name_en": "Silent Running",
+      "name_zh": "衔枚疾走",
+      "desc_en": "With this Perk, you now have the ability to move quickly and still remain quiet.  You can Sneak, and run at the same time.  Without this Perk, you would automatically stop Sneaking if you ran.",
+      "desc_zh": "拥有这能力之后你可以更快的移动，但是仍然不会发出声音。如果没有这项能力，只要一跑步就会跳出潜行模式。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": {
+        "skill": "SNEAK",
+        "level": 50
+      },
+      "primary_stats": {
+        "AG": 6
+      }
+    },
+    {
+      "id": 16,
+      "key": "SURVIVALIST",
+      "name_en": "Survivalist",
+      "name_zh": "适者生存",
+      "desc_en": "You are a master of the outdoors.  This Perk confers the ability to survive in hostile environments.  You get a +20% bonus to Outdoorsman for survival purposes, for each level of this Perk.",
+      "desc_zh": "你是户外求生的专家。这一个能力可以让你在任何的环境中生存得更好。每个等级你会增加20%的户外求生点数。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 3,
+      "stat_bonus": null,
+      "required_skill": {
+        "skill": "OUTDOORSMAN",
+        "level": 40
+      },
+      "primary_stats": {
+        "EN": 6,
+        "IN": 6
+      }
+    },
+    {
+      "id": 17,
+      "key": "MASTER_TRADER",
+      "name_en": "Master Trader",
+      "name_zh": "大奸商",
+      "desc_en": "You have mastered one aspect of bartering - the ability to buy goods far cheaper than a normal person.  With this Perk, you get a 25% discount when purchasing items from a store or another trader.",
+      "desc_zh": "你得到了讨价还价的能力，现在你可以用更便宜的价钱买到许多物品。当你有这项能力时，你与商店或者是商人买东西时都会得到七五折的优待。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 9,
+      "stat_bonus": null,
+      "required_skill": {
+        "skill": "BARTER",
+        "level": 60
+      },
+      "primary_stats": {
+        "CH": 7
+      }
+    },
+    {
+      "id": 18,
+      "key": "EDUCATED",
+      "name_en": "Educated",
+      "name_zh": "知识份子",
+      "desc_en": "Each level of Educated will add +2 skill points when you gain a new experience level.  This Perk works best when purchased early in your adventure.",
+      "desc_zh": "每个等级都会让人物在升级时增加+2点的技术点数。你越早得到这一项能力，对你越有利。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "IN": 6
+      }
+    },
+    {
+      "id": 19,
+      "key": "HEALER",
+      "name_en": "Healer",
+      "name_zh": "医疗师",
+      "desc_en": "The healing of bodies comes easier to you with this Perk.  Each level will add 2-5 more hit points healed when using the First Aid or Doctor skills.",
+      "desc_zh": "拥有这项能力，对你的治伤技术会有很大的帮助。每个等级都可以让你在治伤时多治2～5的生命点数。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 3,
+      "stat_bonus": null,
+      "required_skill": {
+        "skill": "FIRST_AID",
+        "level": 40
+      },
+      "primary_stats": {
+        "PE": 7,
+        "IN": 5,
+        "AG": 6
+      }
+    },
+    {
+      "id": 20,
+      "key": "FORTUNE_FINDER",
+      "name_en": "Fortune Finder",
+      "name_zh": "寻宝者",
+      "desc_en": "You have the talent of finding money.  You will find additional money in random encounters in the desert.",
+      "desc_zh": "你拥有寻找钱的能力。在每次找到钱的时候，你找到的数量都会比较多。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "LK": 8
+      }
+    },
+    {
+      "id": 21,
+      "key": "BETTER_CRITICALS",
+      "name_en": "Better Criticals",
+      "name_zh": "更强的致命一击",
+      "desc_en": "The critical hits you cause in combat are more devastating.  You gain a 20% bonus on the critical hit table, almost ensuring that more damage will be done.  This does not affect the chance to cause a critical hit.",
+      "desc_zh": "你在战斗时所使出的特别攻击将具有更高的伤害力。你在特别攻击表中将会多得20%的点数，也就是说，攻击时会造成更大的伤害。不过这将不会影响使出特别攻击的机率。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 9,
+      "stat_bonus": {
+        "stat": "BETTER_CRITICALS",
+        "per_rank": 20
+      },
+      "required_skill": null,
+      "primary_stats": {
+        "PE": 6,
+        "AG": 4,
+        "LK": 6
+      }
+    },
+    {
+      "id": 22,
+      "key": "EMPATHY",
+      "name_en": "Empathy",
+      "name_zh": "神入",
+      "desc_en": "You have studied other human beings, giving you the inside knowledge of their emotional reaction to you.  You will see the reaction level of the person you are talking to, when involved in an indepth conversation.",
+      "desc_zh": "你对于人们都有著相当的研究，让你可以很清楚的了解他们的心情。你在与他人长谈时可以看到他们目前对你的感觉为何。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "PE": 7,
+        "IN": 5
+      }
+    },
+    {
+      "id": 23,
+      "key": "SLAYER",
+      "name_en": "Slayer",
+      "name_zh": "杀手",
+      "desc_en": "The Slayer walks the earth!  In Hand-to-Hand combat, all of your hits are upgraded to critical hits - causing destruction and mayhem.",
+      "desc_zh": "你是世上一流的杀手！在空手攻击时你的每一击都会变成特别攻击，造成相当强的杀伤力。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 18,
+      "stat_bonus": null,
+      "required_skill": {
+        "skill": "UNARMED",
+        "level": 80
+      },
+      "primary_stats": {
+        "ST": 8,
+        "AG": 8
+      }
+    },
+    {
+      "id": 24,
+      "key": "SNIPER",
+      "name_en": "Sniper",
+      "name_zh": "狙击手",
+      "desc_en": "You have mastered the firearm as a source of pain.  With this Perk, any successful hit in combat with a ranged weapon will be upgraded to a critical hit if you also make a Luck roll.",
+      "desc_zh": "你对于长程武器相当的拿手。拥有这个能力，每当你成功的使用长程武器攻击敌人时，每一击都会变成特别攻击。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 18,
+      "stat_bonus": null,
+      "required_skill": {
+        "skill": "SMALL_GUNS",
+        "level": 80
+      },
+      "primary_stats": {
+        "PE": 8,
+        "AG": 8
+      }
+    },
+    {
+      "id": 25,
+      "key": "SILENT_DEATH",
+      "name_en": "Silent Death",
+      "name_zh": "暗杀",
+      "desc_en": "While Sneaking, if you hit a critter in the back, you will cause double damage using a HtH attack.  Silent Death is that kind of Perk.",
+      "desc_zh": "当你在潜行的模式并从敌人背后攻击，你的空手攻击破坏力都会变成双倍。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 18,
+      "stat_bonus": null,
+      "required_skill": {
+        "skill": "SNEAK",
+        "level": 80
+      },
+      "primary_stats": {
+        "AG": 10
+      }
+    },
+    {
+      "id": 26,
+      "key": "ACTION_BOY",
+      "name_en": "Action Boy",
+      "name_zh": "活力小子",
+      "desc_en": "Each level of Action Boy (insert Girl if you wish) will give you an additional AP to spend every combat turn.  You can use these generic APs on any task.",
+      "desc_zh": "每个等级的能力都会给予你更多的动作点数。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 12,
+      "stat_bonus": {
+        "stat": "MAX_AP",
+        "per_rank": 1
+      },
+      "required_skill": null,
+      "primary_stats": {
+        "AG": 5
+      }
+    },
+    {
+      "id": 27,
+      "key": "MENTAL_BLOCK",
+      "name_en": "Mental Block",
+      "name_zh": "意志力",
+      "desc_en": "Mental Block is the ability to tune out any outside mental interference.  You must have learned this talent from a passing guru, or from a really late night at a bar.",
+      "desc_zh": "这一种能力可以让你不受到外界的脑波干扰。你只能从别人的身上学到这种技术，或是每天到酒吧待到很晚也可以练成这种技术。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 15,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 28,
+      "key": "LIFEGIVER",
+      "name_en": "Lifegiver",
+      "name_zh": "强韧生命力",
+      "desc_en": "With each level of this Perk, you gain an additional 4 Hit Points.  This may not seem like a lot, but every little bit helps.",
+      "desc_zh": "当你升级时每个等级都会多得到4点生命点数。这是除了每次升级都会增加的生命点数之外额外的增加值。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 12,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "EN": 4
+      }
+    },
+    {
+      "id": 29,
+      "key": "DODGER",
+      "name_en": "Dodger",
+      "name_zh": "闪躲高手",
+      "desc_en": "You are less likely to be hit in combat, if you have this Perk.  Every level will add +5% to your Armor Class, in addition to the AC bonus from any worn armor.",
+      "desc_zh": "如果你拥有这项能力，在战斗中你就比较不会被打中。你会增加+5点到你的防御点数之中。",
+      "selectable": true,
+      "max_rank": 2,
+      "min_level": 9,
+      "stat_bonus": {
+        "stat": "AC",
+        "per_rank": 5
+      },
+      "required_skill": null,
+      "primary_stats": {
+        "AG": 4
+      }
+    },
+    {
+      "id": 30,
+      "key": "SNAKEATER",
+      "name_en": "Snakeater",
+      "name_zh": "吃蛇人",
+      "desc_en": "Yum!  Tastes like chicken. You have gained an immunity to poison, resulting in a +25% to your Poison Resistance.",
+      "desc_zh": "嗯！好喝！每个等级你的毒免疫力都会增加25%。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 6,
+      "stat_bonus": {
+        "stat": "POISON_RESISTANCE",
+        "per_rank": 25
+      },
+      "required_skill": null,
+      "primary_stats": {
+        "EN": 3
+      }
+    },
+    {
+      "id": 31,
+      "key": "MR_FIXIT",
+      "name_en": "Mr. Fixit",
+      "name_zh": "维修大师",
+      "desc_en": "This Perk will give you a one-time bonus of +20% to the Repair and Science skills.  A little late night cramming never hurt anybody, especially you.",
+      "desc_zh": "这个能力会增加20%的维修以及科学技术点数。不过只会增加一次。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 12,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 32,
+      "key": "MEDIC",
+      "name_en": "Medic",
+      "name_zh": "医学常识",
+      "desc_en": "The Medic Perk will give you a one-time bonus of +20% to the First Aid and Doctor skills.  Healing skills are a good thing.",
+      "desc_zh": "这个能力会增加20%的急救以及治疗技术点数。不过只会增加一次。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 12,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 33,
+      "key": "MASTER_THIEF",
+      "name_en": "Master Thief",
+      "name_zh": "神偷",
+      "desc_en": "A Master Thief has a one-time bonus of +10% to the Sneak, Lockpick, Steal and Traps skills.  Rob from the rich, and give to you.",
+      "desc_zh": "一次性的增加+10的潜行、偷窃、开锁和陷阱技术点数。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 12,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 34,
+      "key": "SPEAKER",
+      "name_en": "Speaker",
+      "name_zh": "发言人",
+      "desc_en": "Being a Speaker means that you have a one-time bonus of +20% to the Speech and Barter skills.  From the mouth of babes and all that.",
+      "desc_zh": "这个技术可以让你的演说能力增加20%，只会增加一次。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 12,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 35,
+      "key": "HEAVE_HO",
+      "name_en": "Heave Ho!",
+      "name_zh": "飞刀手！",
+      "desc_en": "Each level of the Heave Ho! Perk will give your thrown weapons an additional +2 Strength for purposes of determining range only.",
+      "desc_zh": "每个等级都会增加2点的力量（最高10点）。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 36,
+      "key": "FRIENDLY_FOE",
+      "name_en": "Friendly Foe",
+      "name_zh": "辨识敌友",
+      "desc_en": "Characters that are part of your team are high-lighted green in combat instead of red, if you have this Perk.  Red high-lighted characters may still be non-hostile towards you.",
+      "desc_zh": "如果拥有这个技能，你队伍中的角色在战斗中会以绿色高亮边框显示。而红色高亮边框的角色也未必就是敌人。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "PE": 4
+      }
+    },
+    {
+      "id": 37,
+      "key": "PICKPOCKET",
+      "name_en": "Pickpocket",
+      "name_zh": "妙手空空",
+      "desc_en": "You are much more adept at Stealing than the normal crook.  You can Steal with the best of them, because with this Perk, you ignore size and facing modifiers, when stealing from a person.",
+      "desc_zh": "你将比一般小偷拥有更高深的偷窃技术。因为当你得到这个能力时，你在偷东西时无论敌人是谁，你都能以平常心去进行偷窃的工作。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 9,
+      "stat_bonus": null,
+      "required_skill": {
+        "skill": "SNEAK",
+        "level": 80
+      },
+      "primary_stats": {
+        "AG": 8
+      }
+    },
+    {
+      "id": 38,
+      "key": "GHOST",
+      "name_en": "Ghost",
+      "name_zh": "神出鬼没",
+      "desc_en": "When the sun goes down, or you are in a poorly lit area, you move like a Ghost with this Perk.  Your Sneak skill is enhanced +20% during darkness conditions.",
+      "desc_zh": "当太阳下山时，或是当你到达一个没有灯的地方，你都可以像鬼魂一样移动而不被他人发现。你的潜行能力会在黑暗中增加20%。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": {
+        "skill": "SNEAK",
+        "level": 60
+      },
+      "primary_stats": {}
+    },
+    {
+      "id": 39,
+      "key": "CULT_OF_PERSONALITY",
+      "name_en": "Cult of Personality",
+      "name_zh": "八面玲珑",
+      "desc_en": "Your reputation is always positive to people.  Without this Perk, a large negative reputation would have a bad effect on good natured people.  Works with a good rep and bad people, too.",
+      "desc_zh": "你在人心目中的印象将会永远是正面的。没有这个能力的话，你的名誉将会改变他人对你的看法。对于邪恶的人来说，他们也会对你有好印象，以为你也是邪恶的人。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 12,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "CH": 10
+      }
+    },
+    {
+      "id": 40,
+      "key": "SCROUNGER",
+      "name_en": "Scrounger",
+      "name_zh": "搜寻者",
+      "desc_en": "You can find more ammo than the normal post-holocaust survivor.  This Perk will double the amount of ammo found in random encounters.",
+      "desc_zh": "你比别人都容易找到武器的弹药。这个能力会让你每一次找到弹药的数量变成双倍。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 9,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "LK": 8
+      }
+    },
+    {
+      "id": 41,
+      "key": "EXPLORER",
+      "name_en": "Explorer",
+      "name_zh": "探险家",
+      "desc_en": "The mark of the Explorer is to search out new and interesting locations.  With this Perk, you have a greater chance of finding special places or peoples.",
+      "desc_zh": "探险家最主要的目的就是寻找新的东西及地方。当你有这个能力时，你找到特别地方或是人物的机率就会增加。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 9,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 42,
+      "key": "FLOWER_CHILD",
+      "name_en": "Flower Child",
+      "name_zh": "高免役力",
+      "desc_en": "With this Perk, you are much less likely to crave chems (50% less likely, actually), and you suffer half the chem downtime of a normal person.",
+      "desc_zh": "当你拥有这个能力时，你就比较不容易上化学药品的瘾。（上瘾机率会变成平常的50%）就算你上瘾后，回复正常的速度也是别人的两倍。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 9,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "EN": 5
+      }
+    },
+    {
+      "id": 43,
+      "key": "PATHFINDER",
+      "name_en": "Pathfinder",
+      "name_zh": "寻路者",
+      "desc_en": "The Pathfinder is better able to find the shortest route.  With this Perk, your travel time on the World Map is reduced by 25% for each level.",
+      "desc_zh": "这个能力可以让你较容易找到最短的捷径。这个能力的每个等级都会将你在世界地图上移动的时间减少25%。",
+      "selectable": true,
+      "max_rank": 2,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": {
+        "skill": "OUTDOORSMAN",
+        "level": 40
+      },
+      "primary_stats": {
+        "EN": 6
+      }
+    },
+    {
+      "id": 44,
+      "key": "ANIMAL_FRIEND",
+      "name_en": "Animal Friend",
+      "name_zh": "动物之友",
+      "desc_en": "Animals will not attack one of their friends, unless the animal is threatened or attacked first.  Exactly what an animal is in this world is open to debate.",
+      "desc_zh": "动物们都不会攻击他们自己的朋友，除非他们首先受到了攻击或是遭到了威胁。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 9,
+      "stat_bonus": null,
+      "required_skill": {
+        "skill": "OUTDOORSMAN",
+        "level": 25
+      },
+      "primary_stats": {
+        "IN": 5
+      }
+    },
+    {
+      "id": 45,
+      "key": "SCOUT",
+      "name_en": "Scout",
+      "name_zh": "斥侯",
+      "desc_en": "You have improved your ability to see distant locations, increasing the size of explorations on the World Map by one square in each direction.",
+      "desc_zh": "你远眺的能力增强了，在世界地图上看到范围的每个方向将会增加一格。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 3,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "PE": 8
+      }
+    },
+    {
+      "id": 46,
+      "key": "MYSTERIOUS_STRANGER",
+      "name_en": "Mysterious Stranger",
+      "name_zh": "神秘陌生人",
+      "desc_en": "With this Perk, you have gained the attention of a Mysterious Stranger, who will appear to help you from time to time.  If your ally is lost in combat, do not expect him or her to be replaced.",
+      "desc_zh": "当你有这个能力时，你将会得到神秘陌生人更多的注意，这些陌生人将会随时出现助你一臂之力。不过，他们将不会代替你死去的战友。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "LK": 7
+      }
+    },
+    {
+      "id": 47,
+      "key": "RANGER",
+      "name_en": "Ranger",
+      "name_zh": "野外专家",
+      "desc_en": "You are better able to avoid unwanted attention while traveling through the wasteland.  Your chance of a hostile random encounter is lowered by each level of this Perk.",
+      "desc_zh": "你的户外求生能力将会增加15%。你在路上遇到的敌人将会减少许多，不过却会时常的遇到“特别”的事件。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 6,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "PE": 6
+      }
+    },
+    {
+      "id": 48,
+      "key": "QUICK_POCKETS",
+      "name_en": "Quick Pockets",
+      "name_zh": "快速翻找",
+      "desc_en": "You have learned to better store your equipment on your person.  With each level of this Perk, the AP cost to access Inventory in combat is reduced by one.",
+      "desc_zh": "你学会如何将物品作更有效的整理。这能力可以让你拿取背包内物品时，每一级少用1点动作点数。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 3,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "AG": 5
+      }
+    },
+    {
+      "id": 49,
+      "key": "SMOOTH_TALKER",
+      "name_en": "Smooth Talker",
+      "name_zh": "舌灿莲花",
+      "desc_en": "A Smooth Talker has learned to increase their options in dialogue, without understanding what they are talking about.  Each level of this Perk will increase your IN by one, for purposes of dialogue only.",
+      "desc_zh": "你的对话反应选项会增加，虽然你并不知道你在说什么。这个能力的每个等级都会增加1点的智力点数，直到最高10点为止。这一些增加的点数只对谈话有效。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 3,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "IN": 4
+      }
+    },
+    {
+      "id": 50,
+      "key": "SWIFT_LEARNER",
+      "name_en": "Swift Learner",
+      "name_zh": "聪明过人",
+      "desc_en": "You are indeed a Swift Learner with this Perk, as each level will give you an additional +5% bonus whenever you earn experience points.  Best purchased at an early level.",
+      "desc_zh": "拥有这个能力，你就是个学习速度快的人。当你每一次升级时都会多得到5%的点数可以使用。因此越早得到这个能力对你越有利。",
+      "selectable": true,
+      "max_rank": 3,
+      "min_level": 3,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "IN": 4
+      }
+    },
+    {
+      "id": 51,
+      "key": "TAG",
+      "name_en": "Tag!",
+      "name_zh": "增加特长技能",
+      "desc_en": "Your skills have improved to the point where you can pick an additional Tag Skill, increasing that skill by +20% immediately and 2% per skill point spent.",
+      "desc_zh": "你可以再选择另一个“特长技能”了。“特长技能”的点数比普通技能点数增加的速度要快两倍。",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 12,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 52,
+      "key": "MUTATE",
+      "name_en": "Mutate!",
+      "name_zh": "突变！",
+      "desc_en": "The radiation of the wasteland has changed you!  One of your Traits has mutated into something else...",
+      "desc_zh": "在荒野中的放射线已经改变了你的体质！你的其中一种特徵已经变成了另一种特徵了……",
+      "selectable": true,
+      "max_rank": 1,
+      "min_level": 9,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 53,
+      "key": "NUKA_COLA_ADDICTION",
+      "name_en": "Nuka-Cola Craving",
+      "name_zh": "上了核子可乐的瘾",
+      "desc_en": "You crave another Nuka-Cola.",
+      "desc_zh": "你想要再来一瓶核子可乐。",
+      "selectable": false,
+      "max_rank": -1,
+      "min_level": 1,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 54,
+      "key": "BUFFOUT_ADDICTION",
+      "name_en": "Buffout Craving",
+      "name_zh": "上了壮大灵的瘾",
+      "desc_en": "You've got the shakes.",
+      "desc_zh": "你全身发抖。",
+      "selectable": false,
+      "max_rank": -1,
+      "min_level": 1,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "ST": -2,
+        "EN": -2,
+        "AG": -3
+      }
+    },
+    {
+      "id": 55,
+      "key": "MENTATS_ADDICTION",
+      "name_en": "Mentats Craving",
+      "name_zh": "上了曼他特的瘾",
+      "desc_en": "You feel groggy.",
+      "desc_zh": "你觉得没有力气。",
+      "selectable": false,
+      "max_rank": -1,
+      "min_level": 1,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "IN": -3,
+        "AG": -2
+      }
+    },
+    {
+      "id": 56,
+      "key": "PSYCHO_ADDICTION",
+      "name_en": "Psycho Craving",
+      "name_zh": "上了疯狂药的瘾",
+      "desc_en": "You feel light-headed.",
+      "desc_zh": "你觉得头昏眼花。",
+      "selectable": false,
+      "max_rank": -1,
+      "min_level": 1,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {
+        "IN": -2
+      }
+    },
+    {
+      "id": 57,
+      "key": "RADAWAY_ADDICTION",
+      "name_en": "Radaway Craving",
+      "name_zh": "上了辐射药的瘾",
+      "desc_en": "You feel nauseous.",
+      "desc_zh": "你觉得想吐。",
+      "selectable": false,
+      "max_rank": -1,
+      "min_level": 1,
+      "stat_bonus": {
+        "stat": "RADIATION_RESISTANCE",
+        "per_rank": -20
+      },
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 58,
+      "key": "WEAPON_LONG_RANGE",
+      "name_en": "Weapon Long Range",
+      "name_zh": "长程武器",
+      "desc_en": "Weapon Long Range",
+      "desc_zh": "长程武器",
+      "selectable": false,
+      "max_rank": -1,
+      "min_level": 1,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 59,
+      "key": "WEAPON_ACCURATE",
+      "name_en": "Weapon Accurate",
+      "name_zh": "武器准确度",
+      "desc_en": "Weapon Accurate",
+      "desc_zh": "武器准确度",
+      "selectable": false,
+      "max_rank": -1,
+      "min_level": 1,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 60,
+      "key": "WEAPON_PENETRATE",
+      "name_en": "Weapon Penetrate",
+      "name_zh": "武器穿透度",
+      "desc_en": "Weapon Penetrate",
+      "desc_zh": "武器穿透度",
+      "selectable": false,
+      "max_rank": -1,
+      "min_level": 1,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 61,
+      "key": "WEAPON_KNOCKBACK",
+      "name_en": "Weapon Knockback",
+      "name_zh": "武器震撼力",
+      "desc_en": "Weapon Knockback",
+      "desc_zh": "武器反弹力",
+      "selectable": false,
+      "max_rank": -1,
+      "min_level": 1,
+      "stat_bonus": null,
+      "required_skill": null,
+      "primary_stats": {}
+    },
+    {
+      "id": 62,
+      "key": "POWERED_ARMOR",
+      "name_en": "Powered Armor",
+      "name_zh": "动力装甲",
+      "desc_en": "Powered Armor",
+      "desc_zh": "动力装甲",
+      "selectable": false,
+      "max_rank": -1,
+      "min_level": 1,
+      "stat_bonus": {
+        "stat": "RADIATION_RESISTANCE",
+        "per_rank": 30
+      },
+      "required_skill": null,
+      "primary_stats": {
+        "ST": 3
+      }
+    },
+    {
+      "id": 63,
+      "key": "COMBAT_ARMOR",
+      "name_en": "Combat Armor",
+      "name_zh": "战斗装甲",
+      "desc_en": "Combat Armor",
+      "desc_zh": "战斗装甲",
+      "selectable": false,
+      "max_rank": -1,
+      "min_level": 1,
+      "stat_bonus": {
+        "stat": "RADIATION_RESISTANCE",
+        "per_rank": 20
+      },
+      "required_skill": null,
+      "primary_stats": {}
+    }
+  ]
+}
