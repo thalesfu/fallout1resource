@@ -21,11 +21,14 @@ DAMAGE_ZH = {"normal": "普通", "laser": "激光", "fire": "火焰", "plasma": 
 SKILL_ZH = {"small_guns": "小型枪械", "big_guns": "大型枪械", "energy": "能量型武器",
             "unarmed": "肉搏", "melee": "近战武器", "throwing": "抛掷力", "none": "—"}
 BIG_GUN_FLAG, TWO_HAND_FLAG = 0x0100, 0x0200
+SKILL_ORDER = ("small_guns", "big_guns", "energy", "melee", "unarmed", "throwing", "none")
 WEAPON_PERK = {-1: "无", 58: "长程（计算射程惩罚时每点感知抵消 4 格，普通武器只抵消 2 格）",
                59: "精准（命中 +20%）", 60: "穿透（无视目标的伤害阈值）", 61: "击退（击退距离加倍）"}
 
 
 GENERATED_MARK = "<!-- generated: scripts/generate_weapon_docs.py -->"
+AP_BEGIN = "<!-- 行动点:begin 由 fallout1resource/scripts/generate_weapon_docs.py 生成 -->"
+AP_END = "<!-- 行动点:end -->"
 
 
 LINKS: dict[int, str] = {}
@@ -34,6 +37,42 @@ LINKS: dict[int, str] = {}
 def link(item: dict) -> str:
     """Wiki link target: an existing vault note keeps its own file name."""
     return LINKS.get(item["prototype_id"], name(item))
+
+
+NO_AIM_DAMAGE = {"explosion", "fire", "emp"}
+
+
+def can_aim(item: dict, mode: str) -> bool:
+    """item_w_called_shot: burst/continuous never aim, nor explosion/fire/EMP damage, nor thrown
+    plasma. (The Fast Shot trait also disables aiming entirely, for every weapon.)"""
+    if mode in ("连发", "连续"):
+        return False
+    damage = item["weapon"]["damage_type"]
+    if damage in NO_AIM_DAMAGE:
+        return False
+    if mode == "投掷" and damage == "plasma":
+        return False
+    return mode != "无"
+
+
+def ap_perk(item: dict, mode: str) -> str:
+    if mode in ("拳击", "踢击", "挥击", "突刺"):
+        return "[[Bonus HtH Attacks 快速徒手攻击]]"
+    if mode in ("单发", "连发", "连续"):
+        return "[[Bonus Rate of Fire 额外的开火速度]]"
+    return "—"
+
+
+def ap_cell(item: dict, which: str) -> tuple[str, str, str]:
+    """(普通, 瞄准, 每回合次数) for the primary or secondary attack."""
+    w = item["weapon"]
+    mode = w["attack_primary"] if which == "primary" else w["attack_secondary"]
+    cost = w["ap_primary"] if which == "primary" else w["ap_secondary"]
+    if mode == "无":
+        return "—", "—", "—"
+    aimed = f"{cost + 1} AP" if can_aim(item, mode) else "不可瞄准"
+    shots = f"{8 // cost}／{10 // cost} 次" if cost else "—"
+    return f"{cost} AP", aimed, shots
 
 
 def skill_of(item: dict) -> str:
@@ -81,12 +120,26 @@ def weapon_row(item: dict, ammo_by_caliber) -> str:
             f'{w["ammo_capacity"] or "—"} | {ammo} | {w["min_strength"]} | {"双手" if w["two_handed"] else "单手"} | {item["cost"]} |')
 
 
+def ap_table(weapons: list[dict]) -> str:
+    rows = []
+    for item in sorted(weapons, key=lambda i: (SKILL_ORDER.index(skill_of(i)), i["weapon"]["ap_primary"])):
+        if item["weapon"]["attack_primary"] == "无":
+            continue
+        p_cost, p_aim, p_shots = ap_cell(item, "primary")
+        s_cost, s_aim, _ = ap_cell(item, "secondary")
+        reload = "2 AP" if item["weapon"]["ammo_capacity"] else "—"
+        rows.append(f'| [[{link(item)}]] | {p_cost} | {p_aim} | {p_shots} | {s_cost} | {s_aim} | {reload} | '
+                    f'{ap_perk(item, item["weapon"]["attack_primary"])} |')
+    return "\n".join(rows)
+
+
 def overview(weapons: list[dict], ammo_by_caliber) -> str:
     groups = defaultdict(list)
     for item in weapons:
         groups[skill_of(item)].append(item)
+    ap_rows = ap_table(weapons)
     blocks = []
-    for key in ("small_guns", "big_guns", "energy", "melee", "unarmed", "throwing", "none"):
+    for key in SKILL_ORDER:
         rows = sorted(groups.get(key, []), key=lambda i: (-i["weapon"]["max_damage"], i["prototype_id"]))
         if not rows:
             continue
@@ -119,6 +172,18 @@ tags:
 - **持握**：双手武器在选了 [[One Hander 单枪客]] 特性时命中 −40%，单手 +20%。
 
 {(chr(10) * 2).join(blocks)}
+
+## 行动点消耗对照
+
+瞄准部位固定 **+1 AP**；**装弹固定 2 AP**，不受任何特性或 Perk 减免。「每回合次数」按 8 AP／10 AP 两种常见行动点计算，未计入瞄准加价和 Perk 减免。
+
+减 AP 的来源：[[Bonus HtH Attacks 快速徒手攻击]]（近战徒手 −1）、[[Bonus Rate of Fire 额外的开火速度]]（远程 −1）、[[Fast Shot 快枪手]]（所有持械攻击 −1，但完全不能瞄准）。最低 1 AP。
+
+其他固定开销：移动每格 1 AP（断腿 ×4，双腿 ×8）、起身 3 AP、打开物品栏 4 AP（每级 [[Quick Pockets 快速翻找]] −1）、使用药品等非武器物品 2 AP。
+
+| 武器 | 主攻击 | 瞄准 | 每回合（8／10 AP） | 次攻击 | 次攻击瞄准 | 装弹 | 减免 Perk |
+|---|---|---|---|---|---|---|---|
+{ap_rows}
 """
 
 
@@ -193,6 +258,33 @@ def placement_rows(item: dict) -> str:
     return "\n".join(rows)
 
 
+def aim_note(item: dict, mode: str) -> str:
+    if mode == "无":
+        return "—"
+    if can_aim(item, mode):
+        return "可瞄准头部、眼睛、四肢等部位"
+    if mode in ("连发", "连续"):
+        return "连发与连续射击无法瞄准部位"
+    damage = item["weapon"]["damage_type"]
+    return f'{DAMAGE_ZH.get(damage, damage)}伤害的武器无法瞄准部位'
+
+
+def ap_section(item: dict) -> str:
+    w = item["weapon"]
+    secondary_note = "—" if w["attack_secondary"] == "无" else "8／10 行动点时每回合 " + ap_cell(item, "secondary")[2]
+    return f"""# 行动点消耗
+
+| 动作 | 消耗 | 说明 |
+| --- | --- | --- |
+| 主攻击（{w["attack_primary"]}） | {ap_cell(item, "primary")[0]} | 8／10 行动点时每回合 {ap_cell(item, "primary")[2]} |
+| 主攻击·瞄准部位 | {ap_cell(item, "primary")[1]} | {aim_note(item, w["attack_primary"])} |
+| 次攻击（{w["attack_secondary"]}） | {ap_cell(item, "secondary")[0]} | {secondary_note} |
+| 次攻击·瞄准部位 | {ap_cell(item, "secondary")[1]} | {aim_note(item, w["attack_secondary"])} |
+| 装弹 | {"2 AP" if w["ammo_capacity"] else "—"} | 固定值，不受特性或 Perk 减免 |
+
+可减免的 Perk：{ap_perk(item, w["attack_primary"])}（−1 AP）。[[Fast Shot 快枪手]] 特性也 −1 AP，但会让**所有**攻击都不能瞄准。全部行动点规则见 [[武器 总览]] 与 [[战斗公式]]。"""
+
+
 def weapon_page(item: dict, ammo_by_caliber) -> str:
     w = item["weapon"]
     ammo = ammo_for(item, ammo_by_caliber)
@@ -240,6 +332,8 @@ prototype_id: {item["prototype_id"]}
 | 严重失败表 ID | {w["critical_failure_type"]} |
 
 近战与徒手类武器的伤害还会加上角色的近战伤害属性；投掷武器不加。详见 [[战斗公式]]。
+
+{ap_section(item)}
 
 # 可用弹药
 
@@ -314,6 +408,10 @@ prototype_id: {item["prototype_id"]}
 """
 
 
+def _sub_block(text: str, block: str) -> str:
+    return re.sub(re.escape(AP_BEGIN) + r".*?" + re.escape(AP_END) + r"\n?", block, text, flags=re.S)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--catalog", type=Path, required=True)
@@ -381,6 +479,19 @@ def main() -> int:
     out[weapon_dir / "武器 总览.md"] = overview(weapons, ammo_by_caliber)
     out[ammo_dir / "弹药与口径对照.md"] = ammo_page(ammo, weapons)
 
+    appended = []
+    for item in weapons:
+        path = existing.get(item["prototype_id"])
+        if not path or item["prototype_id"] in generated:
+            continue
+        text = path.read_text(encoding="utf-8")
+        block = f"{AP_BEGIN}\n\n{ap_section(item)}\n\n{AP_END}\n"
+        text = (_sub_block(text, block) if AP_BEGIN in text else text.rstrip() + "\n\n" + block)
+        if args.apply:
+            path.write_text(text, encoding="utf-8")
+        appended.append(path.stem)
+
+    print(f"手写页追加行动点小节 {len(appended)} 篇")
     print(f"总览 2 篇；新建 {len(created)} 篇：{'、'.join(created)}")
     if not args.apply:
         return 0
