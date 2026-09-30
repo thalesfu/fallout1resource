@@ -27,6 +27,8 @@ WEAPON_PERK = {-1: "无", 58: "长程（计算射程惩罚时每点感知抵消 
 
 
 GENERATED_MARK = "<!-- generated: scripts/generate_weapon_docs.py -->"
+AMMO_BEGIN = "<!-- 弹药适配:begin 由 fallout1resource/scripts/generate_weapon_docs.py 生成 -->"
+AMMO_END = "<!-- 弹药适配:end -->"
 AP_BEGIN = "<!-- 行动点:begin 由 fallout1resource/scripts/generate_weapon_docs.py 生成 -->"
 AP_END = "<!-- 行动点:end -->"
 
@@ -201,8 +203,12 @@ def ammo_page(ammo: list[dict], weapons: list[dict]) -> str:
             f'| [[{link(a)}]] | {a["ammo"]["quantity"]} | {a["ammo"]["ac_modifier"]:+d} | '
             f'{a["ammo"]["dr_modifier"]:+d} | ×{a["ammo"]["damage_multiplier"]}／÷{a["ammo"]["damage_divisor"]} | {a["cost"]} |'
             for a in by_caliber[caliber])
-        users = "、".join(f"[[{link(w)}]]" for w in guns.get(caliber, [])) or "（本作没有武器使用）"
-        blocks.append(f"### 口径 {caliber}\n\n使用的武器：{users}\n\n"
+        gun_rows = "\n".join(
+            f'| [[{link(w)}]] | {damage_text(w["weapon"])} | {DAMAGE_ZH.get(w["weapon"]["damage_type"], w["weapon"]["damage_type"])} | '
+            f'{w["weapon"]["attack_primary"]}／{w["weapon"]["ap_primary"]} AP／{w["weapon"]["range_primary"]} 格 |'
+            for w in guns.get(caliber, [])) or "| （本作没有武器使用） | — | — | — |"
+        blocks.append(f"### 口径 {caliber}\n\n"
+                      "| 使用的武器 | 伤害 | 伤害类型 | 主攻击 |\n|---|---|---|---|\n" + gun_rows + "\n\n"
                       "| 弹药 | 每包数量 | 护甲等级修正 | 伤害抗性修正 | 伤害倍率 | 价值 |\n"
                       "|---|---|---|---|---|---|\n" + rows + "\n")
     multi = [c for c in by_caliber if len(by_caliber[c]) > 1]
@@ -267,6 +273,25 @@ def aim_note(item: dict, mode: str) -> str:
         return "连发与连续射击无法瞄准部位"
     damage = item["weapon"]["damage_type"]
     return f'{DAMAGE_ZH.get(damage, damage)}伤害的武器无法瞄准部位'
+
+
+def ammo_users_section(item: dict, weapons: list[dict]) -> str:
+    """Damage always comes from the weapon, so list what each gun does with this round."""
+    users = [w for w in weapons if w["weapon"]["ammo_capacity"] and w["weapon"]["caliber"] == item["ammo"]["caliber"]]
+    if not users:
+        return "# 使用该弹药的武器\n\n本作没有武器使用这种弹药。"
+    rows = "\n".join(
+        f'| [[{link(w)}]] | {damage_text(w["weapon"])} | {DAMAGE_ZH.get(w["weapon"]["damage_type"], w["weapon"]["damage_type"])} | '
+        f'{w["weapon"]["attack_primary"]}／{w["weapon"]["ap_primary"]} AP／{w["weapon"]["range_primary"]} 格 | '
+        f'{w["weapon"]["rounds"] if w["weapon"]["rounds"] > 1 else "—"} | {w["weapon"]["ammo_capacity"]} |'
+        for w in users)
+    return f"""# 使用该弹药的武器
+
+**伤害与射程完全由武器决定，与装填哪种同口径弹药无关。**
+
+| 武器 | 伤害 | 伤害类型 | 主攻击 | 连发 | 弹匣 |
+| --- | --- | --- | --- | --- | --- |
+{rows}"""
 
 
 def ap_section(item: dict) -> str:
@@ -357,7 +382,6 @@ prototype_id: {item["prototype_id"]}
 
 def ammo_item_page(item: dict, weapons: list[dict]) -> str:
     a = item["ammo"]
-    users = "、".join(f'[[{link(w)}]]' for w in weapons if w["weapon"]["ammo_capacity"] and w["weapon"]["caliber"] == a["caliber"]) or "本作没有武器使用"
     return f"""---
 title: "{name(item)}"
 aliases:
@@ -392,9 +416,7 @@ prototype_id: {item["prototype_id"]}
 > [!note] 三项修正在《辐射 1》中不生效
 > 引擎从不读取弹药的这三项字段，同口径子弹的实战效果完全一致，详见 [[弹药与口径对照]]。
 
-# 使用该弹药的武器
-
-{users}
+{ammo_users_section(item, weapons)}
 
 # 出现位置
 
@@ -491,7 +513,21 @@ def main() -> int:
             path.write_text(text, encoding="utf-8")
         appended.append(path.stem)
 
-    print(f"手写页追加行动点小节 {len(appended)} 篇")
+    for item in ammo:
+        path = existing.get(item["prototype_id"])
+        if not path or item["prototype_id"] in generated:
+            continue
+        text = path.read_text(encoding="utf-8")
+        block = f"{AMMO_BEGIN}\n\n{ammo_users_section(item, weapons)}\n\n{AMMO_END}\n"
+        if AMMO_BEGIN in text:
+            text = re.sub(re.escape(AMMO_BEGIN) + r".*?" + re.escape(AMMO_END) + r"\n?", block, text, flags=re.S)
+        else:
+            text = text.rstrip() + "\n\n" + block
+        if args.apply:
+            path.write_text(text, encoding="utf-8")
+        appended.append(path.stem)
+
+    print(f"手写页追加小节 {len(appended)} 篇")
     print(f"总览 2 篇；新建 {len(created)} 篇：{'、'.join(created)}")
     if not args.apply:
         return 0
