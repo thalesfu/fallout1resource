@@ -39,6 +39,8 @@ def main() -> int:
     ap.add_argument("--extra", default="", help="extra markers not counted as targets, as id=label[,id=label]")
     ap.add_argument("--font", default="/System/Library/Fonts/Hiragino Sans GB.ttc")
     ap.add_argument("--margin", type=int, default=360)
+    ap.add_argument("--save-map", type=Path, default=None,
+                    help="a SLOTnn/<MAP>.SAV file: use the live positions from that save and keep only survivors")
     ap.add_argument("--output", type=Path, required=True)
     args = ap.parse_args()
 
@@ -52,6 +54,7 @@ def main() -> int:
         or (prefixes and (c["script_filename"] or "").lower().startswith(prefixes))
     ]
     targets.sort(key=lambda c: (labels[c["object_id"]]["target_canvas"][1], labels[c["object_id"]]["target_canvas"][0]))
+
     if not targets:
         raise SystemExit("no critters matched")
 
@@ -63,11 +66,38 @@ def main() -> int:
             if not args.map_name or inst["map"].upper() == args.map_name.upper():
                 by_instance[inst["object_id"]] = (c, inst)
 
+    live: dict[int, dict] = {}
+    if args.save_map:
+        import sys
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+        from fallout1resource.map_file import parse_map
+        from fallout1resource.proto import PrototypeCatalog, load_lst
+        proto_root = args.save_map.parent  # unused; catalog comes from the workspace copy
+        catalog_root = Path(__file__).resolve().parents[1] / "workspace/raw/master"
+        doc = parse_map(args.save_map.read_bytes(), PrototypeCatalog(catalog_root / "PROTO"),
+                        source_path=args.save_map, scripts_list=load_lst(catalog_root / "SCRIPTS/SCRIPTS.LST"))
+        from fallout1resource.map_render import hex_tile_screen_position
+        tx, ty = meta["coordinates"]["canvas_translation"]
+        for obj in doc.objects:
+            if (obj.pid >> 24) != 1:
+                continue
+            data = obj.update_data or {}
+            hp = data.get("hit_points", 0)
+            dead = bool(data.get("combat", {}).get("results", 0) & 0x80) or hp <= 0
+            hx, hy = hex_tile_screen_position(obj.tile)
+            live[obj.object_id] = {"hp": hp, "dead": dead, "canvas": (hx + 16 + tx, hy + 8 + ty - 50)}
+        targets = [c for c in targets if not live.get(c["object_id"], {"dead": True})["dead"]]
+        if not targets:
+            raise SystemExit("save has no surviving targets")
+
+    def anchor(object_id: int):
+        return live[object_id]["canvas"] if object_id in live else labels[object_id]["target_canvas"]
+
     image = Image.open(args.render_png).convert("RGB")
     draw = ImageDraw.Draw(image)
     number_font = font(args.font, 34)
     for number, critter in enumerate(targets, start=1):
-        x, y = labels[critter["object_id"]]["target_canvas"]
+        x, y = anchor(critter["object_id"])
         cy = y - 46
         r = 26
         draw.ellipse((x - r, cy - r, x + r, cy + r), fill=MARKER_FILL, outline=MARKER_EDGE, width=4)
@@ -83,14 +113,14 @@ def main() -> int:
     for oid, text in extra.items():
         if oid not in labels:
             continue
-        x, y = labels[oid]["target_canvas"]
+        x, y = anchor(oid)
         cy, r = y - 46, 26
         draw.ellipse((x - r, cy - r, x + r, cy + r), fill=EXTRA_FILL, outline=MARKER_EDGE, width=4)
         tb = draw.textbbox((0, 0), text, font=number_font)
         draw.text((x - (tb[2] - tb[0]) / 2, cy - (tb[3] - tb[1]) / 2 - tb[1]), text, font=number_font, fill=MARKER_EDGE)
 
-    xs = [labels[c["object_id"]]["target_canvas"][0] for c in targets] + [labels[o]["target_canvas"][0] for o in extra if o in labels]
-    ys = [labels[c["object_id"]]["target_canvas"][1] for c in targets] + [labels[o]["target_canvas"][1] for o in extra if o in labels]
+    xs = [anchor(c["object_id"])[0] for c in targets] + [anchor(o)[0] for o in extra if o in labels]
+    ys = [anchor(c["object_id"])[1] for c in targets] + [anchor(o)[1] for o in extra if o in labels]
     box = (max(0, min(xs) - args.margin), max(0, min(ys) - args.margin - 120),
            min(image.width, max(xs) + args.margin), min(image.height, max(ys) + args.margin))
     cropped = image.crop(box)
@@ -103,6 +133,7 @@ def main() -> int:
         label = labels[critter["object_id"]]
         entry = by_instance.get(critter["object_id"])
         hp = ac = "—"
+        live_hp = live.get(critter["object_id"], {}).get("hp")
         weapon = "徒手"
         if entry:
             c, inst = entry
@@ -116,7 +147,7 @@ def main() -> int:
         name = label["display_name"]
         if entry and entry[0]["name_zh"] and name in ("管理者成员", "内城区警卫"):
             name = f'{entry[0]["name_zh"]}（{name}）'
-        rows.append((str(number), name, str(hp), str(ac), weapon, critter["script_filename"] or ""))
+        rows.append((str(number), name, str(live_hp if live_hp is not None else hp), str(ac), weapon, critter["script_filename"] or ""))
 
     line_h = 42
     legend_h = 40 + (1 if args.title else 0) * 70 + 46 + line_h * (len(rows) + len(extra)) + 24
