@@ -172,6 +172,7 @@ tags:
 - **可用弹药**：同口径的弹药可以混用，见 [[弹药与口径对照]]。
 - **力量**：低于该值时每差 1 点命中 −20%。
 - **持握**：双手武器在选了 [[One Hander 单枪客]] 特性时命中 −40%，单手 +20%。
+- **等离子和火焰武器会烧掉战利品**：单次伤害 45 以上时目标连同装备一起消失，详见 [[战斗公式#死亡动画与战利品]]。
 
 {(chr(10) * 2).join(blocks)}
 
@@ -262,6 +263,18 @@ def placement_rows(item: dict) -> str:
         rows.append(f'| {p["location"] or p["map"]} | {p["region"] or "—"} | {holder_text} | {p["object_id"]} | '
                     f'{p["quantity"]} | {kind_zh.get(p["holder_kind"], "—")}。 |')
     return "\n".join(rows)
+
+
+def loot_warning(item: dict) -> str:
+    """Melted (plasma) and burned-to-nothing (fire) deaths skip item_drop_all: the loot is gone."""
+    damage = item["weapon"]["damage_type"]
+    if damage not in ("plasma", "fire"):
+        return ""
+    how = "融化成一滩" if damage == "plasma" else "烧成灰烬"
+    return (f"\n\n> [!warning] 会烧掉战利品\n"
+            f"> 单次伤害达到 45 以上（或带 [[Bloody Mess 瘟神]] 特性）时，目标会{how}，"
+            f"**身上的装备和瓶盖会随尸体一起消失**，无法搜刮。想要战利品请用普通或激光武器收尾，"
+            f"详见 [[战斗公式#死亡动画与战利品]]。")
 
 
 def aim_note(item: dict, mode: str) -> str:
@@ -356,7 +369,7 @@ prototype_id: {item["prototype_id"]}
 | 基础价值 | {item["cost"]} 瓶盖 |
 | 严重失败表 ID | {w["critical_failure_type"]} |
 
-近战与徒手类武器的伤害还会加上角色的近战伤害属性；投掷武器不加。详见 [[战斗公式]]。
+近战与徒手类武器的伤害还会加上角色的近战伤害属性；投掷武器不加。详见 [[战斗公式]]。{loot_warning(item)}
 
 {ap_section(item)}
 
